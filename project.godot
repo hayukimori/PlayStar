@@ -16,7 +16,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+UserGlobals="*uid://rdw7185v2cj5"
 SignalBus="*uid://b6no1w3rybpvd"
+Locker="*uid://um777fk0kxfm"
+NodeKeeper="*uid://dfapl3sic804d"
 
 [display]
 
