@@ -1,5 +1,7 @@
 extends Node
 
+#TODO: Add correct hints
+
 #region Signals
 signal next_track_requested
 signal prev_track_requested
@@ -55,3 +57,7 @@ signal playlist_deleted(playlist)
 signal playing_now_capture(song, texture)
 signal update_queue_window(songs: Array)
 signal copy_song
+
+
+
+#TODO: Make Emit functions
