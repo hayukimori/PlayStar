@@ -1,7 +1,5 @@
 extends Node
 
-#TODO: Add correct hints
-
 #region Signals
 signal next_track_requested
 signal prev_track_requested
@@ -43,19 +41,19 @@ signal pop_msg_request(message: String)
 signal play_from_current(song)
 
 # -> Requests a popup window to add into playlist
-signal request_song_to_playlist(song)
-signal request_album_to_playlist(album)
+signal request_song_to_playlist(song: SongModel)
+signal request_album_to_playlist(album: AlbumModel)
 signal request_artist_to_playlist
-signal request_playlist_delete(playlist)
+signal request_playlist_delete(playlist: PlaylistModel)
 
 # -> Global signals
 signal load_all_songs
 signal scroll_to_current
 signal capture_now
 
-signal playlist_deleted(playlist)
-signal playing_now_capture(song, texture)
-signal update_queue_window(songs: Array)
+signal playlist_deleted(playlist: PlaylistModel)
+signal playing_now_capture(song: SongModel, texture: Texture2D)
+signal update_queue_window(songs: Array[SongModel])
 signal copy_song
 
 
