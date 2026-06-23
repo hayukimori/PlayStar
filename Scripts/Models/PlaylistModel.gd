@@ -1,4 +1,4 @@
-class_name Playlist
+class_name PlaylistModel
 extends Resource
 
 @export var name: String = ""
