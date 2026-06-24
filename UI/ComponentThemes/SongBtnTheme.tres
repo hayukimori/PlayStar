@@ -1,0 +1,16 @@
+[gd_resource type="Theme" format=3 uid="uid://dyl5ommt8ddyq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knvh4"]
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="SystemFont" id="SystemFont_exdt8"]
+font_names = PackedStringArray("Noto Sans Mono CJK HK", "Noto Sans Mono CJK JP", "Noto Sans Mono CJK KR", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK TC")
+font_weight = 475
+
+[resource]
+default_font = SubResource("SystemFont_exdt8")
+Panel/styles/panel = SubResource("StyleBoxFlat_knvh4")

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="1_6tns5"]
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
+[ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_8ayet"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -360,8 +361,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SongButtonTemplate" type="Button" parent="SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC" unique_id=2009056268]
-custom_minimum_size = Vector2(0, 58)
+[node name="SongButtonCovered" parent="SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC" unique_id=285328477 instance=ExtResource("3_8ayet")]
 layout_mode = 2
 
 [node name="CoverPanel" type="Panel" parent="SongQueueControl" unique_id=1397975241]
@@ -482,9 +482,9 @@ anchor_top = 1.0
 anchor_right = 0.87900007
 anchor_bottom = 1.125
 offset_left = -0.104003906
-offset_top = -41.0
+offset_top = -47.0
 offset_right = 0.39190674
-offset_bottom = -35.0
+offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 0
 
