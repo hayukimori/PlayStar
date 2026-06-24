@@ -1,7 +1,7 @@
 using Godot;
 
-namespace PlayStar2.scripts.models;
 
+namespace PlayStar.Scripts.Models;
 [GlobalClass]
 public partial class ArtistModel : Resource
 {
