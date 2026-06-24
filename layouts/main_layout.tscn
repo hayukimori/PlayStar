@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_8ayet"]
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_h7vyd"]
 [ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
+[ext_resource type="StyleBox" uid="uid://cing8rm8q0pb7" path="res://UI/ComponentThemes/shadow_panel.tres" id="7_thmlj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -14,7 +15,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ayet"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufdaw"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -29,7 +30,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_riu1i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2ped"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -45,7 +46,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7vyd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xggyx"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -133,6 +134,27 @@ HSlider/icons/grabber = SubResource("ImageTexture_riu1i")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a4igf"]
 
+[sub_resource type="ImageTexture" id="ImageTexture_h06au"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h06au"]
+content_margin_left = 16.0
+bg_color = Color(0.18039216, 0.22352941, 0.24313726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 16.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o2oe"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 16.0
+expand_margin_right = 8.0
+expand_margin_bottom = 16.0
+
 [node name="MainLayout" type="Control" unique_id=1324911911]
 layout_mode = 3
 anchors_preset = 15
@@ -188,7 +210,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8ayet")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufdaw")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -227,7 +249,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_riu1i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2ped")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -247,7 +269,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7vyd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xggyx")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -626,3 +648,119 @@ layout_mode = 2
 text = "s"
 flat = true
 expand_icon = true
+
+[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 280.0
+grow_vertical = 2
+
+[node name="MenuPanel" type="Panel" parent="LeftMenuControl" unique_id=2082260197]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 26.0
+offset_right = -9.305969
+offset_bottom = -26.526672
+theme_override_styles/panel = ExtResource("7_thmlj")
+
+[node name="MenuButtonsControl" type="Control" parent="LeftMenuControl/MenuPanel" unique_id=1973218807]
+anchors_preset = 0
+offset_left = 17.0
+offset_top = 24.0
+offset_right = 233.0
+offset_bottom = 517.0
+
+[node name="MenuVBC" type="VBoxContainer" parent="LeftMenuControl/MenuPanel/MenuButtonsControl" unique_id=807889510]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1277921321]
+layout_mode = 2
+text = "Settings"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="PlaylistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=343349436]
+layout_mode = 2
+text = "Playlists"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="AllSongsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=958735810]
+layout_mode = 2
+text = "All Songs"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="ArtistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1851343011]
+layout_mode = 2
+text = "Artists"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="AlbumsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=711301442]
+layout_mode = 2
+text = "Albums"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="VolumeHSlider" type="HSlider" parent="LeftMenuControl/MenuPanel" unique_id=1251717275]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -69.47333
+offset_right = 222.0
+offset_bottom = -34.473328
+grow_vertical = 0
+theme_override_icons/grabber = SubResource("ImageTexture_h06au")
+theme_override_styles/slider = SubResource("StyleBoxFlat_h06au")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_3o2oe")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_3o2oe")
+value = 1.0
+
+[node name="VolumeIconTR" type="TextureRect" parent="LeftMenuControl/MenuPanel/VolumeHSlider" unique_id=1703219681]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -12.5
+offset_right = -7.0
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_6tns5")
+expand_mode = 1
+
+[node name="CloseButton" type="Button" parent="LeftMenuControl" unique_id=425271801]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -25.0
+offset_right = 39.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "back"
