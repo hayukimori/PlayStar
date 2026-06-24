@@ -4,10 +4,4 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
-    <PackageReference Include="LibVLCSharp" Version="3.10.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
-    <PackageReference Include="TagLibSharp" Version="2.3.0" />
-  </ItemGroup>
 </Project>
