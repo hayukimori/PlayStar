@@ -1,8 +1,6 @@
 using Godot;
 using TagLib;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Processing;
+using SkiaSharp;
 using System.IO;
 using System;
 
@@ -22,18 +20,21 @@ public partial class AlbumArtExtractor : Resource
 
             var pictureData = file.Tag.Pictures[0].Data.Data;
 
-            using var image = SixLabors.ImageSharp.Image.Load(pictureData);
+            using var originalBitmap = SKBitmap.Decode(pictureData);
+            if (originalBitmap == null) return null;
 
-            image.Mutate(x => x.Resize(new ResizeOptions
-            {
-                Size = new Size(256, 256),
-                Mode = ResizeMode.Max
-            }));
+            float ratio = Math.Min(256f / originalBitmap.Width, 256f / originalBitmap.Height);
+            int newWidth = Math.Max(1, (int)(originalBitmap.Width * ratio));
+            int newHeight = Math.Max(1, (int)(originalBitmap.Height * ratio));
 
-            using var ms = new MemoryStream();
-            image.Save(ms, new JpegEncoder { Quality = 85 });
 
-            return ms.ToArray();
+            var samplingOptions = new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear);
+            using var resizedBitmap = originalBitmap.Resize(new SKImageInfo(newWidth, newHeight), samplingOptions);
+            
+            using var image = SKImage.FromBitmap(resizedBitmap);
+            using var encodedData = image.Encode(SKEncodedImageFormat.Jpeg, 85);
+
+            return encodedData.ToArray();
         }
         catch (Exception ex)
         {
@@ -47,7 +48,6 @@ public partial class AlbumArtExtractor : Resource
     {
         var bytes = ExtractAndResize(songPath);
         if (bytes == null) return null;
-
 
         foreach (var old in System.IO.Directory.GetFiles("/tmp", "playstar2_cover_*.jpg"))
             System.IO.File.Delete(old);
