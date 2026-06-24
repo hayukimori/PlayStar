@@ -312,6 +312,37 @@ label_settings = SubResource("LabelSettings_riu1i")
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="TopButtonsControl" type="Control" parent="SongInfoControl/AlbumArtControl" unique_id=1672929305]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.24800001
+offset_bottom = -0.040008545
+
+[node name="LyricsButton" type="Button" parent="SongInfoControl/AlbumArtControl/TopButtonsControl" unique_id=120833435]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 19.0
+offset_right = 57.0
+offset_bottom = 61.0
+text = "lrc"
+flat = true
+icon_alignment = 1
+
+[node name="CopyButton" type="Button" parent="SongInfoControl/AlbumArtControl/TopButtonsControl" unique_id=148488046]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_top = 14.0
+offset_right = -22.0
+offset_bottom = 61.0
+grow_horizontal = 0
+text = "cpy"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
 [node name="SongQueueControl" type="Control" parent="." unique_id=824447145]
 layout_mode = 1
 anchor_left = 0.541
