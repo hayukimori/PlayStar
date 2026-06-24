@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="PlayStar"
+run/main_scene="uid://cucj2so2q2vo0"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -29,6 +30,10 @@ window/stretch/aspect="expand"
 [dotnet]
 
 project/assembly_name="PlayStar"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/TextureRectRounded/plugin.cfg")
 
 [physics]
 

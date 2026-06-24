@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cucj2so2q2vo0"]
 
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="1_6tns5"]
+[ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
@@ -9,6 +10,68 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ayet"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thmlj"]
+bg_color = Color(0, 0, 0, 0.5686275)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_riu1i"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_awq1b"]
+colors = PackedColorArray(0, 0, 0, 0.7647059, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_awq1b"]
+gradient = SubResource("Gradient_awq1b")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7vyd"]
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_8ayet"]
+colors = PackedColorArray(0, 0, 0, 0.8666667, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_riu1i"]
+gradient = SubResource("Gradient_8ayet")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="SystemFont" id="SystemFont_riu1i"]
+font_weight = 475
+
+[sub_resource type="LabelSettings" id="LabelSettings_awq1b"]
+font = SubResource("SystemFont_riu1i")
+font_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ayet"]
+font = SubResource("SystemFont_riu1i")
+font_size = 14
+
+[sub_resource type="SystemFont" id="SystemFont_awq1b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_riu1i"]
+font = SubResource("SystemFont_awq1b")
+font_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tns5"]
 bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
@@ -79,15 +142,141 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cty8o")
 
-[node name="TextureRect" type="TextureRect" parent="SongInfoControl" unique_id=1582384267]
-layout_mode = 0
+[node name="AlbumArtControl" type="Control" parent="SongInfoControl" unique_id=438845392]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 17.0
 offset_top = 20.0
-offset_right = 522.0
-offset_bottom = 500.0
+offset_right = -22.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArtTRR" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1654705315]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8ayet")
+script = ExtResource("1_awq1b")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 16
+radius_top_right = 16
 texture = ExtResource("1_od5lq")
-expand_mode = 1
 stretch_mode = 6
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="LyricsPanel" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1333992334]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_thmlj")
+
+[node name="SyncLyricsSC" type="ScrollContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel" unique_id=1715682539]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.8
+offset_right = 505.0
+
+[node name="SyncLyricsVBC" type="VBoxContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel/SyncLyricsSC" unique_id=551940807]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopTexture" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1595194395]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_riu1i")
+script = ExtResource("1_awq1b")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 16
+radius_top_right = 16
+texture = SubResource("GradientTexture2D_awq1b")
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="BottomTexture" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1808866125]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7vyd")
+script = ExtResource("1_awq1b")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 0
+radius_top_right = 0
+texture = SubResource("GradientTexture2D_riu1i")
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="BottomInfoControl" type="Control" parent="SongInfoControl/AlbumArtControl" unique_id=646359480]
+layout_mode = 1
+anchor_top = 0.78300005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.15997314
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArtistNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=879873579]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 2.0
+offset_right = 268.0
+offset_bottom = 54.0
+text = "{ Artist name }"
+label_settings = SubResource("LabelSettings_awq1b")
+vertical_alignment = 1
+
+[node name="AlbumNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=2002468720]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 38.0
+offset_right = 268.0
+offset_bottom = 90.0
+text = "{ Album name }"
+label_settings = SubResource("LabelSettings_8ayet")
+vertical_alignment = 1
+
+[node name="SongTitleLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=855142920]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -274.0
+offset_top = -34.0
+offset_right = -25.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "{ Title }"
+label_settings = SubResource("LabelSettings_riu1i")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="SongQueueControl" type="Control" parent="." unique_id=824447145]
 layout_mode = 1
