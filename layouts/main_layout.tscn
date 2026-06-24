@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_8ayet"]
+[ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_h7vyd"]
+[ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -101,6 +103,29 @@ corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub5km"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_riu1i"]
+shader = ExtResource("5_riu1i")
+shader_parameter/progress = 1.0
+shader_parameter/amplitude = 0.18
+shader_parameter/frequency = 150.0
+shader_parameter/speed = 9.0
+shader_parameter/thickness = 0.1
+shader_parameter/color = Vector4(0.9, 0.9, 0.9, 0.9)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ayet"]
+shader = ExtResource("5_riu1i")
+shader_parameter/progress = 1.0
+shader_parameter/amplitude = 0.105
+shader_parameter/frequency = 103.02
+shader_parameter/speed = 23.3
+shader_parameter/thickness = 0.3
+shader_parameter/color = Vector4(0.68, 0.86, 0.95, 0.18)
+
+[sub_resource type="ImageTexture" id="ImageTexture_riu1i"]
+
+[sub_resource type="Theme" id="Theme_riu1i"]
+HSlider/icons/grabber = SubResource("ImageTexture_riu1i")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cty8o"]
 
@@ -242,21 +267,29 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ArtistNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=879873579]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 2.0
-offset_right = 268.0
-offset_bottom = 54.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -40.0
+offset_right = 265.0
+offset_bottom = 12.0
+grow_vertical = 2
 text = "{ Artist name }"
 label_settings = SubResource("LabelSettings_awq1b")
 vertical_alignment = 1
 
 [node name="AlbumNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=2002468720]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 38.0
-offset_right = 268.0
-offset_bottom = 90.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = -14.0
+offset_right = 266.0
+offset_bottom = 38.0
+grow_vertical = 2
 text = "{ Album name }"
 label_settings = SubResource("LabelSettings_8ayet")
 vertical_alignment = 1
@@ -305,9 +338,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
+offset_left = 17.0
 offset_top = 10.0
-offset_right = -6.0
+offset_right = -15.0
 offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -322,9 +355,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 25.0
+offset_left = 4.0
 offset_top = -11.5
-offset_right = 353.0
+offset_right = 332.0
 offset_bottom = 11.5
 grow_vertical = 2
 text = "{ current_queue_name }"
@@ -356,6 +389,7 @@ expand_icon = true
 [node name="QueueScrollContainer" type="ScrollContainer" parent="SongQueueControl/MainVBC" unique_id=291058046]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("3_h7vyd")
 
 [node name="SongsVBC" type="VBoxContainer" parent="SongQueueControl/MainVBC/QueueScrollContainer" unique_id=218443809]
 layout_mode = 2
@@ -381,16 +415,17 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0040001
 anchor_bottom = 1.0
+offset_left = 12.0
 offset_top = 56.0
-offset_right = -2.0000305
-offset_bottom = -3.0
+offset_right = -15.0000305
+offset_bottom = -19.0
+theme = ExtResource("3_h7vyd")
 
 [node name="SearchButtonsVBC" type="VBoxContainer" parent="SongQueueControl/SearchScrollContainer" unique_id=274309797]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SongButtonTemplate" type="Button" parent="SongQueueControl/SearchScrollContainer/SearchButtonsVBC" unique_id=437370629]
-custom_minimum_size = Vector2(0, 58)
+[node name="SongButtonCovered" parent="SongQueueControl/SearchScrollContainer/SearchButtonsVBC" unique_id=130895383 instance=ExtResource("3_8ayet")]
 layout_mode = 2
 
 [node name="SearchControl" type="Control" parent="SongQueueControl" unique_id=783386893]
@@ -482,25 +517,31 @@ anchor_top = 1.0
 anchor_right = 0.87900007
 anchor_bottom = 1.125
 offset_left = -0.104003906
-offset_top = -47.0
+offset_top = -54.0
 offset_right = 0.39190674
-offset_bottom = -41.0
+offset_bottom = -33.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="CRProgressBar" type="ColorRect" parent="PlayerControlsPanel/ProgressBarControl" unique_id=749527059]
+material = SubResource("ShaderMaterial_riu1i")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 9.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CounterWave" type="ColorRect" parent="PlayerControlsPanel/ProgressBarControl" unique_id=1949807917]
+material = SubResource("ShaderMaterial_8ayet")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 9.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -509,11 +550,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 9.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_riu1i")
 theme_override_styles/slider = SubResource("StyleBoxEmpty_cty8o")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ub5km")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_a4igf")
+rounded = true
 
 [node name="SequenceControl" type="Control" parent="PlayerControlsPanel" unique_id=723096629]
 layout_mode = 1
