@@ -1,0 +1,60 @@
+[gd_resource type="Theme" format=3 uid="uid://67qpswgwcrbe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cppnm"]
+bg_color = Color(0.92704755, 0.92704755, 0.92704755, 0.172)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7p8q"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.37162215, 0.3716223, 0.37162194, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvulw"]
+bg_color = Color(0.06100855, 0.06100855, 0.06100855, 0)
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.8001019, 0.8001019, 0.8001019, 0)
+
+[sub_resource type="Gradient" id="Gradient_dtdev"]
+colors = PackedColorArray(0.12315822, 0.12315822, 0.12315822, 0.53800005, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cppnm"]
+gradient = SubResource("Gradient_dtdev")
+width = 120
+height = 120
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08q23"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2gfax"]
+bg_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e38iv"]
+bg_color = Color(0.26244184, 0.26244184, 0.26244184, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.26244184, 0.26244184, 0.26244184, 0)
+
+[resource]
+HScrollBar/constants/padding_bottom = 5
+HScrollBar/constants/padding_top = 4
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_cppnm")
+HScrollBar/styles/normal = SubResource("StyleBoxFlat_w7p8q")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_bvulw")
+ScrollContainer/constants/scrollbar_v_separation = 4
+ScrollContainer/icons/scroll_hint_horizontal = SubResource("GradientTexture2D_cppnm")
+ScrollContainer/styles/normal = SubResource("StyleBoxFlat_08q23")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_2gfax")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_e38iv")

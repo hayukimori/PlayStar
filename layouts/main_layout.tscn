@@ -1,5 +1,167 @@
 [gd_scene format=3 uid="uid://cucj2so2q2vo0"]
 
+[ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="1_6tns5"]
+[ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
+[ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
+[ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_8ayet"]
+[ext_resource type="Texture2D" uid="uid://ronw0wka34u3" path="res://assets/icons/iconoir/align-left.svg" id="3_a3s6u"]
+[ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_h7vyd"]
+[ext_resource type="Texture2D" uid="uid://dva25s2e07te5" path="res://assets/icons/iconoir/copy.svg" id="4_8pyuf"]
+[ext_resource type="Texture2D" uid="uid://c0h3epcai6yfm" path="res://assets/icons/iconoir/skip-prev-solid.svg" id="5_h06au"]
+[ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
+[ext_resource type="Texture2D" uid="uid://wqrcye6li3b7" path="res://assets/icons/iconoir/play-solid.svg" id="6_ufdaw"]
+[ext_resource type="Texture2D" uid="uid://beje2iub52bgy" path="res://assets/icons/iconoir/skip-next-solid.svg" id="7_p2ped"]
+[ext_resource type="StyleBox" uid="uid://cing8rm8q0pb7" path="res://UI/ComponentThemes/shadow_panel.tres" id="7_thmlj"]
+[ext_resource type="Texture2D" uid="uid://cnnvs52fv66mh" path="res://assets/icons/iconoir/shuffle.svg" id="9_p2ped"]
+[ext_resource type="Texture2D" uid="uid://bnnp2mdqubhr4" path="res://assets/icons/iconoir/repeat.svg" id="9_xggyx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
+bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pyuf"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thmlj"]
+bg_color = Color(0, 0, 0, 0.5686275)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4nck"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_awq1b"]
+colors = PackedColorArray(0, 0, 0, 0.7647059, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_awq1b"]
+gradient = SubResource("Gradient_awq1b")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxijn"]
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_8ayet"]
+colors = PackedColorArray(0, 0, 0, 0.8666667, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_riu1i"]
+gradient = SubResource("Gradient_8ayet")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="SystemFont" id="SystemFont_riu1i"]
+font_weight = 475
+
+[sub_resource type="LabelSettings" id="LabelSettings_awq1b"]
+font = SubResource("SystemFont_riu1i")
+font_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ayet"]
+font = SubResource("SystemFont_riu1i")
+font_size = 14
+
+[sub_resource type="SystemFont" id="SystemFont_awq1b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_riu1i"]
+font = SubResource("SystemFont_awq1b")
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tns5"]
+bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6tns5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6tns5"]
+font_size = 14
+font_color = Color(0.7764706, 0.7764706, 0.7764706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_od5lq"]
+bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_6tns5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awq1b"]
+bg_color = Color(0, 0, 0, 0.80784315)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub5km"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_riu1i"]
+shader = ExtResource("5_riu1i")
+shader_parameter/progress = 1.0
+shader_parameter/amplitude = 0.18
+shader_parameter/frequency = 150.0
+shader_parameter/speed = 9.0
+shader_parameter/thickness = 0.1
+shader_parameter/color = Vector4(0.9, 0.9, 0.9, 0.9)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ayet"]
+shader = ExtResource("5_riu1i")
+shader_parameter/progress = 1.0
+shader_parameter/amplitude = 0.105
+shader_parameter/frequency = 103.02
+shader_parameter/speed = 23.3
+shader_parameter/thickness = 0.3
+shader_parameter/color = Vector4(0.68, 0.86, 0.95, 0.18)
+
+[sub_resource type="ImageTexture" id="ImageTexture_riu1i"]
+
+[sub_resource type="Theme" id="Theme_riu1i"]
+HSlider/icons/grabber = SubResource("ImageTexture_riu1i")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cty8o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ub5km"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a4igf"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_h06au"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h06au"]
+content_margin_left = 16.0
+bg_color = Color(0.18039216, 0.22352941, 0.24313726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 16.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o2oe"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 16.0
+expand_margin_right = 8.0
+expand_margin_bottom = 16.0
+
 [node name="MainLayout" type="Control" unique_id=1324911911]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +169,605 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="SongInfoControl" type="Control" parent="." unique_id=2041880966]
+layout_mode = 1
+anchor_right = 0.518
+anchor_bottom = 0.897
+offset_left = 32.0
+offset_top = 30.0
+offset_right = -20.736023
+offset_bottom = -32.25598
+
+[node name="BackgroundPanel" type="Panel" parent="SongInfoControl" unique_id=1290798131]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cty8o")
+
+[node name="AlbumArtControl" type="Control" parent="SongInfoControl" unique_id=438845392]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 20.0
+offset_right = -22.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArtTRR" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1654705315]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8pyuf")
+script = ExtResource("1_awq1b")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 16
+radius_top_right = 16
+texture = ExtResource("1_od5lq")
+stretch_mode = 6
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="LyricsPanel" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1333992334]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_thmlj")
+
+[node name="SyncLyricsSC" type="ScrollContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel" unique_id=1715682539]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.8
+offset_right = 505.0
+
+[node name="SyncLyricsVBC" type="VBoxContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel/SyncLyricsSC" unique_id=551940807]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopTexture" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1595194395]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y4nck")
+script = ExtResource("1_awq1b")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 16
+radius_top_right = 16
+texture = SubResource("GradientTexture2D_awq1b")
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="BottomTexture" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1808866125]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fxijn")
+script = ExtResource("1_awq1b")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 0
+radius_top_right = 0
+texture = SubResource("GradientTexture2D_riu1i")
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="BottomInfoControl" type="Control" parent="SongInfoControl/AlbumArtControl" unique_id=646359480]
+layout_mode = 1
+anchor_top = 0.78300005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.15997314
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArtistNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=879873579]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -40.0
+offset_right = 265.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "{ Artist name }"
+label_settings = SubResource("LabelSettings_awq1b")
+vertical_alignment = 1
+
+[node name="AlbumNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=2002468720]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = -14.0
+offset_right = 266.0
+offset_bottom = 38.0
+grow_vertical = 2
+text = "{ Album name }"
+label_settings = SubResource("LabelSettings_8ayet")
+vertical_alignment = 1
+
+[node name="SongTitleLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=855142920]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -274.0
+offset_top = -34.0
+offset_right = -25.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "{ Title }"
+label_settings = SubResource("LabelSettings_riu1i")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TopButtonsControl" type="Control" parent="SongInfoControl/AlbumArtControl" unique_id=1672929305]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.24800001
+offset_bottom = -0.040008545
+
+[node name="LyricsButton" type="Button" parent="SongInfoControl/AlbumArtControl/TopButtonsControl" unique_id=120833435]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 19.0
+offset_right = 56.0
+offset_bottom = 61.0
+icon = ExtResource("3_a3s6u")
+flat = true
+icon_alignment = 1
+
+[node name="CopyButton" type="Button" parent="SongInfoControl/AlbumArtControl/TopButtonsControl" unique_id=148488046]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = 22.0
+offset_right = -25.0
+offset_bottom = 54.0
+grow_horizontal = 0
+icon = ExtResource("4_8pyuf")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="SongQueueControl" type="Control" parent="." unique_id=824447145]
+layout_mode = 1
+anchor_left = 0.541
+anchor_top = 0.046000004
+anchor_right = 0.975
+anchor_bottom = 0.84700006
+offset_left = -0.23199463
+offset_top = 0.19199753
+offset_right = -0.20007324
+offset_bottom = 0.14398193
+grow_horizontal = 0
+
+[node name="QueueBgPanel" type="Panel" parent="SongQueueControl" unique_id=566998965]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6tns5")
+
+[node name="MainVBC" type="VBoxContainer" parent="SongQueueControl" unique_id=1511810625]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 10.0
+offset_right = -15.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QueueTopPanel" type="Panel" parent="SongQueueControl/MainVBC" unique_id=2062485651]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6tns5")
+
+[node name="QueueNameLabel" type="Label" parent="SongQueueControl/MainVBC/QueueTopPanel" unique_id=247946413]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -11.5
+offset_right = 332.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "{ current_queue_name }"
+label_settings = SubResource("LabelSettings_6tns5")
+vertical_alignment = 1
+
+[node name="TopLeftButtonsHBC" type="HBoxContainer" parent="SongQueueControl/MainVBC/QueueTopPanel" unique_id=1132239903]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.9760001
+offset_left = -144.0
+offset_top = 1.0
+offset_right = -12.0
+offset_bottom = 0.0079956055
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="SearchButton" type="Button" parent="SongQueueControl/MainVBC/QueueTopPanel/TopLeftButtonsHBC" unique_id=1122521459]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "(s)"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="QueueScrollContainer" type="ScrollContainer" parent="SongQueueControl/MainVBC" unique_id=291058046]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_h7vyd")
+
+[node name="SongsVBC" type="VBoxContainer" parent="SongQueueControl/MainVBC/QueueScrollContainer" unique_id=218443809]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SongButtonCovered" parent="SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC" unique_id=285328477 instance=ExtResource("3_8ayet")]
+layout_mode = 2
+
+[node name="CoverPanel" type="Panel" parent="SongQueueControl" unique_id=1397975241]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.082
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 9.441998
+offset_bottom = -11.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_od5lq")
+
+[node name="SearchScrollContainer" type="ScrollContainer" parent="SongQueueControl" unique_id=500849785]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0040001
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 56.0
+offset_right = -15.0000305
+offset_bottom = -19.0
+theme = ExtResource("3_h7vyd")
+
+[node name="SearchButtonsVBC" type="VBoxContainer" parent="SongQueueControl/SearchScrollContainer" unique_id=274309797]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SongButtonCovered" parent="SongQueueControl/SearchScrollContainer/SearchButtonsVBC" unique_id=130895383 instance=ExtResource("3_8ayet")]
+layout_mode = 2
+
+[node name="SearchControl" type="Control" parent="SongQueueControl" unique_id=783386893]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="SearchLineEdit" type="LineEdit" parent="SongQueueControl/SearchControl" unique_id=1107469856]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("SystemFont_6tns5")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_awq1b")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_awq1b")
+theme_override_styles/focus = SubResource("StyleBoxFlat_awq1b")
+placeholder_text = "Search..."
+alignment = 1
+caret_blink = true
+
+[node name="PlayerControlsPanel" type="Panel" parent="." unique_id=596059927]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ub5km")
+
+[node name="PlayerControls" type="Control" parent="PlayerControlsPanel" unique_id=767313152]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 175.0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerControlsPanel/PlayerControls" unique_id=1648457371]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 14.0
+offset_right = -29.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=1710769341]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("5_h06au")
+flat = true
+expand_icon = true
+
+[node name="Button2" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=2075891552]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("6_ufdaw")
+flat = true
+expand_icon = true
+
+[node name="Button3" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=841769242]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("7_p2ped")
+flat = true
+expand_icon = true
+
+[node name="ProgressBarControl" type="Control" parent="PlayerControlsPanel" unique_id=132343365]
+layout_mode = 1
+anchor_left = 0.15200001
+anchor_top = 1.0
+anchor_right = 0.87900007
+anchor_bottom = 1.125
+offset_left = -0.104003906
+offset_top = -54.0
+offset_right = 0.39190674
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CRProgressBar" type="ColorRect" parent="PlayerControlsPanel/ProgressBarControl" unique_id=749527059]
+material = SubResource("ShaderMaterial_riu1i")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 9.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CounterWave" type="ColorRect" parent="PlayerControlsPanel/ProgressBarControl" unique_id=1949807917]
+material = SubResource("ShaderMaterial_8ayet")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 9.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressSlider" type="HSlider" parent="PlayerControlsPanel/ProgressBarControl" unique_id=566054271]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 9.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_riu1i")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_cty8o")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ub5km")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_a4igf")
+rounded = true
+
+[node name="SequenceControl" type="Control" parent="PlayerControlsPanel" unique_id=723096629]
+layout_mode = 1
+anchor_left = 0.87900007
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.391907
+offset_top = -59.0
+offset_right = -29.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerControlsPanel/SequenceControl" unique_id=270628021]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RepeatButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=523657488]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("9_xggyx")
+flat = true
+expand_icon = true
+
+[node name="ShuffleButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=626143028]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("9_p2ped")
+flat = true
+expand_icon = true
+
+[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 280.0
+grow_vertical = 2
+
+[node name="MenuPanel" type="Panel" parent="LeftMenuControl" unique_id=2082260197]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 26.0
+offset_right = -9.305969
+offset_bottom = -26.526672
+theme_override_styles/panel = ExtResource("7_thmlj")
+
+[node name="MenuButtonsControl" type="Control" parent="LeftMenuControl/MenuPanel" unique_id=1973218807]
+anchors_preset = 0
+offset_left = 17.0
+offset_top = 24.0
+offset_right = 233.0
+offset_bottom = 517.0
+
+[node name="MenuVBC" type="VBoxContainer" parent="LeftMenuControl/MenuPanel/MenuButtonsControl" unique_id=807889510]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1277921321]
+layout_mode = 2
+text = "Settings"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="PlaylistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=343349436]
+layout_mode = 2
+text = "Playlists"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="AllSongsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=958735810]
+layout_mode = 2
+text = "All Songs"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="ArtistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1851343011]
+layout_mode = 2
+text = "Artists"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="AlbumsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=711301442]
+layout_mode = 2
+text = "Albums"
+icon = ExtResource("1_6tns5")
+flat = true
+expand_icon = true
+
+[node name="VolumeHSlider" type="HSlider" parent="LeftMenuControl/MenuPanel" unique_id=1251717275]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -69.47333
+offset_right = 222.0
+offset_bottom = -34.473328
+grow_vertical = 0
+theme_override_icons/grabber = SubResource("ImageTexture_h06au")
+theme_override_styles/slider = SubResource("StyleBoxFlat_h06au")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_3o2oe")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_3o2oe")
+value = 1.0
+
+[node name="VolumeIconTR" type="TextureRect" parent="LeftMenuControl/MenuPanel/VolumeHSlider" unique_id=1703219681]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -12.5
+offset_right = -7.0
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_6tns5")
+expand_mode = 1
+
+[node name="CloseButton" type="Button" parent="LeftMenuControl" unique_id=425271801]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -25.0
+offset_right = 39.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "back"

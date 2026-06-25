@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://ct112vny4ur8j"]
+
+[ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_dgc0n"]
+[ext_resource type="Theme" uid="uid://dyl5ommt8ddyq" path="res://UI/ComponentThemes/SongBtnTheme.tres" id="1_oyhhh"]
+[ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="2_exdt8"]
+[ext_resource type="Texture2D" uid="uid://cbh5ngr7pc2nd" path="res://assets/icons/iconoir/playlist-plus.svg" id="4_0vl7w"]
+[ext_resource type="Texture2D" uid="uid://b54e8aaiiffik" path="res://assets/icons/extra/hq.png" id="4_4wxht"]
+[ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="4_xembi"]
+[ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vl7w"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_oyhhh"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_4wxht"]
+font_size = 12
+font_color = Color(1, 1, 1, 0.64705884)
+outline_color = Color(1, 1, 1, 0.5019608)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0vl7w"]
+shader = ExtResource("7_usbv0")
+shader_parameter/bar_color = Color(1, 1, 1, 1)
+shader_parameter/corner_radius = 0.5
+
+[node name="SongButtonCovered" type="Button" unique_id=285328477]
+custom_minimum_size = Vector2(0, 64)
+custom_maximum_size = Vector2(-1, 64)
+anchors_preset = -1
+anchor_right = 0.48600003
+anchor_bottom = 0.09900001
+offset_right = 0.12799072
+offset_bottom = -0.15200806
+grow_vertical = 2
+size_flags_horizontal = 3
+flat = true
+
+[node name="BgPanel" type="Panel" parent="." unique_id=1051757596]
+custom_minimum_size = Vector2(0, 64)
+custom_maximum_size = Vector2(-1, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_oyhhh")
+
+[node name="ArtTRR" type="Panel" parent="." unique_id=915740691]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -21.0
+offset_right = 54.0
+offset_bottom = 21.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0vl7w")
+script = ExtResource("1_dgc0n")
+radius_bottom_left = 4
+radius_bottom_right = 4
+radius_top_left = 4
+radius_top_right = 4
+texture = ExtResource("2_exdt8")
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="TitleLabel" type="Label" parent="." unique_id=98795610]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 68.0
+offset_top = 11.0
+offset_right = -85.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme = ExtResource("1_oyhhh")
+text = "Unknwon Song"
+label_settings = SubResource("LabelSettings_oyhhh")
+vertical_alignment = 1
+
+[node name="ArtistLabel" type="Label" parent="." unique_id=367223193]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 68.0
+offset_top = 29.0
+offset_right = -100.0
+offset_bottom = 52.0
+grow_horizontal = 2
+theme = ExtResource("1_oyhhh")
+text = "Unknwon Artist"
+label_settings = SubResource("LabelSettings_4wxht")
+vertical_alignment = 1
+
+[node name="ExtrasHBC" type="HBoxContainer" parent="." unique_id=1724647612]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -129.0
+offset_top = 20.0
+offset_right = -13.0
+offset_bottom = -21.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="ToPlaylistButton" type="Button" parent="ExtrasHBC" unique_id=1289095421]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("4_0vl7w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="HQButton" type="Button" parent="ExtrasHBC" unique_id=706707121]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("4_4wxht")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="RmFromCurrentButton" type="Button" parent="ExtrasHBC" unique_id=1295122294]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("4_xembi")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="PlayingNowCR" type="ColorRect" parent="ExtrasHBC" unique_id=1655248475]
+visible = false
+material = SubResource("ShaderMaterial_0vl7w")
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2

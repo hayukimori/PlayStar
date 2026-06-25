@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://3tt783buqpte"]
+
+[sub_resource type="SystemFont" id="SystemFont_b5jfo"]
+font_names = PackedStringArray("Noto Sans CJK JP")
+font_weight = 675
+
+[resource]
+font = SubResource("SystemFont_b5jfo")
+font_size = 19
+font_color = Color(0.6052741, 0.60527444, 0.6052743, 1)
