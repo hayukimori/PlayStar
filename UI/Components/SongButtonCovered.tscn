@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cbh5ngr7pc2nd" path="res://assets/icons/iconoir/playlist-plus.svg" id="4_0vl7w"]
 [ext_resource type="Texture2D" uid="uid://b54e8aaiiffik" path="res://assets/icons/extra/hq.png" id="4_4wxht"]
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="4_xembi"]
+[ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vl7w"]
 corner_radius_top_left = 4
@@ -21,6 +22,11 @@ font_size = 14
 font_size = 12
 font_color = Color(1, 1, 1, 0.64705884)
 outline_color = Color(1, 1, 1, 0.5019608)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0vl7w"]
+shader = ExtResource("7_usbv0")
+shader_parameter/bar_color = Color(1, 1, 1, 1)
+shader_parameter/corner_radius = 0.5
 
 [node name="SongButtonCovered" type="Button" unique_id=285328477]
 custom_minimum_size = Vector2(0, 64)
@@ -136,5 +142,6 @@ expand_icon = true
 
 [node name="PlayingNowCR" type="ColorRect" parent="ExtrasHBC" unique_id=1655248475]
 visible = false
-custom_minimum_size = Vector2(32, 0)
+material = SubResource("ShaderMaterial_0vl7w")
+custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
