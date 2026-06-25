@@ -69,6 +69,7 @@ fill_to = Vector2(0.5, 0)
 
 [sub_resource type="SystemFont" id="SystemFont_riu1i"]
 font_weight = 475
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_awq1b"]
 font = SubResource("SystemFont_riu1i")
@@ -79,6 +80,7 @@ font = SubResource("SystemFont_riu1i")
 font_size = 14
 
 [sub_resource type="SystemFont" id="SystemFont_awq1b"]
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_riu1i"]
 font = SubResource("SystemFont_awq1b")
@@ -101,6 +103,7 @@ font_color = Color(0.7764706, 0.7764706, 0.7764706, 1)
 bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_6tns5"]
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awq1b"]
 bg_color = Color(0, 0, 0, 0.80784315)
