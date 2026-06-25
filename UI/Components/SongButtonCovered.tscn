@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_dgc0n"]
 [ext_resource type="Theme" uid="uid://dyl5ommt8ddyq" path="res://UI/ComponentThemes/SongBtnTheme.tres" id="1_oyhhh"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="2_exdt8"]
+[ext_resource type="Texture2D" uid="uid://cbh5ngr7pc2nd" path="res://assets/icons/iconoir/playlist-plus.svg" id="4_0vl7w"]
+[ext_resource type="Texture2D" uid="uid://b54e8aaiiffik" path="res://assets/icons/extra/hq.png" id="4_4wxht"]
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="4_xembi"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exdt8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vl7w"]
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -54,7 +56,7 @@ offset_top = -21.0
 offset_right = 54.0
 offset_bottom = 21.0
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_exdt8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0vl7w")
 script = ExtResource("1_dgc0n")
 radius_bottom_left = 4
 radius_bottom_right = 4
@@ -97,10 +99,10 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -112.0
-offset_top = 15.0
-offset_right = -8.0
-offset_bottom = -17.0
+offset_left = -129.0
+offset_top = 20.0
+offset_right = -13.0
+offset_bottom = -21.0
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 2
@@ -109,7 +111,7 @@ alignment = 2
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-icon = ExtResource("4_xembi")
+icon = ExtResource("4_0vl7w")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -118,7 +120,7 @@ expand_icon = true
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
-icon = ExtResource("4_xembi")
+icon = ExtResource("4_4wxht")
 flat = true
 icon_alignment = 1
 expand_icon = true
