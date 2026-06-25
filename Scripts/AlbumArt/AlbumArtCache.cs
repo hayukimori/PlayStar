@@ -1,7 +1,8 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace PlayStar2.Scripts.AlbumArt;
+namespace PlayStar.Scripts.AlbumArt;
+
 public static class AlbumArtCache
 {
     private const int MAX_ITEMS = 128;
