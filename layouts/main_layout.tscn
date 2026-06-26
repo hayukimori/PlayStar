@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="1_6tns5"]
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
-[ext_resource type="Script" path="res://Scripts/Controllers/UIManager.gd" id="1_y4nck"]
+[ext_resource type="Script" uid="uid://cyjkr8uxul4ew" path="res://Scripts/Controllers/UIManager.gd" id="1_y4nck"]
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_8ayet"]
 [ext_resource type="Texture2D" uid="uid://ronw0wka34u3" path="res://assets/icons/iconoir/align-left.svg" id="3_a3s6u"]
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_h7vyd"]
