@@ -68,8 +68,8 @@ func _ready() -> void:
 	# Playback signals
 	SignalBus.song_skip_next.connect(_on_ui_skip_next)
 	SignalBus.song_skip_prev.connect(_on_ui_skip_prev)
-	SignalBus.next_track_requested.connect(_on_ui_skip_next)
-	SignalBus.previous_track_requested.connect(_on_ui_skip_prev)
+	SignalBus.song_skip_prev.connect(_on_ui_skip_next)
+	SignalBus.song_skip_prev.connect(_on_ui_skip_prev)
 	SignalBus.pause_requested.connect(pause_process)
 	SignalBus.play_requested.connect(unpause_process)
 	SignalBus.seek_requested.connect(seek_process)
