@@ -17,6 +17,8 @@ signal song_stop
 signal song_skip_next
 signal song_skip_prev
 signal song_changed(song: SongModel)
+signal seek_offset_requested(offset_ms: int)
+signal seek_to_request(value: int)
 
 
 # ------------ Toggle -----------------
@@ -67,6 +69,9 @@ func emit_pause_requested() -> void: pause_requested.emit()
 func emit_play_requested() -> void: play_requested.emit()
 func emit_play_pause_requested() -> void: play_pause_requested.emit()
 func emit_stop_requested() -> void: stop_requested.emit()
+
+func emit_seek_offset_requested(offset_ms: int) -> void: seek_offset_requested.emit(offset_ms)
+func emit_seek_to_request(value: int) -> void: seek_to_request.emit(value)
 
 
 
