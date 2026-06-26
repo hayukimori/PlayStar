@@ -44,7 +44,7 @@ func _ready() -> void:
 	if !shuffle_button: push_warning("Missing component: shuffle_button (toggle)")
 	if !repeat_mode_button: push_warning("Missing component: repeat_mode_button")
 
-	if shuffle_button: shuffle_button.toggle_random.connect(_on_shuffle_button_toggled)
+	if shuffle_button: shuffle_button.toggle_shuffle.connect(_on_shuffle_button_toggled)
 	if repeat_mode_button: repeat_mode_button.toggle_repeat.connect(_on_repeat_mode_button_toggled)
 	if progress_slider: progress_slider.value_changed.connect(_on_h_slider_value_changed)
 	if reload_playlist_button: reload_playlist_button.pressed.connect(_on_reload_requested)
