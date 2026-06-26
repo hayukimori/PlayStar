@@ -10,5 +10,6 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
     <PackageReference Include="SkiaSharp" Version="4.148.0" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
+    <PackageReference Include="Tmds.DBus" Version="0.94.2" />
   </ItemGroup>
 </Project>
