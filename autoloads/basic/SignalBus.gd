@@ -138,7 +138,7 @@ func emit_playing_now_capture(song: SongModel, texture: Texture2D) -> void: play
 func emit_update_queue_window(songs: Array[SongModel]) -> void: update_queue_window.emit(songs)
 
 
-func emit_volume_changed(value: int) -> void: volume_changed.emit(value)
+func emit_volume_changed(value: float) -> void: volume_changed.emit(value)
 func emit_volume_changed_externally(value: int) -> void: volume_changed_externally.emit(value)
 func emit_search_results_requested(results: Array) -> void: search_results_requested.emit(results)
 func emit_toggle_shuffle_to_state(state: bool) -> void: toggle_shuffle_to_state.emit(state)

@@ -203,7 +203,7 @@ func update_discord_seek(value: float) -> void:
 func update_by_defaults() -> void:
 	await get_tree().process_frame
 
-	var urpm = user_defaults.repeat_mode
+	var urpm = user_defaults.RandomMode
 	var valid_rpmode = urpm < len(Definitions.RepeatMode)
 	if not valid_rpmode: urpm = 0
 
@@ -481,7 +481,7 @@ func _change_random_mode(state: bool) -> void:
 
 func _change_repeat_mode(state: Definitions.RepeatMode) -> void:
 	repeat_mode = state
-	user_defaults.repeat_mode = state
+	user_defaults.random_mode = state
 	UserGlobals.save_defaults(user_defaults)
 	if mpris_service: mpris_service.UpdateLoopStatus(_mpris_loop_string())
 
