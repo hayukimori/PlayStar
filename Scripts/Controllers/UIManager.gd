@@ -4,12 +4,10 @@ class_name UIManager
 ## Manages UI elements
 ## Connects with MainController via signals
 
-enum ButtonModel { TEXTONLY, COVERED }
 
 #region UI Node Exports
 @export_category("UI Settings")
 @export_group("Nodes")
-@export var button_model: ButtonModel
 
 @export var volume_slider: Slider
 @export var progress_slider: HSlider
@@ -28,8 +26,7 @@ enum ButtonModel { TEXTONLY, COVERED }
 
 
 #region Packed Scenes
-@onready var song_btn_scn: PackedScene = load("res://ui/song_button.tscn")
-@onready var song_btn_cvr_scn: PackedScene = load("res://ui/song_button_covered.tscn")
+@export var song_btn_cvr_scn: PackedScene
 #endregion
 
 
@@ -47,7 +44,7 @@ func _ready() -> void:
 	if !shuffle_button: push_warning("Missing component: shuffle_button (toggle)")
 	if !repeat_mode_button: push_warning("Missing component: repeat_mode_button")
 
-	if shuffle_button: shuffle_button.toggle_random.connect(_on_shuffle_button_toggled)
+	if shuffle_button: shuffle_button.toggle_shuffle.connect(_on_shuffle_button_toggled)
 	if repeat_mode_button: repeat_mode_button.toggle_repeat.connect(_on_repeat_mode_button_toggled)
 	if progress_slider: progress_slider.value_changed.connect(_on_h_slider_value_changed)
 	if reload_playlist_button: reload_playlist_button.pressed.connect(_on_reload_requested)
@@ -130,13 +127,9 @@ func scroll_to_song(info: SongModel) -> void:
 func new_song_btn(song: SongModel, append_to: Array[Button], parent_node: Node) -> Button:
 	var song_button = null
 
-	match button_model:
-		ButtonModel.COVERED: song_button = song_btn_cvr_scn.instantiate()
-		ButtonModel.TEXTONLY: song_button = song_btn_scn.instantiate()
-		_: song_button = song_btn_scn.instantiate()
+	song_button = song_btn_cvr_scn.instantiate()
 
 	song_button.song_content = song
-	# INTEGRATION: conecta ao MainController via SignalBus ou callback injetado
 	song_button.connect("song_selected", _on_song_selected)
 
 	append_to.append(song_button)

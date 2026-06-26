@@ -33,7 +33,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lo1cj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gr013"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -48,7 +48,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sujj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgk7f"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -64,7 +64,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqfsf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnp0n"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -208,8 +208,20 @@ metadata/_custom_type_script = "uid://dv0efhhllvdfh"
 script = ExtResource("4_hgk7f")
 metadata/_custom_type_script = "uid://cevpo3ffhioh1"
 
-[node name="UIManager" type="Node" parent="." unique_id=303575452]
+[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_queu_name_label", "search_cover_panel")]
 script = ExtResource("1_y4nck")
+volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
+progress_slider = NodePath("../PlayerControlsPanel/ProgressBarControl/ProgressSlider")
+search_results_scroll_container = NodePath("../SongQueueControl/SearchScrollContainer")
+search_results_container = NodePath("../SongQueueControl/SearchScrollContainer/SearchButtonsVBC")
+shuffle_button = NodePath("../PlayerControlsPanel/SequenceControl/HBoxContainer/ShuffleButton")
+repeat_mode_button = NodePath("../PlayerControlsPanel/SequenceControl/HBoxContainer/RepeatButton")
+search_bar_line_edit = NodePath("../SongQueueControl/SearchControl/SearchLineEdit")
+songs_button_list_scroll_container = NodePath("../SongQueueControl/MainVBC/QueueScrollContainer")
+songs_button_list = NodePath("../SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC")
+current_queu_name_label = NodePath("../SongQueueControl/MainVBC/QueueTopPanel/QueueNameLabel")
+search_cover_panel = NodePath("../SongQueueControl/CoverPanel")
+song_btn_cvr_scn = ExtResource("3_8ayet")
 
 [node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "mpris_service", "ui_manager")]
 script = ExtResource("2_7sujj")
@@ -266,7 +278,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lo1cj")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gr013")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -305,7 +317,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7sujj")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgk7f")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -325,7 +337,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_aqfsf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wnp0n")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16

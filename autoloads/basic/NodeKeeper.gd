@@ -6,5 +6,6 @@ var current_database: DatabaseManager
 var search_repository: SearchRepository
 var song_repository: SongRepository
 var artist_repository: ArtistRepository
+var album_repository: AlbumRepository
 
-var vlc_player # TODO: Make VlcPlayer (C#)
+var vlc_player: VlcPlayer
