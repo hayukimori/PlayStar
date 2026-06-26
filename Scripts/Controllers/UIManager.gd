@@ -14,12 +14,12 @@ enum ButtonModel { TEXTONLY, COVERED }
 @export var volume_slider: Slider
 @export var progress_slider: HSlider
 @export var search_results_scroll_container: ScrollContainer
-@export var search_results_container: VBoxContainer
+@export var search_results_container: FreezableBoxContainer
 @export var shuffle_button: ShuffleButton
 @export var repeat_mode_button: RepeatButton
 @export var search_bar_line_edit: SearchBar
 @export var songs_button_list_scroll_container: ScrollContainer
-@export var songs_button_list: VBoxContainer
+@export var songs_button_list: FreezableBoxContainer
 @export var length_count_label: Label
 @export var reload_playlist_button: Button
 @export var current_queu_name_label: Label
