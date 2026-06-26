@@ -74,9 +74,9 @@ func _ready() -> void:
 	SignalBus.play_requested.connect(unpause_process)
 	SignalBus.seek_offset_request.connect(seek_process)
 	SignalBus.seek_to_request.connect(seek_process_ms)
-	SignalBus.playlist_request.connect(_on_playlist_request)
+	SignalBus.request_playlist.connect(_on_playlist_request)
 	SignalBus.load_all_songs.connect(_on_load_all_songs_request)
-	SignalBus.song_request_from_current.connect(_on_req_load_song_from_queue)
+	SignalBus.play_from_current.connect(_on_req_load_song_from_queue)
 	SignalBus.play_pause_requested.connect(_on_ui_play_pause)
 
 	SignalBus.toggle_repeat.connect(next_repeat_state)
@@ -84,7 +84,7 @@ func _ready() -> void:
 
 	# SignalBus for UIManager
 	SignalBus.song_selected.connect(play_song)
-	SignalBus.reload_requested.connect(_on_reload_requested)
+	SignalBus.reload_request.connect(_on_reload_requested)
 	SignalBus.volume_changed.connect(_on_volume_slider_value_changed)
 	SignalBus.seek_by_percentage.connect(_on_seek_by_percentage)
 	SignalBus.search_results_requested.connect(_on_search_results_requested)
@@ -458,7 +458,6 @@ func _on_load_all_songs_request() -> void:
 	if ui_manager: ui_manager.render_song_btns_from_list(current_play_queue)
 
 
-# INTEGRATION: chamado via SignalBus.search_results_requested (emitido pelo UIManager)
 func _on_search_results_requested(results: Array) -> void:
 	var results_as_local = []
 	for item in results:
