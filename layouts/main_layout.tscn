@@ -563,21 +563,21 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=1710769341]
+[node name="PrevButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=1710769341]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("5_h06au")
 flat = true
 expand_icon = true
 
-[node name="Button2" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=2075891552]
+[node name="PlayPauseButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=2075891552]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("6_ufdaw")
 flat = true
 expand_icon = true
 
-[node name="Button3" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=841769242]
+[node name="NextButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=841769242]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("7_p2ped")
