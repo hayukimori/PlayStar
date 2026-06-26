@@ -1,13 +1,19 @@
 [gd_scene format=3 uid="uid://cucj2so2q2vo0"]
 
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="1_6tns5"]
+[ext_resource type="Script" uid="uid://c180qco3ryvfa" path="res://Scripts/Players/VlcPlayer.cs" id="1_aqfsf"]
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
 [ext_resource type="Script" uid="uid://cyjkr8uxul4ew" path="res://Scripts/Controllers/UIManager.gd" id="1_y4nck"]
+[ext_resource type="Script" uid="uid://b1dtvpmsveq3g" path="res://Scripts/Controllers/MainController.gd" id="2_7sujj"]
+[ext_resource type="Script" uid="uid://cvjc2cih0xyh1" path="res://Scripts/Database/DatabaseManager.cs" id="2_dge0b"]
+[ext_resource type="Script" uid="uid://xc40uqp4ctxi" path="res://Scripts/SystemIntegration/Mpris/MprisService.cs" id="2_gr013"]
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_8ayet"]
 [ext_resource type="Texture2D" uid="uid://ronw0wka34u3" path="res://assets/icons/iconoir/align-left.svg" id="3_a3s6u"]
+[ext_resource type="Script" uid="uid://dv0efhhllvdfh" path="res://Scripts/Database/MetadataIndexer.cs" id="3_gr013"]
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_h7vyd"]
 [ext_resource type="Texture2D" uid="uid://dva25s2e07te5" path="res://assets/icons/iconoir/copy.svg" id="4_8pyuf"]
+[ext_resource type="Script" uid="uid://cevpo3ffhioh1" path="res://Scripts/Database/LibraryScanner.cs" id="4_hgk7f"]
 [ext_resource type="Texture2D" uid="uid://c0h3epcai6yfm" path="res://assets/icons/iconoir/skip-prev-solid.svg" id="5_h06au"]
 [ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
 [ext_resource type="Texture2D" uid="uid://wqrcye6li3b7" path="res://assets/icons/iconoir/play-solid.svg" id="6_ufdaw"]
@@ -178,8 +184,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="AudioServer" type="Node" parent="." unique_id=58338233]
+
+[node name="MprisService" type="Node" parent="AudioServer" unique_id=737211578]
+script = ExtResource("2_gr013")
+metadata/_custom_type_script = "uid://xc40uqp4ctxi"
+
+[node name="VlcPlayer" type="Node" parent="AudioServer" unique_id=501212916]
+script = ExtResource("1_aqfsf")
+metadata/_custom_type_script = "uid://c180qco3ryvfa"
+
+[node name="Database" type="Node" parent="." unique_id=1297595759]
+
+[node name="DatabaseManager" type="Node" parent="Database" unique_id=1732441216]
+script = ExtResource("2_dge0b")
+metadata/_custom_type_script = "uid://cvjc2cih0xyh1"
+
+[node name="MetadataIndexer" type="Node" parent="Database" unique_id=211119706]
+script = ExtResource("3_gr013")
+metadata/_custom_type_script = "uid://dv0efhhllvdfh"
+
+[node name="LibraryScanner" type="Node" parent="Database" unique_id=631414549]
+script = ExtResource("4_hgk7f")
+metadata/_custom_type_script = "uid://cevpo3ffhioh1"
+
 [node name="UIManager" type="Node" parent="." unique_id=303575452]
 script = ExtResource("1_y4nck")
+
+[node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "mpris_service", "ui_manager")]
+script = ExtResource("2_7sujj")
+player = NodePath("../AudioServer/VlcPlayer")
+db = NodePath("../Database/DatabaseManager")
+indexer = NodePath("../Database/MetadataIndexer")
+mpris_service = NodePath("../AudioServer/MprisService")
+ui_manager = NodePath("../UIManager")
 
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077]
 layout_mode = 1
