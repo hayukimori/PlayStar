@@ -8,18 +8,27 @@ namespace PlayStar.autoloads.DiscordRP;
 
 public partial class DiscordRP : Node
 {
+    // Var
     public DiscordRpcClient Client;
     private SongModel _currentTrack;
-    private bool showAlbumName;
-    private GodotObject _userTools;
+    private GodotObject _userGlobals;
+
+    // Config
     private Resource _userConfig;
+    private bool showAlbumName;
+
+    // const
+    private const string _rpClientId = "1487655456968278226";
+    public enum PlayerStatus { Off, Playing, Pause, Stop };
+
+
     public override void _Ready()
     {
-        _userTools = GetNode("/root/UserTools");
-        if (_userTools != null)
+        _userGlobals = GetNode("/root/UserGlobals");
+        if (_userGlobals != null)
         {
-            _userConfig = (Resource)(GodotObject)_userTools.Call("get_config");
-            _userTools.Connect("discord_rp_changed", new Callable(this, nameof(OnDiscordRpChanged)));
+            _userConfig = (Resource)(GodotObject)_userGlobals.Call("get_config");
+            _userGlobals.Connect("discord_rp_changed", new Callable(this, nameof(OnDiscordRpChanged)));
         }
 
         showAlbumName = (bool)_userConfig.Get("show_album_name");
@@ -44,7 +53,7 @@ public partial class DiscordRP : Node
 
     public void StartDiscordRP()
     {
-        Client = new DiscordRpcClient("1487655456968278226")
+        Client = new DiscordRpcClient(_rpClientId)
         {
             Logger = new ConsoleLogger() { Level = LogLevel.Warning }
         };
@@ -55,52 +64,65 @@ public partial class DiscordRP : Node
         Client.Initialize();
     }
 
-    public void OnMusicStop()
+
+    // -------------------------------------------------------------------------
+    // Helpers
+    // -------------------------------------------------------------------------
+
+    private Assets GetAssets(PlayerStatus status, SongModel song = null)
     {
-        Assets base_assets = new()
+        string smallIcon = status switch
         {
-            LargeImageKey = "cd",
-            SmallImageKey = "play_icon",
-            LargeImageText = showAlbumName ? "..." : "",
+            PlayerStatus.Playing => "play_icon",
+            PlayerStatus.Pause => "pause_icon",
+            _ => "play_icon"
         };
 
-        Client.SetPresence(new RichPresence()
+        string largeText = showAlbumName ? (song?.Album ?? "...") : "";
+
+        return new Assets()
+        {
+            LargeImageKey = "cd",
+            SmallImageKey = smallIcon,
+            LargeImageText = largeText,
+        };
+    }
+
+    private void ApplyPresence(RichPresence presence)
+    {
+        if (Client == null) return;
+        Client.SetPresence(presence);
+    }
+
+
+    // -------------------------------------------------------------------------
+    // Public API
+    // -------------------------------------------------------------------------
+
+    public void OnMusicStop()
+    {
+        ApplyPresence(new RichPresence()
         {
             Details = "Not playing.",
             State = "...",
             Type = ActivityType.Listening,
             Timestamps = new Timestamps(),
-            Assets = base_assets,
-            Buttons =
-            [
-                new DiscordRPC.Button() { Label = "GitHub", Url = "https://github.com/hayukimori" }
-            ]
+            Assets = GetAssets(PlayerStatus.Stop),
+            Buttons = [new DiscordRPC.Button() { Label = "PlayStar", Url = "https://github.com/hayukimori/PlayStar" }]
         });
     }
 
     public void OnMusicPlay(SongModel song, long currentPosition)
     {
-
         if (Client == null) return;
 
         _currentTrack = song;
 
-        TimeSpan t = TimeSpan.FromMilliseconds(song.Length);
-        TimeSpan u = TimeSpan.FromMilliseconds(currentPosition);
-
-        double songLengthSeconds = t.TotalSeconds;
-        double songPositionSeconds = u.TotalSeconds;
+        double songLengthSeconds = TimeSpan.FromMilliseconds(song.Length).TotalSeconds;
+        double songPositionSeconds = TimeSpan.FromMilliseconds(currentPosition).TotalSeconds;
         double remainingSeconds = songLengthSeconds - songPositionSeconds;
 
-        Assets base_assets = new()
-        {
-            LargeImageKey = "cd",
-            SmallImageKey = "play_icon",
-            LargeImageText = showAlbumName ? song.Album : "",
-        };
-
-
-        Client.SetPresence(new RichPresence()
+        ApplyPresence(new RichPresence()
         {
             Details = song.Title,
             State = song.Artist,
@@ -110,11 +132,8 @@ public partial class DiscordRP : Node
                 Start = DateTime.UtcNow.AddSeconds(-songPositionSeconds),
                 End = DateTime.UtcNow.AddSeconds(remainingSeconds)
             },
-            Assets = base_assets,
-            Buttons =
-            [
-                new DiscordRPC.Button() { Label = "GitHub", Url = "https://github.com/hayukimori" }
-            ]
+            Assets = GetAssets(PlayerStatus.Playing, song),
+            Buttons = [new DiscordRPC.Button() { Label = "PlayStar", Url = "https://github.com/hayukimori/PlayStar" }]
         });
     }
 
@@ -122,16 +141,12 @@ public partial class DiscordRP : Node
     {
         if (Client == null) return;
 
-        Client.SetPresence(new RichPresence()
+        ApplyPresence(new RichPresence()
         {
             Details = $"(Pause) {_currentTrack.Title}",
             State = _currentTrack.Artist,
             Type = ActivityType.Listening,
-            Assets = new Assets()
-            {
-                LargeImageKey = "cd",
-                SmallImageKey = "pause_icon"
-            }
+            Assets = GetAssets(PlayerStatus.Pause, _currentTrack),
         });
     }
 
@@ -139,6 +154,11 @@ public partial class DiscordRP : Node
     {
         OnMusicPlay(_currentTrack, newPosition);
     }
+
+
+    // -------------------------------------------------------------------------
+    // Godot
+    // -------------------------------------------------------------------------
 
     public override void _Process(double delta)
     {
