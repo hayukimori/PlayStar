@@ -4,12 +4,10 @@ class_name UIManager
 ## Manages UI elements
 ## Connects with MainController via signals
 
-enum ButtonModel { TEXTONLY, COVERED }
 
 #region UI Node Exports
 @export_category("UI Settings")
 @export_group("Nodes")
-@export var button_model: ButtonModel
 
 @export var volume_slider: Slider
 @export var progress_slider: HSlider
@@ -28,8 +26,7 @@ enum ButtonModel { TEXTONLY, COVERED }
 
 
 #region Packed Scenes
-@onready var song_btn_scn: PackedScene = load("res://ui/song_button.tscn")
-@onready var song_btn_cvr_scn: PackedScene = load("res://ui/song_button_covered.tscn")
+@export var song_btn_cvr_scn: PackedScene
 #endregion
 
 
@@ -130,13 +127,9 @@ func scroll_to_song(info: SongModel) -> void:
 func new_song_btn(song: SongModel, append_to: Array[Button], parent_node: Node) -> Button:
 	var song_button = null
 
-	match button_model:
-		ButtonModel.COVERED: song_button = song_btn_cvr_scn.instantiate()
-		ButtonModel.TEXTONLY: song_button = song_btn_scn.instantiate()
-		_: song_button = song_btn_scn.instantiate()
+	song_button = song_btn_cvr_scn.instantiate()
 
 	song_button.song_content = song
-	# INTEGRATION: conecta ao MainController via SignalBus ou callback injetado
 	song_button.connect("song_selected", _on_song_selected)
 
 	append_to.append(song_button)

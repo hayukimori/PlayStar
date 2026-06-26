@@ -33,7 +33,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lo1cj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gr013"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -48,7 +48,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sujj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgk7f"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -64,7 +64,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqfsf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnp0n"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -266,7 +266,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lo1cj")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gr013")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -305,7 +305,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7sujj")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgk7f")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -325,7 +325,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_aqfsf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wnp0n")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
