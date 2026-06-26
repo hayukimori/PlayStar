@@ -1,0 +1,7 @@
+class_name ShuffleButton
+extends Button
+
+
+func _ready() -> void:
+	set_process(false)
+	set_physics_process(false)
