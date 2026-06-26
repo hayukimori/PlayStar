@@ -67,9 +67,7 @@ func _ready() -> void:
 
 	# Playback signals
 	SignalBus.song_skip_next.connect(_on_ui_skip_next)
-	SignalBus.song_skip_prev.connect(_on_ui_skip_prev)
 	SignalBus.song_skip_prev.connect(_on_ui_skip_next)
-	SignalBus.song_skip_prev.connect(_on_ui_skip_prev)
 	SignalBus.pause_requested.connect(pause_process)
 	SignalBus.play_requested.connect(unpause_process)
 	SignalBus.seek_offset_request.connect(seek_process)
@@ -203,7 +201,7 @@ func update_discord_seek(value: float) -> void:
 func update_by_defaults() -> void:
 	await get_tree().process_frame
 
-	var urpm = user_defaults.random_mode
+	var urpm = user_defaults.repeat_mode
 	var valid_rpmode = urpm < len(Definitions.RepeatMode)
 	if not valid_rpmode: urpm = 0
 
