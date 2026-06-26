@@ -261,12 +261,12 @@ namespace PlayStar
 
         public Task NextAsync()
         {
-            _signalBus.CallDeferred("emit_signal", "next_track_requested");
+            _signalBus.CallDeferred("emit_signal", "song_skip_next");
             return Task.CompletedTask;
         }
         public Task PreviousAsync()
         {
-            _signalBus.CallDeferred("emit_signal", "previous_track_requested");
+            _signalBus.CallDeferred("emit_signal", "song_skip_prev");
             return Task.CompletedTask;
         }
 

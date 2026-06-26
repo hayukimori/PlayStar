@@ -12,6 +12,7 @@ public partial class DiscordRP : Node
     public DiscordRpcClient Client;
     private SongModel _currentTrack;
     private GodotObject _userGlobals;
+    private GodotObject _signalBus;
 
     // Config
     private Resource _userConfig;
@@ -25,10 +26,13 @@ public partial class DiscordRP : Node
     public override void _Ready()
     {
         _userGlobals = GetNode("/root/UserGlobals");
+        _signalBus = GetNode("/root/SignalBus");
+
         if (_userGlobals != null)
         {
             _userConfig = (Resource)(GodotObject)_userGlobals.Call("get_config");
-            _userGlobals.Connect("discord_rp_changed", new Callable(this, nameof(OnDiscordRpChanged)));
+
+            _signalBus.Connect("discord_rp_changed", new Callable(this, nameof(OnDiscordRpChanged)));
         }
 
         showAlbumName = (bool)_userConfig.Get("show_album_name");

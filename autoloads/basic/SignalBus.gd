@@ -17,6 +17,9 @@ signal song_stop
 signal song_skip_next
 signal song_skip_prev
 signal song_changed(song: SongModel)
+signal seek_offset_requested(offset_ms: int)
+signal seek_by_percentage(value: float)
+signal seek_to_request(value: int)
 
 
 # ------------ Toggle -----------------
@@ -37,8 +40,12 @@ signal invoke_playing_window
 signal invoke_queue_window
 
 # ------------- MISC --------------------
+signal reload_request
+signal discord_rp_changed(value: bool)
 signal pop_msg_request(message: String)
+signal song_selected(song: SongModel)
 signal play_from_current(song: SongModel)
+signal request_playlist(playlist: PlaylistModel, index: int)
 
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)
@@ -54,7 +61,13 @@ signal capture_now
 signal playlist_deleted(playlist: PlaylistModel)
 signal playing_now_capture(song: SongModel, texture: Texture2D)
 signal update_queue_window(songs: Array[SongModel])
+signal search_results_requested(results: Array)
+signal toggle_shuffle_to_state(state: bool)
+signal toggle_repeat_to_state(state: Definitions.RepeatMode)
+
 signal volume_changed_externally(value: int)
+signal volume_changed(value: int)
+
 signal copy_song
 
 
@@ -68,10 +81,14 @@ func emit_play_requested() -> void: play_requested.emit()
 func emit_play_pause_requested() -> void: play_pause_requested.emit()
 func emit_stop_requested() -> void: stop_requested.emit()
 
+func emit_seek_offset_requested(offset_ms: int) -> void: seek_offset_requested.emit(offset_ms)
+func emit_seek_to_request(value: int) -> void: seek_to_request.emit(value)
+
 
 
 func emit_seek_offset_request(offset_ms: int) -> void: seek_offset_request.emit(offset_ms)
 func emit_seek_ms_request(value_ms: int) -> void: seek_ms_request.emit(value_ms)
+func emit_seek_by_percentage(value: float) -> void: seek_by_percentage.emit(value)
 
 func emit_song_pause() -> void: song_pause.emit()
 func emit_song_play() -> void: song_play.emit()
@@ -98,8 +115,12 @@ func emit_invoke_queue_window() -> void: invoke_queue_window.emit()
 
 
 
+func emit_reload_request() -> void: reload_request.emit()
 func emit_pop_msg_request(message: String) -> void: pop_msg_request.emit(message)
+func emit_song_selected(song: SongModel) -> void: song_selected.emit(song)
 func emit_play_from_current(song: SongModel) -> void: play_from_current.emit(song)
+func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
+	request_playlist.emit(playlist, index)
 
 
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)
@@ -116,5 +137,13 @@ func emit_capture_now() -> void: capture_now.emit()
 func emit_playlist_deleted(playlist: PlaylistModel) -> void: playlist_deleted.emit(playlist)
 func emit_playing_now_capture(song: SongModel, texture: Texture2D) -> void: playing_now_capture.emit(song, texture)
 func emit_update_queue_window(songs: Array[SongModel]) -> void: update_queue_window.emit(songs)
+
+
+func emit_volume_changed(value: float) -> void: volume_changed.emit(value)
 func emit_volume_changed_externally(value: int) -> void: volume_changed_externally.emit(value)
+func emit_search_results_requested(results: Array) -> void: search_results_requested.emit(results)
+func emit_toggle_shuffle_to_state(state: bool) -> void: toggle_shuffle_to_state.emit(state)
+func emit_toggle_repeat_to_state(state: Definitions.RepeatMode) -> void: toggle_repeat_to_state.emit(state)
+
+func emit_discord_rp_changed(value: bool) -> void: discord_rp_changed.emit(value)
 func emit_copy_song() -> void: copy_song.emit()

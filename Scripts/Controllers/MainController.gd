@@ -67,16 +67,14 @@ func _ready() -> void:
 
 	# Playback signals
 	SignalBus.song_skip_next.connect(_on_ui_skip_next)
-	SignalBus.song_skip_prev.connect(_on_ui_skip_prev)
-	SignalBus.next_track_requested.connect(_on_ui_skip_next)
-	SignalBus.previous_track_requested.connect(_on_ui_skip_prev)
+	SignalBus.song_skip_prev.connect(_on_ui_skip_next)
 	SignalBus.pause_requested.connect(pause_process)
 	SignalBus.play_requested.connect(unpause_process)
-	SignalBus.seek_requested.connect(seek_process)
-	SignalBus.seek_ms_requested.connect(seek_process_ms)
-	SignalBus.playlist_request.connect(_on_playlist_request)
+	SignalBus.seek_offset_request.connect(seek_process)
+	SignalBus.seek_to_request.connect(seek_process_ms)
+	SignalBus.request_playlist.connect(_on_playlist_request)
 	SignalBus.load_all_songs.connect(_on_load_all_songs_request)
-	SignalBus.song_request_from_current.connect(_on_req_load_song_from_queue)
+	SignalBus.play_from_current.connect(_on_req_load_song_from_queue)
 	SignalBus.play_pause_requested.connect(_on_ui_play_pause)
 
 	SignalBus.toggle_repeat.connect(next_repeat_state)
@@ -84,7 +82,7 @@ func _ready() -> void:
 
 	# SignalBus for UIManager
 	SignalBus.song_selected.connect(play_song)
-	SignalBus.reload_requested.connect(_on_reload_requested)
+	SignalBus.reload_request.connect(_on_reload_requested)
 	SignalBus.volume_changed.connect(_on_volume_slider_value_changed)
 	SignalBus.seek_by_percentage.connect(_on_seek_by_percentage)
 	SignalBus.search_results_requested.connect(_on_search_results_requested)
@@ -164,7 +162,7 @@ func update_mpris_seek(position_us: int) -> void:
 func load_songs(from_playlist: String = "") -> void:
 	if not db: return
 
-	var cfg = user_defaults.get_config()
+	var cfg = UserGlobals.get_config()
 	var songs: Array[SongModel] = song_repo.GetSongs(10000, cfg.ignore_unknown_artists)
 
 	if from_playlist: print("'from_playlist' not implemented yet.")
@@ -458,7 +456,6 @@ func _on_load_all_songs_request() -> void:
 	if ui_manager: ui_manager.render_song_btns_from_list(current_play_queue)
 
 
-# INTEGRATION: chamado via SignalBus.search_results_requested (emitido pelo UIManager)
 func _on_search_results_requested(results: Array) -> void:
 	var results_as_local = []
 	for item in results:
@@ -482,7 +479,7 @@ func _change_random_mode(state: bool) -> void:
 
 func _change_repeat_mode(state: Definitions.RepeatMode) -> void:
 	repeat_mode = state
-	user_defaults.repeat_mode = state
+	user_defaults.random_mode = state
 	UserGlobals.save_defaults(user_defaults)
 	if mpris_service: mpris_service.UpdateLoopStatus(_mpris_loop_string())
 
