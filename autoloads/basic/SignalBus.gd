@@ -41,6 +41,7 @@ signal invoke_queue_window
 
 # ------------- MISC --------------------
 signal reload_request
+signal discord_rp_changed(value: bool)
 signal pop_msg_request(message: String)
 signal song_selected(song: SongModel)
 signal play_from_current(song: SongModel)
@@ -144,5 +145,5 @@ func emit_search_results_requested(results: Array) -> void: search_results_reque
 func emit_toggle_shuffle_to_state(state: bool) -> void: toggle_shuffle_to_state.emit(state)
 func emit_toggle_repeat_to_state(state: Definitions.RepeatMode) -> void: toggle_repeat_to_state.emit(state)
 
-
+func emit_discord_rp_changed(value: bool) -> void: discord_rp_changed.emit(value)
 func emit_copy_song() -> void: copy_song.emit()
