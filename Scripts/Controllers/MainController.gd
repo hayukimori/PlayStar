@@ -164,7 +164,7 @@ func update_mpris_seek(position_us: int) -> void:
 func load_songs(from_playlist: String = "") -> void:
 	if not db: return
 
-	var cfg = user_defaults.get_config()
+	var cfg = UserGlobals.get_config()
 	var songs: Array[SongModel] = song_repo.GetSongs(10000, cfg.ignore_unknown_artists)
 
 	if from_playlist: print("'from_playlist' not implemented yet.")
@@ -203,7 +203,7 @@ func update_discord_seek(value: float) -> void:
 func update_by_defaults() -> void:
 	await get_tree().process_frame
 
-	var urpm = user_defaults.RandomMode
+	var urpm = user_defaults.random_mode
 	var valid_rpmode = urpm < len(Definitions.RepeatMode)
 	if not valid_rpmode: urpm = 0
 
