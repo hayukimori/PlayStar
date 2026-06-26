@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c0h3epcai6yfm" path="res://assets/icons/iconoir/skip-prev-solid.svg" id="5_h06au"]
 [ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
 [ext_resource type="Texture2D" uid="uid://wqrcye6li3b7" path="res://assets/icons/iconoir/play-solid.svg" id="6_ufdaw"]
+[ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="7_lo1cj"]
 [ext_resource type="Texture2D" uid="uid://beje2iub52bgy" path="res://assets/icons/iconoir/skip-next-solid.svg" id="7_p2ped"]
 [ext_resource type="StyleBox" uid="uid://cing8rm8q0pb7" path="res://UI/ComponentThemes/shadow_panel.tres" id="7_thmlj"]
 [ext_resource type="Script" uid="uid://ec43qt4c1qc" path="res://Scripts/UI/Components/SearchBar.gd" id="8_axlxv"]
@@ -464,6 +465,7 @@ theme = ExtResource("3_h7vyd")
 [node name="SongsVBC" type="VBoxContainer" parent="SongQueueControl/MainVBC/QueueScrollContainer" unique_id=218443809]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("7_lo1cj")
 
 [node name="SongButtonCovered" parent="SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC" unique_id=285328477 instance=ExtResource("3_8ayet")]
 layout_mode = 2
@@ -494,6 +496,7 @@ theme = ExtResource("3_h7vyd")
 [node name="SearchButtonsVBC" type="VBoxContainer" parent="SongQueueControl/SearchScrollContainer" unique_id=274309797]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("7_lo1cj")
 
 [node name="SongButtonCovered" parent="SongQueueControl/SearchScrollContainer/SearchButtonsVBC" unique_id=130895383 instance=ExtResource("3_8ayet")]
 layout_mode = 2
