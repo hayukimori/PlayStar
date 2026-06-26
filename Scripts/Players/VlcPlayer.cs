@@ -18,11 +18,11 @@ public partial class VlcPlayer : AudioPlayer
     private Media _currentMedia;
 
     private string _playerModel = "vlc";
-    public override string PlayerModel =>  _playerModel;
+    public override string PlayerModel => _playerModel;
 
 
     private float _timer = 0f;
-    private const float CheckInterval = 0.5f;    
+    private const float CheckInterval = 0.5f;
     private int _lastKnownVolume = -1;
 
     public override bool IsLoaded => _mediaPlayer != null;
@@ -52,7 +52,7 @@ public partial class VlcPlayer : AudioPlayer
     {
         base._Ready();
     }
-    
+
 
     public override void Initialize()
     {
@@ -67,7 +67,7 @@ public partial class VlcPlayer : AudioPlayer
 
     #region Media Control
     public override async void Load(string path)
-    {        
+    {
         if (!System.IO.File.Exists(path))
         {
             GD.PrintErr($"File not found error: {path}");

@@ -54,6 +54,7 @@ signal capture_now
 signal playlist_deleted(playlist: PlaylistModel)
 signal playing_now_capture(song: SongModel, texture: Texture2D)
 signal update_queue_window(songs: Array[SongModel])
+signal volume_changed_externally(value: int)
 signal copy_song
 
 
@@ -115,4 +116,5 @@ func emit_capture_now() -> void: capture_now.emit()
 func emit_playlist_deleted(playlist: PlaylistModel) -> void: playlist_deleted.emit(playlist)
 func emit_playing_now_capture(song: SongModel, texture: Texture2D) -> void: playing_now_capture.emit(song, texture)
 func emit_update_queue_window(songs: Array[SongModel]) -> void: update_queue_window.emit(songs)
+func emit_volume_changed_externally(value: int) -> void: volume_changed_externally.emit(value)
 func emit_copy_song() -> void: copy_song.emit()
