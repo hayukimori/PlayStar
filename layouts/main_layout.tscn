@@ -188,6 +188,7 @@ grow_vertical = 2
 
 [node name="MprisService" type="Node" parent="AudioServer" unique_id=737211578]
 script = ExtResource("2_gr013")
+PlayerPath = NodePath("../VlcPlayer")
 metadata/_custom_type_script = "uid://xc40uqp4ctxi"
 
 [node name="VlcPlayer" type="Node" parent="AudioServer" unique_id=501212916]
