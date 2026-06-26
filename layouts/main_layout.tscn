@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="1_6tns5"]
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
+[ext_resource type="Script" path="res://Scripts/Controllers/UIManager.gd" id="1_y4nck"]
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_8ayet"]
 [ext_resource type="Texture2D" uid="uid://ronw0wka34u3" path="res://assets/icons/iconoir/align-left.svg" id="3_a3s6u"]
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_h7vyd"]
@@ -12,8 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://wqrcye6li3b7" path="res://assets/icons/iconoir/play-solid.svg" id="6_ufdaw"]
 [ext_resource type="Texture2D" uid="uid://beje2iub52bgy" path="res://assets/icons/iconoir/skip-next-solid.svg" id="7_p2ped"]
 [ext_resource type="StyleBox" uid="uid://cing8rm8q0pb7" path="res://UI/ComponentThemes/shadow_panel.tres" id="7_thmlj"]
+[ext_resource type="Script" uid="uid://ec43qt4c1qc" path="res://Scripts/UI/Components/SearchBar.gd" id="8_axlxv"]
 [ext_resource type="Texture2D" uid="uid://cnnvs52fv66mh" path="res://assets/icons/iconoir/shuffle.svg" id="9_p2ped"]
 [ext_resource type="Texture2D" uid="uid://bnnp2mdqubhr4" path="res://assets/icons/iconoir/repeat.svg" id="9_xggyx"]
+[ext_resource type="Script" uid="uid://cor11qyoupvqp" path="res://Scripts/UI/Components/RepeatButton.gd" id="13_fxijn"]
+[ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -22,7 +26,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pyuf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_186sv"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -37,7 +41,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4nck"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axlxv"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -53,7 +57,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxijn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lo1cj"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -173,6 +177,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="UIManager" type="Node" parent="." unique_id=303575452]
+script = ExtResource("1_y4nck")
+
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077]
 layout_mode = 1
 anchors_preset = 15
@@ -220,7 +227,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8pyuf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_186sv")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -259,7 +266,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_y4nck")
+theme_override_styles/panel = SubResource("StyleBoxFlat_axlxv")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -279,7 +286,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_fxijn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_lo1cj")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -518,6 +525,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_awq1b")
 placeholder_text = "Search..."
 alignment = 1
 caret_blink = true
+script = ExtResource("8_axlxv")
 
 [node name="PlayerControlsPanel" type="Panel" parent="." unique_id=596059927]
 layout_mode = 1
@@ -651,6 +659,7 @@ layout_mode = 2
 icon = ExtResource("9_xggyx")
 flat = true
 expand_icon = true
+script = ExtResource("13_fxijn")
 
 [node name="ShuffleButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=626143028]
 custom_minimum_size = Vector2(32, 32)
@@ -658,6 +667,7 @@ layout_mode = 2
 icon = ExtResource("9_p2ped")
 flat = true
 expand_icon = true
+script = ExtResource("15_186sv")
 
 [node name="LeftMenuControl" type="Control" parent="." unique_id=602680604]
 visible = false
