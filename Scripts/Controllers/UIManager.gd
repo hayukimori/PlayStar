@@ -22,13 +22,24 @@ class_name UIManager
 @export var reload_playlist_button: Button
 @export var current_queu_name_label: Label
 @export var search_cover_panel: Panel
+
+@export_subgroup("Playing Now screen")
+@export var title_label: Label
+@export var artist_label: Label
+@export var album_label: Label
+@export var art_trr: TextureRectRounded
 #endregion
 
 
 #region Packed Scenes
+@export_subgroup("Packed Scenes")
 @export var song_btn_cvr_scn: PackedScene
 #endregion
 
+#region Extras export
+@export_group("Extra export")
+@export var default_album_art: Texture2D
+#endregion
 
 #region State
 var loaded_buttons: Array[Button] = []
@@ -56,6 +67,9 @@ func _ready() -> void:
 
 	SignalBus.scroll_to_current.connect(_on_scroll_to_current)
 	SignalBus.volume_changed_externally.connect(_on_volume_changed_external)
+	SignalBus.song_changed.connect(set_playing_now)
+
+
 
 
 #region Queue Label
@@ -121,6 +135,16 @@ func scroll_to_song(info: SongModel) -> void:
 		.set_ease(Tween.EASE_OUT)
 #endregion
 
+#region Playing Now
+func set_playing_now(song: SongModel) -> void:
+	if title_label: title_label.text = song.Title
+	if artist_label: artist_label.text = song.Artist
+	if album_label: album_label.text = song.Album
+
+	var texture = VlcPlayer.GetTextureFrom(song.FilePath)
+	art_trr.texture = texture if texture else default_album_art
+
+#endregion
 
 #region Button Management
 ## Creates new button and adds it to parent_node
@@ -237,6 +261,7 @@ func get_index_by_path(target_path: String, queue: Array) -> int:
 
 func _on_song_selected(song: SongModel) -> void:
 	# INTEGRATION: MainController listens SignalBus.song_selected
+	print("Song selected: ", song.Title)
 	SignalBus.emit_song_selected(song)
 
 func _on_scroll_to_current() -> void:

@@ -119,7 +119,7 @@ func play_song(info: SongModel) -> void:
 	playing_now = info
 
 	player.Load(info.FilePath)
-	if player.playerModel == "vlc": player.Play()
+	if player.PlayerModel == "vlc": player.Play()
 
 	DiscordRp.OnMusicPlay(info, 0)
 	SignalBus.emit_song_play()

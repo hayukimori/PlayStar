@@ -29,7 +29,7 @@ shader = ExtResource("7_usbv0")
 shader_parameter/bar_color = Color(1, 1, 1, 1)
 shader_parameter/corner_radius = 0.5
 
-[node name="SongButtonCovered" type="Button" unique_id=285328477]
+[node name="SongButtonCovered" type="Button" unique_id=285328477 node_paths=PackedStringArray("title_label", "artist_label", "album_art", "hq_btn", "playing_now_bar", "add_to_playlist_btn", "remove_from_current_playlist_btn")]
 custom_minimum_size = Vector2(0, 64)
 custom_maximum_size = Vector2(-1, 64)
 anchors_preset = -1
@@ -41,6 +41,13 @@ grow_vertical = 2
 size_flags_horizontal = 3
 flat = true
 script = ExtResource("1_p518v")
+title_label = NodePath("TitleLabel")
+artist_label = NodePath("ArtistLabel")
+album_art = NodePath("ArtTRR")
+hq_btn = NodePath("ExtrasHBC/HQButton")
+playing_now_bar = NodePath("ExtrasHBC/PlayingNowCR")
+add_to_playlist_btn = NodePath("ExtrasHBC/ToPlaylistButton")
+remove_from_current_playlist_btn = NodePath("ExtrasHBC/RmFromCurrentButton")
 
 [node name="BgPanel" type="Panel" parent="." unique_id=1051757596]
 custom_minimum_size = Vector2(0, 64)
@@ -51,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("1_oyhhh")
 
 [node name="ArtTRR" type="Panel" parent="." unique_id=915740691]
@@ -64,6 +72,7 @@ offset_top = -21.0
 offset_right = 54.0
 offset_bottom = 21.0
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_p518v")
 script = ExtResource("1_dgc0n")
 radius_bottom_left = 4
@@ -82,24 +91,30 @@ offset_top = 11.0
 offset_right = -85.0
 offset_bottom = 35.0
 grow_horizontal = 2
+mouse_filter = 1
 theme = ExtResource("1_oyhhh")
 text = "Unknwon Song"
 label_settings = SubResource("LabelSettings_oyhhh")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="ArtistLabel" type="Label" parent="." unique_id=367223193]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 68.0
-offset_top = 29.0
+offset_top = 33.0
 offset_right = -100.0
-offset_bottom = 52.0
+offset_bottom = 56.0
 grow_horizontal = 2
+mouse_filter = 1
 theme = ExtResource("1_oyhhh")
 text = "Unknwon Artist"
 label_settings = SubResource("LabelSettings_4wxht")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="ExtrasHBC" type="HBoxContainer" parent="." unique_id=1724647612]
 layout_mode = 1

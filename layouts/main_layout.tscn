@@ -26,7 +26,12 @@
 [ext_resource type="Texture2D" uid="uid://bnnp2mdqubhr4" path="res://assets/icons/iconoir/repeat.svg" id="9_xggyx"]
 [ext_resource type="Script" uid="uid://cor11qyoupvqp" path="res://Scripts/UI/Components/RepeatButton.gd" id="13_fxijn"]
 [ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
+[ext_resource type="Script" uid="uid://b0ooqpucm54ks" path="res://Scripts/UI/Components/player_basic_controls.gd" id="17_tx35f"]
+[ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
+[ext_resource type="Texture2D" uid="uid://coepod1b71pj" path="res://assets/icons/iconoir/slash.svg" id="25_kee2a"]
+[ext_resource type="Texture2D" uid="uid://clu31fow2kmt1" path="res://assets/icons/iconoir/repeat-once.svg" id="26_c80o5"]
 [ext_resource type="PackedScene" uid="uid://c61nq8yjfxop0" path="res://UI/Components/config_control.tscn" id="26_hgk7f"]
+[ext_resource type="Texture2D" uid="uid://btdcxpxntyqtd" path="res://assets/icons/extra/sequence.svg" id="29_c80o5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -35,7 +40,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnp0n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c80o5"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -50,7 +55,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70mwl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjxpu"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -66,7 +71,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tx35f"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqe4u"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -213,7 +218,7 @@ metadata/_custom_type_script = "uid://dv0efhhllvdfh"
 script = ExtResource("4_hgk7f")
 metadata/_custom_type_script = "uid://cevpo3ffhioh1"
 
-[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_queu_name_label", "search_cover_panel")]
+[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr")]
 script = ExtResource("1_y4nck")
 volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
 progress_slider = NodePath("../PlayerControlsPanel/ProgressBarControl/ProgressSlider")
@@ -226,7 +231,12 @@ songs_button_list_scroll_container = NodePath("../SongQueueControl/MainVBC/Queue
 songs_button_list = NodePath("../SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC")
 current_queu_name_label = NodePath("../SongQueueControl/MainVBC/QueueTopPanel/QueueNameLabel")
 search_cover_panel = NodePath("../SongQueueControl/CoverPanel")
+title_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/SongTitleLabel")
+artist_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/ArtistNameLabel")
+album_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/AlbumNameLabel")
+art_trr = NodePath("../SongInfoControl/AlbumArtControl/ArtTRR")
 song_btn_cvr_scn = ExtResource("3_8ayet")
+default_album_art = ExtResource("1_od5lq")
 
 [node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "ui_manager")]
 script = ExtResource("2_7sujj")
@@ -284,7 +294,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wnp0n")
+theme_override_styles/panel = SubResource("StyleBoxFlat_c80o5")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -323,7 +333,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_70mwl")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wjxpu")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -343,7 +353,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_tx35f")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fqe4u")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -372,7 +382,7 @@ offset_top = -40.0
 offset_right = 265.0
 offset_bottom = 12.0
 grow_vertical = 2
-text = "{ Artist name }"
+text = "Artist"
 label_settings = SubResource("LabelSettings_awq1b")
 vertical_alignment = 1
 
@@ -386,7 +396,7 @@ offset_top = -14.0
 offset_right = 266.0
 offset_bottom = 38.0
 grow_vertical = 2
-text = "{ Album name }"
+text = "Album Name"
 label_settings = SubResource("LabelSettings_8ayet")
 vertical_alignment = 1
 
@@ -397,16 +407,18 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -274.0
+offset_left = -280.0
 offset_top = -34.0
 offset_right = -25.0
 offset_bottom = 27.0
 grow_horizontal = 0
 grow_vertical = 2
-text = "{ Title }"
+text = "Waiting for music!!!!"
 label_settings = SubResource("LabelSettings_riu1i")
 horizontal_alignment = 2
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="TopButtonsControl" type="Control" parent="SongInfoControl/AlbumArtControl" unique_id=1672929305]
 layout_mode = 1
@@ -487,9 +499,11 @@ offset_top = -11.5
 offset_right = 332.0
 offset_bottom = 11.5
 grow_vertical = 2
-text = "{ current_queue_name }"
+text = "Your Queue"
 label_settings = SubResource("LabelSettings_6tns5")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="TopLeftButtonsHBC" type="HBoxContainer" parent="SongQueueControl/MainVBC/QueueTopPanel" unique_id=1132239903]
 layout_mode = 1
@@ -597,7 +611,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ub5km")
 
-[node name="PlayerControls" type="Control" parent="PlayerControlsPanel" unique_id=767313152]
+[node name="PlayerControls" type="Control" parent="PlayerControlsPanel" unique_id=767313152 node_paths=PackedStringArray("play_pause_btn", "skip_btn", "prev_btn")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -605,6 +619,14 @@ anchor_bottom = 1.0
 offset_top = -80.0
 offset_right = 175.0
 grow_vertical = 0
+script = ExtResource("17_tx35f")
+play_pause_btn = NodePath("HBoxContainer/PlayPauseButton")
+skip_btn = NodePath("HBoxContainer/NextButton")
+prev_btn = NodePath("HBoxContainer/PrevButton")
+prev_btn_texture = ExtResource("5_h06au")
+next_btn_texture = ExtResource("7_p2ped")
+pause_btn_texture = ExtResource("20_ktlg8")
+play_btn_texture = ExtResource("6_ufdaw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayerControlsPanel/PlayerControls" unique_id=1648457371]
 layout_mode = 1
@@ -713,20 +735,27 @@ grow_vertical = 2
 alignment = 1
 
 [node name="RepeatButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=523657488]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 icon = ExtResource("9_xggyx")
 flat = true
 expand_icon = true
 script = ExtResource("13_fxijn")
+texture_off = ExtResource("25_kee2a")
+texture_rp_one = ExtResource("26_c80o5")
+texture_rp_queue = ExtResource("9_xggyx")
+default_texture = ExtResource("25_kee2a")
 
 [node name="ShuffleButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=626143028]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
+toggle_mode = true
 icon = ExtResource("9_p2ped")
 flat = true
 expand_icon = true
 script = ExtResource("15_186sv")
+texture_on = ExtResource("9_p2ped")
+texture_off = ExtResource("29_c80o5")
 
 [node name="LeftMenuControl" type="Control" parent="." unique_id=602680604]
 visible = false

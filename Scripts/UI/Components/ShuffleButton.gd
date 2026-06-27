@@ -4,8 +4,8 @@ extends Button
 signal toggle_shuffle(state: bool)
 
 @export_group("Button UI")
-@export var texture_on: ImageTexture
-@export var texture_off: ImageTexture
+@export var texture_on: Texture2D
+@export var texture_off: Texture2D
 
 func _ready() -> void:
 	set_process(false)
