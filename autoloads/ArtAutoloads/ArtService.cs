@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
-using PlayStar.autoloads.ArtAutoloads;
 using PlayStar.Scripts.AlbumArt;
 
 namespace PlayStar.autoloads.ArtAutoloads;
