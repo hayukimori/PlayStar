@@ -218,7 +218,7 @@ metadata/_custom_type_script = "uid://dv0efhhllvdfh"
 script = ExtResource("4_hgk7f")
 metadata/_custom_type_script = "uid://cevpo3ffhioh1"
 
-[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_queu_name_label", "search_cover_panel")]
+[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr")]
 script = ExtResource("1_y4nck")
 volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
 progress_slider = NodePath("../PlayerControlsPanel/ProgressBarControl/ProgressSlider")
@@ -231,7 +231,12 @@ songs_button_list_scroll_container = NodePath("../SongQueueControl/MainVBC/Queue
 songs_button_list = NodePath("../SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC")
 current_queu_name_label = NodePath("../SongQueueControl/MainVBC/QueueTopPanel/QueueNameLabel")
 search_cover_panel = NodePath("../SongQueueControl/CoverPanel")
+title_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/SongTitleLabel")
+artist_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/ArtistNameLabel")
+album_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/AlbumNameLabel")
+art_trr = NodePath("../SongInfoControl/AlbumArtControl/ArtTRR")
 song_btn_cvr_scn = ExtResource("3_8ayet")
+default_album_art = ExtResource("1_od5lq")
 
 [node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "ui_manager")]
 script = ExtResource("2_7sujj")
@@ -377,7 +382,7 @@ offset_top = -40.0
 offset_right = 265.0
 offset_bottom = 12.0
 grow_vertical = 2
-text = "{ Artist name }"
+text = "Artist"
 label_settings = SubResource("LabelSettings_awq1b")
 vertical_alignment = 1
 
@@ -391,7 +396,7 @@ offset_top = -14.0
 offset_right = 266.0
 offset_bottom = 38.0
 grow_vertical = 2
-text = "{ Album name }"
+text = "Album Name"
 label_settings = SubResource("LabelSettings_8ayet")
 vertical_alignment = 1
 
@@ -402,16 +407,18 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -274.0
+offset_left = -280.0
 offset_top = -34.0
 offset_right = -25.0
 offset_bottom = 27.0
 grow_horizontal = 0
 grow_vertical = 2
-text = "{ Title }"
+text = "Waiting for music!!!!"
 label_settings = SubResource("LabelSettings_riu1i")
 horizontal_alignment = 2
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="TopButtonsControl" type="Control" parent="SongInfoControl/AlbumArtControl" unique_id=1672929305]
 layout_mode = 1
@@ -492,9 +499,11 @@ offset_top = -11.5
 offset_right = 332.0
 offset_bottom = 11.5
 grow_vertical = 2
-text = "{ current_queue_name }"
+text = "Your Queue"
 label_settings = SubResource("LabelSettings_6tns5")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="TopLeftButtonsHBC" type="HBoxContainer" parent="SongQueueControl/MainVBC/QueueTopPanel" unique_id=1132239903]
 layout_mode = 1

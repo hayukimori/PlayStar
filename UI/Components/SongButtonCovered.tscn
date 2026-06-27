@@ -96,21 +96,25 @@ theme = ExtResource("1_oyhhh")
 text = "Unknwon Song"
 label_settings = SubResource("LabelSettings_oyhhh")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="ArtistLabel" type="Label" parent="." unique_id=367223193]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 68.0
-offset_top = 29.0
+offset_top = 33.0
 offset_right = -100.0
-offset_bottom = 52.0
+offset_bottom = 56.0
 grow_horizontal = 2
 mouse_filter = 1
 theme = ExtResource("1_oyhhh")
 text = "Unknwon Artist"
 label_settings = SubResource("LabelSettings_4wxht")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="ExtrasHBC" type="HBoxContainer" parent="." unique_id=1724647612]
 layout_mode = 1
