@@ -1,17 +1,25 @@
 extends Node
 
 var settings_lock: bool = false
+var scan_lock: bool = false
 
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 
 ## Gets settings_lock
-func is_setting_locked() -> bool: 
+func is_setting_locked() -> bool:
 	return settings_lock
 
 ## Sets config to settings_lock
-func set_settings_lock(value: bool) -> void: 
+func set_settings_lock(value: bool) -> void:
 	settings_lock = value
+
+## Set config to scan_lock
+func set_scan_lock(value: bool) -> void:
+	scan_lock = value
+
+func is_scan_locked() -> bool:
+	return scan_lock
 
 ## releases focus if the control is not LineEdit
 func _on_focus_changed(node: Node) -> void:

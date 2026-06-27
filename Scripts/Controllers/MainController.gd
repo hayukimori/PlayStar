@@ -10,6 +10,7 @@ signal update_current_metadata(data: SongModel)
 @export var player: VlcPlayer
 @export var db: DatabaseManager
 @export var indexer: MetadataIndexer
+@export var scanner: LibraryScanner
 @export var mpris_service: MprisService
 
 @export_group("UI")
@@ -56,6 +57,8 @@ func _ready() -> void:
 	album_repo.Initialize(db)
 
 	NodeKeeper.current_database = db
+	NodeKeeper.current_indexer = indexer
+	NodeKeeper.current_scanner = scanner
 	NodeKeeper.song_repository = song_repo
 	NodeKeeper.artist_repository = artist_repo
 	NodeKeeper.album_repository = album_repo

@@ -4,13 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="1_fy2fy"]
 
 [node name="PathNodeHBC" type="HBoxContainer" unique_id=1922499181]
+custom_minimum_size = Vector2(0, 24)
 offset_top = 1.0
 offset_right = 183.0
 offset_bottom = 46.0
+size_flags_horizontal = 3
 script = ExtResource("1_06588")
 
 [node name="DeleteButton" type="Button" parent="." unique_id=1966227076]
-custom_minimum_size = Vector2(24, 0)
+custom_minimum_size = Vector2(32, 24)
 layout_mode = 2
 icon = ExtResource("1_fy2fy")
 flat = true

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c180qco3ryvfa" path="res://Scripts/Players/VlcPlayer.cs" id="1_aqfsf"]
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
+[ext_resource type="Script" uid="uid://dxcdolwkhjluy" path="res://Scripts/UI/Layout/main_layout.gd" id="1_wnp0n"]
 [ext_resource type="Script" uid="uid://cyjkr8uxul4ew" path="res://Scripts/Controllers/UIManager.gd" id="1_y4nck"]
 [ext_resource type="Script" uid="uid://b1dtvpmsveq3g" path="res://Scripts/Controllers/MainController.gd" id="2_7sujj"]
 [ext_resource type="Script" uid="uid://cvjc2cih0xyh1" path="res://Scripts/Database/DatabaseManager.cs" id="2_dge0b"]
@@ -25,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bnnp2mdqubhr4" path="res://assets/icons/iconoir/repeat.svg" id="9_xggyx"]
 [ext_resource type="Script" uid="uid://cor11qyoupvqp" path="res://Scripts/UI/Components/RepeatButton.gd" id="13_fxijn"]
 [ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
+[ext_resource type="PackedScene" uid="uid://c61nq8yjfxop0" path="res://UI/Components/config_control.tscn" id="26_hgk7f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -33,7 +35,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gr013"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnp0n"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -48,7 +50,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgk7f"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70mwl"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -64,7 +66,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnp0n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tx35f"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -176,13 +178,15 @@ expand_margin_top = 16.0
 expand_margin_right = 8.0
 expand_margin_bottom = 16.0
 
-[node name="MainLayout" type="Control" unique_id=1324911911]
+[node name="MainLayout" type="Control" unique_id=1324911911 node_paths=PackedStringArray("config_control")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wnp0n")
+config_control = NodePath("ConfigControl")
 
 [node name="AudioServer" type="Node" parent="." unique_id=58338233]
 
@@ -224,11 +228,12 @@ current_queu_name_label = NodePath("../SongQueueControl/MainVBC/QueueTopPanel/Qu
 search_cover_panel = NodePath("../SongQueueControl/CoverPanel")
 song_btn_cvr_scn = ExtResource("3_8ayet")
 
-[node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "mpris_service", "ui_manager")]
+[node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "ui_manager")]
 script = ExtResource("2_7sujj")
 player = NodePath("../AudioServer/VlcPlayer")
 db = NodePath("../Database/DatabaseManager")
 indexer = NodePath("../Database/MetadataIndexer")
+scanner = NodePath("../Database/LibraryScanner")
 mpris_service = NodePath("../AudioServer/MprisService")
 ui_manager = NodePath("../UIManager")
 
@@ -279,7 +284,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gr013")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wnp0n")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -318,7 +323,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hgk7f")
+theme_override_styles/panel = SubResource("StyleBoxFlat_70mwl")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -338,7 +343,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_wnp0n")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tx35f")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -838,3 +843,6 @@ offset_bottom = 27.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "back"
+
+[node name="ConfigControl" parent="." unique_id=106539680 instance=ExtResource("26_hgk7f")]
+layout_mode = 1
