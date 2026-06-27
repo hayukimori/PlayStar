@@ -65,7 +65,7 @@ namespace PlayStar
                 _playerObject = new MprisPlayerObject(_player, GetNode("/root/SignalBus"));
                 await _connection.RegisterObjectAsync(_playerObject);
 
-                await _connection.RegisterServiceAsync("org.mpris.MediaPlayer2.playstar2");
+                await _connection.RegisterServiceAsync("org.mpris.MediaPlayer2.playstar");
 
                 // Waits for frame to garant propagation
                 await Task.Delay(50);
@@ -115,7 +115,7 @@ namespace PlayStar
             if (!_started || _playerObject == null) return;
 
             _trackCounter++;
-            var trackId = $"/org/playstar2/track/{_trackCounter}";
+            var trackId = $"/org/playstar/track/{_trackCounter}";
 
             var meta = new Dictionary<string, object>
             {
@@ -183,7 +183,7 @@ namespace PlayStar
 
         private IDictionary<string, object> _metadata = new Dictionary<string, object>
         {
-            ["mpris:trackid"] = new ObjectPath("/org/playstar2/track/0"),
+            ["mpris:trackid"] = new ObjectPath("/org/playstar/track/0"),
             ["xesam:title"] = "Unknown",
             ["xesam:artist"] = new[] { "Unknown" },
             ["xesam:album"] = "",
@@ -452,8 +452,8 @@ namespace PlayStar
             "CanQuit" => false,
             "CanRaise" => false,
             "HasTrackList" => false,
-            "Identity" => "PlayStar2",
-            "DesktopEntry" => "playstar2",
+            "Identity" => "PlayStar",
+            "DesktopEntry" => "playstar",
             "SupportedUriSchemes" => new[] { "file" },
             "SupportedMimeTypes" => new[] { "audio/mpeg", "audio/flac", "audio/ogg" },
             _ => null

@@ -30,7 +30,7 @@ public partial class AlbumArtExtractor : Resource
 
             var samplingOptions = new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear);
             using var resizedBitmap = originalBitmap.Resize(new SKImageInfo(newWidth, newHeight), samplingOptions);
-            
+
             using var image = SKImage.FromBitmap(resizedBitmap);
             using var encodedData = image.Encode(SKEncodedImageFormat.Jpeg, 85);
 
@@ -49,10 +49,10 @@ public partial class AlbumArtExtractor : Resource
         var bytes = ExtractAndResize(songPath);
         if (bytes == null) return null;
 
-        foreach (var old in System.IO.Directory.GetFiles("/tmp", "playstar2_cover_*.jpg"))
+        foreach (var old in System.IO.Directory.GetFiles("/tmp", "playstar_cover_*.jpg"))
             System.IO.File.Delete(old);
 
-        var tempPath = $"/tmp/playstar2_cover_{Guid.NewGuid():N}.jpg";
+        var tempPath = $"/tmp/playstar_cover_{Guid.NewGuid():N}.jpg";
         System.IO.File.WriteAllBytes(tempPath, bytes);
         return tempPath;
     }

@@ -74,7 +74,7 @@ namespace PlayStar.Scripts.SystemIntegration.Mpris
         // Metadata
         public IDictionary<string, object> Metadata = new Dictionary<string, object>
         {
-            ["mpris:trackid"] = new ObjectPath("/org/playstar2/track/0"),
+            ["mpris:trackid"] = new ObjectPath("/org/playstar/track/0"),
             ["xesam:title"] = "Unknown",
             ["xesam:artist"] = new[] { "Unknown" },
             ["xesam:album"] = "",

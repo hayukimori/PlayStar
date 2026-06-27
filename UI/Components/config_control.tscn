@@ -283,10 +283,11 @@ text = "[font_size=14px]PlayStar has Rich Presence that connects with your [colo
 "
 justification_flags = 171
 
-[node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389]
+[node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389 node_paths=PackedStringArray("ignore_unknown_artists_btn")]
 visible = false
 layout_mode = 2
 script = ExtResource("12_h1rhx")
+ignore_unknown_artists_btn = NodePath("IgnoreUnCheckButton")
 metadata/_tab_index = 2
 metadata/_tab_name = ""
 
