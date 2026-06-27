@@ -26,7 +26,12 @@
 [ext_resource type="Texture2D" uid="uid://bnnp2mdqubhr4" path="res://assets/icons/iconoir/repeat.svg" id="9_xggyx"]
 [ext_resource type="Script" uid="uid://cor11qyoupvqp" path="res://Scripts/UI/Components/RepeatButton.gd" id="13_fxijn"]
 [ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
+[ext_resource type="Script" uid="uid://b0ooqpucm54ks" path="res://Scripts/UI/Components/player_basic_controls.gd" id="17_tx35f"]
+[ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
+[ext_resource type="Texture2D" uid="uid://coepod1b71pj" path="res://assets/icons/iconoir/slash.svg" id="25_kee2a"]
+[ext_resource type="Texture2D" uid="uid://clu31fow2kmt1" path="res://assets/icons/iconoir/repeat-once.svg" id="26_c80o5"]
 [ext_resource type="PackedScene" uid="uid://c61nq8yjfxop0" path="res://UI/Components/config_control.tscn" id="26_hgk7f"]
+[ext_resource type="Texture2D" uid="uid://btdcxpxntyqtd" path="res://assets/icons/extra/sequence.svg" id="29_c80o5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -35,7 +40,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnp0n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c80o5"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -50,7 +55,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70mwl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjxpu"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -66,7 +71,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tx35f"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqe4u"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -284,7 +289,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wnp0n")
+theme_override_styles/panel = SubResource("StyleBoxFlat_c80o5")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -323,7 +328,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_70mwl")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wjxpu")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -343,7 +348,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_tx35f")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fqe4u")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -597,7 +602,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ub5km")
 
-[node name="PlayerControls" type="Control" parent="PlayerControlsPanel" unique_id=767313152]
+[node name="PlayerControls" type="Control" parent="PlayerControlsPanel" unique_id=767313152 node_paths=PackedStringArray("play_pause_btn", "skip_btn", "prev_btn")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -605,6 +610,14 @@ anchor_bottom = 1.0
 offset_top = -80.0
 offset_right = 175.0
 grow_vertical = 0
+script = ExtResource("17_tx35f")
+play_pause_btn = NodePath("HBoxContainer/PlayPauseButton")
+skip_btn = NodePath("HBoxContainer/NextButton")
+prev_btn = NodePath("HBoxContainer/PrevButton")
+prev_btn_texture = ExtResource("5_h06au")
+next_btn_texture = ExtResource("7_p2ped")
+pause_btn_texture = ExtResource("20_ktlg8")
+play_btn_texture = ExtResource("6_ufdaw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayerControlsPanel/PlayerControls" unique_id=1648457371]
 layout_mode = 1
@@ -713,20 +726,27 @@ grow_vertical = 2
 alignment = 1
 
 [node name="RepeatButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=523657488]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 icon = ExtResource("9_xggyx")
 flat = true
 expand_icon = true
 script = ExtResource("13_fxijn")
+texture_off = ExtResource("25_kee2a")
+texture_rp_one = ExtResource("26_c80o5")
+texture_rp_queue = ExtResource("9_xggyx")
+default_texture = ExtResource("25_kee2a")
 
 [node name="ShuffleButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=626143028]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
+toggle_mode = true
 icon = ExtResource("9_p2ped")
 flat = true
 expand_icon = true
 script = ExtResource("15_186sv")
+texture_on = ExtResource("9_p2ped")
+texture_off = ExtResource("29_c80o5")
 
 [node name="LeftMenuControl" type="Control" parent="." unique_id=602680604]
 visible = false

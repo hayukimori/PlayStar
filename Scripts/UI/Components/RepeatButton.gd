@@ -4,10 +4,10 @@ class_name RepeatButton
 signal toggle_repeat(state: Definitions.RepeatMode)
 
 @export_group("Button UI")
-@export var texture_off: ImageTexture
-@export var texture_rp_one: ImageTexture
-@export var texture_rp_queue: ImageTexture
-@export var default_texture: ImageTexture
+@export var texture_off: Texture2D
+@export var texture_rp_one: Texture2D
+@export var texture_rp_queue: Texture2D
+@export var default_texture: Texture2D
 
 var current_state: Definitions.RepeatMode = Definitions.RepeatMode.OFF
 
@@ -51,4 +51,4 @@ func next_state() -> void:
 
 func _pressed() -> void:
 	next_state()
-	toggle_repeat.emit()
+	toggle_repeat.emit(current_state)
