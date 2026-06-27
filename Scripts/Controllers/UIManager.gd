@@ -237,6 +237,7 @@ func get_index_by_path(target_path: String, queue: Array) -> int:
 
 func _on_song_selected(song: SongModel) -> void:
 	# INTEGRATION: MainController listens SignalBus.song_selected
+	print("Song selected: ", song.Title)
 	SignalBus.emit_song_selected(song)
 
 func _on_scroll_to_current() -> void:
