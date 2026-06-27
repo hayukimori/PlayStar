@@ -156,7 +156,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HFlowContainer" parent="Window/TabContainer/LibraryPathSettings/DirectoriesFodableContainer/ScrollContainer/VBoxContainer" unique_id=1563335913 instance=ExtResource("2_iix6l")]
+[node name="PathNode" parent="Window/TabContainer/LibraryPathSettings/DirectoriesFodableContainer/ScrollContainer/VBoxContainer" unique_id=1563335913 instance=ExtResource("2_iix6l")]
 layout_mode = 2
 
 [node name="AddPathButton" type="Button" parent="Window/TabContainer/LibraryPathSettings" unique_id=1431828589]
