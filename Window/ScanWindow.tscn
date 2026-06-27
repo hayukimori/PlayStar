@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bu5h25p7jmhal"]
+
+[ext_resource type="Script" uid="uid://cnl17xffmfnde" path="res://Scripts/Window/ScanWindow.gd" id="1_t72t2"]
+
+[node name="ScanWindow" type="Window" unique_id=887761806]
+oversampling_override = 1.0
+title = "Scanning Songs..."
+initial_position = 1
+size = Vector2i(484, 130)
+visible = false
+exclusive = true
+force_native = true
+script = ExtResource("1_t72t2")
+
+[node name="Control" type="Control" parent="." unique_id=766384291]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=1053038806]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 79.0
+offset_right = -16.0
+offset_bottom = -24.0
+rounded = true
+
+[node name="StatusLabel" type="Label" parent="Control" unique_id=1854301463]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 179.0
+offset_top = 30.0
+offset_right = -179.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "{Current Status}"

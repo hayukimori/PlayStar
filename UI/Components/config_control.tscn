@@ -1,0 +1,325 @@
+[gd_scene format=3 uid="uid://c61nq8yjfxop0"]
+
+[ext_resource type="Script" uid="uid://c6gfgkvcvfep8" path="res://Scripts/UI/Components/ConfigControl.gd" id="1_jvm1o"]
+[ext_resource type="Texture2D" uid="uid://b4h53kvu228aw" path="res://assets/icons/iconoir/book-solid.svg" id="2_bc0ag"]
+[ext_resource type="PackedScene" uid="uid://nix4aiekd2nh" path="res://UI/Components/LibraryPathHFC.tscn" id="2_iix6l"]
+[ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="2_j617b"]
+[ext_resource type="Texture2D" uid="uid://b6p2uolqkicho" path="res://assets/icons/iconoir/discord.svg" id="3_japnt"]
+[ext_resource type="Texture2D" uid="uid://cmna7dx27swvx" path="res://assets/icons/iconoir/music-double-note.svg" id="4_uxyrx"]
+[ext_resource type="Script" uid="uid://8x6v3d7x6kfv" path="res://Scripts/UI/Components/LibraryPathSettings.gd" id="5_msdiq"]
+[ext_resource type="LabelSettings" uid="uid://dtw6rp2b3ub3m" path="res://UI/ComponentThemes/SettingsTitleLabelSettings.tres" id="7_ctn7q"]
+[ext_resource type="Texture2D" uid="uid://srbt2kjf5xw0" path="res://assets/icons/iconoir/label-solid.svg" id="8_jm2bs"]
+[ext_resource type="Texture2D" uid="uid://dem024irhq13j" path="res://assets/icons/iconoir/user.svg" id="8_m628n"]
+[ext_resource type="PackedScene" uid="uid://bu5h25p7jmhal" path="res://Window/ScanWindow.tscn" id="9_53ouv"]
+[ext_resource type="Script" uid="uid://bv4qxxs5drakv" path="res://Scripts/UI/Components/DiscordSettings.gd" id="10_xgptq"]
+[ext_resource type="Script" uid="uid://byyu6rtd5g76f" path="res://Scripts/UI/Components/PlayerSettings.gd" id="12_h1rhx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j617b"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.1254902, 0.1254902, 0.1254902, 0)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bc0ag"]
+content_margin_top = 4.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_japnt"]
+content_margin_left = 9.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctn7q"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.46358675, 0.46358675, 0.4635867, 1)
+border_color = Color(0.75686276, 0.32941177, 0.5294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uxyrx"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.75686276, 0.32941177, 0.5294118, 1)
+border_color = Color(0.75686276, 0.32941177, 0.5294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cty8o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ub5km"]
+
+[node name="ConfigControl" type="Control" unique_id=106539680 node_paths=PackedStringArray("window", "bg_color")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jvm1o")
+window = NodePath("Window")
+bg_color = NodePath("BgColor")
+
+[node name="BgColor" type="ColorRect" parent="." unique_id=73907919]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+
+[node name="Window" type="Window" parent="." unique_id=992898370]
+oversampling_override = 1.0
+title = "Settings"
+initial_position = 2
+size = Vector2i(600, 400)
+visible = false
+exclusive = true
+force_native = true
+
+[node name="BgColor" type="ColorRect" parent="Window" unique_id=662733210]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="TabContainer" type="TabContainer" parent="Window" unique_id=2032555993]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 9.0
+offset_right = -18.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/side_margin = 11
+theme_override_constants/tab_separation = 16
+theme_override_constants/icon_separation = 0
+theme_override_constants/icon_max_width = 16
+theme_override_font_sizes/font_size = 14
+theme_override_styles/panel = SubResource("StyleBoxFlat_j617b")
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_bc0ag")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_japnt")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_ctn7q")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_uxyrx")
+tab_alignment = 1
+current_tab = 0
+tabs_position = 1
+tab_0/icon = ExtResource("2_bc0ag")
+tab_1/icon = ExtResource("3_japnt")
+tab_2/icon = ExtResource("4_uxyrx")
+
+[node name="LibraryPathSettings" type="Control" parent="Window/TabContainer" unique_id=2033530882 node_paths=PackedStringArray("file_dialog", "scan_window", "path_container", "scan_button", "add_path_button")]
+layout_mode = 2
+script = ExtResource("5_msdiq")
+file_dialog = NodePath("FileDialog")
+scan_window = NodePath("ScanWindow")
+path_container = NodePath("DirectoriesFodableContainer/ScrollContainer/VBoxContainer")
+scan_button = NodePath("ScanButton")
+add_path_button = NodePath("AddPathButton")
+path_node = ExtResource("2_iix6l")
+metadata/_tab_index = 0
+metadata/_tab_name = ""
+
+[node name="DirectoriesFodableContainer" type="FoldableContainer" parent="Window/TabContainer/LibraryPathSettings" unique_id=1274589598]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0300001
+offset_left = -2.0
+offset_top = 221.0
+offset_right = -20.140076
+offset_bottom = 306.0
+title = "Directories"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Window/TabContainer/LibraryPathSettings/DirectoriesFodableContainer" unique_id=2123402477]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/TabContainer/LibraryPathSettings/DirectoriesFodableContainer/ScrollContainer" unique_id=1058287963]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddPathButton" type="Button" parent="Window/TabContainer/LibraryPathSettings" unique_id=1431828589]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.99100006
+anchor_right = 0.99100006
+offset_left = -32.15802
+offset_top = 220.0
+offset_right = -0.15802002
+offset_bottom = 252.0
+icon = ExtResource("2_j617b")
+flat = true
+
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/LibraryPathSettings" unique_id=1848698217]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99100006
+anchor_bottom = 0.591
+offset_left = 3.0
+offset_top = 81.0
+offset_right = -0.15802002
+offset_bottom = -0.027999878
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
+bbcode_enabled = true
+text = "[font_size=14px]You can scan your music library by adding the paths in the button below. Click [/font_size] [font_size=12px][code][color=fbb][bgcolor=#2a2a2a]Scan[/bgcolor][/color][/code][/font_size] to start scanning songs
+
+[font_size=12px] [color=fdee00]Warning: You will not be able to close this window or the main window while the scan is in progress, you can check the progress via the progress bar[/color]
+[/font_size]"
+justification_flags = 171
+
+[node name="LibraryLabel" type="Label" parent="Window/TabContainer/LibraryPathSettings" unique_id=304251991]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.019
+offset_left = 4.0
+offset_top = 3.0
+offset_right = -320.22205
+offset_bottom = 70.0
+text = "Library"
+label_settings = ExtResource("7_ctn7q")
+
+[node name="ScanButton" type="Button" parent="Window/TabContainer/LibraryPathSettings" unique_id=1616747805]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.99100006
+anchor_right = 0.99100006
+offset_left = -86.15802
+offset_top = 17.0
+offset_right = -13.15802
+offset_bottom = 49.0
+text = "Scan"
+icon = ExtResource("4_uxyrx")
+flat = true
+
+[node name="FileDialog" type="FileDialog" parent="Window/TabContainer/LibraryPathSettings" unique_id=1018165290]
+title = "Open a Directory"
+file_mode = 2
+display_mode = 1
+access = 2
+use_native_dialog = true
+
+[node name="ScanWindow" parent="Window/TabContainer/LibraryPathSettings" unique_id=887761806 instance=ExtResource("9_53ouv")]
+
+[node name="DiscordSettings" type="Control" parent="Window/TabContainer" unique_id=467708824 node_paths=PackedStringArray("show_album_chkbn", "discord_rp_chkbn")]
+visible = false
+layout_mode = 2
+script = ExtResource("10_xgptq")
+show_album_chkbn = NodePath("ShowArtRPCheckButton")
+discord_rp_chkbn = NodePath("RPEnableCheckButton")
+metadata/_tab_index = 1
+metadata/_tab_name = ""
+
+[node name="Label" type="Label" parent="Window/TabContainer/DiscordSettings" unique_id=819673279]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 540.0
+offset_bottom = 58.0
+text = "Discord Integration"
+label_settings = ExtResource("7_ctn7q")
+
+[node name="RPEnableCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=1648470495]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 180.0
+offset_right = 526.0
+offset_bottom = 211.0
+theme_override_font_sizes/font_size = 14
+text = "Rich Presence Enabled"
+icon = ExtResource("3_japnt")
+flat = true
+
+[node name="ShowArtRPCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=433056767]
+layout_mode = 1
+offset_left = 3.0
+offset_top = 214.0
+offset_right = 525.0
+offset_bottom = 254.0
+theme_override_font_sizes/font_size = 14
+text = "Show album name (restart required)"
+icon = ExtResource("8_jm2bs")
+
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/DiscordSettings" unique_id=754668835]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99100006
+anchor_bottom = 0.591
+offset_left = 9.0
+offset_top = 79.0
+offset_right = -24.15802
+offset_bottom = -32.028
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
+bbcode_enabled = true
+text = "[font_size=14px]PlayStar has Rich Presence that connects with your [color=lightblue]Discord[/color], showing to your friends the current song you are listening to. You can enable/disable by any time you want[/font_size]
+"
+justification_flags = 171
+
+[node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389]
+visible = false
+layout_mode = 2
+script = ExtResource("12_h1rhx")
+metadata/_tab_index = 2
+metadata/_tab_name = ""
+
+[node name="Label" type="Label" parent="Window/TabContainer/PlayerSettings" unique_id=487895353]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 545.0
+offset_bottom = 65.0
+text = "Player"
+label_settings = ExtResource("7_ctn7q")
+
+[node name="IgnoreUnCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2060338751]
+layout_mode = 0
+offset_top = 195.0
+offset_right = 548.0
+offset_bottom = 227.0
+text = "Ignore 'Unknown' artists"
+icon = ExtResource("8_m628n")
+flat = true
+
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/PlayerSettings" unique_id=1316096041]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99100006
+anchor_bottom = 0.591
+offset_left = 9.0
+offset_top = 91.0
+offset_right = -8.15802
+offset_bottom = -20.028
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
+bbcode_enabled = true
+text = "[font_size=14px]Here you can set settings to PlayStar, like an option to ignore artist's without tag ('Unknown')[/font_size]
+"
+justification_flags = 171

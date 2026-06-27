@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="4_xembi"]
 [ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8q5a"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p518v"]
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -64,7 +64,7 @@ offset_top = -21.0
 offset_right = 54.0
 offset_bottom = 21.0
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r8q5a")
+theme_override_styles/panel = SubResource("StyleBoxFlat_p518v")
 script = ExtResource("1_dgc0n")
 radius_bottom_left = 4
 radius_bottom_right = 4
