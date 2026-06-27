@@ -26,7 +26,11 @@ func _ready() -> void:
 	scan_button.pressed.connect(_on_scan_pressed)
 	add_path_button.pressed.connect(_on_add_pressed)
 
+	scan_button.disabled = true
+
 	load_config_to_ui()
+
+
 
 
 func _component_missing(components: Array, location: String) -> bool:
@@ -37,8 +41,14 @@ func _component_missing(components: Array, location: String) -> bool:
 
 	return any_missing
 
+
+func update_configs() -> void:
+	current_config = UserGlobals.get_config()
+
+
 func scan_directories(_dir_list: Array[String]) -> void:
 	pass
+
 
 func add_path_to_ui(path: String) -> void:
 	# verify components
@@ -60,21 +70,20 @@ func add_path_to_ui(path: String) -> void:
 
 
 func load_config_to_ui() -> void:
-	if !current_config:
-		current_config = UserGlobals.get_config()
+	update_configs()
 
 	var paths: Array[String] = current_config.scan_paths
 	for path in paths:
 		print("Got path: %s. Adding to UI" % path)
 		add_path_to_ui(path)
 
+	scan_button.disabled = paths.is_empty()
 
 #region Signals
 
 func _on_path_delete_requested(path: String) -> void:
 	if !path: push_warning("Missing path")
-	if !current_config:
-		current_config = UserGlobals.get_config()
+	update_configs()
 
 	var _cache_paths: Array[String] = []
 	_cache_paths = current_config.scan_paths.duplicate()
@@ -85,21 +94,32 @@ func _on_path_delete_requested(path: String) -> void:
 
 	_cache_paths.remove_at(index)
 	current_config.scan_paths = _cache_paths
+
+	if _cache_paths.is_empty():
+		if scan_button:
+			scan_button.disabled = true
+
 	UserGlobals.save_config(current_config)
 
 
 func _on_scan_pressed() -> void:
-	pass
+	update_configs()
+	if _component_missing(
+		[scan_window],
+		"LibraryPathSettings._on_scan_pressed"
+	): return;
+
+	var paths = current_config.scan_paths
+	scan_window.set_dirs(paths)
+	scan_window.show()
+	scan_window.start_scan_process()
 
 func _on_add_pressed() -> void:
 	file_dialog.popup_centered()
 
 func _on_dir_selected(path: String) -> void:
 	if !path: push_warning("Missing path"); return;
-	if !current_config:
-		current_config = UserGlobals.get_config()
-
-	print("LibraryPathSettings._on_dir_selected: Trying to add path %s to cache" % path)
+	update_configs()
 
 	var _cache_paths: Array[String] = []
 	_cache_paths = current_config.scan_paths.duplicate()
@@ -107,16 +127,16 @@ func _on_dir_selected(path: String) -> void:
 	# If already exists, then quit
 	for x in _cache_paths:
 		if x == path:
-			print("%s already in cache, returning..." % path)
 			return
 
 	_cache_paths.append(path)
 
-	print("Adding path to UI")
 	add_path_to_ui(path)
-
-	print("Saving path to user")
 	current_config.scan_paths = _cache_paths
+
+	if scan_button:
+		scan_button.disabled = false
+
 	UserGlobals.save_config(UserGlobals.current_config)
 
 #endregion

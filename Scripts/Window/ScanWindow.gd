@@ -27,6 +27,9 @@ func _ready() -> void:
 	scanner_node.SongsScanEnd.connect(_on_scan_end)
 	indexer_node.SongsIndexEnd.connect(_on_index_end)
 
+	self.close_requested.connect(_close_requested)
+
+
 
 func set_dirs(new_paths: Array[String]) -> void:
 	paths = new_paths
@@ -50,7 +53,7 @@ func _track_current_progress(event: ScanEvent) -> void:
 
 
 func start_scan_process() -> void:
-	status_label.text = ""
+	status_label.text = "Initializing..."
 	progress_bar.value = 0.0
 
 	# slots = N folders + 1 (indexer)
@@ -89,7 +92,8 @@ func _close_requested() -> void:
 	if Locker.is_scan_locked():
 		return
 
-	queue_free()
+	#queue_free()
+	self.hide()
 
 
 func _on_scan_end() -> void:
