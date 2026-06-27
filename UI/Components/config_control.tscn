@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dem024irhq13j" path="res://assets/icons/iconoir/user.svg" id="8_m628n"]
 [ext_resource type="PackedScene" uid="uid://bu5h25p7jmhal" path="res://Window/ScanWindow.tscn" id="9_53ouv"]
 [ext_resource type="Script" uid="uid://bv4qxxs5drakv" path="res://Scripts/UI/Components/DiscordSettings.gd" id="10_xgptq"]
+[ext_resource type="Script" uid="uid://byyu6rtd5g76f" path="res://Scripts/UI/Components/PlayerSettings.gd" id="12_h1rhx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j617b"]
 content_margin_left = 16.0
@@ -285,6 +286,7 @@ justification_flags = 171
 [node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389]
 visible = false
 layout_mode = 2
+script = ExtResource("12_h1rhx")
 metadata/_tab_index = 2
 metadata/_tab_name = ""
 
