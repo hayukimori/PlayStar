@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://nix4aiekd2nh"]
+
+[ext_resource type="Script" uid="uid://ct1mm04ja1k0c" path="res://Scripts/UI/Components/PathButton.gd" id="1_06588"]
+[ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="1_fy2fy"]
+
+[node name="HFlowContainer" type="HBoxContainer" unique_id=1922499181]
+offset_top = 1.0
+offset_right = 183.0
+offset_bottom = 46.0
+script = ExtResource("1_06588")
+
+[node name="DeleteButton" type="Button" parent="." unique_id=1966227076]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("1_fy2fy")
+flat = true
+expand_icon = true
+
+[node name="PathLabel" type="Label" parent="." unique_id=2126873238]
+layout_mode = 2
+text = "{path}"
