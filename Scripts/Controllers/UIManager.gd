@@ -15,6 +15,8 @@ class_name UIManager
 @export var search_results_container: FreezableBoxContainer
 @export var shuffle_button: ShuffleButton
 @export var repeat_mode_button: RepeatButton
+@export var search_button: Button
+@export var search_control: Control
 @export var search_bar_line_edit: SearchBar
 @export var songs_button_list_scroll_container: ScrollContainer
 @export var songs_button_list: FreezableBoxContainer
@@ -60,15 +62,16 @@ func _ready() -> void:
 	if progress_slider: progress_slider.value_changed.connect(_on_h_slider_value_changed)
 	if reload_playlist_button: reload_playlist_button.pressed.connect(_on_reload_requested)
 	if volume_slider: volume_slider.value_changed.connect(_on_volume_slider_value_changed)
+	if search_button: search_button.pressed.connect(_on_toggle_search)
 
 	if search_bar_line_edit:
 		search_bar_line_edit.render_results.connect(_on_search_bar_render_results)
 		search_bar_line_edit.render_default.connect(_on_search_bar_render_default)
 
-	# SignalBus.scroll_to_current was moved to MainController
-
+	SignalBus.scroll_to_current.connect(_on_scroll_to_current)
 	SignalBus.volume_changed_externally.connect(_on_volume_changed_external)
 	SignalBus.song_changed.connect(set_playing_now)
+	SignalBus.toggle_search.connect(_on_toggle_search)
 
 
 
@@ -266,9 +269,9 @@ func _on_song_selected(song: SongModel) -> void:
 	SignalBus.emit_song_selected(song)
 
 func _on_scroll_to_current() -> void:
-	# REDIRECT: Now MainController listens to SignalBus.scroll_to_current
-	# and calls ui_manager.scroll_to_song(playing_now)
-	pass
+	# INTEGRATION: MainController needs to emit scroll_to_current with current songg,
+	# or UIManager can listen to scroll_to_current from a SongModel
+	SignalBus.emit_scroll_to_current_requested()
 
 func _on_shuffle_button_toggled(state: bool) -> void:
 	SignalBus.emit_toggle_shuffle_to_state(state)
@@ -291,6 +294,18 @@ func _on_volume_changed_external(value: int) -> void:
 
 func _on_h_slider_value_changed(value: float) -> void:
 	SignalBus.emit_seek_by_percentage(value)
+
+
+func _on_toggle_search() -> void:
+	if !search_bar_line_edit: return
+	if !search_control: return
+
+	var vsb = search_control.visible
+
+	if vsb: search_control.hide()
+	else: search_control.show()
+
+
 
 func _on_search_bar_render_results(results: Array) -> void:
 	# INTEGRATION: UIManager needs access to current_play_queue to filter
