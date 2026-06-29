@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://c2q124d0m5w0e"]
+
+[ext_resource type="Texture2D" uid="uid://bwqx3eppxgd5j" path="res://assets/icons/iconoir/playlist.svg" id="1_ggwl1"]
+[ext_resource type="Script" uid="uid://bufwxlahn1vob" path="res://Scripts/UI/Components/PlaylistButton.gd" id="1_rsogw"]
+
+[sub_resource type="SystemFont" id="SystemFont_mkud7"]
+font_names = PackedStringArray("Noto Sans")
+
+[sub_resource type="LabelSettings" id="LabelSettings_rsogw"]
+font = SubResource("SystemFont_mkud7")
+
+[sub_resource type="SystemFont" id="SystemFont_ub5km"]
+font_names = PackedStringArray("Noto Sans")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
+font = SubResource("SystemFont_ub5km")
+font_size = 12
+
+[node name="PlaylistButton" type="Button" unique_id=1125917547]
+custom_minimum_size = Vector2(0, 64)
+offset_right = 576.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+flat = true
+script = ExtResource("1_rsogw")
+
+[node name="PlaylistIconstatic" type="TextureRect" parent="." unique_id=876258217]
+layout_mode = 1
+offset_left = 15.0
+offset_top = 17.0
+offset_right = 47.0
+offset_bottom = 49.0
+texture = ExtResource("1_ggwl1")
+expand_mode = 1
+
+[node name="NameLabbel" type="Label" parent="." unique_id=997707022]
+layout_mode = 1
+offset_left = 67.0
+offset_top = 12.0
+offset_right = 396.0
+offset_bottom = 35.0
+text = "Playlist Name"
+label_settings = SubResource("LabelSettings_rsogw")
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="SongCountLabel" type="Label" parent="." unique_id=1669413848]
+layout_mode = 1
+offset_left = 67.0
+offset_top = 35.0
+offset_right = 188.0
+offset_bottom = 58.0
+text = "0 Songs"
+label_settings = SubResource("LabelSettings_cty8o")
+clip_text = true
+text_overrun_behavior = 3
