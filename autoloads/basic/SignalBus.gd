@@ -50,7 +50,7 @@ signal request_playlist(playlist: PlaylistModel, index: int)
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)
 signal request_album_to_playlist(album: AlbumModel)
-signal request_artist_to_playlist
+signal request_artist_to_playlist(artist: ArtistModel)
 signal request_playlist_delete(playlist: PlaylistModel)
 
 # -> Global signals
@@ -126,8 +126,8 @@ func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)
 func emit_request_album_to_playlist(album: AlbumModel) -> void: request_album_to_playlist.emit(album)
+func emit_request_artist_to_playlist(artist: ArtistModel) -> void: request_artist_to_playlist.emit(artist)
 func emit_request_playlist_delete(playlist: PlaylistModel) -> void: request_playlist_delete.emit(playlist)
-func emit_request_artist_to_playlist() -> void: request_artist_to_playlist.emit()
 
 
 func emit_load_all_songs() -> void: load_all_songs.emit()
