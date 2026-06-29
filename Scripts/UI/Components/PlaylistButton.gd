@@ -23,3 +23,7 @@ func _set_ui() -> void:
 
 func _pressed() -> void:
 	playlist_clicked.emit(playlist_object)
+
+
+func self_destroy() -> void:
+	queue_free()

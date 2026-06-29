@@ -32,5 +32,4 @@ func _open_as_native() -> void:
 
 ## Opens window setting `force_native = false`
 func _open_as_internal() -> void:
-	force_native = false
 	self.show()

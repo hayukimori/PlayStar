@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://dbwh1w0ytq523"]
+
+[ext_resource type="Script" uid="uid://dby7cshen5y4e" path="res://Scripts/Window/AddToPlaylistWindow.gd" id="1_dmcru"]
+[ext_resource type="PackedScene" uid="uid://c2q124d0m5w0e" path="res://UI/Components/PlaylistButton.tscn" id="2_e7l8s"]
+[ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="2_iajm3"]
+[ext_resource type="Script" uid="uid://ckjoncstnkvgy" path="res://Scripts/Window/NewPlaylistWindow.gd" id="3_e7l8s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pc4if"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="AddToPlaylistWindow" type="Window" unique_id=1334973188 node_paths=PackedStringArray("playlists_vbc", "new_playlist_btn", "new_playlist_win")]
+oversampling_override = 1.0
+title = "Add {content} to "
+initial_position = 4
+size = Vector2i(504, 335)
+visible = false
+script = ExtResource("1_dmcru")
+playlists_vbc = NodePath("AddToPlaylistControl/ScrollContainer/VBoxContainer/VBoxContainer")
+playlist_btn_scene = ExtResource("2_e7l8s")
+new_playlist_btn = NodePath("AddToPlaylistControl/ScrollContainer/VBoxContainer/AddPlaylistButton")
+new_playlist_win = NodePath("AddToPlaylistControl/NewPlaylistHWindow")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="AddToPlaylistControl" type="Control" parent="." unique_id=986107743]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl" unique_id=118922319]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="AddToPlaylistControl" unique_id=883599415]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = 23.0
+offset_right = -41.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AddToPlaylistControl/ScrollContainer" unique_id=256812549]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddPlaylistButton" type="Button" parent="AddToPlaylistControl/ScrollContainer/VBoxContainer" unique_id=915541489]
+layout_mode = 2
+icon = ExtResource("2_iajm3")
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AddToPlaylistControl/ScrollContainer/VBoxContainer" unique_id=1660008802]
+layout_mode = 2
+
+[node name="NewPlaylistHWindow" type="Window" parent="AddToPlaylistControl" unique_id=458288811 node_paths=PackedStringArray("line_edit", "confirm_btn")]
+oversampling_override = 1.0
+title = "New Playlist"
+initial_position = 4
+size = Vector2i(381, 100)
+visible = false
+script = ExtResource("3_e7l8s")
+line_edit = NodePath("NewPlaylistControl/PlaylistNameLineEdit")
+confirm_btn = NodePath("NewPlaylistControl/ConfirmButton")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="NewPlaylistControl" type="Control" parent="AddToPlaylistControl/NewPlaylistHWindow" unique_id=1220684004]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1453750053]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="PlaylistNameLineEdit" type="LineEdit" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=43376162]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99500006
+offset_left = 9.0
+offset_top = 27.0
+offset_right = -54.09503
+offset_bottom = 66.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_pc4if")
+placeholder_text = "Playlist Name"
+
+[node name="ConfirmButton" type="Button" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1217852353]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 327.0
+offset_top = 28.0
+offset_right = -4.0
+offset_bottom = 65.0
+grow_horizontal = 2
+icon = ExtResource("2_iajm3")
+flat = true
+icon_alignment = 1
+expand_icon = true

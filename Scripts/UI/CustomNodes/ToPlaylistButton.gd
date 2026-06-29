@@ -70,3 +70,7 @@ func _call_as_artist() -> void:
 func _call_as_album() -> void:
 	var ct = content as AlbumModel
 	SignalBus.emit_request_album_to_playlist(ct)
+
+
+func _pressed() -> void:
+	call_add()

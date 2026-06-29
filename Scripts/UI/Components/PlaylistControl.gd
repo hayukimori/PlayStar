@@ -36,6 +36,7 @@ func _ready() -> void:
 	SignalBus.playlist_deleted.connect(_on_playlist_deleted)
 	SignalBus.playlist_added.connect(_on_playlist_added)
 
+	self.visibility_changed.connect(_on_visibility_changed)
 	_load_ui_playlists()
 
 # ─── Playlist UI ──────────────────────────────────────────────────────────────
@@ -178,3 +179,7 @@ func delete_playlist(playlist: PlaylistModel) -> void:
 func _on_new_playlist_btn() -> void:
 	if !new_playlist_win: return
 	new_playlist_win.open()
+
+
+func _on_visibility_changed() -> void:
+	if visible: _reload_ui_playlists()
