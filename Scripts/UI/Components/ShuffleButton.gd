@@ -23,4 +23,4 @@ func _change_texture(state: bool) -> void:
 
 func _toggled(toggled_on: bool) -> void:
 	_change_texture(toggled_on)
-	toggle_shuffle.emit()
+	toggle_shuffle.emit(toggled_on)

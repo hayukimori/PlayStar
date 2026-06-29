@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="7_lo1cj"]
 [ext_resource type="Texture2D" uid="uid://beje2iub52bgy" path="res://assets/icons/iconoir/skip-next-solid.svg" id="7_p2ped"]
 [ext_resource type="StyleBox" uid="uid://cing8rm8q0pb7" path="res://UI/ComponentThemes/shadow_panel.tres" id="7_thmlj"]
+[ext_resource type="Script" uid="uid://dibik6jm15ai1" path="res://Scripts/Controllers/KeyboardController.gd" id="7_wjxpu"]
 [ext_resource type="Script" uid="uid://ec43qt4c1qc" path="res://Scripts/UI/Components/SearchBar.gd" id="8_axlxv"]
 [ext_resource type="Texture2D" uid="uid://cnnvs52fv66mh" path="res://assets/icons/iconoir/shuffle.svg" id="9_p2ped"]
 [ext_resource type="Texture2D" uid="uid://bnnp2mdqubhr4" path="res://assets/icons/iconoir/repeat.svg" id="9_xggyx"]
@@ -40,7 +41,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c80o5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjxpu"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -55,7 +56,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjxpu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqe4u"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -71,7 +72,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqe4u"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3hyr"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -218,6 +219,9 @@ metadata/_custom_type_script = "uid://dv0efhhllvdfh"
 script = ExtResource("4_hgk7f")
 metadata/_custom_type_script = "uid://cevpo3ffhioh1"
 
+[node name="KeyboardController" type="Node" parent="." unique_id=476862928]
+script = ExtResource("7_wjxpu")
+
 [node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr")]
 script = ExtResource("1_y4nck")
 volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
@@ -294,7 +298,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_c80o5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wjxpu")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -333,7 +337,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wjxpu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fqe4u")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -353,7 +357,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_fqe4u")
+theme_override_styles/panel = SubResource("StyleBoxFlat_g3hyr")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
