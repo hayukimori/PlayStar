@@ -17,13 +17,15 @@ subpixel_positioning = 0
 font = SubResource("SystemFont_ub5km")
 font_size = 12
 
-[node name="PlaylistButton" type="Button" unique_id=1125917547]
+[node name="PlaylistButton" type="Button" unique_id=1125917547 node_paths=PackedStringArray("name_label", "song_count_label")]
 custom_minimum_size = Vector2(0, 64)
 offset_right = 576.0
 offset_bottom = 64.0
 size_flags_horizontal = 3
 flat = true
 script = ExtResource("1_rsogw")
+name_label = NodePath("NameLabbel")
+song_count_label = NodePath("SongCountLabel")
 
 [node name="PlaylistIconstatic" type="TextureRect" parent="." unique_id=876258217]
 layout_mode = 1

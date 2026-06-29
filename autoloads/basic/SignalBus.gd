@@ -59,6 +59,7 @@ signal scroll_to_current
 signal capture_now
 
 signal playlist_deleted(playlist: PlaylistModel)
+signal playlist_added(playlist: PlaylistModel)
 signal playing_now_capture(song: SongModel, texture: Texture2D)
 signal update_queue_window(songs: Array[SongModel])
 signal search_results_requested(results: Array)
@@ -135,6 +136,7 @@ func emit_capture_now() -> void: capture_now.emit()
 
 
 func emit_playlist_deleted(playlist: PlaylistModel) -> void: playlist_deleted.emit(playlist)
+func emit_playlist_added(playlist: PlaylistModel) -> void: playlist_added.emit(playlist)
 func emit_playing_now_capture(song: SongModel, texture: Texture2D) -> void: playing_now_capture.emit(song, texture)
 func emit_update_queue_window(songs: Array[SongModel]) -> void: update_queue_window.emit(songs)
 
