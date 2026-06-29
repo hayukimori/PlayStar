@@ -770,6 +770,7 @@ texture_on = ExtResource("9_p2ped")
 texture_off = ExtResource("29_c80o5")
 
 [node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "volume_slider", "panel")]
+visible = false
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
