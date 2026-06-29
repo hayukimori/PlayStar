@@ -13,7 +13,7 @@ config_version=5
 config/name="PlayStar"
 run/main_scene="uid://cucj2so2q2vo0"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://i2bno848p0tt"
 
 [autoload]
 
