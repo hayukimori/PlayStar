@@ -13,7 +13,7 @@ signal playlist_removal_request(song: SongModel)
 @export var album_art: TextureRectRounded
 @export var hq_btn: Button
 @export var playing_now_bar: ColorRect
-@export var add_to_playlist_btn: Button #TODO: Add ToPlaylistButton
+@export var add_to_playlist_btn: ToPlaylistButton
 @export var remove_from_current_playlist_btn: Button
 
 @onready var original_label_settings: LabelSettings = title_label.label_settings
@@ -38,7 +38,9 @@ func _ready() -> void:
 	var flac = (song_content.FilePath.get_extension() == "flac")
 	if flac: hq_btn.visible = true
 
-	add_to_playlist_btn.pressed.connect(_add_to_playlist)
+	add_to_playlist_btn.content = song_content
+
+	#add_to_playlist_btn.pressed.connect(_add_to_playlist)
 	self.gui_input.connect(_on_button_gui_event)
 	self.pressed.connect(_pressed)
 
@@ -111,10 +113,10 @@ func _on_button_gui_event(event: InputEvent) -> void:
 
 	if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		if click_opened:
-			#add_to_playlist_btn.animate_close()
+			add_to_playlist_btn.animate_close()
 			click_opened = false
 		else:
-			#add_to_playlist_btn.animate_open()
+			add_to_playlist_btn.animate_open()
 			click_opened = true
 
 

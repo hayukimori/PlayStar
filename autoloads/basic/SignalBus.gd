@@ -50,7 +50,7 @@ signal request_playlist(playlist: PlaylistModel, index: int)
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)
 signal request_album_to_playlist(album: AlbumModel)
-signal request_artist_to_playlist
+signal request_artist_to_playlist(artist: ArtistModel)
 signal request_playlist_delete(playlist: PlaylistModel)
 
 # -> Global signals
@@ -59,6 +59,7 @@ signal scroll_to_current
 signal capture_now
 
 signal playlist_deleted(playlist: PlaylistModel)
+signal playlist_added(playlist: PlaylistModel)
 signal playing_now_capture(song: SongModel, texture: Texture2D)
 signal update_queue_window(songs: Array[SongModel])
 signal search_results_requested(results: Array)
@@ -125,8 +126,8 @@ func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)
 func emit_request_album_to_playlist(album: AlbumModel) -> void: request_album_to_playlist.emit(album)
+func emit_request_artist_to_playlist(artist: ArtistModel) -> void: request_artist_to_playlist.emit(artist)
 func emit_request_playlist_delete(playlist: PlaylistModel) -> void: request_playlist_delete.emit(playlist)
-func emit_request_artist_to_playlist() -> void: request_artist_to_playlist.emit()
 
 
 func emit_load_all_songs() -> void: load_all_songs.emit()
@@ -135,6 +136,7 @@ func emit_capture_now() -> void: capture_now.emit()
 
 
 func emit_playlist_deleted(playlist: PlaylistModel) -> void: playlist_deleted.emit(playlist)
+func emit_playlist_added(playlist: PlaylistModel) -> void: playlist_added.emit(playlist)
 func emit_playing_now_capture(song: SongModel, texture: Texture2D) -> void: playing_now_capture.emit(song, texture)
 func emit_update_queue_window(songs: Array[SongModel]) -> void: update_queue_window.emit(songs)
 

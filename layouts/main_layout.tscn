@@ -42,6 +42,10 @@
 [ext_resource type="Texture2D" uid="uid://cchbixqm8o4pl" path="res://assets/icons/iconoir/user-square.svg" id="36_cfy4v"]
 [ext_resource type="Texture2D" uid="uid://bi3h3s663wfbm" path="res://assets/icons/iconoir/album.svg" id="37_hfgkp"]
 [ext_resource type="Texture2D" uid="uid://itj5mdsct5nv" path="res://assets/icons/iconoir/sound-high.svg" id="40_qrbpp"]
+[ext_resource type="Script" uid="uid://ba0c6uv2bona6" path="res://Scripts/Window/CustomWindowNodes/HybridWindow.gd" id="43_cfy4v"]
+[ext_resource type="Script" uid="uid://cijem4fbehf1q" path="res://Scripts/Controllers/WindowManager.gd" id="43_qtwtc"]
+[ext_resource type="PackedScene" uid="uid://dbwh1w0ytq523" path="res://Window/AddToPlaylistWindow.tscn" id="44_rr6jk"]
+[ext_resource type="PackedScene" uid="uid://cd81kbwebskud" path="res://UI/Components/PlaylistControl.tscn" id="45_rr6jk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -50,7 +54,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67y5c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rr6jk"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -65,7 +69,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfy4v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrm2o"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -81,7 +85,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfgkp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6mk2"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -309,7 +313,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_67y5c")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rr6jk")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -348,7 +352,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_cfy4v")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hrm2o")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -368,7 +372,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hfgkp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l6mk2")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -907,3 +911,19 @@ flat = true
 
 [node name="ConfigControl" parent="." unique_id=106539680 instance=ExtResource("26_hgk7f")]
 layout_mode = 1
+
+[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window")]
+script = ExtResource("43_qtwtc")
+playlists_window = NodePath("PlaylistsWindow")
+add_to_playlist_window_fb = ExtResource("44_rr6jk")
+
+[node name="PlaylistsWindow" type="Window" parent="WindowManager" unique_id=450202149]
+oversampling_override = 1.0
+title = "Playlists"
+initial_position = 4
+size = Vector2i(600, 300)
+visible = false
+script = ExtResource("43_cfy4v")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="PlaylistControl" parent="WindowManager/PlaylistsWindow" unique_id=1257508571 instance=ExtResource("45_rr6jk")]

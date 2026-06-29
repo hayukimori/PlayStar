@@ -21,6 +21,8 @@ func setup_user_custom() -> void:
 		"scroll_to_current": SignalBus.emit_scroll_to_current,
 		"settings_shortcut": SignalBus.emit_invoke_settings_menu,
 
+		"playlists_shortcut": SignalBus.emit_invoke_playlists_window,
+
 		"copy_song": SignalBus.emit_copy_song,
 		"capture_playing_now": SignalBus.emit_capture_now
 	}
