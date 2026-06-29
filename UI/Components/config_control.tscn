@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bu5h25p7jmhal" path="res://Window/ScanWindow.tscn" id="9_53ouv"]
 [ext_resource type="Script" uid="uid://bv4qxxs5drakv" path="res://Scripts/UI/Components/DiscordSettings.gd" id="10_xgptq"]
 [ext_resource type="Script" uid="uid://byyu6rtd5g76f" path="res://Scripts/UI/Components/PlayerSettings.gd" id="12_h1rhx"]
+[ext_resource type="Texture2D" uid="uid://4sdx1gx1saee" path="res://assets/icons/iconoir/multi-window.svg" id="14_x1i2h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j617b"]
 content_margin_left = 16.0
@@ -283,11 +284,12 @@ text = "[font_size=14px]PlayStar has Rich Presence that connects with your [colo
 "
 justification_flags = 171
 
-[node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389 node_paths=PackedStringArray("ignore_unknown_artists_btn")]
+[node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389 node_paths=PackedStringArray("ignore_unknown_artists_btn", "native_window_btn")]
 visible = false
 layout_mode = 2
 script = ExtResource("12_h1rhx")
 ignore_unknown_artists_btn = NodePath("IgnoreUnCheckButton")
+native_window_btn = NodePath("NativeWindowCheckButton")
 metadata/_tab_index = 2
 metadata/_tab_name = ""
 
@@ -307,6 +309,15 @@ offset_right = 548.0
 offset_bottom = 227.0
 text = "Ignore 'Unknown' artists"
 icon = ExtResource("8_m628n")
+flat = true
+
+[node name="NativeWindowCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=403455686]
+layout_mode = 0
+offset_top = 237.0
+offset_right = 548.0
+offset_bottom = 269.0
+text = "Use system native window"
+icon = ExtResource("14_x1i2h")
 flat = true
 
 [node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/PlayerSettings" unique_id=1316096041]

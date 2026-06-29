@@ -1,6 +1,7 @@
 extends Control
 
-@export var ignore_unknown_artists_btn: Button
+@export var ignore_unknown_artists_btn: CheckButton
+@export var native_window_btn: CheckButton
 
 var current_config: ConfigModel
 
@@ -10,12 +11,31 @@ func _ready() -> void:
 		return
 
 	ignore_unknown_artists_btn.pressed.connect(_on_ignore_ua_pressed)
+	native_window_btn.pressed.connect(_on_native_win_pressed)
 
-func update_config() -> void: current_config = UserGlobals.get_config()
-func save_config() -> void: UserGlobals.save_config(current_config)
+	load_default_config()
+
+
+func update_config() -> void:
+	current_config = UserGlobals.get_config()
+
+func load_default_config() -> void:
+	update_config()
+	ignore_unknown_artists_btn.button_pressed = current_config.ignore_unknown_artists
+	native_window_btn.button_pressed = current_config.use_native_window
+
+
+func _save_bool_config(property: String, value: bool) -> void:
+	update_config()
+	current_config.set(property, value)
+	UserGlobals.save_config(current_config)
+
 
 func _on_ignore_ua_pressed() -> void:
-	update_config()
 	var value = ignore_unknown_artists_btn.button_pressed
-	current_config.ignore_unknown_artists = value
-	save_config()
+	_save_bool_config("ignore_unknown_artists", value)
+
+
+func _on_native_win_pressed() -> void:
+	var value = native_window_btn.button_pressed
+	_save_bool_config("use_native_window", value)
