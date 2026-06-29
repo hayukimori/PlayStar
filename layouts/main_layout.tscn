@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cucj2so2q2vo0"]
 
-[ext_resource type="Texture2D" uid="uid://c1hdk3oprejvj" path="res://icon.svg" id="1_6tns5"]
 [ext_resource type="Script" uid="uid://c180qco3ryvfa" path="res://Scripts/Players/VlcPlayer.cs" id="1_aqfsf"]
 [ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_awq1b"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="1_od5lq"]
@@ -41,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://cmna7dx27swvx" path="res://assets/icons/iconoir/music-double-note.svg" id="35_67y5c"]
 [ext_resource type="Texture2D" uid="uid://cchbixqm8o4pl" path="res://assets/icons/iconoir/user-square.svg" id="36_cfy4v"]
 [ext_resource type="Texture2D" uid="uid://bi3h3s663wfbm" path="res://assets/icons/iconoir/album.svg" id="37_hfgkp"]
+[ext_resource type="Texture2D" uid="uid://itj5mdsct5nv" path="res://assets/icons/iconoir/sound-high.svg" id="40_qrbpp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -770,7 +770,6 @@ texture_on = ExtResource("9_p2ped")
 texture_off = ExtResource("29_c80o5")
 
 [node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "volume_slider", "panel")]
-visible = false
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -875,13 +874,13 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = -12.5
+offset_left = -21.0
+offset_top = -8.5
 offset_right = -7.0
-offset_bottom = 11.5
+offset_bottom = 8.5
 grow_horizontal = 0
 grow_vertical = 2
-texture = ExtResource("1_6tns5")
+texture = ExtResource("40_qrbpp")
 expand_mode = 1
 
 [node name="ActionButton" type="Button" parent="LeftMenuControl" unique_id=425271801]
