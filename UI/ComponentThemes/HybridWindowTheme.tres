@@ -1,0 +1,33 @@
+[gd_resource type="Theme" format=3 uid="uid://dwgng26nviuk4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlddg"]
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 24.0
+expand_margin_top = 38.0
+expand_margin_right = 24.0
+expand_margin_bottom = 24.0
+shadow_color = Color(0, 0, 0, 0.25490198)
+shadow_size = 8
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x7e1"]
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 0.5529412)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 24.0
+expand_margin_top = 32.0
+expand_margin_right = 24.0
+expand_margin_bottom = 24.0
+shadow_color = Color(0, 0, 0, 0.25490198)
+shadow_size = 8
+shadow_offset = Vector2(4, 4)
+
+[resource]
+Window/styles/embedded_border = SubResource("StyleBoxFlat_vlddg")
+Window/styles/embedded_unfocused_border = SubResource("StyleBoxFlat_7x7e1")

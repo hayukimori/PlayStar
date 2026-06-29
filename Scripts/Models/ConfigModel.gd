@@ -7,3 +7,4 @@ class_name ConfigModel
 @export var last_scan_date: Dictionary = Time.get_date_dict_from_system()
 @export var start_discord_rp: bool = true
 @export var show_album_name: bool = true # Rich Presence
+@export var use_native_window: bool = false
