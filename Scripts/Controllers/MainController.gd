@@ -91,6 +91,8 @@ func _ready() -> void:
 	SignalBus.search_results_requested.connect(_on_search_results_requested)
 	SignalBus.toggle_shuffle_to_state.connect(_change_random_mode)
 	SignalBus.toggle_repeat_to_state.connect(_change_repeat_mode)
+	SignalBus.scroll_to_current.connect(_on_scroll_to_current)
+
 
 	# MPRIS -> Player state sync
 	SignalBus.set_shuffle.connect(_on_mpris_set_shuffle)
@@ -355,6 +357,9 @@ func _on_metadata_ready():
 	emit_signal("update_current_metadata", playing_now)
 	player.Play()
 
+
+func _on_scroll_to_current() -> void:
+	ui_manager.scroll_to_song(playing_now)
 
 func _on_volume_changed_external(value: int) -> void:
 	# INTEGRATION: UIManager emits VolumeChangedExternally via SignalBus

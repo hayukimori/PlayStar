@@ -65,7 +65,8 @@ func _ready() -> void:
 		search_bar_line_edit.render_results.connect(_on_search_bar_render_results)
 		search_bar_line_edit.render_default.connect(_on_search_bar_render_default)
 
-	SignalBus.scroll_to_current.connect(_on_scroll_to_current)
+	# SignalBus.scroll_to_current was moved to MainController
+
 	SignalBus.volume_changed_externally.connect(_on_volume_changed_external)
 	SignalBus.song_changed.connect(set_playing_now)
 
@@ -265,9 +266,9 @@ func _on_song_selected(song: SongModel) -> void:
 	SignalBus.emit_song_selected(song)
 
 func _on_scroll_to_current() -> void:
-	# INTEGRATION: MainController needs to emit scroll_to_current with current songg,
-	# or UIManager can listen to scroll_to_current from a SongModel
-	SignalBus.emit_scroll_to_current_requested()
+	# REDIRECT: Now MainController listens to SignalBus.scroll_to_current
+	# and calls ui_manager.scroll_to_song(playing_now)
+	pass
 
 func _on_shuffle_button_toggled(state: bool) -> void:
 	SignalBus.emit_toggle_shuffle_to_state(state)
