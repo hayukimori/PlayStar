@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://ca7be27paikh3"]
+
+[ext_resource type="Script" uid="uid://ba0c6uv2bona6" path="res://Scripts/Window/CustomWindowNodes/HybridWindow.gd" id="1_iqvuy"]
+[ext_resource type="Script" uid="uid://dqvsvfgld7107" path="res://Scripts/UI/Components/ArtistGroupControl.gd" id="2_4qpyv"]
+[ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="2_42xlk"]
+[ext_resource type="PackedScene" uid="uid://dwd74y77mpc7g" path="res://UI/Components/ArtistButton.tscn" id="4_42xlk"]
+[ext_resource type="Script" uid="uid://dx5kti0cfoy4y" path="res://Scripts/UI/CustomNodes/FlexBoxFreezableGridContainer.gd" id="5_4qpyv"]
+[ext_resource type="Script" uid="uid://ec43qt4c1qc" path="res://Scripts/UI/Components/SearchBar.gd" id="5_42xlk"]
+
+[sub_resource type="SystemFont" id="SystemFont_42xlk"]
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0vej"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42xlk"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0.5106012, 0.5106013, 0.5106011, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56eyv"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ArtistWindow" type="Window" unique_id=424101991]
+oversampling_override = 1.0
+initial_position = 4
+size = Vector2i(700, 300)
+visible = false
+script = ExtResource("1_iqvuy")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="ArtistGroupControl" type="Control" parent="." unique_id=1447718902 node_paths=PackedStringArray("nodes_grid", "search_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4qpyv")
+nodes_grid = NodePath("ScrollContainer/GridContainer")
+search_bar = NodePath("SearchBar")
+artist_scn = ExtResource("4_42xlk")
+
+[node name="BgColor" type="ColorRect" parent="ArtistGroupControl" unique_id=501210216]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ArtistGroupControl" unique_id=1706454021]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.141
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = 8.700001
+offset_right = -35.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_42xlk")
+
+[node name="GridContainer" type="GridContainer" parent="ArtistGroupControl/ScrollContainer" unique_id=1397164569]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+script = ExtResource("5_4qpyv")
+
+[node name="SearchBar" type="LineEdit" parent="ArtistGroupControl" unique_id=83338107]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -265.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = 38.0
+grow_horizontal = 0
+theme_override_fonts/font = SubResource("SystemFont_42xlk")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_m0vej")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_42xlk")
+theme_override_styles/focus = SubResource("StyleBoxFlat_56eyv")
+placeholder_text = "Search...."
+caret_blink = true
+script = ExtResource("5_42xlk")
+search_scope = 3
+search_mode = 1
+metadata/_custom_type_script = "uid://ec43qt4c1qc"

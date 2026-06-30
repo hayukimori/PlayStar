@@ -26,7 +26,7 @@ public partial class SongRepository : Node
             SELECT
                 s.path, s.title, s.length, s.lyrics,
                 al.id, al.title, al.art_path, al.year,
-                ar.id, 
+                ar.id,
                 COALESCE(
                     (SELECT GROUP_CONCAT(name, ', ') FROM (
                         SELECT a.name FROM song_artists sa JOIN artists a ON sa.artist_id = a.id
@@ -61,7 +61,7 @@ public partial class SongRepository : Node
             SELECT
                 s.path, s.title, s.length, s.lyrics,
                 al.id, al.title, al.art_path, al.year,
-                ar.id, 
+                ar.id,
                 COALESCE(
                     (SELECT GROUP_CONCAT(name, ', ') FROM (
                         SELECT a.name FROM song_artists sa JOIN artists a ON sa.artist_id = a.id
@@ -74,7 +74,7 @@ public partial class SongRepository : Node
             LEFT JOIN artists ar ON al.artist_id = ar.id
             LEFT JOIN genres  g  ON al.genre_id  = g.id
             WHERE EXISTS (
-                SELECT 1 FROM song_artists sa_f 
+                SELECT 1 FROM song_artists sa_f
                 WHERE sa_f.song_path = s.path AND sa_f.artist_id = $artistId
             )
             ORDER BY s.title
@@ -98,7 +98,7 @@ public partial class SongRepository : Node
             SELECT
                 s.path, s.title, s.length, s.lyrics,
                 al.id, al.title, al.art_path, al.year,
-                ar.id, 
+                ar.id,
                 COALESCE(
                     (SELECT GROUP_CONCAT(name, ', ') FROM (
                         SELECT a.name FROM song_artists sa JOIN artists a ON sa.artist_id = a.id
@@ -111,7 +111,7 @@ public partial class SongRepository : Node
             LEFT JOIN artists ar ON al.artist_id = ar.id
             LEFT JOIN genres  g  ON al.genre_id  = g.id
             WHERE EXISTS (
-                SELECT 1 FROM song_artists sa_f 
+                SELECT 1 FROM song_artists sa_f
                 WHERE sa_f.song_path = s.path AND sa_f.artist_id = $artistId
             )
             LIMIT 1;
@@ -156,11 +156,11 @@ public partial class SongRepository : Node
                 indexed  = 1
             WHERE path = $path;
         ";
-        cmd.Parameters.AddWithValue("$title",   song.Title   ?? "");
+        cmd.Parameters.AddWithValue("$title", song.Title ?? "");
         cmd.Parameters.AddWithValue("$albumId", albumId);
-        cmd.Parameters.AddWithValue("$length",  song.Length);
-        cmd.Parameters.AddWithValue("$lyrics",  song.Lyrics  ?? "");
-        cmd.Parameters.AddWithValue("$path",    song.FilePath);
+        cmd.Parameters.AddWithValue("$length", song.Length);
+        cmd.Parameters.AddWithValue("$lyrics", song.Lyrics ?? "");
+        cmd.Parameters.AddWithValue("$path", song.FilePath);
         cmd.ExecuteNonQuery();
     }
 
@@ -190,15 +190,15 @@ public partial class SongRepository : Node
     {
         FilePath = r.GetString(0),
         FileName = System.IO.Path.GetFileName(r.GetString(0)),
-        Title    = r.IsDBNull(1)  ? "" : r.GetString(1),
-        Length   = r.IsDBNull(2)  ? 0  : r.GetInt64(2),
-        Lyrics   = r.IsDBNull(3)  ? "" : r.GetString(3),
-        AlbumId  = r.IsDBNull(4)  ? 0  : r.GetInt64(4),
-        Album    = r.IsDBNull(5)  ? "" : r.GetString(5),
-        ArtPath  = r.IsDBNull(6)  ? "" : r.GetString(6),
-        Year     = r.IsDBNull(7)  ? 0  : (uint)r.GetInt32(7),
-        Artist   = r.IsDBNull(9)  ? "" : r.GetString(9), // Agora retorna a concatenação real dos artistas
-        Genre    = r.IsDBNull(10) ? "" : r.GetString(10),
+        Title = r.IsDBNull(1) ? "" : r.GetString(1),
+        Length = r.IsDBNull(2) ? 0 : r.GetInt64(2),
+        Lyrics = r.IsDBNull(3) ? "" : r.GetString(3),
+        AlbumId = r.IsDBNull(4) ? 0 : r.GetInt64(4),
+        Album = r.IsDBNull(5) ? "" : r.GetString(5),
+        ArtPath = r.IsDBNull(6) ? "" : r.GetString(6),
+        Year = r.IsDBNull(7) ? 0 : (uint)r.GetInt32(7),
+        Artist = r.IsDBNull(9) ? "" : r.GetString(9), // Agora retorna a concatenação real dos artistas
+        Genre = r.IsDBNull(10) ? "" : r.GetString(10),
     };
     #endregion
 }

@@ -28,8 +28,7 @@ func _open_albums() -> void:
 	push_warning("Not implemented")
 
 func _open_artists() -> void:
-	#artists_window.open()
-	push_warning("Not implemented")
+	artists_window.open()
 
 
 

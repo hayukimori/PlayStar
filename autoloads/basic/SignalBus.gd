@@ -39,6 +39,8 @@ signal invoke_albuns_window
 signal invoke_playing_window
 signal invoke_queue_window
 
+signal show_artist_window(artist: ArtistModel, texture)
+
 # ------------- MISC --------------------
 signal reload_request
 signal discord_rp_changed(value: bool)
@@ -113,6 +115,7 @@ func emit_invoke_artists_window() -> void: invoke_artists_window.emit()
 func emit_invoke_albuns_window() -> void: invoke_albuns_window.emit()
 func emit_invoke_playing_window() -> void: invoke_playing_window.emit()
 func emit_invoke_queue_window() -> void: invoke_queue_window.emit()
+func emit_show_artist_window(artist: ArtistModel, texture) -> void: show_artist_window.emit(artist, texture)
 
 
 

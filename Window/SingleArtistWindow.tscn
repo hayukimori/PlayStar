@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://b4myj8iejcbpo"]
+
+[ext_resource type="Script" uid="uid://ctgkng48jd44y" path="res://Scripts/Window/SingleArtistWindow.gd" id="1_biw6a"]
+[ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="2_cwfsn"]
+[ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="2_g478s"]
+[ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="3_biw6a"]
+[ext_resource type="Texture2D" uid="uid://cbh5ngr7pc2nd" path="res://assets/icons/iconoir/playlist-plus.svg" id="4_p51ci"]
+[ext_resource type="Script" uid="uid://ct31sfsan3rbl" path="res://Scripts/UI/CustomNodes/ToPlaylistButton.gd" id="5_g478s"]
+[ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="6_cwfsn"]
+[ext_resource type="PackedScene" uid="uid://mfgk5vvdxgfm" path="res://UI/Components/AlbumButtonCovered.tscn" id="7_biw6a"]
+[ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="9_2mqg1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p51ci"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[sub_resource type="SystemFont" id="SystemFont_ub5km"]
+font_names = PackedStringArray("Noto Sans CJK JP")
+font_weight = 475
+
+[sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
+font = SubResource("SystemFont_ub5km")
+font_size = 14
+
+[node name="SingleArtistWindow" type="Window" unique_id=845192087 node_paths=PackedStringArray("name_label", "art_trr", "add_to_playlist", "albums_scroll_container", "songs_scroll_container", "albums_hbox", "songs_vbox")]
+oversampling_override = 1.0
+title = "{ ArtistModel.Name }"
+initial_position = 4
+size = Vector2i(776, 418)
+visible = false
+script = ExtResource("1_biw6a")
+name_label = NodePath("SingleArtistControl/Control/NameLabel")
+art_trr = NodePath("SingleArtistControl/Control/TextureRectRounded")
+add_to_playlist = NodePath("SingleArtistControl/Control/HBoxContainer/ToPlaylistButton")
+albums_scroll_container = NodePath("SingleArtistControl/AlbumsScrollContainer")
+songs_scroll_container = NodePath("SingleArtistControl/SongsScrollContainer")
+albums_hbox = NodePath("SingleArtistControl/AlbumsScrollContainer/HBoxContainer")
+songs_vbox = NodePath("SingleArtistControl/SongsScrollContainer/VBoxContainer")
+song_button_cover_scene = ExtResource("2_g478s")
+album_button_cover_scene = ExtResource("7_biw6a")
+default_album_art = ExtResource("3_biw6a")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="SingleArtistControl" type="Control" parent="." unique_id=725011672]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BgColor" type="ColorRect" parent="SingleArtistControl" unique_id=1315191392]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+
+[node name="Control" type="Control" parent="SingleArtistControl" unique_id=1210448217]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -155.0
+offset_right = 282.0
+offset_bottom = 155.0
+grow_vertical = 2
+
+[node name="TextureRectRounded" type="Panel" parent="SingleArtistControl/Control" unique_id=819974396]
+clip_children = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.80300003
+offset_left = 68.0
+offset_top = 34.0
+offset_right = -28.037003
+offset_bottom = 162.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p51ci")
+script = ExtResource("2_cwfsn")
+texture = ExtResource("3_biw6a")
+stretch_mode = 6
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="NameLabel" type="Label" parent="SingleArtistControl/Control" unique_id=921576862]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 34.0
+offset_top = 185.0
+offset_right = -55.0
+offset_bottom = 208.0
+text = "Artist Name"
+label_settings = SubResource("LabelSettings_cty8o")
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SingleArtistControl/Control" unique_id=1881053894]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 37.0
+offset_top = 219.0
+offset_right = -58.0
+offset_bottom = 249.0
+alignment = 1
+
+[node name="ToPlaylistButton" type="Button" parent="SingleArtistControl/Control/HBoxContainer" unique_id=741458129]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("4_p51ci")
+flat = true
+expand_icon = true
+script = ExtResource("5_g478s")
+ambient = 1
+btn_static = true
+metadata/_custom_type_script = "uid://ct31sfsan3rbl"
+
+[node name="AlbumsScrollContainer" type="ScrollContainer" parent="SingleArtistControl" unique_id=699214298]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33900002
+anchor_right = 1.0
+offset_left = 23.243988
+offset_top = 34.0
+offset_right = -20.0
+offset_bottom = 138.0
+grow_horizontal = 0
+theme = ExtResource("6_cwfsn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SingleArtistControl/AlbumsScrollContainer" unique_id=1314978268]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("9_2mqg1")
+
+[node name="SongsScrollContainer" type="ScrollContainer" parent="SingleArtistControl" unique_id=106810724]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35900003
+anchor_right = 1.0
+anchor_bottom = 1.005
+offset_left = 0.4159851
+offset_top = 163.0
+offset_right = -15.0
+offset_bottom = -25.089996
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SingleArtistControl/SongsScrollContainer" unique_id=1669477244]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("9_2mqg1")

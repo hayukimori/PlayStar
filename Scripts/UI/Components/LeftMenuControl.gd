@@ -101,6 +101,7 @@ func _on_all_songs_btn_pressed() -> void:
 	SignalBus.emit_load_all_songs()
 
 func _on_artists_btn_pressed() -> void:
+	print("Invoking artists window")
 	SignalBus.emit_invoke_artists_window()
 
 func _on_albuns_btn_pressed() -> void:
