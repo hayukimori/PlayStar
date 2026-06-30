@@ -2,7 +2,7 @@ extends LineEdit
 class_name SearchBar
 
 enum SearchMode { SONGS, ARTIST, ALBUM}
-enum SearchScope { QUEUE, PLAYLIST, FULL }
+enum SearchScope { QUEUE, PLAYLIST, FULL, ARTIST_LOCAL }
 
 signal render_results(results: Array)
 signal render_default()
@@ -24,6 +24,10 @@ var _pending_text : String = ""
 
 @export_group("Full Scope")
 @export var ignore_unknown: bool = true
+
+@export_group("Artist Scope")
+@export var current_artists: Array
+
 
 
 func _ready():
@@ -48,8 +52,7 @@ func _search_internal() -> void:
                 SearchScope.QUEUE: _as_current_queue()
                 SearchScope.PLAYLIST: _as_playlist()
                 SearchScope.FULL: _as_full()
-
-
+                SearchScope.ARTIST_LOCAL: _as_artist_local()
 
 
 func _as_current_queue() -> void:
@@ -73,6 +76,16 @@ func _as_playlist() -> void:
 
 func _as_full() -> void:
         _do_search()
+
+
+func _as_artist_local() -> void:
+    if current_artists.is_empty():
+        push_error("No artists array is set")
+        return
+
+    var term := self.text.to_lower()
+    var results := current_artists.filter(func(a): return term in a.Name.to_lower())
+    render_results.emit(results)
 
 
 func get_compatible_from_array(obj: Array[SongModel]) -> Array[SongModel]:

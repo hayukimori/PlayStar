@@ -5,6 +5,8 @@ enum Ambient { SONG, ARTIST, ALBUM }
 @export var  ambient: Ambient = Ambient.SONG
 @export var content: Variant
 
+@export var btn_static: bool = false
+
 
 @export var anim_duration: float = 0.2
 var original_minimum_size: Vector2
@@ -16,9 +18,11 @@ func _ready() -> void:
 	set_process(false)
 	set_physics_process(false)
 
-	original_minimum_size = Vector2(24.0, 0.0)
-	self.custom_minimum_size = closed_minimum_size
-	self.modulate.a = 0.0
+	if !btn_static:
+		original_minimum_size = Vector2(24.0, 0.0)
+		self.custom_minimum_size = closed_minimum_size
+		self.modulate.a = 0.0
+
 
 
 func animate_open() -> void:
