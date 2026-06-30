@@ -36,7 +36,7 @@ func request_art():
 
 func _on_art_ready(key, texture) -> void:
 	if key == album.Songs[0].FilePath:
-	   album_art.texture = texture
+		album_art.texture = texture
 
 
 func self_destroy() -> void:
@@ -52,5 +52,4 @@ func self_destroy() -> void:
 
 
 func _pressed() -> void:
-	SignalBus.emit_show_album(album)
-	print("Entering album: ", album.AlbumName)
+	SignalBus.emit_show_album_window(album, album_art.texture)
