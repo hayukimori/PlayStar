@@ -20,12 +20,11 @@ func _ready() -> void:
 
 
 func _open_playlists() -> void:
-	print("reach PlaylistWindow.open")
 	playlists_window.open()
 
 func _open_albums() -> void:
-	#albums_window.open()
-	push_warning("Not implemented")
+	albums_window.open()
+
 
 func _open_artists() -> void:
 	artists_window.open()
