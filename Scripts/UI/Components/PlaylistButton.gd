@@ -34,9 +34,6 @@ func _set_ui() -> void:
 # Only mouse input events
 func _on_button_gui_event(event: InputEvent) -> void:
 	if !(event is InputEventMouseButton): return
-
-	print("Pressed some button here")
-
 	if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		if click_opened:
 			for i in option_buttons:
