@@ -29,7 +29,10 @@
 [ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
 [ext_resource type="Script" uid="uid://b0ooqpucm54ks" path="res://Scripts/UI/Components/player_basic_controls.gd" id="17_tx35f"]
 [ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
+[ext_resource type="PackedScene" uid="uid://qkqcs4j7keik" path="res://UI/Components/ProgressBarCR.tscn" id="24_1n7v7"]
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="25_hywfq"]
 [ext_resource type="Texture2D" uid="uid://coepod1b71pj" path="res://assets/icons/iconoir/slash.svg" id="25_kee2a"]
+[ext_resource type="Script" uid="uid://btx3betiiqjnm" path="res://Scripts/UI/Components/ProgressSlider.gd" id="26_5b0qw"]
 [ext_resource type="Texture2D" uid="uid://clu31fow2kmt1" path="res://assets/icons/iconoir/repeat-once.svg" id="26_c80o5"]
 [ext_resource type="PackedScene" uid="uid://c61nq8yjfxop0" path="res://UI/Components/config_control.tscn" id="26_hgk7f"]
 [ext_resource type="Texture2D" uid="uid://btdcxpxntyqtd" path="res://assets/icons/extra/sequence.svg" id="29_c80o5"]
@@ -58,7 +61,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtief"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eseux"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -73,7 +76,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hywfq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddixs"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -89,7 +92,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1n7v7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnfla"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -103,16 +106,12 @@ gradient = SubResource("Gradient_8ayet")
 fill_from = Vector2(0.5, 1)
 fill_to = Vector2(0.5, 0)
 
-[sub_resource type="SystemFont" id="SystemFont_riu1i"]
-font_weight = 475
-subpixel_positioning = 0
-
 [sub_resource type="LabelSettings" id="LabelSettings_awq1b"]
-font = SubResource("SystemFont_riu1i")
+font = ExtResource("25_hywfq")
 font_size = 17
 
 [sub_resource type="LabelSettings" id="LabelSettings_8ayet"]
-font = SubResource("SystemFont_riu1i")
+font = ExtResource("25_hywfq")
 font_size = 14
 
 [sub_resource type="SystemFont" id="SystemFont_awq1b"]
@@ -151,15 +150,6 @@ corner_radius_bottom_left = 16
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub5km"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_riu1i"]
-shader = ExtResource("5_riu1i")
-shader_parameter/progress = 1.0
-shader_parameter/amplitude = 0.18
-shader_parameter/frequency = 150.0
-shader_parameter/speed = 9.0
-shader_parameter/thickness = 0.1
-shader_parameter/color = Vector4(0.9, 0.9, 0.9, 0.9)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ayet"]
 shader = ExtResource("5_riu1i")
 shader_parameter/progress = 1.0
@@ -179,6 +169,11 @@ HSlider/icons/grabber = SubResource("ImageTexture_riu1i")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ub5km"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a4igf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5b0qw"]
+font = ExtResource("25_hywfq")
+font_size = 12
+font_color = Color(0.43776295, 0.43776292, 0.4377629, 1)
 
 [sub_resource type="ImageTexture" id="ImageTexture_h06au"]
 
@@ -238,7 +233,7 @@ metadata/_custom_type_script = "uid://cevpo3ffhioh1"
 [node name="KeyboardController" type="Node" parent="." unique_id=476862928]
 script = ExtResource("7_wjxpu")
 
-[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_button", "search_control", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr")]
+[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_button", "search_control", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_time_label", "length_count_label", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr")]
 script = ExtResource("1_y4nck")
 volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
 progress_slider = NodePath("../PlayerControlsPanel/ProgressBarControl/ProgressSlider")
@@ -251,6 +246,8 @@ search_control = NodePath("../SongQueueControl/SearchControl")
 search_bar_line_edit = NodePath("../SongQueueControl/SearchControl/SearchLineEdit")
 songs_button_list_scroll_container = NodePath("../SongQueueControl/MainVBC/QueueScrollContainer")
 songs_button_list = NodePath("../SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC")
+current_time_label = NodePath("../PlayerControlsPanel/ProgressBarControl/CurrentTimeLabel")
+length_count_label = NodePath("../PlayerControlsPanel/ProgressBarControl/TotalTimeLabel")
 current_queu_name_label = NodePath("../SongQueueControl/MainVBC/QueueTopPanel/QueueNameLabel")
 search_cover_panel = NodePath("../SongQueueControl/CoverPanel")
 title_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/SongTitleLabel")
@@ -316,7 +313,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rtief")
+theme_override_styles/panel = SubResource("StyleBoxFlat_eseux")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -355,7 +352,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hywfq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ddixs")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -375,7 +372,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_1n7v7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hnfla")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -401,12 +398,14 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 12.0
 offset_top = -40.0
-offset_right = 265.0
+offset_right = 325.0
 offset_bottom = 12.0
 grow_vertical = 2
 text = "Artist"
 label_settings = SubResource("LabelSettings_awq1b")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="AlbumNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=2002468720]
 layout_mode = 1
@@ -421,6 +420,8 @@ grow_vertical = 2
 text = "Album Name"
 label_settings = SubResource("LabelSettings_8ayet")
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="SongTitleLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=855142920]
 layout_mode = 1
@@ -699,16 +700,9 @@ offset_bottom = -33.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="CRProgressBar" type="ColorRect" parent="PlayerControlsPanel/ProgressBarControl" unique_id=749527059]
-material = SubResource("ShaderMaterial_riu1i")
+[node name="CRProgressBar" parent="PlayerControlsPanel/ProgressBarControl" unique_id=1968293261 instance=ExtResource("24_1n7v7")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 9.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = -7.0
 
 [node name="CounterWave" type="ColorRect" parent="PlayerControlsPanel/ProgressBarControl" unique_id=1949807917]
 material = SubResource("ShaderMaterial_8ayet")
@@ -735,6 +729,33 @@ theme_override_styles/slider = SubResource("StyleBoxEmpty_cty8o")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_ub5km")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_a4igf")
 rounded = true
+script = ExtResource("26_5b0qw")
+
+[node name="CurrentTimeLabel" type="Label" parent="PlayerControlsPanel/ProgressBarControl" unique_id=715243883]
+layout_mode = 0
+offset_top = -16.0
+offset_right = 253.0
+offset_bottom = 7.0
+text = "00:00"
+label_settings = SubResource("LabelSettings_5b0qw")
+vertical_alignment = 1
+
+[node name="TotalTimeLabel" type="Label" parent="PlayerControlsPanel/ProgressBarControl" unique_id=495783870]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -253.0
+offset_top = -7.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "00:00"
+label_settings = SubResource("LabelSettings_5b0qw")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="SequenceControl" type="Control" parent="PlayerControlsPanel" unique_id=723096629]
 layout_mode = 1
