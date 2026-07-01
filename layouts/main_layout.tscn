@@ -24,9 +24,14 @@
 [ext_resource type="Script" uid="uid://ec43qt4c1qc" path="res://Scripts/UI/Components/SearchBar.gd" id="8_axlxv"]
 [ext_resource type="Texture2D" uid="uid://cnnvs52fv66mh" path="res://assets/icons/iconoir/shuffle.svg" id="9_p2ped"]
 [ext_resource type="Texture2D" uid="uid://bnnp2mdqubhr4" path="res://assets/icons/iconoir/repeat.svg" id="9_xggyx"]
+[ext_resource type="Script" uid="uid://duju7we731p3a" path="res://Scripts/Controllers/LyricUIController.gd" id="11_hnfla"]
+[ext_resource type="Script" uid="uid://1w4a83o86gkg" path="res://Scripts/NetworkAPI/LrcLibService.gd" id="13_13w56"]
 [ext_resource type="Script" uid="uid://cor11qyoupvqp" path="res://Scripts/UI/Components/RepeatButton.gd" id="13_fxijn"]
 [ext_resource type="Texture2D" uid="uid://dwieq7bmfi2qb" path="res://assets/icons/iconoir/search.svg" id="15_67y5c"]
 [ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
+[ext_resource type="Script" uid="uid://bw6p2e0ynn2r6" path="res://Scripts/UI/Components/SyncLyricsScrollContainer.gd" id="15_dkd8j"]
+[ext_resource type="LabelSettings" uid="uid://3tt783buqpte" path="res://UI/ComponentThemes/lyric_line_inactive.tres" id="16_r7yy5"]
+[ext_resource type="LabelSettings" uid="uid://c8imiot06t06u" path="res://UI/ComponentThemes/lyric_line_active.tres" id="17_byb4x"]
 [ext_resource type="Script" uid="uid://b0ooqpucm54ks" path="res://Scripts/UI/Components/player_basic_controls.gd" id="17_tx35f"]
 [ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
 [ext_resource type="PackedScene" uid="uid://qkqcs4j7keik" path="res://UI/Components/ProgressBarCR.tscn" id="24_1n7v7"]
@@ -71,7 +76,7 @@ corner_detail = 16
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thmlj"]
-bg_color = Color(0, 0, 0, 0.5686275)
+bg_color = Color(0, 0, 0, 0.7137255)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -258,6 +263,13 @@ art_trr = NodePath("../SongInfoControl/AlbumArtControl/ArtTRR")
 song_btn_cvr_scn = ExtResource("3_8ayet")
 default_album_art = ExtResource("1_od5lq")
 
+[node name="LyricUIController" type="Node" parent="." unique_id=1473466852 node_paths=PackedStringArray("sync_lyrics_sc", "lyrics_panel", "lrc_service", "lrc_btn")]
+script = ExtResource("11_hnfla")
+sync_lyrics_sc = NodePath("../SongInfoControl/AlbumArtControl/LyricsPanel/SyncLyricsSC")
+lyrics_panel = NodePath("../SongInfoControl/AlbumArtControl/LyricsPanel")
+lrc_service = NodePath("../LrcLibService")
+lrc_btn = NodePath("../SongInfoControl/AlbumArtControl/TopButtonsControl/LyricsButton")
+
 [node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "ui_manager")]
 script = ExtResource("2_7sujj")
 player = NodePath("../AudioServer/VlcPlayer")
@@ -266,6 +278,10 @@ indexer = NodePath("../Database/MetadataIndexer")
 scanner = NodePath("../Database/LibraryScanner")
 mpris_service = NodePath("../AudioServer/MprisService")
 ui_manager = NodePath("../UIManager")
+
+[node name="LrcLibService" type="Node" parent="." unique_id=179643484]
+script = ExtResource("13_13w56")
+metadata/_custom_type_script = "uid://1w4a83o86gkg"
 
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077]
 layout_mode = 1
@@ -326,7 +342,6 @@ stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
 [node name="LyricsPanel" type="Panel" parent="SongInfoControl/AlbumArtControl" unique_id=1333992334]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -335,12 +350,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_thmlj")
 
-[node name="SyncLyricsSC" type="ScrollContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel" unique_id=1715682539]
+[node name="SyncLyricsSC" type="ScrollContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel" unique_id=1715682539 node_paths=PackedStringArray("player", "vbc")]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.1
+anchor_top = 0.117000006
+anchor_right = 0.99600005
 anchor_bottom = 0.8
-offset_right = 505.0
+offset_left = 31.0
+offset_top = 19.839996
+offset_right = -13.980011
+theme = ExtResource("3_h7vyd")
+script = ExtResource("15_dkd8j")
+player = NodePath("../../../../AudioServer/VlcPlayer")
+disabled_text_lsettings = ExtResource("16_r7yy5")
+enabled_text_lsettings = ExtResource("17_byb4x")
+vbc = NodePath("SyncLyricsVBC")
 
 [node name="SyncLyricsVBC" type="VBoxContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel/SyncLyricsSC" unique_id=551940807]
 layout_mode = 2
