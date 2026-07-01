@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="PlayStar"
+<<<<<<< HEAD
 run/main_scene="uid://cucj2so2q2vo0"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="uid://i2bno848p0tt"
@@ -26,6 +27,11 @@ ArtService="*uid://dews4o601kwaa"
 ArtDispatcher="*uid://bqt0p0g14m76i"
 DiscordRp="*uid://0q8y2848qla1"
 
+=======
+config/features=PackedStringArray("4.7", "Forward Plus")
+config/icon="res://icon.svg"
+
+>>>>>>> main
 [display]
 
 window/stretch/mode="canvas_items"
