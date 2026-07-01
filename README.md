@@ -24,12 +24,12 @@ PlayStar is a personal music player for Linux, built with Godot 4 and C# (.NET 8
 - Album art display with lazy loading
 - Shuffle and repeat modes
 - Full library scanning with multi-folder support and progress tracking
+- Synchronized lyrics (`.lrc`) with auto-scroll
+- Genre, artist and album browsing
 
 **Planned**
 
-- Synchronized lyrics (`.lrc`) with auto-scroll
 - Now Playing thumbnail generator with clipboard export
-- Genre, artist and album browsing
 
 ---
 
