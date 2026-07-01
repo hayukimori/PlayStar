@@ -12,7 +12,7 @@ class_name WindowManager
 func _ready() -> void:
 	SignalBus.invoke_playlists_window.connect(_open_playlists)
 	SignalBus.invoke_artists_window.connect(_open_artists)
-	SignalBus.invoke_albuns_window.connect(_open_albums)
+	SignalBus.invoke_albums_window.connect(_open_albums)
 
 	SignalBus.request_song_to_playlist.connect(_ivk_to_playlist_window)
 	SignalBus.request_artist_to_playlist.connect(_ivk_to_playlist_window)
