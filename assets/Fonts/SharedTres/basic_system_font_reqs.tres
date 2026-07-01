@@ -1,0 +1,5 @@
+[gd_resource type="SystemFont" format=3 uid="uid://b3eu8ad1mq7rg"]
+
+[resource]
+font_names = PackedStringArray("Noto Sans CJK HK", "Noto Sans CJK JP", "Noto Sans CJK KR")
+font_weight = 450

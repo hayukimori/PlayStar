@@ -58,7 +58,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_621sv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtief"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -73,7 +73,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtief"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hywfq"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -89,7 +89,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hywfq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1n7v7"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -201,7 +201,7 @@ expand_margin_top = 16.0
 expand_margin_right = 8.0
 expand_margin_bottom = 16.0
 
-[node name="MainLayout" type="Control" unique_id=1324911911 node_paths=PackedStringArray("config_control")]
+[node name="MainLayout" type="Control" unique_id=1324911911]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,7 +209,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wnp0n")
-config_control = NodePath("ConfigControl")
 
 [node name="AudioServer" type="Node" parent="." unique_id=58338233]
 
@@ -317,7 +316,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_621sv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rtief")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -356,7 +355,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rtief")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hywfq")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -376,7 +375,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hywfq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1n7v7")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -913,14 +912,12 @@ grow_vertical = 2
 icon = ExtResource("33_fqe4u")
 flat = true
 
-[node name="ConfigControl" parent="." unique_id=106539680 instance=ExtResource("26_hgk7f")]
-layout_mode = 1
-
-[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window")]
+[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "config_control")]
 script = ExtResource("43_qtwtc")
 playlists_window = NodePath("PlaylistsWindow")
 artists_window = NodePath("ArtistWindow")
 albums_window = NodePath("AlbumWindow")
+config_control = NodePath("ConfigControl")
 add_to_playlist_window_fb = ExtResource("44_rr6jk")
 
 [node name="PlaylistsWindow" type="Window" parent="WindowManager" unique_id=450202149]
@@ -941,3 +938,5 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 [node name="SingleArtistWindow" parent="WindowManager" unique_id=845192087 instance=ExtResource("48_l6mk2")]
 
 [node name="SingleAlbumWindow" parent="WindowManager" unique_id=1993442924 instance=ExtResource("50_rtief")]
+
+[node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
