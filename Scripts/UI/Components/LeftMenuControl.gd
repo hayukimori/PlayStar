@@ -105,4 +105,4 @@ func _on_artists_btn_pressed() -> void:
 	SignalBus.emit_invoke_artists_window()
 
 func _on_albuns_btn_pressed() -> void:
-	SignalBus.emit_invoke_albuns_window()
+	SignalBus.emit_invoke_albums_window()
