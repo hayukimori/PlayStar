@@ -97,7 +97,7 @@ color = Color(0.14509805, 0.14509805, 0.14509805, 1)
 [node name="Window" type="Window" parent="." unique_id=992898370]
 oversampling_override = 1.0
 title = "Settings"
-initial_position = 2
+initial_position = 4
 size = Vector2i(600, 400)
 visible = false
 exclusive = true

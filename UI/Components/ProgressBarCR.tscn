@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://qkqcs4j7keik"]
+
+[ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="1_bgpwx"]
+[ext_resource type="Script" uid="uid://b4br053flekux" path="res://Scripts/UI/Components/ProgressBarCR.gd" id="2_suhjn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_riu1i"]
+shader = ExtResource("1_bgpwx")
+shader_parameter/progress = 1.0
+shader_parameter/amplitude = 0.14
+shader_parameter/frequency = 150.0
+shader_parameter/speed = 9.0
+shader_parameter/thickness = 0.1
+shader_parameter/color = Vector4(0.9, 0.9, 0.9, 0.9)
+
+[node name="CRProgressBar" type="ColorRect" unique_id=1968293261]
+material = SubResource("ShaderMaterial_riu1i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 9.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_suhjn")

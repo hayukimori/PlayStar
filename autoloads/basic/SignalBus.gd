@@ -72,6 +72,7 @@ signal toggle_repeat_to_state(state: Definitions.RepeatMode)
 
 signal volume_changed_externally(value: int)
 signal volume_changed(value: int)
+signal player_pos_change(value: float) # 0.0 - 1.0
 
 signal copy_song
 
@@ -154,3 +155,5 @@ func emit_toggle_repeat_to_state(state: Definitions.RepeatMode) -> void: toggle_
 
 func emit_discord_rp_changed(value: bool) -> void: discord_rp_changed.emit(value)
 func emit_copy_song() -> void: copy_song.emit()
+
+func emit_player_pos_change(value: float) -> void: player_pos_change.emit(value)

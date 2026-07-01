@@ -38,6 +38,7 @@ var album_repo: AlbumRepository
 var random_order: Array[SongModel] = []
 var random_index: int = -1
 
+var last_pos := 0.0
 
 #region Ready
 func _ready() -> void:
@@ -70,7 +71,7 @@ func _ready() -> void:
 
 	# Playback signals
 	SignalBus.song_skip_next.connect(_on_ui_skip_next)
-	SignalBus.song_skip_prev.connect(_on_ui_skip_next)
+	SignalBus.song_skip_prev.connect(_on_ui_skip_prev)
 	SignalBus.pause_requested.connect(pause_process)
 	SignalBus.play_requested.connect(unpause_process)
 	SignalBus.seek_offset_request.connect(seek_process)
@@ -310,9 +311,24 @@ func _rebuild_random_order() -> void:
 			random_order.remove_at(idx)
 			random_order.insert(0, playing_now)
 
-	random_index = 0
+	random_index = -1
 
 #endregion
+
+#region Frame Update
+func _process(_dt: float) -> void:
+	var c_pos = player.Position
+
+	if c_pos != last_pos:
+		SignalBus.emit_player_pos_change(c_pos)
+		last_pos = c_pos
+
+	if (!player) or (!ui_manager): return
+	var crr_time: String = player.FormatedCurrentTime
+	ui_manager.update_curr_time_label(crr_time)
+
+#endregion
+
 
 
 #region Signals

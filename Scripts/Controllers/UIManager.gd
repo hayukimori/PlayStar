@@ -20,7 +20,9 @@ class_name UIManager
 @export var search_bar_line_edit: SearchBar
 @export var songs_button_list_scroll_container: ScrollContainer
 @export var songs_button_list: FreezableBoxContainer
+@export var current_time_label: Label
 @export var length_count_label: Label
+@export var progress_color_rect: ColorRect
 @export var reload_playlist_button: Button
 @export var current_queu_name_label: Label
 @export var search_cover_panel: Panel
@@ -91,6 +93,20 @@ func set_search_bar_queue(queue: Array) -> void:
 func update_length_label(song: SongModel) -> void:
 	if length_count_label:
 		length_count_label.text = MiscTools.MsToSec(song.Length)
+
+## Updates current time label text (00:00)
+func update_curr_time_label(text: String) -> void:
+	if !current_time_label: return
+	if text == current_time_label.text: return
+
+	current_time_label.text = text
+
+
+## Updates progress bar (vlaue is float 0.0 to 1.0)
+func update_progress(value: float) -> void:
+	if !progress_color_rect: return
+	var vl: float = value * 100
+
 
 #endregion
 

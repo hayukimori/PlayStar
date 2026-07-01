@@ -86,7 +86,7 @@ public partial class DiscordRP : Node
 
         return new Assets()
         {
-            LargeImageKey = "cd",
+            LargeImageKey = "playstar_main_icon",
             SmallImageKey = smallIcon,
             LargeImageText = largeText,
         };

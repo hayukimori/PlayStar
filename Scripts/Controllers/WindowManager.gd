@@ -5,11 +5,13 @@ class_name WindowManager
 @export var artists_window: HybridWindow
 @export var albums_window: HybridWindow
 @export var delete_playlist_window: HybridWindow
+@export var config_control: Control
 
 @export var add_to_playlist_window_fb: PackedScene
 
 
 func _ready() -> void:
+	SignalBus.invoke_settings_menu.connect(_open_settings)
 	SignalBus.invoke_playlists_window.connect(_open_playlists)
 	SignalBus.invoke_artists_window.connect(_open_artists)
 	SignalBus.invoke_albums_window.connect(_open_albums)
@@ -29,7 +31,8 @@ func _open_albums() -> void:
 func _open_artists() -> void:
 	artists_window.open()
 
-
+func _open_settings() -> void:
+	config_control.open()
 
 func _ivk_to_playlist_window(content: Variant):
 	if !add_to_playlist_window_fb:
