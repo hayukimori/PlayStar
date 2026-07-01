@@ -8,6 +8,7 @@ class_name WindowManager
 @export var config_control: Control
 
 @export var add_to_playlist_window_fb: PackedScene
+@export var delete_confirm_window: PackedScene
 
 
 func _ready() -> void:
@@ -19,6 +20,8 @@ func _ready() -> void:
 	SignalBus.request_song_to_playlist.connect(_ivk_to_playlist_window)
 	SignalBus.request_artist_to_playlist.connect(_ivk_to_playlist_window)
 	SignalBus.request_album_to_playlist.connect(_ivk_to_playlist_window)
+
+	SignalBus.request_playlist_delete.connect(_ivk_playlist_delete_popup)
 
 
 func _open_playlists() -> void:
@@ -33,6 +36,15 @@ func _open_artists() -> void:
 
 func _open_settings() -> void:
 	config_control.open()
+
+
+func _ivk_playlist_delete_popup(playlist: PlaylistModel) -> void:
+	if !delete_confirm_window: return
+	var scn = delete_confirm_window.instantiate() as DeleteConfirmationWindow
+	scn.playlist = playlist
+	add_child(scn)
+	scn.open()
+
 
 func _ivk_to_playlist_window(content: Variant):
 	if !add_to_playlist_window_fb:

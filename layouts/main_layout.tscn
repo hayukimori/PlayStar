@@ -49,6 +49,7 @@
 [ext_resource type="Script" uid="uid://cijem4fbehf1q" path="res://Scripts/Controllers/WindowManager.gd" id="43_qtwtc"]
 [ext_resource type="PackedScene" uid="uid://dbwh1w0ytq523" path="res://Window/AddToPlaylistWindow.tscn" id="44_rr6jk"]
 [ext_resource type="PackedScene" uid="uid://cd81kbwebskud" path="res://UI/Components/PlaylistControl.tscn" id="45_rr6jk"]
+[ext_resource type="PackedScene" uid="uid://cbtl84va0huxt" path="res://Window/DeleteConfirmationWindow.tscn" id="47_eseux"]
 [ext_resource type="PackedScene" uid="uid://ca7be27paikh3" path="res://Window/ArtistWindow.tscn" id="47_hrm2o"]
 [ext_resource type="PackedScene" uid="uid://bhrk3dmce3nd3" path="res://Window/AlbumWindow.tscn" id="48_621sv"]
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
@@ -61,7 +62,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eseux"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddixs"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -76,7 +77,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddixs"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnfla"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -92,7 +93,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnfla"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13w56"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -313,7 +314,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_eseux")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ddixs")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -352,7 +353,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ddixs")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hnfla")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -372,7 +373,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hnfla")
+theme_override_styles/panel = SubResource("StyleBoxFlat_13w56")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -940,6 +941,7 @@ artists_window = NodePath("ArtistWindow")
 albums_window = NodePath("AlbumWindow")
 config_control = NodePath("ConfigControl")
 add_to_playlist_window_fb = ExtResource("44_rr6jk")
+delete_confirm_window = ExtResource("47_eseux")
 
 [node name="PlaylistsWindow" type="Window" parent="WindowManager" unique_id=450202149]
 oversampling_override = 1.0
