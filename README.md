@@ -33,6 +33,11 @@ PlayStar is a personal music player for Linux, built with Godot 4 and C# (.NET 8
 
 ---
 
+## Services
+
+Synchronized lyrics are fetched from [LRCLIB](https://lrclib.net), a free and open lyrics database with no profit intention, built for FOSS music players.
+
+
 ## Requirements
 
 - Linux x86_64
