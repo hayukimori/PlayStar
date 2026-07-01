@@ -2,9 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://bwqx3eppxgd5j" path="res://assets/icons/iconoir/playlist.svg" id="1_ggwl1"]
 [ext_resource type="Script" uid="uid://bufwxlahn1vob" path="res://Scripts/UI/Components/PlaylistButton.gd" id="1_rsogw"]
+[ext_resource type="Texture2D" uid="uid://chjpe04u0738v" path="res://assets/icons/iconoir/trash.svg" id="3_daqse"]
+[ext_resource type="Script" uid="uid://dnj6ugoy1pdo" path="res://Scripts/UI/CustomNodes/AnimatedOptionButton.gd" id="4_mkud7"]
 
 [sub_resource type="SystemFont" id="SystemFont_mkud7"]
 font_names = PackedStringArray("Noto Sans")
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_rsogw"]
 font = SubResource("SystemFont_mkud7")
@@ -17,7 +20,7 @@ subpixel_positioning = 0
 font = SubResource("SystemFont_ub5km")
 font_size = 12
 
-[node name="PlaylistButton" type="Button" unique_id=1125917547 node_paths=PackedStringArray("name_label", "song_count_label")]
+[node name="PlaylistButton" type="Button" unique_id=1125917547 node_paths=PackedStringArray("name_label", "song_count_label", "delete_button")]
 custom_minimum_size = Vector2(0, 64)
 offset_right = 576.0
 offset_bottom = 64.0
@@ -26,6 +29,7 @@ flat = true
 script = ExtResource("1_rsogw")
 name_label = NodePath("NameLabbel")
 song_count_label = NodePath("SongCountLabel")
+delete_button = NodePath("OptionsContainer/DeleteButton")
 
 [node name="PlaylistIconstatic" type="TextureRect" parent="." unique_id=876258217]
 layout_mode = 1
@@ -33,6 +37,7 @@ offset_left = 15.0
 offset_top = 17.0
 offset_right = 47.0
 offset_bottom = 49.0
+mouse_filter = 2
 texture = ExtResource("1_ggwl1")
 expand_mode = 1
 
@@ -57,3 +62,27 @@ text = "0 Songs"
 label_settings = SubResource("LabelSettings_cty8o")
 clip_text = true
 text_overrun_behavior = 3
+
+[node name="OptionsContainer" type="HBoxContainer" parent="." unique_id=824829368]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -14.0
+offset_right = -7.0
+offset_bottom = 17.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="DeleteButton" type="Button" parent="OptionsContainer" unique_id=1949183351]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("3_daqse")
+flat = true
+expand_icon = true
+script = ExtResource("4_mkud7")
