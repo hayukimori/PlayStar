@@ -12,5 +12,6 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="4.148.0" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
     <PackageReference Include="Tmds.DBus" Version="0.94.2" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.21" />
   </ItemGroup>
 </Project>
