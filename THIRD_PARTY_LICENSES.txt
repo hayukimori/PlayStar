@@ -28,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ===============================================================================
-2. LibVLCSharp (v3.9.5)
+2. LibVLCSharp (v3.10.0)
 ===============================================================================
 License: GNU Lesser General Public License, version 2.1 or later (LGPL-2.1+)
 Copyright (c) VideoLAN
@@ -46,7 +46,30 @@ Lesser General Public License for more details.
 A copy of the LGPL v2.1 can be found at: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
 
 ===============================================================================
-3. Microsoft.Data.Sqlite (v10.0.3)
+3. VideoLAN.LibVLC.Windows (v3.0.21)
+===============================================================================
+License: GNU Lesser General Public License, version 2.1 (LGPL-2.1)
+Copyright (c) VideoLAN and VLC Authors
+
+This package redistributes the precompiled libvlc.dll, libvlccore.dll, and
+VLC plugin binaries for Windows, used by LibVLCSharp at runtime. These
+binaries are part of the VLC media player project.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; version 2.1.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+A copy of the LGPL v2.1 can be found at: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+
+Full VLC source code and licensing information: https://www.videolan.org/vlc/
+
+===============================================================================
+4. Microsoft.Data.Sqlite (v10.0.9)
 ===============================================================================
 License: MIT License
 Copyright (c) .NET Foundation and Contributors
@@ -57,7 +80,7 @@ in the Software without restriction...
 (Same terms as standard MIT License above apply).
 
 ===============================================================================
-4. TagLibSharp (v2.3.0)
+5. TagLibSharp (v2.3.0)
 ===============================================================================
 License: GNU Lesser General Public License, version 2.1 (LGPL-2.1)
 Copyright (c) 2006-2013 Brian Nickel, 2013-2020 basecamp
@@ -72,7 +95,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 Lesser General Public License for more details.
 
 ===============================================================================
-5. SkiaSharp (including Skia and native dependencies)
+6. SkiaSharp (including Skia, SkiaSharp.NativeAssets.Linux, and native dependencies)
 ===============================================================================
 License: MIT License (SkiaSharp) / BSD 3-Clause (Skia Core Engine)
 Copyright (c) 2015-2026 Xamarin Inc.
@@ -131,7 +154,7 @@ ARISING in ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 ===============================================================================
-6. Tmds.DBus (v0.15.0)
+7. Tmds.DBus (v0.94.2)
 ===============================================================================
 License: MIT License
 Copyright (c) Tom Deseyn
@@ -142,7 +165,7 @@ in the Software without restriction...
 (Same terms as standard MIT License above apply).
 
 ===============================================================================
-7. TextureRectRounded (Godot Asset)
+8. TextureRectRounded (Godot Asset)
 ===============================================================================
 License: MIT License
 Copyright (c) kuruk-mm
@@ -153,7 +176,7 @@ in the Software without restriction...
 (Same terms as standard MIT License above apply).
 
 ===============================================================================
-8. Iconoir Icons
+9. Iconoir Icons
 ===============================================================================
 License: MIT License
 Copyright (c) 2020 Luca Burgio
