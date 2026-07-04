@@ -991,7 +991,7 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 
 [node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
 
-[node name="PopMsgControl" type="Control" parent="." unique_id=850224413]
+[node name="PopMsgControl" type="Control" parent="." unique_id=850224413 node_paths=PackedStringArray("notifications_vbox")]
 layout_mode = 1
 anchor_top = 0.38000003
 anchor_bottom = 0.38000003
@@ -1001,6 +1001,8 @@ offset_bottom = 216.75998
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("60_byb4x")
+notifications_vbox = NodePath("ScrollContainer/VBoxContainer")
+notification_button_scene = ExtResource("60_r7yy5")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PopMsgControl" unique_id=504068678]
 layout_mode = 1
@@ -1018,6 +1020,3 @@ theme = ExtResource("3_h7vyd")
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_h7vyd")
-
-[node name="NotificationButton" parent="PopMsgControl/ScrollContainer/VBoxContainer" unique_id=801889786 instance=ExtResource("60_r7yy5")]
-layout_mode = 2

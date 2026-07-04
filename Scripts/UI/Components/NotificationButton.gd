@@ -1,4 +1,5 @@
 extends Button
+class_name NotificationButton
 
 @export var message: String = ""
 
@@ -8,16 +9,22 @@ extends Button
 var timer: Timer
 
 func _ready() -> void:
+	if !message: animate_close()
+
 	text = message
 
 	timer = Timer.new()
 	timer.wait_time = autodel_delay
+
+	add_child(timer)
+
 	timer.timeout.connect(_on_timeout)
+	timer.start()
 
 
 func animate_close() -> void:
 	var tween: Tween = create_tween()
-	tween.tweeen_property(self, "modulate:a", 1.0, animation_duration)
+	tween.tween_property(self, "modulate:a", 0.0, animation_duration)
 
 	await tween.finished
 	hide()
