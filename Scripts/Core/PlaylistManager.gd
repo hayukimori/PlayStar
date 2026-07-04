@@ -102,3 +102,24 @@ static func _get_main_path() -> String:
 	DevTools.check_and_create(playlists_path)
 
 	return playlists_path
+
+
+static func move_playlist_up(path: String) -> void:
+	var udf: UserDefaults = UserGlobals.get_defaults()
+	var idx = udf.playlist_order.find(path)
+
+	if idx > 0:
+		var temp = udf.playlist_order[idx - 1]
+		udf.playlist_order[idx - 1] = udf.playlist_order[idx]
+		udf.playlist_order[idx] = temp
+		UserGlobals.save_defaults(udf)
+
+static func move_playlist_down(path: String) -> void:
+	var udf: UserDefaults = UserGlobals.get_defaults()
+
+	var idx = udf.playlist_order.find(path)
+	if idx < udf.playlist_order.size() - 1:
+		var temp = udf.playlist_order[idx + 1]
+		udf.playlist_order[idx + 1] = udf.playlist_order[idx]
+		udf.playlist_order[idx] = temp
+		UserGlobals.save_defaults(udf)
