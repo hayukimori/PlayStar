@@ -61,7 +61,7 @@
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
-[ext_resource type="PackedScene" uid="uid://bbqt30emeqj6i" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
+[ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -242,7 +242,7 @@ metadata/_custom_type_script = "uid://cevpo3ffhioh1"
 [node name="KeyboardController" type="Node" parent="." unique_id=476862928]
 script = ExtResource("7_wjxpu")
 
-[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_button", "search_control", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_time_label", "length_count_label", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr", "song_info_f12_control", "f12_svp")]
+[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_button", "search_control", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_time_label", "length_count_label", "current_queu_name_label", "search_cover_panel", "copy_song_button", "title_label", "artist_label", "album_label", "art_trr", "song_info_f12_control", "f12_svp")]
 script = ExtResource("1_y4nck")
 volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
 progress_slider = NodePath("../PlayerControlsPanel/ProgressBarControl/ProgressSlider")
@@ -259,6 +259,7 @@ current_time_label = NodePath("../PlayerControlsPanel/ProgressBarControl/Current
 length_count_label = NodePath("../PlayerControlsPanel/ProgressBarControl/TotalTimeLabel")
 current_queu_name_label = NodePath("../SongQueueControl/MainVBC/QueueTopPanel/QueueNameLabel")
 search_cover_panel = NodePath("../SongQueueControl/CoverPanel")
+copy_song_button = NodePath("../SongInfoControl/AlbumArtControl/TopButtonsControl/CopyButton")
 title_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/SongTitleLabel")
 artist_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/ArtistNameLabel")
 album_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/AlbumNameLabel")

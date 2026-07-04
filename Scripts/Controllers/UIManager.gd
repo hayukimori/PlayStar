@@ -26,6 +26,7 @@ class_name UIManager
 @export var reload_playlist_button: Button
 @export var current_queu_name_label: Label
 @export var search_cover_panel: Panel
+@export var copy_song_button: Button
 
 @export_subgroup("Playing Now screen")
 @export var title_label: Label
@@ -69,6 +70,7 @@ func _ready() -> void:
 	if reload_playlist_button: reload_playlist_button.pressed.connect(_on_reload_requested)
 	if volume_slider: volume_slider.value_changed.connect(_on_volume_slider_value_changed)
 	if search_button: search_button.pressed.connect(_on_toggle_search)
+	if copy_song_button: copy_song_button.pressed.connect(SignalBus.emit_copy_song)
 
 	if search_bar_line_edit:
 		search_bar_line_edit.render_results.connect(_on_search_bar_render_results)
