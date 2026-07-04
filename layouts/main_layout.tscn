@@ -242,7 +242,7 @@ metadata/_custom_type_script = "uid://cevpo3ffhioh1"
 [node name="KeyboardController" type="Node" parent="." unique_id=476862928]
 script = ExtResource("7_wjxpu")
 
-[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_button", "search_control", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_time_label", "length_count_label", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr", "song_info_f12_control")]
+[node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_button", "search_control", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_time_label", "length_count_label", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr", "song_info_f12_control", "f12_svp")]
 script = ExtResource("1_y4nck")
 volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
 progress_slider = NodePath("../PlayerControlsPanel/ProgressBarControl/ProgressSlider")
@@ -264,9 +264,11 @@ artist_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/Ar
 album_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/AlbumNameLabel")
 art_trr = NodePath("../SongInfoControl/AlbumArtControl/ArtTRR")
 song_info_f12_control = NodePath("SVP/SongInfoControl")
+f12_svp = NodePath("SVP")
 song_btn_cvr_scn = ExtResource("3_8ayet")
 default_album_art = ExtResource("1_od5lq")
 [node name="SVP" type="SubViewport" parent="UIManager" unique_id=738664628]
+render_target_update_mode = 4
 [node name="SongInfoControl" parent="UIManager/SVP" unique_id=466061530 instance=ExtResource("11_r7yy5")]
 
 [node name="LyricUIController" type="Node" parent="." unique_id=1473466852 node_paths=PackedStringArray("sync_lyrics_sc", "lyrics_panel", "lrc_service", "lrc_btn")]
@@ -428,32 +430,32 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 12.0
+offset_left = 14.0
 offset_top = -40.0
-offset_right = 325.0
+offset_right = 211.0
 offset_bottom = 12.0
 grow_vertical = 2
 text = "Artist"
 label_settings = SubResource("LabelSettings_awq1b")
 vertical_alignment = 1
 clip_text = true
-text_overrun_behavior = 3
+text_overrun_behavior = 5
 
 [node name="AlbumNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=2002468720]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 13.0
+offset_left = 15.0
 offset_top = -14.0
-offset_right = 266.0
+offset_right = 240.0
 offset_bottom = 38.0
 grow_vertical = 2
 text = "Album Name"
 label_settings = SubResource("LabelSettings_8ayet")
 vertical_alignment = 1
 clip_text = true
-text_overrun_behavior = 3
+text_overrun_behavior = 5
 
 [node name="SongTitleLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=855142920]
 layout_mode = 1

@@ -12,7 +12,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3x73r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quwbp"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -36,7 +36,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6ta3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uirs"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -107,7 +107,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3x73r")
+theme_override_styles/panel = SubResource("StyleBoxFlat_quwbp")
 script = ExtResource("1_el0cd")
 corner_detail = 16
 radius_bottom_left = 16
@@ -125,7 +125,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mij1b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fony3")
 script = ExtResource("1_el0cd")
 corner_detail = 16
 radius_bottom_left = 16
@@ -145,7 +145,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_q6ta3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7uirs")
 script = ExtResource("1_el0cd")
 corner_detail = 16
 radius_bottom_left = 16
@@ -169,32 +169,32 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 12.0
+offset_left = 14.0
 offset_top = -40.0
-offset_right = 325.0
+offset_right = 213.0
 offset_bottom = 12.0
 grow_vertical = 2
 text = "Artist"
 label_settings = SubResource("LabelSettings_awq1b")
 vertical_alignment = 1
 clip_text = true
-text_overrun_behavior = 3
+text_overrun_behavior = 5
 
 [node name="AlbumNameLabel" type="Label" parent="AlbumArtControl/BottomInfoControl" unique_id=2076837306]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 13.0
+offset_left = 15.0
 offset_top = -14.0
-offset_right = 266.0
+offset_right = 213.0
 offset_bottom = 38.0
 grow_vertical = 2
 text = "Album Name"
 label_settings = SubResource("LabelSettings_8ayet")
 vertical_alignment = 1
 clip_text = true
-text_overrun_behavior = 3
+text_overrun_behavior = 5
 
 [node name="SongTitleLabel" type="Label" parent="AlbumArtControl/BottomInfoControl" unique_id=1816944361]
 layout_mode = 1
