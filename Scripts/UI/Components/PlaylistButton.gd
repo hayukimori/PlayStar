@@ -8,6 +8,10 @@ signal playlist_clicked(obj: PlaylistModel)
 @export var song_count_label: Label
 @export var delete_button: AnimatedOptionButton
 
+@export var move_up_button: Button
+@export var move_down_button: Button
+
+
 var s_count_text: String = "%s Songs"
 var click_opened: bool = false
 var option_buttons: Array[AnimatedOptionButton]
@@ -25,6 +29,11 @@ func _set_ui() -> void:
 	if !playlist_object: print("No song object, queue free()"); queue_free(); return;
 
 	option_buttons.append(delete_button)
+	option_buttons.append(move_up_button)
+	option_buttons.append(move_down_button)
+
+	move_up_button.pressed.connect(_on_playlist_up_pressed)
+	move_down_button.pressed.connect(_on_playlist_down_pressed)
 
 	name_label.text = playlist_object.name
 	song_count_label.text = s_count_text % str(int(playlist_object.songs.size()))
@@ -51,6 +60,12 @@ func _pressed() -> void:
 
 func _on_delete_request() -> void:
 	SignalBus.emit_request_playlist_delete(playlist_object)
+
+func _on_playlist_up_pressed() -> void:
+	SignalBus.emit_request_playlist_up(playlist_object)
+
+func _on_playlist_down_pressed() -> void:
+	SignalBus.emit_request_playlist_down(playlist_object)
 
 func self_destroy() -> void:
 	queue_free()

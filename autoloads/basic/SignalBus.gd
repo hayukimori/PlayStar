@@ -55,7 +55,12 @@ signal request_playlist(playlist: PlaylistModel, index: int)
 signal request_song_to_playlist(song: SongModel)
 signal request_album_to_playlist(album: AlbumModel)
 signal request_artist_to_playlist(artist: ArtistModel)
+
+# Requests to move playlist position, add or delete
 signal request_playlist_delete(playlist: PlaylistModel)
+signal request_playlist_up(playlist: PlaylistModel)
+signal request_playlist_down(playlist: PlaylistModel)
+
 
 # -> Global signals
 signal load_all_songs
@@ -133,7 +138,10 @@ func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)
 func emit_request_album_to_playlist(album: AlbumModel) -> void: request_album_to_playlist.emit(album)
 func emit_request_artist_to_playlist(artist: ArtistModel) -> void: request_artist_to_playlist.emit(artist)
+
 func emit_request_playlist_delete(playlist: PlaylistModel) -> void: request_playlist_delete.emit(playlist)
+func emit_request_playlist_up(playlist: PlaylistModel) -> void: request_playlist_up.emit(playlist)
+func emit_request_playlist_down(playlist: PlaylistModel) -> void: request_playlist_down.emit(playlist)
 
 
 func emit_load_all_songs() -> void: load_all_songs.emit()
