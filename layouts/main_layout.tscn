@@ -61,7 +61,7 @@
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
-[ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
+[ext_resource type="PackedScene" uid="uid://bbqt30emeqj6i" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -70,7 +70,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byb4x"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ablo"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -85,7 +85,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ablo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eryca"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -101,7 +101,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eryca"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1xk"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -267,8 +267,10 @@ song_info_f12_control = NodePath("SVP/SongInfoControl")
 f12_svp = NodePath("SVP")
 song_btn_cvr_scn = ExtResource("3_8ayet")
 default_album_art = ExtResource("1_od5lq")
+
 [node name="SVP" type="SubViewport" parent="UIManager" unique_id=738664628]
 render_target_update_mode = 4
+
 [node name="SongInfoControl" parent="UIManager/SVP" unique_id=466061530 instance=ExtResource("11_r7yy5")]
 
 [node name="LyricUIController" type="Node" parent="." unique_id=1473466852 node_paths=PackedStringArray("sync_lyrics_sc", "lyrics_panel", "lrc_service", "lrc_btn")]
@@ -338,7 +340,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_byb4x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ablo")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -386,7 +388,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_eryca")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -406,7 +408,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_eryca")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ek1xk")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
