@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cf0y0cdssiikm"]
+
+[ext_resource type="Texture2D" uid="uid://bn50ixg438sgj" path="res://assets/icons/iconoir/bell.svg" id="1_hyckp"]
+[ext_resource type="Script" uid="uid://bvgl5gv7jvmwf" path="res://Scripts/UI/Components/NotificationButton.gd" id="2_wvjve"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eryca"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.20032999, 0.20033002, 0.20032987, 1)
+corner_radius_top_left = 99
+corner_radius_top_right = 99
+corner_radius_bottom_right = 99
+corner_radius_bottom_left = 99
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ablo"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0.20032999, 0.20033002, 0.20032987, 1)
+corner_radius_top_left = 99
+corner_radius_top_right = 99
+corner_radius_bottom_right = 99
+corner_radius_bottom_left = 99
+corner_detail = 20
+
+[node name="NotificationButton" type="Button" unique_id=801889786]
+custom_minimum_size = Vector2(0, 48)
+mouse_filter = 2
+theme_override_constants/icon_max_width = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_eryca")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_5ablo")
+text = "NoText"
+icon = ExtResource("1_hyckp")
+text_overrun_behavior = 3
+clip_text = true
+script = ExtResource("2_wvjve")
