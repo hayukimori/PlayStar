@@ -99,6 +99,9 @@ func _ready() -> void:
 	SignalBus.set_shuffle.connect(_on_mpris_set_shuffle)
 	SignalBus.set_loop_status.connect(_on_mpris_set_loop_status)
 
+	# MISC Signals
+	SignalBus.copy_song.connect(_on_copy_song_request)
+
 	user_defaults = UserGlobals.get_defaults()
 	update_by_defaults()
 	load_songs()
@@ -492,6 +495,8 @@ func _on_search_results_requested(results: Array) -> void:
 	if ui_manager:
 		ui_manager.show_search_results(results_as_local)
 
+func _on_copy_song_request() -> void:
+	CopyPasteFeatures.copy_song(playing_now)
 
 func _change_random_mode(state: bool) -> void:
 	random_mode = state

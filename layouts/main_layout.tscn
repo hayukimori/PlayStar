@@ -59,6 +59,8 @@
 [ext_resource type="PackedScene" uid="uid://bhrk3dmce3nd3" path="res://Window/AlbumWindow.tscn" id="48_621sv"]
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
+[ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
+[ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -67,7 +69,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkd8j"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byb4x"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -82,7 +84,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7yy5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ablo"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -98,7 +100,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byb4x"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eryca"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -241,8 +243,6 @@ script = ExtResource("7_wjxpu")
 
 [node name="UIManager" type="Node" parent="." unique_id=303575452 node_paths=PackedStringArray("volume_slider", "progress_slider", "search_results_scroll_container", "search_results_container", "shuffle_button", "repeat_mode_button", "search_button", "search_control", "search_bar_line_edit", "songs_button_list_scroll_container", "songs_button_list", "current_time_label", "length_count_label", "current_queu_name_label", "search_cover_panel", "title_label", "artist_label", "album_label", "art_trr")]
 script = ExtResource("1_y4nck")
-song_btn_cvr_scn = ExtResource("3_8ayet")
-default_album_art = ExtResource("1_od5lq")
 volume_slider = NodePath("../LeftMenuControl/MenuPanel/VolumeHSlider")
 progress_slider = NodePath("../PlayerControlsPanel/ProgressBarControl/ProgressSlider")
 search_results_scroll_container = NodePath("../SongQueueControl/SearchScrollContainer")
@@ -262,6 +262,8 @@ title_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/Son
 artist_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/ArtistNameLabel")
 album_label = NodePath("../SongInfoControl/AlbumArtControl/BottomInfoControl/AlbumNameLabel")
 art_trr = NodePath("../SongInfoControl/AlbumArtControl/ArtTRR")
+song_btn_cvr_scn = ExtResource("3_8ayet")
+default_album_art = ExtResource("1_od5lq")
 
 [node name="LyricUIController" type="Node" parent="." unique_id=1473466852 node_paths=PackedStringArray("sync_lyrics_sc", "lyrics_panel", "lrc_service", "lrc_btn")]
 script = ExtResource("11_hnfla")
@@ -330,7 +332,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dkd8j")
+theme_override_styles/panel = SubResource("StyleBoxFlat_byb4x")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -362,9 +364,9 @@ offset_top = 19.839996
 offset_right = -13.980011
 theme = ExtResource("3_h7vyd")
 script = ExtResource("15_dkd8j")
+player = NodePath("../../../../AudioServer/VlcPlayer")
 disabled_text_lsettings = ExtResource("16_r7yy5")
 enabled_text_lsettings = ExtResource("17_byb4x")
-player = NodePath("../../../../AudioServer/VlcPlayer")
 vbc = NodePath("SyncLyricsVBC")
 
 [node name="SyncLyricsVBC" type="VBoxContainer" parent="SongInfoControl/AlbumArtControl/LyricsPanel/SyncLyricsSC" unique_id=551940807]
@@ -378,7 +380,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r7yy5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ablo")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -398,7 +400,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_byb4x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_eryca")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -988,3 +990,34 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 [node name="SingleAlbumWindow" parent="WindowManager" unique_id=1993442924 instance=ExtResource("50_rtief")]
 
 [node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
+
+[node name="PopMsgControl" type="Control" parent="." unique_id=850224413]
+layout_mode = 1
+anchor_top = 0.38000003
+anchor_bottom = 0.38000003
+offset_top = -161.24002
+offset_right = 457.0
+offset_bottom = 216.75998
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("60_byb4x")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PopMsgControl" unique_id=504068678]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 47.0
+offset_right = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_h7vyd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopMsgControl/ScrollContainer" unique_id=707758147]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_h7vyd")
+
+[node name="NotificationButton" parent="PopMsgControl/ScrollContainer/VBoxContainer" unique_id=801889786 instance=ExtResource("60_r7yy5")]
+layout_mode = 2
