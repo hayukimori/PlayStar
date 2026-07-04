@@ -1,6 +1,24 @@
 [gd_scene format=3 uid="uid://bu5h25p7jmhal"]
 
 [ext_resource type="Script" uid="uid://cnl17xffmfnde" path="res://Scripts/Window/ScanWindow.gd" id="1_t72t2"]
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="2_scfql"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scfql"]
+bg_color = Color(0.11372549, 0.16078432, 0.20784314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p31h8"]
+bg_color = Color(0.30980393, 0.95686275, 0.2784314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_nki3b"]
+font = ExtResource("2_scfql")
 
 [node name="ScanWindow" type="Window" unique_id=887761806]
 oversampling_override = 1.0
@@ -20,24 +38,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=512246619]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=1053038806]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 18.0
-offset_top = 79.0
+offset_top = 83.0
 offset_right = -16.0
-offset_bottom = -24.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("2_scfql")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/background = SubResource("StyleBoxFlat_scfql")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p31h8")
 rounded = true
 
 [node name="StatusLabel" type="Label" parent="Control" unique_id=1854301463]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 179.0
-offset_top = 30.0
-offset_right = -179.0
+offset_left = 18.0
+offset_top = 29.0
+offset_right = 144.0
 offset_bottom = 53.0
-grow_horizontal = 2
 text = "{Current Status}"
+label_settings = SubResource("LabelSettings_nki3b")
