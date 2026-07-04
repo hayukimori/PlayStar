@@ -8,6 +8,7 @@ signal playlist_clicked(obj: PlaylistModel)
 @export var song_count_label: Label
 @export var delete_button: AnimatedOptionButton
 
+@export var show_up_down: bool = false
 @export var move_up_button: Button
 @export var move_down_button: Button
 
@@ -15,6 +16,7 @@ signal playlist_clicked(obj: PlaylistModel)
 var s_count_text: String = "%s Songs"
 var click_opened: bool = false
 var option_buttons: Array[AnimatedOptionButton]
+var ignore_buttons: Array[AnimatedOptionButton]
 
 func _ready() -> void:
 	if !playlist_object: queue_free();
@@ -32,6 +34,10 @@ func _set_ui() -> void:
 	option_buttons.append(move_up_button)
 	option_buttons.append(move_down_button)
 
+	if !show_up_down:
+		ignore_buttons.append(move_up_button)
+		ignore_buttons.append(move_down_button)
+
 	move_up_button.pressed.connect(_on_playlist_up_pressed)
 	move_down_button.pressed.connect(_on_playlist_down_pressed)
 
@@ -46,11 +52,13 @@ func _on_button_gui_event(event: InputEvent) -> void:
 	if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		if click_opened:
 			for i in option_buttons:
-				i.animate_close()
+				if i not in ignore_buttons:
+					i.animate_close()
 			click_opened = false
 		else:
 			for i in option_buttons:
-				i.animate_open()
+				if i not in ignore_buttons:
+					i.animate_open()
 			click_opened = true
 
 

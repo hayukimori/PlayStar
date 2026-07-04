@@ -114,6 +114,7 @@ func _load_ui_playlists() -> void:
 			continue
 		btn.playlist_object = pl
 		btn.playlist_clicked.connect(load_songs_playlist)
+		btn.show_up_down = true
 		playlists_vbc.add_child(btn)
 		playlist_btn_list.append(btn)
 
