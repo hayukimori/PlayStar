@@ -11,8 +11,16 @@ config_version=5
 [application]
 
 config/name="PlayStar"
+config/description="Your music, your library, your way. PlayStar keeps it simple so you can focus on what matters — the music."
+config/version="1.0.0"
 run/main_scene="uid://cucj2so2q2vo0"
+run/disable_stderr=true
+run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+run/low_processor_mode=true
+boot_splash/bg_color=Color(0.08627451, 0.08627451, 0.08627451, 1)
+boot_splash/stretch_mode=0
+boot_splash/image="uid://1hmo0uw5um4"
 config/icon="uid://i2bno848p0tt"
 
 [autoload]
@@ -138,5 +146,5 @@ scroll_to_current={
 
 [rendering]
 
-rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
