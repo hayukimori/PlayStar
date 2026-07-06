@@ -30,10 +30,13 @@ func get_defaults() -> UserDefaults:
 	var res: UserDefaults
 	if FileAccess.file_exists(USER_DEFAULTS_PATH):
 		res = ResourceLoader.load(USER_DEFAULTS_PATH)
+
+		# Reorder playlist (filter by files that still exists)
+		res.playlist_order = res.playlist_order.filter(func(p): return FileAccess.file_exists(p))
 	else:
 		res = UserDefaults.new()
-		save_defaults(res)
 
+	save_defaults(res)
 	current_defaults = res
 	return res
 

@@ -31,47 +31,111 @@ var _playlists: Array[PlaylistModel] = []
 func _ready() -> void:
 	_playlists = PlaylistManager.load_playlists()
 
+	var udf = UserGlobals.get_defaults()
+	if udf.playlist_order.is_empty():
+		udf.playlist_order = _playlists.map(func(pl): return pl.path)
+		UserGlobals.save_defaults(udf)
+
+	_sort_playlists_by_order()
+
 	new_playlist_btn.pressed.connect(_on_new_playlist_btn)
 
 	SignalBus.playlist_deleted.connect(_on_playlist_deleted)
 	SignalBus.playlist_added.connect(_on_playlist_added)
+
+	SignalBus.request_playlist_up.connect(move_playlist_ui_up)
+	SignalBus.request_playlist_down.connect(move_playlist_ui_down)
 
 	self.visibility_changed.connect(_on_visibility_changed)
 	_load_ui_playlists()
 
 # ─── Playlist UI ──────────────────────────────────────────────────────────────
 
-func _load_ui_playlists(
-	add_to_cache: Array[PlaylistModel] = [],
-	remove_from_cache: Array[PlaylistModel] = []
-) -> void:
-	if _playlists.is_empty() or not playlists_vbc or not playlist_btn_scene:
+## Moves playlist up
+func move_playlist_ui_up(playlist: PlaylistModel) -> void:
+	PlaylistManager.move_playlist_up(playlist.path)
+	var btn := _get_playlist_btn(playlist)
+	if not btn:
 		return
 
-	for pl in add_to_cache:
-		_playlists.append(pl)
+	var idx := btn.get_index()
+	if idx > 0:
+		playlists_vbc.move_child(btn, idx-1)
+		var pi := _playlists.find(playlist)
+		if pi > 0:
+			var temp = _playlists[pi - 1]
+			_playlists[pi -1] = _playlists[pi]
+			_playlists[pi] = temp
 
-	for rm in remove_from_cache:
-		var idx := _playlists.find(rm)
-		if idx != -1:
-			_playlists.remove_at(idx)
 
+## Moves playlist down
+func move_playlist_ui_down(playlist: PlaylistModel) -> void:
+	PlaylistManager.move_playlist_down(playlist.path)
+	var btn := _get_playlist_btn(playlist)
+	if not btn:
+		return
+	var idx := btn.get_index()
+	if idx < playlists_vbc.get_child_count() - 1:
+		playlists_vbc.move_child(btn, idx + 1)
+		var pi := _playlists.find(playlist)
+		if pi > 0:
+			var temp = _playlists[pi - 1]
+			_playlists[pi -1] = _playlists[pi]
+			_playlists[pi] = temp
+
+
+func _get_playlist_btn(playlist: PlaylistModel) -> PlaylistButton:
+	for btn in playlist_btn_list:
+		if (btn as PlaylistButton).playlist_object == playlist:
+			return btn as PlaylistButton
+	return null
+
+func _add_to_cache(playlist: PlaylistModel) -> void:
+	if _playlists.has(playlist):
+		return
+	var order: Array = UserGlobals.get_defaults().playlist_order
+	var idx = order.find(playlist.path)
+	if idx != -1 and idx < _playlists.size():
+		_playlists.insert(idx, playlist)
+	else:
+		_playlists.append(playlist)
+
+func _remove_from_cache(playlist: PlaylistModel) -> void:
+	var idx := _playlists.find(playlist)
+	if idx != -1:
+		_playlists.remove_at(idx)
+
+func _load_ui_playlists() -> void:
+	if _playlists.is_empty() or not playlists_vbc or not playlist_btn_scene:
+		return
 	for pl in _playlists:
 		var btn := playlist_btn_scene.instantiate() as PlaylistButton
 		if not btn:
 			continue
 		btn.playlist_object = pl
 		btn.playlist_clicked.connect(load_songs_playlist)
+		btn.show_up_down = true
 		playlists_vbc.add_child(btn)
 		playlist_btn_list.append(btn)
 
 
-func _reload_ui_playlists(
-	add_to_cache: Array[PlaylistModel] = [],
-	remove_from_cache: Array[PlaylistModel] = []
-) -> void:
+func _sort_playlists_by_order() -> void:
+	var order: Array = UserGlobals.get_defaults().playlist_order
+	if order.is_empty():
+		return
+
+	_playlists.sort_custom(func(a, b):
+		var ia = order.find(a.path)
+		var ib = order.find(b.path)
+		if ia == -1: ia = _playlists.size()
+		if ib == -1: ib = _playlists.size()
+		return ia < ib
+	)
+
+func _reload_ui_playlists() -> void:
+	_sort_playlists_by_order()
 	DevTools.wipe_btns(playlist_btn_list)
-	_load_ui_playlists(add_to_cache, remove_from_cache)
+	_load_ui_playlists()
 
 
 # ─── Song Buttons ─────────────────────────────────────────────────────────────
@@ -168,10 +232,21 @@ func play_playlist_song(song: SongModel) -> void:
 # ─── Signal Handlers ──────────────────────────────────────────────────────────
 
 func _on_playlist_deleted(playlist: PlaylistModel) -> void:
-	_reload_ui_playlists([], [playlist])
+	_remove_from_cache(playlist)
+	var btn := _get_playlist_btn(playlist)
+	if btn:
+		playlist_btn_list.erase(btn)
+		btn.queue_free()
 
 func _on_playlist_added(playlist: PlaylistModel) -> void:
-	_reload_ui_playlists([playlist], [])
+	_add_to_cache(playlist)
+	var btn := playlist_btn_scene.instantiate() as PlaylistButton
+	if not btn:
+		return
+	btn.playlist_object = playlist
+	btn.playlist_clicked.connect(load_songs_playlist)
+	playlists_vbc.add_child(btn)
+	playlist_btn_list.append(btn)
 
 func delete_playlist(playlist: PlaylistModel) -> void:
 	SignalBus.emit_request_playlist_delete(playlist)

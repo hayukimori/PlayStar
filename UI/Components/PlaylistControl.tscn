@@ -27,7 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nfb0i")
-playlists_vbc = NodePath("PlaylistScroll/ExternalVBC")
+playlists_vbc = NodePath("PlaylistScroll/ExternalVBC/PlaylistsVBC")
 song_btn_vbc = NodePath("SongsScroll/VBoxContainer")
 color_rect = NodePath("BgColor")
 new_playlist_btn = NodePath("PlaylistScroll/ExternalVBC/NewPlaylistButton")
@@ -71,9 +71,6 @@ expand_icon = true
 [node name="PlaylistsVBC" type="VBoxContainer" parent="PlaylistScroll/ExternalVBC" unique_id=1744796560]
 layout_mode = 2
 
-[node name="PlaylistButton" parent="PlaylistScroll/ExternalVBC/PlaylistsVBC" unique_id=1125917547 instance=ExtResource("2_nfb0i")]
-layout_mode = 2
-
 [node name="SongsScroll" type="ScrollContainer" parent="." unique_id=390917620]
 layout_mode = 1
 anchors_preset = -1
@@ -91,9 +88,6 @@ theme = ExtResource("1_tx3fo")
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_dg3yt")
-
-[node name="SongButtonCovered" parent="SongsScroll/VBoxContainer" unique_id=285328477 instance=ExtResource("3_6t6is")]
-layout_mode = 2
 
 [node name="NewPlaylistHWindow" type="Window" parent="." unique_id=932323886 node_paths=PackedStringArray("line_edit", "confirm_btn")]
 oversampling_override = 1.0

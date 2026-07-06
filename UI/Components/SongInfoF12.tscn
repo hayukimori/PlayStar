@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://b0mnveru2vbfs"]
+
+[ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_el0cd"]
+[ext_resource type="Script" uid="uid://3eenu4p0fibb" path="res://Scripts/UI/Components/song_info_f_12.gd" id="1_quwbp"]
+[ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="2_81nog"]
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="7_f6xq7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
+bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quwbp"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fony3"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_awq1b"]
+colors = PackedColorArray(0, 0, 0, 0.7647059, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_awq1b"]
+gradient = SubResource("Gradient_awq1b")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uirs"]
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_8ayet"]
+colors = PackedColorArray(0, 0, 0, 0.8666667, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_riu1i"]
+gradient = SubResource("Gradient_8ayet")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_awq1b"]
+font = ExtResource("7_f6xq7")
+font_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ayet"]
+font = ExtResource("7_f6xq7")
+font_size = 14
+
+[sub_resource type="SystemFont" id="SystemFont_awq1b"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_riu1i"]
+font = SubResource("SystemFont_awq1b")
+font_size = 24
+
+[node name="SongInfoControl" type="Control" unique_id=466061530 node_paths=PackedStringArray("trr", "song_label", "artist_label", "album_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_quwbp")
+trr = NodePath("AlbumArtControl/ArtTRR")
+song_label = NodePath("AlbumArtControl/BottomInfoControl/SongTitleLabel")
+artist_label = NodePath("AlbumArtControl/BottomInfoControl/ArtistNameLabel")
+album_label = NodePath("AlbumArtControl/BottomInfoControl/AlbumNameLabel")
+
+[node name="BackgroundPanel" type="Panel" parent="." unique_id=1176882285]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cty8o")
+
+[node name="AlbumArtControl" type="Control" parent="." unique_id=1931548769]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 20.0
+offset_right = -22.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArtTRR" type="Panel" parent="AlbumArtControl" unique_id=703134069]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_quwbp")
+script = ExtResource("1_el0cd")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 16
+radius_top_right = 16
+texture = ExtResource("2_81nog")
+stretch_mode = 6
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="TopTexture" type="Panel" parent="AlbumArtControl" unique_id=1343917981]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fony3")
+script = ExtResource("1_el0cd")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 16
+radius_top_right = 16
+texture = SubResource("GradientTexture2D_awq1b")
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="BottomTexture" type="Panel" parent="AlbumArtControl" unique_id=1515053885]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7uirs")
+script = ExtResource("1_el0cd")
+corner_detail = 16
+radius_bottom_left = 16
+radius_bottom_right = 16
+radius_top_left = 0
+radius_top_right = 0
+texture = SubResource("GradientTexture2D_riu1i")
+metadata/_custom_type_script = "uid://dkex67wyltjd6"
+
+[node name="BottomInfoControl" type="Control" parent="AlbumArtControl" unique_id=1630646233]
+layout_mode = 1
+anchor_top = 0.78300005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.15997314
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArtistNameLabel" type="Label" parent="AlbumArtControl/BottomInfoControl" unique_id=750756142]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 14.0
+offset_top = -40.0
+offset_right = 213.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "Artist"
+label_settings = SubResource("LabelSettings_awq1b")
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 5
+
+[node name="AlbumNameLabel" type="Label" parent="AlbumArtControl/BottomInfoControl" unique_id=2076837306]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = -14.0
+offset_right = 213.0
+offset_bottom = 38.0
+grow_vertical = 2
+text = "Album Name"
+label_settings = SubResource("LabelSettings_8ayet")
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 5
+
+[node name="SongTitleLabel" type="Label" parent="AlbumArtControl/BottomInfoControl" unique_id=1816944361]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -34.0
+offset_right = -25.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Waiting for music!!!!"
+label_settings = SubResource("LabelSettings_riu1i")
+horizontal_alignment = 2
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3

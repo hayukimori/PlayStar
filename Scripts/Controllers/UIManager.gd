@@ -26,12 +26,17 @@ class_name UIManager
 @export var reload_playlist_button: Button
 @export var current_queu_name_label: Label
 @export var search_cover_panel: Panel
+@export var copy_song_button: Button
 
 @export_subgroup("Playing Now screen")
 @export var title_label: Label
 @export var artist_label: Label
 @export var album_label: Label
 @export var art_trr: TextureRectRounded
+
+@export_subgroup("F12 (screenshot) screen")
+@export var song_info_f12_control: SongInfoF12
+@export var f12_svp: SubViewport
 #endregion
 
 
@@ -65,6 +70,7 @@ func _ready() -> void:
 	if reload_playlist_button: reload_playlist_button.pressed.connect(_on_reload_requested)
 	if volume_slider: volume_slider.value_changed.connect(_on_volume_slider_value_changed)
 	if search_button: search_button.pressed.connect(_on_toggle_search)
+	if copy_song_button: copy_song_button.pressed.connect(SignalBus.emit_copy_song)
 
 	if search_bar_line_edit:
 		search_bar_line_edit.render_results.connect(_on_search_bar_render_results)
@@ -74,6 +80,8 @@ func _ready() -> void:
 	SignalBus.volume_changed_externally.connect(_on_volume_changed_external)
 	SignalBus.song_changed.connect(set_playing_now)
 	SignalBus.toggle_search.connect(_on_toggle_search)
+
+	SignalBus.capture_now.connect(capture_sifo)
 
 
 
@@ -163,6 +171,31 @@ func set_playing_now(song: SongModel) -> void:
 
 	var texture = VlcPlayer.GetTextureFrom(song.FilePath)
 	art_trr.texture = texture if texture else default_album_art
+
+	set_sifo(song, texture)
+
+#endregion
+
+#region Screenshot
+func render_pn_to_image() -> Image:
+	f12_svp.transparent_bg = true
+
+	await get_tree().process_frame
+	var image := f12_svp.get_texture().get_image()
+
+	return image
+
+func capture_sifo() -> void:
+	var image = await render_pn_to_image()
+
+	var tmp_path := "user://playing_now_texure.png"
+	image.save_png(tmp_path)
+
+	MiscTools.CopyFileToClipboard(tmp_path, true)
+	SignalBus.emit_pop_msg_request("Picture copied to clipboard")
+
+func set_sifo(song: SongModel, texture) -> void:
+	song_info_f12_control.set_ui(song, texture)
 
 #endregion
 

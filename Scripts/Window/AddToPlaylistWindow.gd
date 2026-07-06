@@ -18,6 +18,7 @@ func _ready() -> void:
 	new_playlist_btn.pressed.connect(_on_new_playlist_btn)
 
 	_playlists = PlaylistManager.load_playlists()
+	_sort_playlists_by_order()
 	_load_ui_playlists()
 
 	change_title()
@@ -36,21 +37,36 @@ func change_title() -> void:
 	else:
 		title = "Invalid window"
 
-func _load_ui_playlists(
-	add_to_cache: Array[PlaylistModel] = [],
-	remove_from_cache: Array[PlaylistModel] = []
-) -> void:
+func _sort_playlists_by_order() -> void:
+	var order: Array = UserGlobals.get_defaults().playlist_order
+	if order.is_empty():
+		return
+	_playlists.sort_custom(func(a, b):
+		var ia = order.find(a.path)
+		var ib = order.find(b.path)
+		if ia == -1: ia = _playlists.size()
+		if ib == -1: ib = _playlists.size()
+		return ia < ib
+	)
+
+func _add_to_cache(playlist: PlaylistModel) -> void:
+	if _playlists.has(playlist):
+		return
+	var order: Array = UserGlobals.get_defaults().playlist_order
+	var idx = order.find(playlist.path)
+	if idx != -1 and idx < _playlists.size():
+		_playlists.insert(idx, playlist)
+	else:
+		_playlists.append(playlist)
+
+func _remove_from_cache(playlist: PlaylistModel) -> void:
+	var idx := _playlists.find(playlist)
+	if idx != -1:
+		_playlists.remove_at(idx)
+
+func _load_ui_playlists() -> void:
 	if _playlists.is_empty() or not playlists_vbc or not playlist_btn_scene:
 		return
-
-	for pl in add_to_cache:
-		_playlists.append(pl)
-
-	for rm in remove_from_cache:
-		var idx := _playlists.find(rm)
-		if idx != -1:
-			_playlists.remove_at(idx)
-
 	for pl in _playlists:
 		var btn := playlist_btn_scene.instantiate() as PlaylistButton
 		if not btn:
@@ -61,12 +77,9 @@ func _load_ui_playlists(
 		playlist_btn_list.append(btn)
 
 
-func _reload_ui_playlists(
-	add_to_cache: Array[PlaylistModel] = [],
-	remove_from_cache: Array[PlaylistModel] = []
-) -> void:
+func _reload_ui_playlists() -> void:
 	DevTools.wipe_btns(playlist_btn_list)
-	_load_ui_playlists(add_to_cache, remove_from_cache)
+	_load_ui_playlists()
 
 
 func _add_current_to(playlist: PlaylistModel) -> void:
@@ -98,11 +111,27 @@ func safe_quit() -> void:
 	queue_free()
 
 func _on_playlist_deleted(playlist: PlaylistModel) -> void:
-	_reload_ui_playlists([], [playlist])
+	_remove_from_cache(playlist)
+	var btn := _get_playlist_btn(playlist)
+	if btn:
+		playlist_btn_list.erase(btn)
+		btn.queue_free()
 
 func _on_playlist_added(playlist: PlaylistModel) -> void:
-	_reload_ui_playlists([playlist], [])
+	_add_to_cache(playlist)
+	var btn := playlist_btn_scene.instantiate() as PlaylistButton
+	if not btn:
+		return
+	btn.playlist_object = playlist
+	btn.playlist_clicked.connect(_add_current_to)
+	playlists_vbc.add_child(btn)
+	playlist_btn_list.append(btn)
 
+func _get_playlist_btn(playlist: PlaylistModel) -> PlaylistButton:
+	for btn in playlist_btn_list:
+		if (btn as PlaylistButton).playlist_object == playlist:
+			return btn as PlaylistButton
+	return null
 
 func _on_new_playlist_btn() -> void:
 	if !new_playlist_win: return
