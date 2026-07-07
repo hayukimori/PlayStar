@@ -858,7 +858,7 @@ panel = NodePath("MenuPanel")
 close_btn_texture = ExtResource("33_fqe4u")
 open_btn_texture = ExtResource("33_qrbpp")
 closed_pos = Vector2(-260, 0)
-pos_animation_duration = 0.3
+pos_animation_duration = 0.4
 alpha_animation_duration = 0.2
 
 [node name="MenuPanel" type="Panel" parent="LeftMenuControl" unique_id=2082260197]
