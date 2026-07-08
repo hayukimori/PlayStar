@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="2_02pua"]
 [ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="4_e5o5x"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02pua"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o5x"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -37,10 +37,11 @@ offset_bottom = 74.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_02pua")
+theme_override_styles/panel = SubResource("StyleBoxFlat_e5o5x")
 script = ExtResource("1_sblrx")
 corner_detail = 16
 texture = ExtResource("2_02pua")
+stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
 [node name="NameLabel" type="Label" parent="." unique_id=531330518]
@@ -49,7 +50,7 @@ offset_left = 1.0
 offset_top = 80.0
 offset_right = 97.0
 offset_bottom = 101.0
-text = "Kikuo"
+text = "{ArtistName}"
 label_settings = SubResource("LabelSettings_cty8o")
 horizontal_alignment = 1
 clip_text = true

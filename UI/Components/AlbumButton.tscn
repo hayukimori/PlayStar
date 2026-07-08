@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="3_pxseq"]
 [ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="4_pa0tc"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxseq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pa0tc"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -37,10 +37,11 @@ offset_bottom = 74.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_pxseq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pa0tc")
 script = ExtResource("2_pa0tc")
 corner_detail = 16
 texture = ExtResource("3_pxseq")
+stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
 [node name="NameLabel" type="Label" parent="." unique_id=531330518]
