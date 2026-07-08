@@ -38,6 +38,7 @@ DiscordRp="*uid://0q8y2848qla1"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+display_server/driver.linuxbsd="wayland"
 
 [dotnet]
 
