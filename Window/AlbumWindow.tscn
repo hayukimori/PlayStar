@@ -46,6 +46,7 @@ corner_radius_bottom_left = 8
 [sub_resource type="SystemFont" id="SystemFont_ub5km"]
 font_names = PackedStringArray("Noto Sans CJK JP")
 font_weight = 850
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
 font = SubResource("SystemFont_ub5km")
@@ -125,10 +126,11 @@ metadata/_custom_type_script = "uid://ec43qt4c1qc"
 [node name="Label" type="Label" parent="AlbumGroupControl" unique_id=10980613]
 layout_mode = 1
 anchors_preset = -1
-anchor_bottom = 0.97
-offset_left = 38.0
-offset_top = 10.0
-offset_right = 387.0
-offset_bottom = -252.0
+anchor_right = 1.0
+anchor_bottom = 0.120000005
+offset_left = 49.0
+offset_right = -302.0
+offset_bottom = 12.0
 text = "Albums"
 label_settings = SubResource("LabelSettings_cty8o")
+vertical_alignment = 1
