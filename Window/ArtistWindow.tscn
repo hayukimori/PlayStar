@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dwd74y77mpc7g" path="res://UI/Components/ArtistButton.tscn" id="4_42xlk"]
 [ext_resource type="Script" uid="uid://dx5kti0cfoy4y" path="res://Scripts/UI/CustomNodes/FlexBoxFreezableGridContainer.gd" id="5_4qpyv"]
 [ext_resource type="Script" uid="uid://ec43qt4c1qc" path="res://Scripts/UI/Components/SearchBar.gd" id="5_42xlk"]
+[ext_resource type="SystemFont" uid="uid://7pnyqoj60olo" path="res://assets/Fonts/SharedTres/baisc_system_font_bold.tres" id="7_56eyv"]
 
 [sub_resource type="SystemFont" id="SystemFont_42xlk"]
 subpixel_positioning = 0
@@ -42,6 +43,10 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
+font = ExtResource("7_56eyv")
+font_size = 19
 
 [node name="ArtistWindow" type="Window" unique_id=424101991]
 oversampling_override = 1.0
@@ -93,14 +98,16 @@ columns = 5
 script = ExtResource("5_4qpyv")
 
 [node name="SearchBar" type="LineEdit" parent="ArtistGroupControl" unique_id=83338107]
+custom_minimum_size = Vector2(249, 28)
+custom_maximum_size = Vector2(249, 28)
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = -1
 anchor_right = 1.0
-offset_left = -265.0
+anchor_bottom = 0.19000001
+offset_left = 435.0
 offset_top = 10.0
 offset_right = -16.0
-offset_bottom = 38.0
+offset_bottom = -19.000004
 grow_horizontal = 0
 theme_override_fonts/font = SubResource("SystemFont_42xlk")
 theme_override_font_sizes/font_size = 12
@@ -113,3 +120,16 @@ script = ExtResource("5_42xlk")
 search_scope = 3
 search_mode = 1
 metadata/_custom_type_script = "uid://ec43qt4c1qc"
+
+[node name="Label" type="Label" parent="ArtistGroupControl" unique_id=418086082]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.19700001
+offset_left = 45.0
+offset_top = -1.0
+offset_right = -523.0
+offset_bottom = -2.1000023
+text = "Artists"
+label_settings = SubResource("LabelSettings_cty8o")
+vertical_alignment = 1
