@@ -81,6 +81,7 @@ radius_bottom_right = 4
 radius_top_left = 4
 radius_top_right = 4
 texture = ExtResource("2_exdt8")
+stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
 [node name="TitleLabel" type="Label" parent="." unique_id=98795610]

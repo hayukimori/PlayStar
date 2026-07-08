@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cxajmf6r71guk" path="res://Scripts/UI/Components/AlbumButtonCovered.gd" id="1_yrd2v"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="2_yrd2v"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y54yu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrd2v"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -27,7 +27,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_y54yu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yrd2v")
 script = ExtResource("1_rrw1g")
 texture = ExtResource("2_yrd2v")
+stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
