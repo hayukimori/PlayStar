@@ -11,11 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="7_p518v"]
 [ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs46e"]
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tf6t"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 anti_aliasing = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_oyhhh"]
@@ -73,9 +73,10 @@ offset_left = 12.0
 offset_top = 11.0
 offset_right = 54.0
 offset_bottom = 53.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_vs46e")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4tf6t")
 script = ExtResource("4_4tf6t")
 texture = ExtResource("2_exdt8")
+stretch_mode = 6
 metadata/_custom_type_script = "uid://dgmuwslw0j772"
 
 [node name="TitleLabel" type="Label" parent="." unique_id=98795610]
