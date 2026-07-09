@@ -66,16 +66,31 @@ func _on_art_ready(key, texture) -> void:
 
 
 func self_destroy() -> void:
-	if image_processed: queue_free(); return;
+	if !is_currently_visible:
+		_cleanup_and_free()
+		return
 
-	self.hide()
-	var delete_timer = Timer.new()
-	delete_timer.wait_time = .35
-	delete_timer.one_shot = false
+	if image_processed:
+		_cleanup_and_free()
+	else:
+		self.hide()
+		var delete_timer = Timer.new()
+		delete_timer.wait_time = .35
+		delete_timer.one_shot = false
+		delete_timer.timeout.connect(_on_queue_free_timer_done)
+		add_child(delete_timer)
+		delete_timer.start()
 
-	add_child(delete_timer)
-	delete_timer.start()
 
+
+func _on_queue_free_timer_done():
+	if !image_processed: return
+	_cleanup_and_free()
+
+func _cleanup_and_free() -> void:
+	if ArtService.ArtReady.is_connected(_on_art_ready):
+		ArtService.ArtReady.disconnect(_on_art_ready)
+	queue_free()
 
 func set_ui() -> void:
 	if album: name_label.text = album.AlbumName
