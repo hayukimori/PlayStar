@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using Microsoft.Data.Sqlite;
+using PlayStar.Scripts.Core;
 using PlayStar.Scripts.Models;
 
 namespace PlayStar.Scripts.Database.Repositories;
@@ -9,6 +10,7 @@ namespace PlayStar.Scripts.Database.Repositories;
 public partial class SongRepository : Node
 {
     private DatabaseManager _db;
+    private readonly PSMemoryManager _memory = new();
 
     public void Initialize(DatabaseManager db) => _db = db;
 
@@ -48,6 +50,7 @@ public partial class SongRepository : Node
         while (reader.Read())
             songs.Add(MapSong(reader));
 
+        _memory.RequestCleanup();
         return songs;
     }
 
@@ -87,6 +90,7 @@ public partial class SongRepository : Node
         while (reader.Read())
             songs.Add(MapSong(reader));
 
+        _memory.RequestCleanup();
         return songs;
     }
 
@@ -119,7 +123,10 @@ public partial class SongRepository : Node
         cmd.Parameters.AddWithValue("$artistId", artist.Id);
 
         using var reader = cmd.ExecuteReader();
-        return reader.Read() ? MapSong(reader) : new SongModel();
+        var rest = reader.Read() ? MapSong(reader) : new SongModel();
+
+        _memory.RequestCleanup();
+        return rest;
     }
     #endregion
 
@@ -197,7 +204,7 @@ public partial class SongRepository : Node
         Album = r.IsDBNull(5) ? "" : r.GetString(5),
         ArtPath = r.IsDBNull(6) ? "" : r.GetString(6),
         Year = r.IsDBNull(7) ? 0 : (uint)r.GetInt32(7),
-        Artist = r.IsDBNull(9) ? "" : r.GetString(9), // Agora retorna a concatenação real dos artistas
+        Artist = r.IsDBNull(9) ? "" : r.GetString(9),
         Genre = r.IsDBNull(10) ? "" : r.GetString(10),
     };
     #endregion

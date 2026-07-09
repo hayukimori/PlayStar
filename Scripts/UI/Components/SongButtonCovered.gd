@@ -80,7 +80,7 @@ func request_art():
 
 func _on_art_ready(key, texture):
 	if key == song_content.FilePath:
-			album_art.texture = texture
+		album_art.texture = texture
 
 
 func _pressed() -> void:
