@@ -4,6 +4,7 @@ class_name PlaylistControl
 @export_group("Scene Nodes")
 @export var playlists_vbc: VBoxContainer
 @export var song_btn_vbc: FreezableBoxContainer
+@export var song_btn_scroll: ScrollContainer
 @export var central_panel: Panel
 @export var color_rect: ColorRect
 @export var new_playlist_btn: Button
@@ -26,7 +27,7 @@ var playlist_btn_list: Array[Button] = []
 var _current_selected_playlist: PlaylistModel
 var _current_generation := 0
 var _playlists: Array[PlaylistModel] = []
-
+var _visibility_check_pending := false
 
 func _ready() -> void:
 	_playlists = PlaylistManager.load_playlists()
@@ -45,6 +46,8 @@ func _ready() -> void:
 
 	SignalBus.request_playlist_up.connect(move_playlist_ui_up)
 	SignalBus.request_playlist_down.connect(move_playlist_ui_down)
+
+	song_btn_scroll.get_v_scroll_bar().value_changed.connect(_on_songs_scroll_changed)
 
 	self.visibility_changed.connect(_on_visibility_changed)
 	_load_ui_playlists()
@@ -195,6 +198,8 @@ func _new_song_btn(song: SongModel) -> void:
 	btn.visible = true
 	song_btn_vbc.add_child(btn)
 
+	_on_node_added_to_list()
+
 
 func remove_song_from_current(song: SongModel) -> void:
 	var btn := _get_button_by_song(song)
@@ -258,3 +263,26 @@ func _on_new_playlist_btn() -> void:
 
 func _on_visibility_changed() -> void:
 	if visible: _reload_ui_playlists()
+
+
+# ---- Scroll ------------------------------------------------------------------
+func _on_songs_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, song_btn_scroll.size)
+	visible_rect.position += Vector2(0, song_btn_scroll.scroll_vertical)
+
+	for button in song_btn_vbc.get_children():
+		if button is SongButtonCovered:
+			var button_rect = Rect2(button.position, button.size)
+			var btn_is_visible = visible_rect.intersects(button_rect)
+			button.set_art_visibility(btn_is_visible)
+
+
+func _on_node_added_to_list():
+	if _visibility_check_pending:
+		return
+	_visibility_check_pending = true
+	call_deferred("_run_visibility_check")
+
+func _run_visibility_check():
+	_visibility_check_pending = false
+	_on_songs_scroll_changed(0)

@@ -4,12 +4,15 @@ class_name AlbumButton
 
 @export var name_label: Label
 @export var art: TextureRectRounded
+@export var default_album_art: Texture2D
 
 @export var album: AlbumModel
 
 var file_path: String
 var image_processed: bool = false
 var current_image: Texture2D
+
+var is_currently_visible: bool = false
 
 func _ready() -> void:
 	if !album: queue_free()
@@ -27,9 +30,20 @@ func _ready() -> void:
 	if song:
 		file_path = song.FilePath
 		ArtService.ArtReady.connect(_on_art_ready)
+
+
+
+func set_art_visibility(b_visible: bool):
+	if b_visible == is_currently_visible:
+		return
+
+	is_currently_visible = b_visible
+
+	if b_visible:
 		request_art()
-
-
+	else:
+		art.texture = default_album_art
+		image_processed = false
 
 
 func request_art():
@@ -48,6 +62,7 @@ func _on_art_ready(key, texture) -> void:
 	if key == file_path:
 		art.texture = texture
 		current_image = texture
+		image_processed = true
 
 
 func self_destroy() -> void:

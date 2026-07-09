@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://mfgk5vvdxgfm"]
 
-[ext_resource type="Script" uid="uid://dkex67wyltjd6" path="res://addons/TextureRectRounded/TextureRectRounded.gd" id="1_rrw1g"]
 [ext_resource type="Script" uid="uid://cxajmf6r71guk" path="res://Scripts/UI/Components/AlbumButtonCovered.gd" id="1_yrd2v"]
+[ext_resource type="Script" uid="uid://dgmuwslw0j772" path="res://addons/SongArtRounded/SongArtRounded.gd" id="2_y54yu"]
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="2_yrd2v"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrd2v"]
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs46e"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 anti_aliasing = false
 
 [node name="AlbumButtonCovered" type="Button" unique_id=239373238]
@@ -17,8 +17,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 flat = true
 script = ExtResource("1_yrd2v")
+default_album_art = ExtResource("2_yrd2v")
 
-[node name="TextureRectRounded" type="Panel" parent="." unique_id=278504070]
+[node name="AlbumArtRounded" type="Panel" parent="." unique_id=1478767034]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -27,8 +28,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_yrd2v")
-script = ExtResource("1_rrw1g")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vs46e")
+script = ExtResource("2_y54yu")
 texture = ExtResource("2_yrd2v")
 stretch_mode = 6
-metadata/_custom_type_script = "uid://dkex67wyltjd6"
+metadata/_custom_type_script = "uid://dgmuwslw0j772"

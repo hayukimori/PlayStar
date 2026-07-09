@@ -25,6 +25,7 @@ flat = true
 script = ExtResource("1_02pua")
 name_label = NodePath("NameLabel")
 art = NodePath("ArtistArt")
+default_art = ExtResource("2_02pua")
 
 [node name="ArtistArt" type="Panel" parent="." unique_id=613034865]
 clip_children = 1

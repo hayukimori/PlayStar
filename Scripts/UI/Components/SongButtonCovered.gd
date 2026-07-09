@@ -10,17 +10,20 @@ signal playlist_removal_request(song: SongModel)
 
 @export var title_label: Label
 @export var artist_label: Label
-@export var album_art: TextureRectRounded
+@export var album_art: SongArtRounded
 @export var hq_btn: Button
 @export var playing_now_bar: ColorRect
 @export var add_to_playlist_btn: ToPlaylistButton
 @export var remove_from_current_playlist_btn: Button
+@export var default_album_art: Texture2D
 
 @onready var original_label_settings: LabelSettings = title_label.label_settings
 
 var image_processed: bool = false
 var hbc_hovered: bool = false
 var click_opened: bool = false
+var is_currently_visible = false
+
 
 func _ready() -> void:
 	if !song_content: queue_free(); return;
@@ -49,9 +52,20 @@ func _ready() -> void:
 		remove_from_current_playlist_btn.pressed.connect(_remove_request)
 
 	ArtService.ArtReady.connect(_on_art_ready)
-	request_art()
 
 
+
+func set_art_visibility(b_visible: bool):
+	if b_visible == is_currently_visible:
+		return
+
+	is_currently_visible = b_visible
+
+	if b_visible:
+		request_art()
+	else:
+		album_art.texture = default_album_art
+		image_processed = false
 
 func request_art():
 	var key = song_content.FilePath
