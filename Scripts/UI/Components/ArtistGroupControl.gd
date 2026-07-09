@@ -2,12 +2,14 @@ extends Control
 class_name ArtistGroupControl
 
 @export_group("Scene Nodes")
+@export var nodes_scroll: ScrollContainer
 @export var nodes_grid: GridContainer
 @export var search_bar: SearchBar
 
 @export_group("Scene Settings")
 @export var artist_scn: PackedScene
 
+var _visibility_check_pending := false
 var _current_generation := 0
 const BUILD_BUDGET_USEC := 1000
 
@@ -22,6 +24,11 @@ func _ready() -> void:
 	if _artists.is_empty():
 		push_error("ArtistGroupControl: no artists loaded.")
 		return
+
+	if nodes_scroll:
+		nodes_scroll.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
+		resized.connect(_on_scroll_changed.bind(0))
+		_on_scroll_changed(0)
 
 	if search_bar:
 		search_bar.current_artists = _artists
@@ -84,6 +91,8 @@ func _new_artist_node(artist: ArtistModel) -> void:
 	node.visible = true
 	nodes_grid.add_child(node)
 
+	_on_node_added_to_list()
+
 
 func _wipe_nodes() -> void:
 	for node in loaded_artists_nodes:
@@ -107,3 +116,24 @@ func _on_search_bar_render_default() -> void:
 
 func _on_artist_clicked(artist: ArtistModel, texture) -> void:
 	SignalBus.emit_request_artist_window(artist, texture)
+
+
+func _on_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, nodes_scroll.size)
+	visible_rect.position += Vector2(0, nodes_scroll.scroll_vertical)
+	visible_rect = visible_rect.grow(64)
+
+	for button in nodes_grid.get_children():
+		var button_rect = Rect2(button.position, button.size)
+		var b_is_visible = visible_rect.intersects(button_rect)
+		button.set_art_visibility(b_is_visible)
+
+func _on_node_added_to_list():
+	if _visibility_check_pending:
+		return
+	_visibility_check_pending = true
+	call_deferred("_run_visibility_check")
+
+func _run_visibility_check():
+	_visibility_check_pending = false
+	_on_scroll_changed(0)

@@ -173,10 +173,9 @@ func load_songs(from_playlist: String = "") -> void:
 
 	var cfg = UserGlobals.get_config()
 	var songs: Array[SongModel] = song_repo.GetSongs(10000, cfg.ignore_unknown_artists)
-
 	if from_playlist: print("'from_playlist' not implemented yet.")
-
 	all_songs = songs.duplicate()
+
 
 
 func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") -> void:

@@ -5,12 +5,15 @@ signal clicked(artist: ArtistModel, texture: Texture2D)
 
 @export var name_label: Label
 @export var art: TextureRectRounded
+@export var default_art: Texture2D
 
 @export var artist: ArtistModel
 
 var file_path: String
 var image_processed: bool = false
 var current_image: Texture2D
+
+var is_currently_visible: bool = false
 
 
 func _ready() -> void:
@@ -32,11 +35,21 @@ func _ready() -> void:
 	if song:
 		file_path = song.FilePath
 		ArtService.ArtReady.connect(_on_art_ready)
-		request_art()
 
 	self.pressed.connect(_pressed)
 
 
+func set_art_visibility(b_visible: bool):
+	if b_visible == is_currently_visible:
+		return
+
+	is_currently_visible = b_visible
+
+	if b_visible:
+		request_art()
+	else:
+		art.texture = default_art
+		image_processed = false
 
 func request_art():
 	var key = file_path
@@ -54,20 +67,33 @@ func _on_art_ready(key, texture) -> void:
 	if key == file_path:
 		art.texture = texture
 		current_image = texture
+		image_processed = true
 
 
 func self_destroy() -> void:
-	if image_processed: queue_free(); return;
+	if !is_currently_visible:
+		_cleanup_and_free()
+		return
 
-	self.hide()
-	var delete_timer = Timer.new()
-	delete_timer.wait_time = .35
-	delete_timer.one_shot = false
+	if image_processed:
+		_cleanup_and_free()
+	else:
+		self.hide()
+		var delete_timer = Timer.new()
+		delete_timer.wait_time = .35
+		delete_timer.one_shot = false
+		delete_timer.timeout.connect(_on_queue_free_timer_done)
+		add_child(delete_timer)
+		delete_timer.start()
 
-	add_child(delete_timer)
-	delete_timer.start()
+func _on_queue_free_timer_done():
+	if !image_processed: return
+	_cleanup_and_free()
 
-
+func _cleanup_and_free() -> void:
+	if ArtService.ArtReady.is_connected(_on_art_ready):
+		ArtService.ArtReady.disconnect(_on_art_ready)
+	queue_free()
 
 func set_ui() -> void:
 	if artist: name_label.text = artist.Name

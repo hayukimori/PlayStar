@@ -60,7 +60,7 @@ visible = false
 script = ExtResource("1_8rw6x")
 metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 
-[node name="AlbumGroupControl" type="Control" parent="." unique_id=1447718902 node_paths=PackedStringArray("nodes_grid", "search_bar")]
+[node name="AlbumGroupControl" type="Control" parent="." unique_id=1447718902 node_paths=PackedStringArray("nodes_scroll", "nodes_grid", "search_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,6 +68,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_07q4b")
+nodes_scroll = NodePath("ScrollContainer")
 nodes_grid = NodePath("ScrollContainer/GridContainer")
 search_bar = NodePath("SearchBar")
 album_scn = ExtResource("3_07q4b")

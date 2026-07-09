@@ -19,7 +19,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="PlaylistControl" type="Control" unique_id=1257508571 node_paths=PackedStringArray("playlists_vbc", "song_btn_vbc", "color_rect", "new_playlist_btn", "new_playlist_win")]
+[node name="PlaylistControl" type="Control" unique_id=1257508571 node_paths=PackedStringArray("playlists_vbc", "song_btn_vbc", "song_btn_scroll", "color_rect", "new_playlist_btn", "new_playlist_win")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,6 +29,7 @@ grow_vertical = 2
 script = ExtResource("1_nfb0i")
 playlists_vbc = NodePath("PlaylistScroll/ExternalVBC/PlaylistsVBC")
 song_btn_vbc = NodePath("SongsScroll/VBoxContainer")
+song_btn_scroll = NodePath("SongsScroll")
 color_rect = NodePath("BgColor")
 new_playlist_btn = NodePath("PlaylistScroll/ExternalVBC/NewPlaylistButton")
 new_playlist_win = NodePath("NewPlaylistHWindow")

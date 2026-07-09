@@ -17,6 +17,7 @@ run/main_scene="uid://cucj2so2q2vo0"
 run/disable_stderr=true
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+run/max_fps=60
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0.08627451, 0.08627451, 0.08627451, 1)
 boot_splash/stretch_mode=0

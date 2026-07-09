@@ -22,17 +22,20 @@ var loaded_song_buttons: Array[Button]
 var songs_cache: Array[SongModel]
 var albuns_cache: Array[AlbumModel]
 
+var _visibility_check_pending := false
 var _current_generation := 0
 const BUILD_BUDGET_USEC := 1000
 
 var playlist_manager: PlaylistManager
 
 func _ready() -> void:
-		playlist_manager = PlaylistManager.new()
-		database = NodeKeeper.current_database
+	playlist_manager = PlaylistManager.new()
+	database = NodeKeeper.current_database
 
-		SignalBus.show_album_window.connect(load_album)
-		close_requested.connect(close)
+	SignalBus.show_album_window.connect(load_album)
+	close_requested.connect(close)
+
+	songs_scroll_container.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
 
 
 func load_album(album: AlbumModel, texture) -> void:
@@ -87,6 +90,8 @@ func new_song_btn(song: SongModel, append_to: Array[Button], parent_node: Node) 
 		song_button.show()
 		parent_node.add_child(song_button)
 
+		_on_node_added_to_list()
+
 		return song_button
 
 
@@ -133,9 +138,26 @@ func play_song(song: SongModel) -> void:
 
 	SignalBus.emit_request_playlist(queue, index)
 
+func _on_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, songs_scroll_container.size)
+	visible_rect.position += Vector2(0, songs_scroll_container.scroll_vertical)
+	visible_rect = visible_rect.grow(64)
 
-func _on_add_to_playlist_pressed() -> void:
-	pass
+	for button in songs_vbox.get_children():
+		var button_rect = Rect2(button.position, button.size)
+		var b_is_visible = visible_rect.intersects(button_rect)
+		button.set_art_visibility(b_is_visible)
+
+func _on_node_added_to_list():
+	if _visibility_check_pending:
+		return
+	_visibility_check_pending = true
+	call_deferred("_run_visibility_check")
+
+func _run_visibility_check():
+	_visibility_check_pending = false
+	_on_scroll_changed(0)
+
 
 func _go_back() -> void:
 		self.hide()

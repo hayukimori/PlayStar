@@ -1,15 +1,17 @@
 using Godot;
 using Godot.Collections;
 using Microsoft.Data.Sqlite;
+using PlayStar.Scripts.Core;
 using PlayStar.Scripts.Models;
 
 
 namespace PlayStar.Scripts.Database.Repositories;
+
 [GlobalClass]
 public partial class AlbumRepository : Node
 {
     private DatabaseManager _db;
-
+    private readonly PSMemoryManager _memory = new();
     public void Initialize(DatabaseManager db) => _db = db;
 
     #region Read
@@ -94,11 +96,13 @@ public partial class AlbumRepository : Node
             WHERE al.title = $title AND ar.id = $artistId
             ORDER BY s.title ASC;
         ";
-        cmd.Parameters.AddWithValue("$title",    albumTitle);
+        cmd.Parameters.AddWithValue("$title", albumTitle);
         cmd.Parameters.AddWithValue("$artistId", artistId);
 
         using var reader = cmd.ExecuteReader();
         var list = BuildAlbumList(reader);
+
+
         return list.Count > 0 ? list[0] : null;
     }
     #endregion
@@ -116,11 +120,11 @@ public partial class AlbumRepository : Node
                 art_path = COALESCE(NULLIF(excluded.art_path, ''), albums.art_path)
             RETURNING id;
         ";
-        cmd.Parameters.AddWithValue("$title",    title);
+        cmd.Parameters.AddWithValue("$title", title);
         cmd.Parameters.AddWithValue("$artistId", artistId);
-        cmd.Parameters.AddWithValue("$genreId",  genreId == 0 ? (object)System.DBNull.Value : genreId);
-        cmd.Parameters.AddWithValue("$year",     year == 0    ? (object)System.DBNull.Value : year);
-        cmd.Parameters.AddWithValue("$artPath",  artPath ?? "");
+        cmd.Parameters.AddWithValue("$genreId", genreId == 0 ? (object)System.DBNull.Value : genreId);
+        cmd.Parameters.AddWithValue("$year", year == 0 ? (object)System.DBNull.Value : year);
+        cmd.Parameters.AddWithValue("$artPath", artPath ?? "");
         var result = cmd.ExecuteScalar();
         return (long)result;
     }
@@ -130,7 +134,7 @@ public partial class AlbumRepository : Node
     public static Array<AlbumModel> BuildAlbumList(SqliteDataReader reader)
     {
         var albumMap = new System.Collections.Generic.Dictionary<long, AlbumModel>();
-        var order    = new System.Collections.Generic.List<long>();
+        var order = new System.Collections.Generic.List<long>();
 
         while (reader.Read())
         {
@@ -140,13 +144,13 @@ public partial class AlbumRepository : Node
             {
                 album = new AlbumModel
                 {
-                    Id          = albumId,
-                    AlbumName   = reader.IsDBNull(1) ? "" : reader.GetString(1),
-                    ArtPath     = reader.IsDBNull(2) ? "" : reader.GetString(2),
-                    Year        = reader.IsDBNull(3) ? 0  : reader.GetInt32(3),
-                    ArtistId    = reader.IsDBNull(4) ? 0  : reader.GetInt64(4),
+                    Id = albumId,
+                    AlbumName = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                    ArtPath = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                    Year = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                    ArtistId = reader.IsDBNull(4) ? 0 : reader.GetInt64(4),
                     AlbumArtist = reader.IsDBNull(5) ? "" : reader.GetString(5),
-                    Genre       = reader.IsDBNull(6) ? "" : reader.GetString(6),
+                    Genre = reader.IsDBNull(6) ? "" : reader.GetString(6),
                 };
                 albumMap[albumId] = album;
                 order.Add(albumId);
@@ -158,16 +162,16 @@ public partial class AlbumRepository : Node
                 {
                     FilePath = reader.GetString(7),
                     FileName = System.IO.Path.GetFileName(reader.GetString(7)),
-                    Title    = reader.IsDBNull(8)  ? "" : reader.GetString(8),
-                    Length   = reader.IsDBNull(9)  ? 0  : reader.GetInt64(9),
-                    Lyrics   = reader.IsDBNull(10) ? "" : reader.GetString(10),
-                    AlbumId  = album.Id,
-                    Album    = album.AlbumName,
-                    Genre    = album.Genre,
-                    ArtPath  = album.ArtPath,
-                    Year     = (uint)album.Year,
+                    Title = reader.IsDBNull(8) ? "" : reader.GetString(8),
+                    Length = reader.IsDBNull(9) ? 0 : reader.GetInt64(9),
+                    Lyrics = reader.IsDBNull(10) ? "" : reader.GetString(10),
+                    AlbumId = album.Id,
+                    Album = album.AlbumName,
+                    Genre = album.Genre,
+                    ArtPath = album.ArtPath,
+                    Year = (uint)album.Year,
 
-                    Artist   = reader.FieldCount > 11 && !reader.IsDBNull(11) ? reader.GetString(11) : album.AlbumArtist
+                    Artist = reader.FieldCount > 11 && !reader.IsDBNull(11) ? reader.GetString(11) : album.AlbumArtist
                 };
                 album.Songs.Add(song);
             }

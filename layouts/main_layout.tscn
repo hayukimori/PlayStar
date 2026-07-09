@@ -599,9 +599,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_lo1cj")
 
-[node name="SongButtonCovered" parent="SongQueueControl/MainVBC/QueueScrollContainer/SongsVBC" unique_id=285328477 instance=ExtResource("3_8ayet")]
-layout_mode = 2
-
 [node name="CoverPanel" type="Panel" parent="SongQueueControl" unique_id=1397975241]
 visible = false
 layout_mode = 1
@@ -629,9 +626,6 @@ theme = ExtResource("3_h7vyd")
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("7_lo1cj")
-
-[node name="SongButtonCovered" parent="SongQueueControl/SearchScrollContainer/SearchButtonsVBC" unique_id=130895383 instance=ExtResource("3_8ayet")]
-layout_mode = 2
 
 [node name="SearchControl" type="Control" parent="SongQueueControl" unique_id=783386893]
 visible = false

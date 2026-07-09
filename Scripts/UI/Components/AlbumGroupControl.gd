@@ -2,6 +2,7 @@ extends Control
 class_name AlbumGroupControl
 
 @export_group("Scene Nodes")
+@export var nodes_scroll: ScrollContainer
 @export var nodes_grid: GridContainer
 @export var search_bar: SearchBar
 
@@ -23,6 +24,11 @@ func _ready() -> void:
 	if _albums.is_empty():
 		push_error("AlbumGroupControl: no albums loaded.")
 		return
+
+	if nodes_scroll:
+		nodes_scroll.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
+		resized.connect(_on_scroll_changed.bind(0))
+		_on_scroll_changed(0)
 
 	if search_bar:
 		search_bar.current_albums = _albums
@@ -101,3 +107,16 @@ func _on_search_bar_render_results(results: Array) -> void:
 func _on_search_bar_render_default() -> void:
 	for node in loaded_album_nodes:
 		node.visible = true
+
+
+# --- Scroll --------------------------------------------------------------------
+
+func _on_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, nodes_scroll.size)
+	visible_rect.position += Vector2(0, nodes_scroll.scroll_vertical)
+	visible_rect = visible_rect.grow(64)
+
+	for button in nodes_grid.get_children():
+		var button_rect = Rect2(button.position, button.size)
+		var b_is_visible = visible_rect.intersects(button_rect)
+		button.set_art_visibility(b_is_visible)

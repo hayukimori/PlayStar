@@ -25,6 +25,7 @@ flat = true
 script = ExtResource("1_m0t6t")
 name_label = NodePath("NameLabel")
 art = NodePath("AlbumArt")
+default_album_art = ExtResource("3_pxseq")
 
 [node name="AlbumArt" type="Panel" parent="." unique_id=613034865]
 clip_children = 1
