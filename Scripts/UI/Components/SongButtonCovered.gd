@@ -103,23 +103,32 @@ func stop_playing_now() -> void:
 		title_label.label_settings = original_label_settings
 
 func self_destroy() -> void:
-	if image_processed: queue_free(); return;
+	if !is_currently_visible:
+		_cleanup_and_free()
+		return
 
-	self.hide()
-	var delete_timer = Timer.new()
-	delete_timer.wait_time = .35
-	delete_timer.one_shot = false
-
-	add_child(delete_timer)
-	delete_timer.start()
+	if image_processed:
+		_cleanup_and_free()
+	else:
+		self.hide()
+		var delete_timer = Timer.new()
+		delete_timer.wait_time = .35
+		delete_timer.one_shot = false
+		delete_timer.timeout.connect(_on_queue_free_timer_done)
+		add_child(delete_timer)
+		delete_timer.start()
 
 func _add_to_playlist() -> void:
 		SignalBus.emit_add_song_request(song_content)
 
 func _on_queue_free_timer_done():
-		if !image_processed: return
-		queue_free()
+	if !image_processed: return
+	_cleanup_and_free()
 
+func _cleanup_and_free() -> void:
+	if ArtService.ArtReady.is_connected(_on_art_ready):
+		ArtService.ArtReady.disconnect(_on_art_ready)
+	queue_free()
 
 # Only mouse input events
 func _on_button_gui_event(event: InputEvent) -> void:
@@ -136,9 +145,3 @@ func _on_button_gui_event(event: InputEvent) -> void:
 
 func _remove_request() -> void:
 		playlist_removal_request.emit(song_content)
-
-
-func _on_mouse_exited() -> void:
-	if !click_opened:
-		pass
-		#add_to_playlist_btn.visible = false
