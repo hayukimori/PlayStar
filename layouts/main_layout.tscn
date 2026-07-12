@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://b0mnveru2vbfs" path="res://UI/Components/SongInfoF12.tscn" id="11_r7yy5"]
 [ext_resource type="Script" uid="uid://1w4a83o86gkg" path="res://Scripts/NetworkAPI/LrcLibService.gd" id="13_13w56"]
 [ext_resource type="Script" uid="uid://cor11qyoupvqp" path="res://Scripts/UI/Components/RepeatButton.gd" id="13_fxijn"]
+[ext_resource type="Script" uid="uid://cb2k1d1odtyam" path="res://Scripts/Controllers/SongHistoryManager.gd" id="14_eryca"]
 [ext_resource type="Texture2D" uid="uid://dwieq7bmfi2qb" path="res://assets/icons/iconoir/search.svg" id="15_67y5c"]
 [ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
 [ext_resource type="Script" uid="uid://bw6p2e0ynn2r6" path="res://Scripts/UI/Components/SyncLyricsScrollContainer.gd" id="15_dkd8j"]
@@ -289,6 +290,9 @@ indexer = NodePath("../Database/MetadataIndexer")
 scanner = NodePath("../Database/LibraryScanner")
 mpris_service = NodePath("../AudioServer/MprisService")
 ui_manager = NodePath("../UIManager")
+
+[node name="SongHistoryManager" type="Node" parent="MainController" unique_id=266926844]
+script = ExtResource("14_eryca")
 
 [node name="LrcLibService" type="Node" parent="." unique_id=179643484]
 script = ExtResource("13_13w56")
