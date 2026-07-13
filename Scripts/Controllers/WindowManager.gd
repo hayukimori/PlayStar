@@ -5,6 +5,7 @@ class_name WindowManager
 @export var artists_window: HybridWindow
 @export var albums_window: HybridWindow
 @export var delete_playlist_window: HybridWindow
+@export var history_window: HistoryWindow
 @export var config_control: Control
 
 @export var add_to_playlist_window_fb: PackedScene
@@ -16,10 +17,12 @@ func _ready() -> void:
 	SignalBus.invoke_playlists_window.connect(_open_playlists)
 	SignalBus.invoke_artists_window.connect(_open_artists)
 	SignalBus.invoke_albums_window.connect(_open_albums)
+	SignalBus.show_history_window.connect(_open_history)
 
 	SignalBus.request_song_to_playlist.connect(_ivk_to_playlist_window)
 	SignalBus.request_artist_to_playlist.connect(_ivk_to_playlist_window)
 	SignalBus.request_album_to_playlist.connect(_ivk_to_playlist_window)
+	SignalBus.request_song_array_to_playlist.connect(_ivk_to_playlist_window)
 
 	SignalBus.request_playlist_delete.connect(_ivk_playlist_delete_popup)
 
@@ -30,13 +33,14 @@ func _open_playlists() -> void:
 func _open_albums() -> void:
 	albums_window.open()
 
-
 func _open_artists() -> void:
 	artists_window.open()
 
 func _open_settings() -> void:
 	config_control.open()
 
+func _open_history() -> void:
+	history_window.open()
 
 func _ivk_playlist_delete_popup(playlist: PlaylistModel) -> void:
 	if !delete_confirm_window: return

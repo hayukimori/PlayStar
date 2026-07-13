@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://b0mnveru2vbfs" path="res://UI/Components/SongInfoF12.tscn" id="11_r7yy5"]
 [ext_resource type="Script" uid="uid://1w4a83o86gkg" path="res://Scripts/NetworkAPI/LrcLibService.gd" id="13_13w56"]
 [ext_resource type="Script" uid="uid://cor11qyoupvqp" path="res://Scripts/UI/Components/RepeatButton.gd" id="13_fxijn"]
+[ext_resource type="Script" uid="uid://cb2k1d1odtyam" path="res://Scripts/Controllers/SongHistoryManager.gd" id="14_eryca"]
 [ext_resource type="Texture2D" uid="uid://dwieq7bmfi2qb" path="res://assets/icons/iconoir/search.svg" id="15_67y5c"]
 [ext_resource type="Script" uid="uid://b2xlb81c2d0ak" path="res://Scripts/UI/Components/ShuffleButton.gd" id="15_186sv"]
 [ext_resource type="Script" uid="uid://bw6p2e0ynn2r6" path="res://Scripts/UI/Components/SyncLyricsScrollContainer.gd" id="15_dkd8j"]
@@ -60,6 +61,8 @@
 [ext_resource type="PackedScene" uid="uid://bhrk3dmce3nd3" path="res://Window/AlbumWindow.tscn" id="48_621sv"]
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
+[ext_resource type="Texture2D" uid="uid://c48f7s6hitbjy" path="res://assets/icons/iconoir/clock-rotate-right.svg" id="51_nki3b"]
+[ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 
@@ -70,7 +73,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ablo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1xk"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -85,7 +88,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eryca"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nki3b"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -101,7 +104,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1xk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26u71"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -290,6 +293,9 @@ scanner = NodePath("../Database/LibraryScanner")
 mpris_service = NodePath("../AudioServer/MprisService")
 ui_manager = NodePath("../UIManager")
 
+[node name="SongHistoryManager" type="Node" parent="MainController" unique_id=266926844]
+script = ExtResource("14_eryca")
+
 [node name="LrcLibService" type="Node" parent="." unique_id=179643484]
 script = ExtResource("13_13w56")
 metadata/_custom_type_script = "uid://1w4a83o86gkg"
@@ -341,7 +347,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ek1xk")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -389,7 +395,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_eryca")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nki3b")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -409,7 +415,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ek1xk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_26u71")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -833,7 +839,7 @@ script = ExtResource("15_186sv")
 texture_on = ExtResource("9_p2ped")
 texture_off = ExtResource("29_c80o5")
 
-[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "volume_slider", "panel")]
+[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "history_btn", "volume_slider", "panel")]
 visible = false
 layout_mode = 1
 anchors_preset = 9
@@ -847,6 +853,7 @@ playlists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/PlaylistsButton")
 all_songs_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AllSongsButton")
 artists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/ArtistsButton")
 albuns_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AlbumsButton")
+history_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/HistoryButton")
 volume_slider = NodePath("MenuPanel/VolumeHSlider")
 panel = NodePath("MenuPanel")
 close_btn_texture = ExtResource("33_fqe4u")
@@ -916,6 +923,13 @@ icon = ExtResource("37_hfgkp")
 flat = true
 expand_icon = true
 
+[node name="HistoryButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=2143643294]
+layout_mode = 2
+text = "Recent"
+icon = ExtResource("51_nki3b")
+flat = true
+expand_icon = true
+
 [node name="VolumeHSlider" type="HSlider" parent="LeftMenuControl/MenuPanel" unique_id=1251717275]
 layout_mode = 1
 anchors_preset = 2
@@ -964,11 +978,12 @@ grow_vertical = 2
 icon = ExtResource("33_fqe4u")
 flat = true
 
-[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "config_control")]
+[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "history_window", "config_control")]
 script = ExtResource("43_qtwtc")
 playlists_window = NodePath("PlaylistsWindow")
 artists_window = NodePath("ArtistWindow")
 albums_window = NodePath("AlbumWindow")
+history_window = NodePath("HistoryWindow")
 config_control = NodePath("ConfigControl")
 add_to_playlist_window_fb = ExtResource("44_rr6jk")
 delete_confirm_window = ExtResource("47_eseux")
@@ -993,6 +1008,8 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 [node name="SingleAlbumWindow" parent="WindowManager" unique_id=1993442924 instance=ExtResource("50_rtief")]
 
 [node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
+
+[node name="HistoryWindow" parent="WindowManager" unique_id=61250628 instance=ExtResource("60_5ablo")]
 
 [node name="PopMsgControl" type="Control" parent="." unique_id=850224413 node_paths=PackedStringArray("notifications_vbox")]
 layout_mode = 1
