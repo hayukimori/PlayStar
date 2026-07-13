@@ -61,6 +61,7 @@
 [ext_resource type="PackedScene" uid="uid://bhrk3dmce3nd3" path="res://Window/AlbumWindow.tscn" id="48_621sv"]
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
+[ext_resource type="Texture2D" uid="uid://c48f7s6hitbjy" path="res://assets/icons/iconoir/clock-rotate-right.svg" id="51_nki3b"]
 [ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
@@ -838,7 +839,7 @@ script = ExtResource("15_186sv")
 texture_on = ExtResource("9_p2ped")
 texture_off = ExtResource("29_c80o5")
 
-[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "volume_slider", "panel")]
+[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "history_btn", "volume_slider", "panel")]
 visible = false
 layout_mode = 1
 anchors_preset = 9
@@ -852,6 +853,7 @@ playlists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/PlaylistsButton")
 all_songs_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AllSongsButton")
 artists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/ArtistsButton")
 albuns_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AlbumsButton")
+history_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/HistoryButton")
 volume_slider = NodePath("MenuPanel/VolumeHSlider")
 panel = NodePath("MenuPanel")
 close_btn_texture = ExtResource("33_fqe4u")
@@ -918,6 +920,13 @@ expand_icon = true
 layout_mode = 2
 text = "Albums"
 icon = ExtResource("37_hfgkp")
+flat = true
+expand_icon = true
+
+[node name="HistoryButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=2143643294]
+layout_mode = 2
+text = "Recent"
+icon = ExtResource("51_nki3b")
 flat = true
 expand_icon = true
 
