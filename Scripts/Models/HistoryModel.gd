@@ -1,26 +1,21 @@
 extends Resource
 class_name HistoryModel
 
-# RULES
-# it stores only the last 100 songs
-@export var song_history: Array[String] = [] # Song History from song paths
+@export var song_history: Array[HistoryEntry] = []
 
-
-# Adds song to history, if song is already in history, it is moved to the end
 func add_song(song: SongModel) -> void:
 	var path = song.FilePath
 
-	# Find song
-	var idx = song_history.find(path)
+	var idx = song_history.find_custom(func(e): return e.file_path == path)
 	if idx != -1:
 		song_history.remove_at(idx)
+	elif song_history.size() >= 100:
+		song_history.remove_at(0)
 
-	else:
-		if song_history.size() >= 100:
-			song_history.remove_at(0)
+	var entry = HistoryEntry.new()
+	entry.file_path = path
+	entry.title = song.Title
+	entry.artist = song.Artist
+	entry.played_at = Time.get_unix_time_from_system()
 
-
-	# if song_history.contains(path):
-	#     song_history.remove(path)
-
-	song_history.append(path)
+	song_history.append(entry)

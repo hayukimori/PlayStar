@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://mfgk5vvdxgfm" path="res://UI/Components/AlbumButtonCovered.tscn" id="7_biw6a"]
 [ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="9_2mqg1"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p51ci"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g478s"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -20,6 +20,7 @@ anti_aliasing = false
 [sub_resource type="SystemFont" id="SystemFont_ub5km"]
 font_names = PackedStringArray("Noto Sans CJK JP")
 font_weight = 475
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
 font = SubResource("SystemFont_ub5km")
@@ -81,7 +82,7 @@ offset_left = 68.0
 offset_top = 34.0
 offset_right = -28.037003
 offset_bottom = 162.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_p51ci")
+theme_override_styles/panel = SubResource("StyleBoxFlat_g478s")
 script = ExtResource("2_cwfsn")
 texture = ExtResource("3_biw6a")
 stretch_mode = 6

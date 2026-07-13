@@ -34,6 +34,8 @@ func change_title() -> void:
 		title = temp % [cc.Name]
 	elif (cc is AlbumModel):
 		title = temp % cc.AlbumArtist
+	elif (cc is Array[SongModel]):
+		title = temp % "songs"
 	else:
 		title = "Invalid window"
 
@@ -100,6 +102,10 @@ func _add_current_to(playlist: PlaylistModel) -> void:
 		PlaylistManager.insert_and_save(playlist, cc.Songs)
 		SignalBus.emit_pop_msg_request("%s added to %s" % [cc.AlbumName, playlist.name])
 		safe_quit()
+
+	elif (cc is Array[SongModel]):
+		PlaylistManager.insert_and_save(playlist, cc)
+		SignalBus.emit_pop_msg_request("%s added to %s" % ["songs", playlist.name])
 
 	else:
 		SignalBus.emit_pop_msg_request("Invalid content")

@@ -40,6 +40,7 @@ signal invoke_queue_window
 
 signal show_artist_window(artist: ArtistModel, texture)
 signal show_album_window(album: AlbumModel, texture)
+signal show_history_window
 
 
 # ------------- MISC --------------------
@@ -54,6 +55,7 @@ signal request_playlist(playlist: PlaylistModel, index: int)
 signal request_song_to_playlist(song: SongModel)
 signal request_album_to_playlist(album: AlbumModel)
 signal request_artist_to_playlist(artist: ArtistModel)
+signal request_song_array_to_playlist(songs: Array[SongModel])
 
 # Requests to move playlist position, add or delete
 signal request_playlist_delete(playlist: PlaylistModel)
@@ -123,6 +125,7 @@ func emit_invoke_playing_window() -> void: invoke_playing_window.emit()
 func emit_invoke_queue_window() -> void: invoke_queue_window.emit()
 func emit_show_artist_window(artist: ArtistModel, texture) -> void: show_artist_window.emit(artist, texture)
 func emit_show_album_window(album: AlbumModel, texture) -> void: show_album_window.emit(album, texture)
+func emit_show_history_window() -> void: show_history_window.emit()
 
 
 func emit_reload_request() -> void: reload_request.emit()
@@ -136,6 +139,7 @@ func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)
 func emit_request_album_to_playlist(album: AlbumModel) -> void: request_album_to_playlist.emit(album)
 func emit_request_artist_to_playlist(artist: ArtistModel) -> void: request_artist_to_playlist.emit(artist)
+func emit_request_song_array_to_playlist(songs: Array[SongModel]) -> void: request_song_array_to_playlist.emit(songs)
 
 func emit_request_playlist_delete(playlist: PlaylistModel) -> void: request_playlist_delete.emit(playlist)
 func emit_request_playlist_up(playlist: PlaylistModel) -> void: request_playlist_up.emit(playlist)

@@ -8,20 +8,20 @@
 [ext_resource type="Script" uid="uid://ct31sfsan3rbl" path="res://Scripts/UI/CustomNodes/ToPlaylistButton.gd" id="5_4w7h6"]
 [ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="6_g0gud"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2tqf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp4cw"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
 
-[sub_resource type="SystemFont" id="SystemFont_ub5km"]
+[sub_resource type="SystemFont" id="SystemFont_wo23i"]
 font_names = PackedStringArray("Noto Sans CJK JP")
 font_weight = 475
 subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
-font = SubResource("SystemFont_ub5km")
+font = SubResource("SystemFont_wo23i")
 font_size = 14
 
 [node name="SingleAlbumWindow" type="Window" unique_id=845192087 node_paths=PackedStringArray("name_label", "art_trr", "add_to_playlist", "songs_scroll_container", "songs_vbox")]
@@ -76,7 +76,7 @@ offset_left = 68.0
 offset_top = 34.0
 offset_right = -28.037003
 offset_bottom = 162.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_d2tqf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kp4cw")
 script = ExtResource("2_kp4cw")
 texture = ExtResource("3_wo23i")
 stretch_mode = 6

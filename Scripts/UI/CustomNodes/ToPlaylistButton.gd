@@ -1,7 +1,7 @@
 extends Button
 class_name ToPlaylistButton
 
-enum Ambient { SONG, ARTIST, ALBUM }
+enum Ambient { SONG, ARTIST, ALBUM, SONG_ARRAY }
 @export var  ambient: Ambient = Ambient.SONG
 @export var content: Variant
 
@@ -61,6 +61,7 @@ func call_add() -> void:
 		Ambient.SONG: _call_as_song()
 		Ambient.ARTIST: _call_as_artist()
 		Ambient.ALBUM: _call_as_album()
+		Ambient.SONG_ARRAY: _call_as_song_array()
 
 
 func _call_as_song() -> void:
@@ -75,6 +76,9 @@ func _call_as_album() -> void:
 	var ct = content as AlbumModel
 	SignalBus.emit_request_album_to_playlist(ct)
 
+func _call_as_song_array() -> void:
+	var ct = content as Array[SongModel]
+	SignalBus.emit_request_song_array_to_playlist(ct)
 
 func _pressed() -> void:
 	call_add()

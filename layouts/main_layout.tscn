@@ -61,6 +61,7 @@
 [ext_resource type="PackedScene" uid="uid://bhrk3dmce3nd3" path="res://Window/AlbumWindow.tscn" id="48_621sv"]
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
+[ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 
@@ -71,7 +72,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ablo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1xk"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -86,7 +87,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eryca"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nki3b"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -102,7 +103,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek1xk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26u71"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -345,7 +346,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5ablo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ek1xk")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -393,7 +394,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_eryca")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nki3b")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -413,7 +414,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ek1xk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_26u71")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -968,11 +969,12 @@ grow_vertical = 2
 icon = ExtResource("33_fqe4u")
 flat = true
 
-[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "config_control")]
+[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "history_window", "config_control")]
 script = ExtResource("43_qtwtc")
 playlists_window = NodePath("PlaylistsWindow")
 artists_window = NodePath("ArtistWindow")
 albums_window = NodePath("AlbumWindow")
+history_window = NodePath("HistoryWindow")
 config_control = NodePath("ConfigControl")
 add_to_playlist_window_fb = ExtResource("44_rr6jk")
 delete_confirm_window = ExtResource("47_eseux")
@@ -997,6 +999,8 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 [node name="SingleAlbumWindow" parent="WindowManager" unique_id=1993442924 instance=ExtResource("50_rtief")]
 
 [node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
+
+[node name="HistoryWindow" parent="WindowManager" unique_id=61250628 instance=ExtResource("60_5ablo")]
 
 [node name="PopMsgControl" type="Control" parent="." unique_id=850224413 node_paths=PackedStringArray("notifications_vbox")]
 layout_mode = 1
