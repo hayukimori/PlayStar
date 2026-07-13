@@ -1,6 +1,8 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using Microsoft.Data.Sqlite;
+using PlayStar.Scripts.Core;
 using PlayStar.Scripts.Models;
 
 namespace PlayStar.Scripts.Database.Repositories;
@@ -9,6 +11,7 @@ namespace PlayStar.Scripts.Database.Repositories;
 public partial class SongRepository : Node
 {
     private DatabaseManager _db;
+    private readonly PSMemoryManager _memory = new();
 
     public void Initialize(DatabaseManager db) => _db = db;
 
@@ -48,6 +51,60 @@ public partial class SongRepository : Node
         while (reader.Read())
             songs.Add(MapSong(reader));
 
+        _memory.RequestCleanup();
+        return songs;
+    }
+
+    public Array<SongModel> GetSongsByPaths(Godot.Collections.Array<string> paths)
+    {
+        if (paths.Count == 0)
+            return new Array<SongModel>();
+
+        var songs = new Array<SongModel>();
+
+        using var connection = _db.GetConnection();
+        using var cmd = connection.CreateCommand();
+
+        // Placeholders
+        var placeholders = string.Join(", ", paths.Select((_, i) => $"$p{i}"));
+
+        cmd.CommandText = $@"
+            SELECT
+                s.path, s.title, s.length, s.lyrics,
+                al.id, al.title, al.art_path, al.year,
+                ar.id,
+                COALESCE(
+                    (SELECT GROUP_CONCAT(name, ', ') FROM (
+                        SELECT a.name FROM song_artists sa JOIN artists a ON sa.artist_id = a.id
+                        WHERE sa.song_path = s.path ORDER BY sa.is_main DESC
+                    )), ar.name
+                ) AS track_artist,
+                g.name
+            FROM songs s
+            LEFT JOIN albums  al ON s.album_id  = al.id
+            LEFT JOIN artists ar ON al.artist_id = ar.id
+            LEFT JOIN genres  g  ON al.genre_id  = g.id
+            WHERE s.path IN ({placeholders});
+        ";
+
+        for (int i = 0; i < paths.Count; i++)
+            cmd.Parameters.AddWithValue($"$p{i}", paths[i]);
+
+        // Index by path
+        var byPath = new System.Collections.Generic.Dictionary<string, SongModel>();
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            var song = MapSong(reader);
+            byPath[song.FilePath] = song;
+        }
+
+        // Order
+        foreach (var path in paths)
+            if (byPath.TryGetValue(path, out var song))
+                songs.Add(song);
+
+        _memory.RequestCleanup();
         return songs;
     }
 
@@ -87,6 +144,7 @@ public partial class SongRepository : Node
         while (reader.Read())
             songs.Add(MapSong(reader));
 
+        _memory.RequestCleanup();
         return songs;
     }
 
@@ -119,7 +177,10 @@ public partial class SongRepository : Node
         cmd.Parameters.AddWithValue("$artistId", artist.Id);
 
         using var reader = cmd.ExecuteReader();
-        return reader.Read() ? MapSong(reader) : new SongModel();
+        var rest = reader.Read() ? MapSong(reader) : new SongModel();
+
+        _memory.RequestCleanup();
+        return rest;
     }
     #endregion
 
@@ -197,7 +258,7 @@ public partial class SongRepository : Node
         Album = r.IsDBNull(5) ? "" : r.GetString(5),
         ArtPath = r.IsDBNull(6) ? "" : r.GetString(6),
         Year = r.IsDBNull(7) ? 0 : (uint)r.GetInt32(7),
-        Artist = r.IsDBNull(9) ? "" : r.GetString(9), // Agora retorna a concatenação real dos artistas
+        Artist = r.IsDBNull(9) ? "" : r.GetString(9),
         Genre = r.IsDBNull(10) ? "" : r.GetString(10),
     };
     #endregion

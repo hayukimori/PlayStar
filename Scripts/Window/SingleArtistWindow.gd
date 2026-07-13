@@ -31,12 +31,21 @@ const BUILD_BUDGET_USEC := 1000
 
 var playlist_manager: PlaylistManager
 
-func _ready() -> void:
-		playlist_manager = PlaylistManager.new()
-		database = NodeKeeper.current_database
+var _visibility_check_pending := false
 
-		SignalBus.show_artist_window.connect(load_artist)
-		close_requested.connect(close)
+func _ready() -> void:
+	playlist_manager = PlaylistManager.new()
+	database = NodeKeeper.current_database
+
+	SignalBus.show_artist_window.connect(load_artist)
+	close_requested.connect(close)
+
+	if songs_scroll_container:
+		songs_scroll_container.get_v_scroll_bar().value_changed.connect(_on_songs_scroll_changed)
+
+	if albums_scroll_container:
+		albums_scroll_container.get_h_scroll_bar().value_changed.connect(_on_album_scroll_changed)
+
 
 
 func load_artist(artist: ArtistModel, texture) -> void:
@@ -123,6 +132,8 @@ func new_album_btn(album: AlbumModel, append_to: Array[Button], parent_node: Nod
 		album_button.visible = true
 		parent_node.add_child(album_button)
 
+		_on_node_added_to_list()
+
 		return album_button
 
 
@@ -172,12 +183,24 @@ func _build_buttons_timesliced(songs: Array, generation: int) -> void:
 			if generation != _current_generation:
 					return
 			new_song_btn(songs[i], loaded_song_buttons, songs_vbox)
+			_on_node_added_to_list()
 			i += 1
 
 			if Time.get_ticks_usec() - start > BUILD_BUDGET_USEC:
 					await get_tree().process_frame
 					if generation != _current_generation: return
 					break
+
+func _on_songs_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, songs_scroll_container.size)
+	visible_rect.position += Vector2(0, songs_scroll_container.scroll_vertical)
+
+	for button in songs_vbox.get_children():
+		if button is SongButtonCovered:
+			var button_rect = Rect2(button.position, button.size)
+			var b_is_visible = visible_rect.intersects(button_rect)
+			button.set_art_visibility(b_is_visible)
+
 
 # ALBUMS
 func _build_albums_buttons_timesliced(albums: Array, generation: int) -> void:
@@ -198,6 +221,16 @@ func _build_albums_buttons_timesliced(albums: Array, generation: int) -> void:
 					break
 
 
+func _on_album_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, albums_scroll_container.size)
+	visible_rect.position += Vector2(albums_scroll_container.scroll_horizontal, 0)
+
+	for button in albums_hbox.get_children():
+		if button is AlbumButtonCovered:
+			var button_rect = Rect2(button.position, button.size)
+			var b_is_visible = visible_rect.intersects(button_rect)
+			button.set_art_visibility(b_is_visible)
+
 
 func play_song(song: SongModel) -> void:
 	var index = songs_cache.find(song)
@@ -206,9 +239,17 @@ func play_song(song: SongModel) -> void:
 	SignalBus.emit_request_playlist(queue, index)
 
 
-func _on_add_to_playlist_pressed() -> void:
-	#SignalBus.emit_add_artist_to_playlist(current_artist)
-	pass
+func _on_node_added_to_list():
+	if _visibility_check_pending:
+		return
+	_visibility_check_pending = true
+	call_deferred("_run_visibility_check")
+
+func _run_visibility_check():
+	_visibility_check_pending = false
+	_on_songs_scroll_changed(0)
+	_on_album_scroll_changed(0)
+
 
 func _go_back() -> void:
 		self.hide()

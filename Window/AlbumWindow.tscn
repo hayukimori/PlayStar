@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_qyi8g"]
 [ext_resource type="Script" uid="uid://dx5kti0cfoy4y" path="res://Scripts/UI/CustomNodes/FlexBoxFreezableGridContainer.gd" id="4_aed44"]
 [ext_resource type="Script" uid="uid://ec43qt4c1qc" path="res://Scripts/UI/Components/SearchBar.gd" id="5_xsksl"]
+[ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="7_qyi8g"]
 
 [sub_resource type="SystemFont" id="SystemFont_42xlk"]
 subpixel_positioning = 0
@@ -43,15 +44,6 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="SystemFont" id="SystemFont_ub5km"]
-font_names = PackedStringArray("Noto Sans CJK JP")
-font_weight = 850
-subpixel_positioning = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
-font = SubResource("SystemFont_ub5km")
-font_size = 19
-
 [node name="AlbumWindow" type="Window" unique_id=424101991]
 oversampling_override = 1.0
 initial_position = 4
@@ -60,7 +52,7 @@ visible = false
 script = ExtResource("1_8rw6x")
 metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 
-[node name="AlbumGroupControl" type="Control" parent="." unique_id=1447718902 node_paths=PackedStringArray("nodes_grid", "search_bar")]
+[node name="AlbumGroupControl" type="Control" parent="." unique_id=1447718902 node_paths=PackedStringArray("nodes_scroll", "nodes_grid", "search_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,6 +60,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_07q4b")
+nodes_scroll = NodePath("ScrollContainer")
 nodes_grid = NodePath("ScrollContainer/GridContainer")
 search_bar = NodePath("SearchBar")
 album_scn = ExtResource("3_07q4b")
@@ -132,5 +125,5 @@ offset_left = 49.0
 offset_right = -302.0
 offset_bottom = 12.0
 text = "Albums"
-label_settings = SubResource("LabelSettings_cty8o")
+label_settings = ExtResource("7_qyi8g")
 vertical_alignment = 1

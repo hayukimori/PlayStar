@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using Microsoft.Data.Sqlite;
+using PlayStar.Scripts.Core;
 using PlayStar.Scripts.Models;
 
 namespace PlayStar.Scripts.Database.Repositories;
@@ -9,6 +10,7 @@ namespace PlayStar.Scripts.Database.Repositories;
 public partial class ArtistRepository : Node
 {
     private DatabaseManager _db;
+    private readonly PSMemoryManager _memory = new();
 
     public void Initialize(DatabaseManager db) => _db = db;
 
@@ -42,6 +44,8 @@ public partial class ArtistRepository : Node
         while (reader.Read())
             artists.Add(MapArtist(reader));
 
+        _memory.RequestCleanup();
+
         return artists;
     }
 
@@ -58,7 +62,11 @@ public partial class ArtistRepository : Node
         cmd.Parameters.AddWithValue("$name", name);
 
         using var reader = cmd.ExecuteReader();
-        return reader.Read() ? MapArtist(reader) : null;
+        ArtistModel rest = reader.Read() ? MapArtist(reader) : null;
+        _memory.RequestCleanup();
+
+        return rest;
+
     }
     #endregion
 
@@ -80,10 +88,10 @@ public partial class ArtistRepository : Node
     #region Mapping
     private static ArtistModel MapArtist(SqliteDataReader r) => new()
     {
-        Id          = r.GetInt64(0),
-        Name        = r.IsDBNull(1) ? "" : r.GetString(1),
-        SongsCount  = r.IsDBNull(2) ? 0  : r.GetInt32(2),
-        AlbumsCount = r.IsDBNull(3) ? 0  : r.GetInt32(3),
+        Id = r.GetInt64(0),
+        Name = r.IsDBNull(1) ? "" : r.GetString(1),
+        SongsCount = r.IsDBNull(2) ? 0 : r.GetInt32(2),
+        AlbumsCount = r.IsDBNull(3) ? 0 : r.GetInt32(3),
     };
     #endregion
 }

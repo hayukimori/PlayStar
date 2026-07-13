@@ -1,5 +1,5 @@
 extends HybridWindow
-class_name SingleAlbumWindow
+class_name HistoryWindow
 
 @export_group("Nodes")
 @export var name_label: Label
@@ -9,108 +9,83 @@ class_name SingleAlbumWindow
 @export var songs_vbox: FreezableBoxContainer
 
 @export var song_button_cover_scene: PackedScene
-@export var album_button_cover_scene: PackedScene
 
-@export var default_album_art: Texture2D
-
-var current_album: AlbumModel
-var database: DatabaseManager
-
-var loaded_albums_buttons: Array[Button]
 var loaded_song_buttons: Array[Button]
-
 var songs_cache: Array[SongModel]
-var albuns_cache: Array[AlbumModel]
 
 var _visibility_check_pending := false
 var _current_generation := 0
 const BUILD_BUDGET_USEC := 1000
 
-var playlist_manager: PlaylistManager
 
 func _ready() -> void:
-	playlist_manager = PlaylistManager.new()
-	database = NodeKeeper.current_database
+	SignalBus.song_changed.connect(_on_update_request)
+	self.visibility_changed.connect(_on_visible_changed)
 
-	SignalBus.show_album_window.connect(load_album)
 	close_requested.connect(close)
-
 	songs_scroll_container.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
 
+	load_history()
 
-func load_album(album: AlbumModel, texture) -> void:
-		# Wipe previous info
-		DevTools.wipe_btns(loaded_albums_buttons)
-		DevTools.wipe_btns(loaded_song_buttons)
 
-		current_album = album
-		if !current_album: return
+func load_history() -> void:
+	DevTools.wipe_btns(loaded_song_buttons)
 
-		name_label.text = current_album.AlbumName
-		title = current_album.AlbumName
-
-		if texture:
-			art_trr.texture = texture
-		else:
-			art_trr.texture = default_album_art
-
-		add_to_playlist.content = current_album
-		setup_songs()
-
-		open()
+	setup_songs()
+	render_song_btns_from_list(songs_cache)
 
 
 func setup_songs() -> void:
-		var album_songs: Array[SongModel] = current_album.Songs
+	var hist_songs: Array[SongModel] = LibraryManager.load_history_songs(true)
+	if !hist_songs: return
 
-		if !album_songs: return
-		songs_cache = album_songs.duplicate()
-		render_song_btns_from_list(album_songs)
+	songs_cache = hist_songs.duplicate()
+
+	add_to_playlist.content = songs_cache
 
 
 func wipe_all() -> void:
-		albuns_cache.clear()
-		songs_cache.clear()
-
-		DevTools.wipe_btns(loaded_albums_buttons)
-		DevTools.wipe_btns(loaded_song_buttons)
+	songs_cache.clear()
+	DevTools.wipe_btns(loaded_song_buttons)
 
 
 ## Creates a new button (requires SongModel)
 func new_song_btn(song: SongModel, append_to: Array[Button], parent_node: Node) -> Button:
-		var song_button = null
+	var song_button = null
 
-		song_button = song_button_cover_scene.instantiate() as SongButtonCovered
+	song_button = song_button_cover_scene.instantiate() as SongButtonCovered
 
-		song_button.song_content = song
-		song_button.song_selected.connect(play_song)
+	song_button.song_content = song
+	song_button.song_selected.connect(play_song)
 
-		append_to.append(song_button)
-		song_button.index = append_to.find(song_button)
-		song_button.show()
-		parent_node.add_child(song_button)
+	append_to.append(song_button)
+	song_button.index = append_to.find(song_button)
+	song_button.show()
+	parent_node.add_child(song_button)
 
-		_on_node_added_to_list()
+	_on_node_added_to_list()
 
-		return song_button
+	return song_button
 
 
 ## Renders buttons from list (argument)
 func render_song_btns_from_list(songs: Array) -> void:
-		_current_generation += 1
-		var generation := _current_generation
+	if !visible: return
 
-		if songs.is_empty():
-			DevTools.wipe_btns(loaded_song_buttons)
-			return
+	_current_generation += 1
+	var generation := _current_generation
 
-		songs_vbox.freeze_layout()
-
+	if songs.is_empty():
 		DevTools.wipe_btns(loaded_song_buttons)
-		await _build_buttons_timesliced(songs, generation)
+		return
 
-		if generation == _current_generation:
-			songs_vbox.thaw_layout()
+	songs_vbox.freeze_layout()
+
+	DevTools.wipe_btns(loaded_song_buttons)
+	await _build_buttons_timesliced(songs, generation)
+
+	if generation == _current_generation:
+		songs_vbox.thaw_layout()
 
 
 # SONGS
@@ -133,10 +108,16 @@ func _build_buttons_timesliced(songs: Array, generation: int) -> void:
 
 
 func play_song(song: SongModel) -> void:
-	var index = songs_cache.find(song)
-	var queue = PlaylistManager.new_queue(current_album.AlbumName, songs_cache.duplicate())
+	var queue = LibraryManager.load_history_as_queue(true)
+	var song_from_q = queue.find_by_path(song.FilePath)
+
+	var index: int = 0
+	if song_from_q: index = queue.songs.find(song_from_q)
 
 	SignalBus.emit_request_playlist(queue, index)
+
+func _on_update_request(_value = null) -> void:
+	load_history()
 
 func _on_scroll_changed(_value):
 	var visible_rect = Rect2(Vector2.ZERO, songs_scroll_container.size)
@@ -153,6 +134,14 @@ func _on_node_added_to_list():
 		return
 	_visibility_check_pending = true
 	call_deferred("_run_visibility_check")
+
+
+func _on_visible_changed() -> void:
+	if !songs_cache:
+		setup_songs()
+	if visible:
+		render_song_btns_from_list(songs_cache)
+
 
 func _run_visibility_check():
 	_visibility_check_pending = false

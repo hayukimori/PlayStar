@@ -57,6 +57,7 @@ var loaded_search_buttons: Array[Button] = []
 const BUILD_BUDGET_USEC := 4000
 var _current_generation := 0
 var _current_generation_search := 0
+var _visibility_check_pending := false
 #endregion
 
 
@@ -71,6 +72,10 @@ func _ready() -> void:
 	if volume_slider: volume_slider.value_changed.connect(_on_volume_slider_value_changed)
 	if search_button: search_button.pressed.connect(_on_toggle_search)
 	if copy_song_button: copy_song_button.pressed.connect(SignalBus.emit_copy_song)
+	if songs_button_list_scroll_container:
+		songs_button_list_scroll_container.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
+	if search_results_scroll_container:
+		search_results_scroll_container.get_v_scroll_bar().value_changed.connect(_on_search_scroll_changed)
 
 	if search_bar_line_edit:
 		search_bar_line_edit.render_results.connect(_on_search_bar_render_results)
@@ -161,6 +166,30 @@ func scroll_to_song(info: SongModel) -> void:
 	tween.tween_property(scr_c, "scroll_vertical", dst, 0.5)\
 		.set_trans(Tween.TRANS_QUINT)\
 		.set_ease(Tween.EASE_OUT)
+
+
+
+func _on_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, songs_button_list_scroll_container.size)
+	visible_rect.position += Vector2(0, songs_button_list_scroll_container.scroll_vertical)
+
+	for button in songs_button_list.get_children():
+		if button is SongButtonCovered:
+			var button_rect = Rect2(button.position, button.size)
+			var is_visible = visible_rect.intersects(button_rect)
+			button.set_art_visibility(is_visible)
+
+func _on_search_scroll_changed(_value):
+	var visible_rect = Rect2(Vector2.ZERO, search_results_scroll_container.size)
+	visible_rect.position += Vector2(0, search_results_scroll_container.scroll_vertical)
+
+	for button in search_results_container.get_children():
+		if button is SongButtonCovered:
+			var button_rect = Rect2(button.position, button.size)
+			var is_visible = visible_rect.intersects(button_rect)
+			button.set_art_visibility(is_visible)
+
+
 #endregion
 
 #region Playing Now
@@ -213,6 +242,8 @@ func new_song_btn(song: SongModel, append_to: Array[Button], parent_node: Node) 
 	song_button.index = append_to.find(song_button)
 	song_button.visible = true
 	parent_node.add_child(song_button)
+
+	_on_node_added_to_list()
 
 	return song_button
 
@@ -291,6 +322,18 @@ func _build_search_buttons_timesliced(songs: Array, generation: int) -> void:
 				await get_tree().process_frame
 				if generation != _current_generation_search: return
 				break
+
+func _on_node_added_to_list():
+	if _visibility_check_pending:
+		return
+	_visibility_check_pending = true
+	call_deferred("_run_visibility_check")
+
+func _run_visibility_check():
+	_visibility_check_pending = false
+	_on_scroll_changed(0)
+	_on_search_scroll_changed(0)
+
 #endregion
 
 
