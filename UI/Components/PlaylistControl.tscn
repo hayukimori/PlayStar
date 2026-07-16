@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="4_dg3yt"]
 [ext_resource type="Script" uid="uid://ckjoncstnkvgy" path="res://Scripts/Window/NewPlaylistWindow.gd" id="5_pc4if"]
 [ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="6_pc4if"]
+[ext_resource type="Script" uid="uid://dk73yg17wlk78" path="res://Scripts/Window/RenamePlaylistWindow.gd" id="8_w1atg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pc4if"]
 content_margin_left = 16.0
@@ -130,6 +131,59 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_pc4if")
 placeholder_text = "Playlist Name"
 
 [node name="ConfirmButton" type="Button" parent="NewPlaylistHWindow/NewPlaylistControl" unique_id=1324470237]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 327.0
+offset_top = 28.0
+offset_right = -4.0
+offset_bottom = 65.0
+grow_horizontal = 2
+icon = ExtResource("6_pc4if")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="RenamePlaylistHWindow" type="Window" parent="." unique_id=1881085443 node_paths=PackedStringArray("line_edit", "confirm_btn")]
+oversampling_override = 1.0
+title = "New Playlist"
+initial_position = 4
+size = Vector2i(381, 100)
+visible = false
+script = ExtResource("8_w1atg")
+line_edit = NodePath("NewPlaylistControl/PlaylistNameLineEdit")
+confirm_btn = NodePath("NewPlaylistControl/ConfirmButton")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="NewPlaylistControl" type="Control" parent="RenamePlaylistHWindow" unique_id=1252005034]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="RenamePlaylistHWindow/NewPlaylistControl" unique_id=292928481]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="PlaylistNameLineEdit" type="LineEdit" parent="RenamePlaylistHWindow/NewPlaylistControl" unique_id=918873917]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99500006
+offset_left = 9.0
+offset_top = 27.0
+offset_right = -54.09503
+offset_bottom = 66.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_pc4if")
+placeholder_text = "Playlist Name"
+
+[node name="ConfirmButton" type="Button" parent="RenamePlaylistHWindow/NewPlaylistControl" unique_id=503455644]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

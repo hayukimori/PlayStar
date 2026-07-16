@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dnj6ugoy1pdo" path="res://Scripts/UI/CustomNodes/AnimatedOptionButton.gd" id="4_mkud7"]
 [ext_resource type="Texture2D" uid="uid://bo7llr1psxpfg" path="res://assets/icons/iconoir/nav-arrow-up.svg" id="5_url5x"]
 [ext_resource type="Texture2D" uid="uid://bqt0b4wihicyh" path="res://assets/icons/iconoir/nav-arrow-down.svg" id="6_shw0s"]
+[ext_resource type="Texture2D" uid="uid://dwo1utwmlka41" path="res://assets/icons/iconoir/edit-pencil.svg" id="6_ww0pm"]
 
 [sub_resource type="SystemFont" id="SystemFont_mkud7"]
 font_names = PackedStringArray("Noto Sans")
@@ -22,7 +23,7 @@ subpixel_positioning = 0
 font = SubResource("SystemFont_ub5km")
 font_size = 12
 
-[node name="PlaylistButton" type="Button" unique_id=1125917547 node_paths=PackedStringArray("name_label", "song_count_label", "delete_button", "move_up_button", "move_down_button")]
+[node name="PlaylistButton" type="Button" unique_id=1125917547 node_paths=PackedStringArray("name_label", "song_count_label", "delete_button", "rename_button", "move_up_button", "move_down_button")]
 custom_minimum_size = Vector2(0, 64)
 offset_right = 576.0
 offset_bottom = 64.0
@@ -32,6 +33,7 @@ script = ExtResource("1_rsogw")
 name_label = NodePath("NameLabbel")
 song_count_label = NodePath("SongCountLabel")
 delete_button = NodePath("OptionsContainer/DeleteButton")
+rename_button = NodePath("OptionsContainer/RenameButton")
 move_up_button = NodePath("OptionsContainer/MoveUpButton")
 move_down_button = NodePath("OptionsContainer/MoveDownButton")
 
@@ -96,6 +98,15 @@ visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = ExtResource("6_shw0s")
+flat = true
+expand_icon = true
+script = ExtResource("4_mkud7")
+
+[node name="RenameButton" type="Button" parent="OptionsContainer" unique_id=1204833196]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("6_ww0pm")
 flat = true
 expand_icon = true
 script = ExtResource("4_mkud7")
