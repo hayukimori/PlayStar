@@ -43,6 +43,7 @@ func _ready() -> void:
 
 	SignalBus.playlist_deleted.connect(_on_playlist_deleted)
 	SignalBus.playlist_added.connect(_on_playlist_added)
+	SignalBus.reload_playlists.connect(_reload_ui_playlists)
 
 	SignalBus.request_playlist_up.connect(move_playlist_ui_up)
 	SignalBus.request_playlist_down.connect(move_playlist_ui_down)
