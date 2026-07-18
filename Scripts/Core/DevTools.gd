@@ -46,3 +46,12 @@ static func to_snake_case_sanitized(input_text: String) -> String:
 	clean_text = regex.sub(clean_text, "_", true)
 
 	return clean_text.strip_edges().trim_prefix("_").trim_suffix("_")
+
+
+static func delete_file(file_path: String) -> void:
+	if FileAccess.file_exists(file_path):
+		DirAccess.remove_absolute(file_path)
+
+static func delete_dir(path: String) -> void:
+	if DirAccess.dir_exists_absolute(path):
+		DirAccess.remove_absolute(path)
