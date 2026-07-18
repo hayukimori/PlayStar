@@ -9,7 +9,7 @@ signal playlist_clicked(obj: PlaylistModel)
 @export var delete_button: AnimatedOptionButton
 @export var rename_button: AnimatedOptionButton
 
-@export var show_up_down: bool = false
+@export var show_edit_options: bool = false
 @export var move_up_button: Button
 @export var move_down_button: Button
 
@@ -37,9 +37,10 @@ func _set_ui() -> void:
 	option_buttons.append(move_up_button)
 	option_buttons.append(move_down_button)
 
-	if !show_up_down:
+	if !show_edit_options:
 		ignore_buttons.append(move_up_button)
 		ignore_buttons.append(move_down_button)
+		ignore_buttons.append(rename_button)
 
 	move_up_button.pressed.connect(_on_playlist_up_pressed)
 	move_down_button.pressed.connect(_on_playlist_down_pressed)
