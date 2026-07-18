@@ -478,6 +478,7 @@ func _on_playlist_request(playlist: PlaylistModel, index: int) -> void:
 
 	var c_song = current_play_queue[index]
 	play_song(c_song)
+	random_index = 0
 
 
 func _on_load_all_songs_request() -> void:
