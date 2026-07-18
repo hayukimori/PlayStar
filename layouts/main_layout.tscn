@@ -63,6 +63,7 @@
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
 [ext_resource type="Texture2D" uid="uid://c48f7s6hitbjy" path="res://assets/icons/iconoir/clock-rotate-right.svg" id="51_nki3b"]
 [ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="52_26u71"]
+[ext_resource type="PackedScene" uid="uid://b8o4tvpdsg7c" path="res://Window/AboutWindow.tscn" id="57_hfbbq"]
 [ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
@@ -840,7 +841,7 @@ script = ExtResource("15_186sv")
 texture_on = ExtResource("9_p2ped")
 texture_off = ExtResource("29_c80o5")
 
-[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "history_btn", "volume_slider", "panel")]
+[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "history_btn", "about_btn", "volume_slider", "panel")]
 visible = false
 layout_mode = 1
 anchors_preset = 9
@@ -855,6 +856,7 @@ all_songs_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AllSongsButton")
 artists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/ArtistsButton")
 albuns_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AlbumsButton")
 history_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/HistoryButton")
+about_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AboutButton")
 volume_slider = NodePath("MenuPanel/VolumeHSlider")
 panel = NodePath("MenuPanel")
 close_btn_texture = ExtResource("33_fqe4u")
@@ -995,6 +997,7 @@ history_window = NodePath("HistoryWindow")
 config_control = NodePath("ConfigControl")
 add_to_playlist_window_fb = ExtResource("44_rr6jk")
 delete_confirm_window = ExtResource("47_eseux")
+about_window_packed = ExtResource("57_hfbbq")
 
 [node name="PlaylistsWindow" type="Window" parent="WindowManager" unique_id=450202149]
 oversampling_override = 1.0
