@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bgwvavu3au6lm"]
+
+[ext_resource type="Texture2D" uid="uid://1hmo0uw5um4" path="res://assets/textures/icon.png" id="1_gdnkq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i5a3o"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.25490198)
+metallic = 0.91
+metallic_specular = 0.8
+roughness = 0.27
+refraction_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cty8o"]
+albedo_texture = ExtResource("1_gdnkq")
+uv1_scale = Vector3(1.03, 1.095, 1.03)
+uv1_offset = Vector3(0.5, 0.04, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdnkq"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ccvm0"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="CDCaseN3D" type="Node3D" unique_id=653293820]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=682245640]
+transform = Transform3D(-0.8660254, -0.43301275, 0.24999997, -0.43613535, 0.89871466, 0.045802742, -0.2445118, -0.0693675, -0.9671619, 0, 0, 0)
+light_color = Color(0.50980395, 0.6156863, 0.90588236, 1)
+light_energy = 1.155
+light_specular = 0.15
+shadow_enabled = true
+
+[node name="CaseCSGBox" type="CSGBox3D" parent="." unique_id=31780248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0295)
+size = Vector3(1.35, 1.062, 0.001)
+material = SubResource("StandardMaterial3D_i5a3o")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=314454042]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.0077944696, -0.015130863)
+radius = 0.4243164
+height = 0.001
+sides = 64
+material = SubResource("StandardMaterial3D_cty8o")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=865966244]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6265759, 0.0076281875, 0.0015775859)
+size = Vector3(0.10726166, 1.0907669, 0.06731415)
+material = SubResource("StandardMaterial3D_gdnkq")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1139852608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00041729212, 0.00981307, 0.020384043)
+size = Vector3(1.361248, 1.0833168, 0.058647156)
+material = SubResource("StandardMaterial3D_ccvm0")

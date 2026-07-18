@@ -9,6 +9,7 @@ class_name LeftMenuControl
 @export var artists_btn: Button
 @export var albuns_btn: Button
 @export var history_btn: Button
+@export var about_btn: Button
 @export var volume_slider: Slider
 
 @export var panel: Panel
@@ -53,6 +54,9 @@ func _ready() -> void:
 
 	if history_btn:
 		history_btn.pressed.connect(_on_history_btn_pressed)
+
+	if about_btn:
+		about_btn.pressed.connect(_on_about_btn_pressed)
 
 	close_panel()
 	show()
@@ -112,3 +116,7 @@ func _on_albuns_btn_pressed() -> void:
 
 func _on_history_btn_pressed() -> void:
 	SignalBus.emit_show_history_window()
+
+func _on_about_btn_pressed() -> void:
+	print("Emitting invoke about window")
+	SignalBus.emit_invoke_about_window()
