@@ -62,6 +62,7 @@
 [ext_resource type="PackedScene" uid="uid://b4myj8iejcbpo" path="res://Window/SingleArtistWindow.tscn" id="48_l6mk2"]
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
 [ext_resource type="Texture2D" uid="uid://c48f7s6hitbjy" path="res://assets/icons/iconoir/clock-rotate-right.svg" id="51_nki3b"]
+[ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="52_26u71"]
 [ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
@@ -73,7 +74,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nki3b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfbbq"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -88,7 +89,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26u71"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqotl"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -104,7 +105,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfbbq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqqrf"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -347,7 +348,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nki3b")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hfbbq")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -395,7 +396,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_26u71")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wqotl")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -415,7 +416,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hfbbq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uqqrf")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -927,6 +928,13 @@ expand_icon = true
 layout_mode = 2
 text = "Recent"
 icon = ExtResource("51_nki3b")
+flat = true
+expand_icon = true
+
+[node name="AboutButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=389361843]
+layout_mode = 2
+text = "About"
+icon = ExtResource("52_26u71")
 flat = true
 expand_icon = true
 
