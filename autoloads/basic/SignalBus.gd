@@ -41,10 +41,11 @@ signal invoke_queue_window
 signal show_artist_window(artist: ArtistModel, texture)
 signal show_album_window(album: AlbumModel, texture)
 signal show_history_window
-
+signal request_rename_window(playlist: PlaylistModel)
 
 # ------------- MISC --------------------
 signal reload_request
+signal reload_playlists
 signal discord_rp_changed(value: bool)
 signal pop_msg_request(message: String)
 signal song_selected(song: SongModel)
@@ -126,9 +127,11 @@ func emit_invoke_queue_window() -> void: invoke_queue_window.emit()
 func emit_show_artist_window(artist: ArtistModel, texture) -> void: show_artist_window.emit(artist, texture)
 func emit_show_album_window(album: AlbumModel, texture) -> void: show_album_window.emit(album, texture)
 func emit_show_history_window() -> void: show_history_window.emit()
+func emit_request_rename_window(playlist: PlaylistModel) -> void: request_rename_window.emit(playlist)
 
 
 func emit_reload_request() -> void: reload_request.emit()
+func emit_reload_playlists() -> void: reload_playlists.emit()
 func emit_pop_msg_request(message: String) -> void: pop_msg_request.emit(message)
 func emit_song_selected(song: SongModel) -> void: song_selected.emit(song)
 func emit_play_from_current(song: SongModel) -> void: play_from_current.emit(song)

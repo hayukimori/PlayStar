@@ -43,6 +43,7 @@ func _ready() -> void:
 
 	SignalBus.playlist_deleted.connect(_on_playlist_deleted)
 	SignalBus.playlist_added.connect(_on_playlist_added)
+	SignalBus.reload_playlists.connect(_reload_ui_playlists)
 
 	SignalBus.request_playlist_up.connect(move_playlist_ui_up)
 	SignalBus.request_playlist_down.connect(move_playlist_ui_down)
@@ -117,7 +118,7 @@ func _load_ui_playlists() -> void:
 			continue
 		btn.playlist_object = pl
 		btn.playlist_clicked.connect(load_songs_playlist)
-		btn.show_up_down = true
+		btn.show_edit_options = true
 		playlists_vbc.add_child(btn)
 		playlist_btn_list.append(btn)
 

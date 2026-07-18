@@ -73,6 +73,18 @@ static func save(playlist: PlaylistModel) -> void:
 
 	ResourceSaver.save(playlist, playlist.path)
 
+## Renames a playlist + save [br]
+## (Required) [param new_name] ([class String]) as new name for given playlist[br]
+## (Required) [param playlist] [class PlaylistModel] as object to rename [br]
+## (Optional) [param save_after] (true by defaullt) to save file after rename
+##
+## Usage:
+## [codeblock]
+## PlaylistManager.rename("Hello, world", current_playlist)
+## [/codeblock]
+static func rename(new_name: String, playlist: PlaylistModel, save_after: bool = true) -> void:
+	playlist.name = new_name if new_name else "Unnamed playlist"
+	if save_after: save(playlist)
 
 
 # Internal functions
