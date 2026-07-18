@@ -23,14 +23,13 @@ static func add_and_save_history(song: SongModel, history: HistoryModel) -> void
 ## or creates a new one and returns [code]HistoryModel[/code]
 static func load_history() -> HistoryModel:
 	var path = Definitions.USER_HISTORY_PATH
-
 	var rest: HistoryModel
 
 	if FileAccess.file_exists(path):
 		rest = ResourceLoader.load(path) as HistoryModel
 	else:
 		rest = HistoryModel.new()
-		ResourceSaver.save(rest)
+		ResourceSaver.save(rest, path)
 
 	return rest
 
@@ -44,8 +43,7 @@ static func load_history() -> HistoryModel:
 ##
 ## Usage:
 ## [codeblock]
-##  # recent songs becomes first items in list
-## var songlist: Array[SongModel] = load_history_songs(true)
+## var songlist: Array[SongModel] = load_history_songs(true) # recent songs becomes first items in list
 ## [/codeblock]
 static func load_history_songs(reversed: bool = false) -> Array[SongModel]:
 	var repo = NodeKeeper.song_repository
@@ -83,3 +81,69 @@ static func load_history_as_queue(reversed: bool = false, queue_name: String = "
 	var queue: PlaylistModel = PlaylistManager.new_queue(queue_name, songs)
 
 	return queue
+
+
+## Deletes Database file[br]
+##
+## CAUTION: This functions [b]deletes[/b] database content
+static func delete_database():
+	var _current_db: DatabaseManager = NodeKeeper.current_database
+
+	# Just drop tables if exists.
+	if _current_db:
+		_current_db.DropAllTables()
+		_current_db.CloseAll()
+	else:
+		# deletes file
+		DevTools.delete_file(Definitions.DATABASE_PATH)
+		DevTools.delete_file(Definitions.DATABASE_PATH + "-wal")
+		DevTools.delete_file(Definitions.DATABASE_PATH + "-shm")
+
+
+## Deletes Database file[br]
+##
+## CAUTION: This functions [b]deletes[/b] song history file
+static func delete_history():
+	DevTools.delete_file(Definitions.USER_HISTORY_PATH)
+
+
+## Deletes Database file[br]
+##
+## CAUTION: This functions [b]deletes[/b] all stored json lyrics
+static func delete_lyrics():
+	DevTools.delete_dir(Definitions.LYRICS_PATH)
+
+## Deletes Database file[br]
+##
+## CAUTION: This functions [b]deletes[/b] all playlists
+static func delete_playlists():
+	DevTools.delete_dir(Definitions.PLAYLISTS_PATH)
+
+## Deletes elements form library[br]
+##
+## Takes [param options] as an Array of [enum Defintions.LibraryOptions]
+## to delete custom items[br]
+##
+## Usage: [br]
+## [codeblock]
+## var items: Array[Definitions.LibraryOptions] = [
+## 		Definitions.LibraryOptions.DATABASE, # Database
+##		Definitions.LibraryOptions.PLAYLISTS # Playlists
+## 	] # Can add more items using .append()
+##
+## LibraryManager.delete_library(items)
+##
+## [/codeblock]
+static func delete_library(options: Array[Definitions.LibraryOptions]):
+	if !options: return
+	for option in options:
+		match option:
+			Definitions.LibraryOptions.DATABASE:
+				delete_database()
+			Definitions.LibraryOptions.HISTORY:
+				delete_history()
+			Definitions.LibraryOptions.LYRICS:
+				delete_lyrics()
+			Definitions.LibraryOptions.PLAYLISTS:
+				delete_playlists()
+			_: return

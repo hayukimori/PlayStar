@@ -172,7 +172,12 @@ func load_songs(from_playlist: String = "") -> void:
 	if not db: return
 
 	var cfg = UserGlobals.get_config()
-	var songs: Array[SongModel] = song_repo.GetSongs(10000, cfg.ignore_unknown_artists)
+	var songs: Array[SongModel] = []
+
+	var response = song_repo.GetSongs(-1, cfg.ignore_unknown_artists)
+	if response: songs = response
+
+	print("Returned %d songs from listing" % len(songs))
 	if from_playlist: print("'from_playlist' not implemented yet.")
 	all_songs = songs.duplicate()
 
@@ -458,8 +463,7 @@ func _on_reload_requested() -> void:
 	await get_tree().process_frame
 
 	load_songs()
-	if ui_manager:
-		ui_manager.render_song_btns_from_list(current_play_queue)
+	_on_load_all_songs_request()
 
 
 func _on_req_load_song_from_queue(song: SongModel) -> void:

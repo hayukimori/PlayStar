@@ -118,4 +118,22 @@ public partial class DatabaseManager : Node
         InitializeDatabase();
     }
     #endregion
+
+    public void DropAllTables()
+    {
+        using var connection = GetConnection();
+        using var cmd = connection.CreateCommand();
+        cmd.CommandText = @"
+            PRAGMA foreign_keys = OFF;
+            DROP TABLE IF EXISTS songs;
+            DROP TABLE IF EXISTS albums;
+            DROP TABLE IF EXISTS artists;
+            DROP TABLE IF EXISTS genres;
+            PRAGMA foreign_keys = ON;
+        ";
+        cmd.ExecuteNonQuery();
+    }
+
+    public void CloseAll() => SqliteConnection.ClearAllPools();
+
 }

@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://bw8qld14ndd80"]
+
+[ext_resource type="Script" uid="uid://dod5jm6ibb68" path="res://Scripts/Window/ConfirmationWindow.gd" id="1_ylkxl"]
+[ext_resource type="Texture2D" uid="uid://dbbk8yy1spe3d" path="res://assets/icons/iconoir/check-green.svg" id="2_s574b"]
+[ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="3_ldo33"]
+
+[node name="ConfirmationWindow" type="Window" unique_id=1751594867 node_paths=PackedStringArray("confirm_button", "cancel_button", "main_label")]
+oversampling_override = 1.0
+title = "Confirm"
+initial_position = 4
+size = Vector2i(524, 192)
+visible = false
+exclusive = true
+script = ExtResource("1_ylkxl")
+confirm_button = NodePath("Control/Control/ConfirmButton")
+cancel_button = NodePath("Control/Control/CancelButton")
+main_label = NodePath("Control/Label")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="Control" type="Control" parent="." unique_id=2021820092]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1763933664]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+
+[node name="Label" type="Label" parent="Control" unique_id=1211317351]
+custom_maximum_size = Vector2(460, 88)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -230.0
+offset_top = 37.0
+offset_right = 230.0
+offset_bottom = 125.0
+grow_horizontal = 2
+text = "Confirm %s ? 
+This action cannot be undone."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Control" type="HBoxContainer" parent="Control" unique_id=1117110483]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -273.0
+offset_top = -48.0
+offset_right = -18.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="ConfirmButton" type="Button" parent="Control/Control" unique_id=983201553]
+layout_mode = 2
+theme_override_constants/icon_max_width = 20
+text = "Confirm"
+icon = ExtResource("2_s574b")
+flat = true
+
+[node name="CancelButton" type="Button" parent="Control/Control" unique_id=1412927866]
+layout_mode = 2
+theme_override_constants/icon_max_width = 24
+text = "Cancel"
+icon = ExtResource("3_ldo33")
+flat = true

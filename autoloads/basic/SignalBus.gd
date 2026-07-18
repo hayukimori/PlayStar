@@ -46,11 +46,15 @@ signal request_rename_window(playlist: PlaylistModel)
 # ------------- MISC --------------------
 signal reload_request
 signal reload_playlists
+signal reset_playlists
+signal reload_artists
+signal reload_albums
 signal discord_rp_changed(value: bool)
 signal pop_msg_request(message: String)
 signal song_selected(song: SongModel)
 signal play_from_current(song: SongModel)
 signal request_playlist(playlist: PlaylistModel, index: int)
+signal request_history_update
 
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)
@@ -132,11 +136,15 @@ func emit_request_rename_window(playlist: PlaylistModel) -> void: request_rename
 
 func emit_reload_request() -> void: reload_request.emit()
 func emit_reload_playlists() -> void: reload_playlists.emit()
+func emit_reset_playlists() -> void: reset_playlists.emit()
+func emit_reload_artists() -> void: reload_artists.emit()
+func emit_reload_albums() -> void: reload_albums.emit()
 func emit_pop_msg_request(message: String) -> void: pop_msg_request.emit(message)
 func emit_song_selected(song: SongModel) -> void: song_selected.emit(song)
 func emit_play_from_current(song: SongModel) -> void: play_from_current.emit(song)
 func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 	request_playlist.emit(playlist, index)
+func emit_request_history_update() -> void: request_history_update.emit()
 
 
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)

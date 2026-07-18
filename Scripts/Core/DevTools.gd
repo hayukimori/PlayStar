@@ -46,3 +46,45 @@ static func to_snake_case_sanitized(input_text: String) -> String:
 	clean_text = regex.sub(clean_text, "_", true)
 
 	return clean_text.strip_edges().trim_prefix("_").trim_suffix("_")
+
+
+## Deletes a file[br]
+##
+## Takes [param file_path] as argument (absolute path)
+static func delete_file(file_path: String) -> void:
+	if !FileAccess.file_exists(file_path):
+		push_warning("File does not exsits: %s" % file_path)
+		return
+
+	DirAccess.remove_absolute(file_path)
+
+## Deletes a directory recursively[br]
+##
+## Takes [param path] as argument (absolute path)
+static func delete_dir(path: String) -> void:
+	if !DirAccess.dir_exists_absolute(path):
+		push_warning("Directory does not exist: %s" % path)
+		return
+
+	var dir := DirAccess.open(path)
+	if dir == null:
+		push_error("Failed to open directory: %s" % path)
+		return
+
+	dir.list_dir_begin()
+	var entry := dir.get_next()
+	while entry != "":
+		if entry == "." or entry == "..":
+			entry = dir.get_next()
+			continue
+
+		var full_path := path.path_join(entry)
+		if dir.current_is_dir():
+			delete_dir(full_path) # recursive
+		else:
+			DirAccess.remove_absolute(full_path)
+
+		entry = dir.get_next()
+	dir.list_dir_end()
+
+	DirAccess.remove_absolute(path)
