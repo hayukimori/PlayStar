@@ -317,8 +317,9 @@ func _rebuild_random_order() -> void:
 		if idx != -1:
 			random_order.remove_at(idx)
 			random_order.insert(0, playing_now)
-
-	random_index = -1
+		random_index = 0
+	else:
+		random_index = -1
 
 #endregion
 
@@ -478,6 +479,7 @@ func _on_playlist_request(playlist: PlaylistModel, index: int) -> void:
 
 	var c_song = current_play_queue[index]
 	play_song(c_song)
+	random_index = 0
 
 
 func _on_load_all_songs_request() -> void:
@@ -511,7 +513,7 @@ func _change_random_mode(state: bool) -> void:
 
 func _change_repeat_mode(state: Definitions.RepeatMode) -> void:
 	repeat_mode = state
-	user_defaults.random_mode = state
+	user_defaults.repeat_mode = state
 	UserGlobals.save_defaults(user_defaults)
 	if mpris_service: mpris_service.UpdateLoopStatus(_mpris_loop_string())
 
