@@ -104,4 +104,9 @@ func _on_scan_end() -> void:
 func _on_index_end() -> void:
 	_track_current_progress(ScanEvent.IndexEnd)
 	Locker.set_scan_lock(false)
-	status_label.text = "Done!\nYou can close this window now. And restart to take effect"
+	status_label.text = "Done!\nYou can close this window now. (Restart recommended)"
+
+	SignalBus.emit_reload_request()
+	SignalBus.emit_reload_albums()
+	SignalBus.emit_reload_artists()
+	SignalBus.emit_reload_playlists()

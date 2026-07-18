@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="2_j617b"]
 [ext_resource type="Texture2D" uid="uid://b6p2uolqkicho" path="res://assets/icons/iconoir/discord.svg" id="3_japnt"]
 [ext_resource type="Texture2D" uid="uid://cmna7dx27swvx" path="res://assets/icons/iconoir/music-double-note.svg" id="4_uxyrx"]
+[ext_resource type="Texture2D" uid="uid://blaarcky7cemp" path="res://assets/icons/iconoir/folder-settings.svg" id="5_5qmg5"]
 [ext_resource type="Script" uid="uid://8x6v3d7x6kfv" path="res://Scripts/UI/Components/LibraryPathSettings.gd" id="5_msdiq"]
 [ext_resource type="LabelSettings" uid="uid://dtw6rp2b3ub3m" path="res://UI/ComponentThemes/SettingsTitleLabelSettings.tres" id="7_ctn7q"]
 [ext_resource type="Texture2D" uid="uid://srbt2kjf5xw0" path="res://assets/icons/iconoir/label-solid.svg" id="8_jm2bs"]
@@ -14,6 +15,13 @@
 [ext_resource type="Script" uid="uid://bv4qxxs5drakv" path="res://Scripts/UI/Components/DiscordSettings.gd" id="10_xgptq"]
 [ext_resource type="Script" uid="uid://byyu6rtd5g76f" path="res://Scripts/UI/Components/PlayerSettings.gd" id="12_h1rhx"]
 [ext_resource type="Texture2D" uid="uid://4sdx1gx1saee" path="res://assets/icons/iconoir/multi-window.svg" id="14_x1i2h"]
+[ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="15_phk4n"]
+[ext_resource type="Texture2D" uid="uid://bhfptwvb7nmma" path="res://assets/icons/iconoir/book-solid-red.svg" id="16_l2yy1"]
+[ext_resource type="Script" uid="uid://b1u4pq6xm7a7r" path="res://Scripts/UI/Components/LibraryManagementSettings.gd" id="16_n6dok"]
+[ext_resource type="Texture2D" uid="uid://b4l36qidtibdg" path="res://assets/icons/iconoir/database-xmark-solid.svg" id="16_w4k1s"]
+[ext_resource type="PackedScene" uid="uid://bw8qld14ndd80" path="res://Window/ConfirmationWindow.tscn" id="17_j2sn8"]
+[ext_resource type="Texture2D" uid="uid://3xvqfd881q1i" path="res://assets/icons/iconoir/playlist-red.svg" id="18_o3hn6"]
+[ext_resource type="Texture2D" uid="uid://kcgwgata0mko" path="res://assets/icons/iconoir/clock-rotate-right-red.svg" id="19_5qmg5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j617b"]
 content_margin_left = 16.0
@@ -137,6 +145,7 @@ tabs_position = 1
 tab_0/icon = ExtResource("2_bc0ag")
 tab_1/icon = ExtResource("3_japnt")
 tab_2/icon = ExtResource("4_uxyrx")
+tab_3/icon = ExtResource("5_5qmg5")
 
 [node name="LibraryPathSettings" type="Control" parent="Window/TabContainer" unique_id=2033530882 node_paths=PackedStringArray("file_dialog", "scan_window", "path_container", "scan_button", "add_path_button")]
 layout_mode = 2
@@ -335,3 +344,84 @@ bbcode_enabled = true
 text = "[font_size=14px]Here you can set settings to PlayStar, like an option to ignore artist's without tag ('Unknown')[/font_size]
 "
 justification_flags = 171
+
+[node name="LibraryManagementSettings" type="Control" parent="Window/TabContainer" unique_id=381124985 node_paths=PackedStringArray("del_database_button", "del_lyrics_button", "del_history_button", "del_playlists_button")]
+visible = false
+layout_mode = 2
+script = ExtResource("16_n6dok")
+confirmation_window_packed = ExtResource("17_j2sn8")
+del_database_button = NodePath("ScrollContainer/VBoxContainer/DeleteDatabaseButton")
+del_lyrics_button = NodePath("ScrollContainer/VBoxContainer/DeleteLyricsButton")
+del_history_button = NodePath("ScrollContainer/VBoxContainer/DeleteHistoryButton")
+del_playlists_button = NodePath("ScrollContainer/VBoxContainer/DeletePlaylistsButton")
+metadata/_tab_index = 3
+metadata/_tab_name = ""
+
+[node name="Label" type="Label" parent="Window/TabContainer/LibraryManagementSettings" unique_id=1538124418]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 545.0
+offset_bottom = 65.0
+text = "Library Management"
+label_settings = ExtResource("7_ctn7q")
+
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/LibraryManagementSettings" unique_id=279853942]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99100006
+anchor_bottom = 0.591
+offset_left = 9.0
+offset_top = 85.0
+offset_right = -8.15802
+offset_bottom = -56.028
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
+bbcode_enabled = true
+text = "[font_size=14px]Manage your library[/font_size]
+"
+justification_flags = 171
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Window/TabContainer/LibraryManagementSettings" unique_id=2052336561]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 138.0
+offset_right = 520.0
+offset_bottom = 302.0
+theme = ExtResource("15_phk4n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer" unique_id=320553763]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeleteDatabaseButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1112411980]
+layout_mode = 2
+theme_override_constants/icon_max_width = 20
+text = "Delete database (songs, artists, etc)."
+icon = ExtResource("16_w4k1s")
+flat = true
+alignment = 0
+
+[node name="DeleteLyricsButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1374668138]
+layout_mode = 2
+theme_override_constants/icon_max_width = 20
+text = "Remove all lyric files"
+icon = ExtResource("16_l2yy1")
+flat = true
+alignment = 0
+
+[node name="DeletePlaylistsButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=340565400]
+layout_mode = 2
+theme_override_constants/icon_max_width = 20
+text = "Delete playlists"
+icon = ExtResource("18_o3hn6")
+flat = true
+alignment = 0
+
+[node name="DeleteHistoryButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1423647923]
+layout_mode = 2
+theme_override_constants/icon_max_width = 20
+text = "Delete history"
+icon = ExtResource("19_5qmg5")
+flat = true
+alignment = 0

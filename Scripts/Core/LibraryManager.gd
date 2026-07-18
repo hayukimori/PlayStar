@@ -23,14 +23,13 @@ static func add_and_save_history(song: SongModel, history: HistoryModel) -> void
 ## or creates a new one and returns [code]HistoryModel[/code]
 static func load_history() -> HistoryModel:
 	var path = Definitions.USER_HISTORY_PATH
-
 	var rest: HistoryModel
 
 	if FileAccess.file_exists(path):
 		rest = ResourceLoader.load(path) as HistoryModel
 	else:
 		rest = HistoryModel.new()
-		ResourceSaver.save(rest)
+		ResourceSaver.save(rest, path)
 
 	return rest
 
@@ -86,9 +85,19 @@ static func load_history_as_queue(reversed: bool = false, queue_name: String = "
 
 ## Deletes Database file[br]
 ##
-## CAUTION: This functions [b]deletes[/b] database file
+## CAUTION: This functions [b]deletes[/b] database content
 static func delete_database():
-	DevTools.delete_file(Definitions.DATABASE_PATH)
+	var _current_db: DatabaseManager = NodeKeeper.current_database
+
+	# Just drop tables if exists.
+	if _current_db:
+		_current_db.DropAllTables()
+		_current_db.CloseAll()
+	else:
+		# deletes file
+		DevTools.delete_file(Definitions.DATABASE_PATH)
+		DevTools.delete_file(Definitions.DATABASE_PATH + "-wal")
+		DevTools.delete_file(Definitions.DATABASE_PATH + "-shm")
 
 
 ## Deletes Database file[br]

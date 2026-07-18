@@ -2,7 +2,7 @@ extends Window
 class_name HybridWindow
 
 
-var internal_theme: Theme = preload("res://UI/ComponentThemes/HybridWindowTheme.tres")
+var internal_theme: Theme = load("res://UI/ComponentThemes/HybridWindowTheme.tres")
 
 func _ready() -> void:
 	self.close_requested.connect(close)

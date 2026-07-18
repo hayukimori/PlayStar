@@ -20,6 +20,7 @@ const BUILD_BUDGET_USEC := 1000
 
 func _ready() -> void:
 	SignalBus.song_changed.connect(_on_update_request)
+	SignalBus.request_history_update.connect(_on_update_request)
 	self.visibility_changed.connect(_on_visible_changed)
 
 	close_requested.connect(close)
@@ -37,8 +38,6 @@ func load_history() -> void:
 
 func setup_songs() -> void:
 	var hist_songs: Array[SongModel] = LibraryManager.load_history_songs(true)
-	if !hist_songs: return
-
 	songs_cache = hist_songs.duplicate()
 
 	add_to_playlist.content = songs_cache
