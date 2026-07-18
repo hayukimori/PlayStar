@@ -43,6 +43,8 @@ func _ready() -> void:
 
 	SignalBus.playlist_deleted.connect(_on_playlist_deleted)
 	SignalBus.playlist_added.connect(_on_playlist_added)
+	SignalBus.reload_playlists.connect(_reload_ui_playlists)
+	SignalBus.reset_playlists.connect(_reset_playlists)
 
 	SignalBus.request_playlist_up.connect(move_playlist_ui_up)
 	SignalBus.request_playlist_down.connect(move_playlist_ui_down)
@@ -117,7 +119,7 @@ func _load_ui_playlists() -> void:
 			continue
 		btn.playlist_object = pl
 		btn.playlist_clicked.connect(load_songs_playlist)
-		btn.show_up_down = true
+		btn.show_edit_options = true
 		playlists_vbc.add_child(btn)
 		playlist_btn_list.append(btn)
 
@@ -255,6 +257,20 @@ func _on_playlist_added(playlist: PlaylistModel) -> void:
 
 func delete_playlist(playlist: PlaylistModel) -> void:
 	SignalBus.emit_request_playlist_delete(playlist)
+
+
+func _reset_playlists() -> void:
+	_playlists = PlaylistManager.load_playlists()
+
+	var udf = UserGlobals.get_defaults()
+	if udf.playlist_order.is_empty():
+		udf.playlist_order = _playlists.map(func(pl): return pl.path)
+		UserGlobals.save_defaults(udf)
+
+	_sort_playlists_by_order()
+
+	_reload_ui_playlists()
+
 
 func _on_new_playlist_btn() -> void:
 	if !new_playlist_win: return

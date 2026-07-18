@@ -7,8 +7,9 @@ signal playlist_clicked(obj: PlaylistModel)
 @export var name_label: Label
 @export var song_count_label: Label
 @export var delete_button: AnimatedOptionButton
+@export var rename_button: AnimatedOptionButton
 
-@export var show_up_down: bool = false
+@export var show_edit_options: bool = false
 @export var move_up_button: Button
 @export var move_down_button: Button
 
@@ -23,6 +24,7 @@ func _ready() -> void:
 	_set_ui()
 
 	delete_button.pressed.connect(_on_delete_request)
+	rename_button.pressed.connect(_on_rename_pressed)
 	self.gui_input.connect(_on_button_gui_event)
 
 func _set_ui() -> void:
@@ -31,12 +33,14 @@ func _set_ui() -> void:
 	if !playlist_object: print("No song object, queue free()"); queue_free(); return;
 
 	option_buttons.append(delete_button)
+	option_buttons.append(rename_button)
 	option_buttons.append(move_up_button)
 	option_buttons.append(move_down_button)
 
-	if !show_up_down:
+	if !show_edit_options:
 		ignore_buttons.append(move_up_button)
 		ignore_buttons.append(move_down_button)
+		ignore_buttons.append(rename_button)
 
 	move_up_button.pressed.connect(_on_playlist_up_pressed)
 	move_down_button.pressed.connect(_on_playlist_down_pressed)
@@ -68,6 +72,9 @@ func _pressed() -> void:
 
 func _on_delete_request() -> void:
 	SignalBus.emit_request_playlist_delete(playlist_object)
+
+func _on_rename_pressed() -> void:
+	SignalBus.emit_request_rename_window(playlist_object)
 
 func _on_playlist_up_pressed() -> void:
 	SignalBus.emit_request_playlist_up(playlist_object)

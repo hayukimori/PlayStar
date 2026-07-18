@@ -1,0 +1,240 @@
+[gd_scene format=3 uid="uid://b8o4tvpdsg7c"]
+
+[ext_resource type="Script" uid="uid://b6ruwqvftn7dc" path="res://Scripts/Window/AboutWindow.gd" id="1_y4wx3"]
+[ext_resource type="PackedScene" uid="uid://bgwvavu3au6lm" path="res://3D/CDCase.tscn" id="2_3c3yy"]
+[ext_resource type="SystemFont" uid="uid://7pnyqoj60olo" path="res://assets/Fonts/SharedTres/baisc_system_font_bold.tres" id="3_y4wx3"]
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="4_e3uu7"]
+[ext_resource type="Texture2D" uid="uid://i2bno848p0tt" path="res://icon.svg" id="5_52i21"]
+[ext_resource type="Script" uid="uid://djjvjusca2k1c" path="res://Scripts/UI/Components/NotesCard.gd" id="5_snuf7"]
+[ext_resource type="Texture2D" uid="uid://cy8c7trw4q55y" path="res://assets/textures/github/gh_btn.png" id="7_1i7tn"]
+[ext_resource type="Texture2D" uid="uid://c3b3nod3wxh85" path="res://assets/textures/bmc/black-button.png" id="7_02owi"]
+[ext_resource type="Texture2D" uid="uid://butvcalja20jh" path="res://assets/textures/bmc/white-button.png" id="8_1i7tn"]
+[ext_resource type="Texture2D" uid="uid://bx4jjifevi58p" path="res://assets/textures/bmc/yellow-button.png" id="8_6ao62"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y4wx3"]
+font = ExtResource("3_y4wx3")
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_52i21"]
+font = ExtResource("4_e3uu7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52i21"]
+bg_color = Color(0.050651185, 0.020552775, 0.15390733, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_snuf7"]
+font = ExtResource("3_y4wx3")
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_mr7jd"]
+font = ExtResource("4_e3uu7")
+font_size = 13
+
+[sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
+font = ExtResource("4_e3uu7")
+font_size = 12
+font_color = Color(1, 1, 1, 0.6313726)
+
+[node name="HybridWindow" type="Window" unique_id=868033007 node_paths=PackedStringArray("github_button", "bmc_button")]
+oversampling_override = 1.0
+initial_position = 4
+size = Vector2i(652, 473)
+visible = false
+unresizable = true
+content_scale_aspect = 4
+script = ExtResource("1_y4wx3")
+github_button = NodePath("Control/HBoxContainer/GithubButton")
+bmc_button = NodePath("Control/HBoxContainer/BMCButton")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="Control" type="Control" parent="." unique_id=1820006360]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=658966689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control" unique_id=145459266]
+layout_mode = 1
+offset_top = 1.0
+offset_right = 208.0
+offset_bottom = 173.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/SubViewportContainer" unique_id=1619493877]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(208, 172)
+render_target_update_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="Control/SubViewportContainer/SubViewport" unique_id=1311279381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01790595, 1.7683842)
+fov = 66.639534
+
+[node name="CDCaseN3D" parent="Control/SubViewportContainer/SubViewport" unique_id=653293820 instance=ExtResource("2_3c3yy")]
+transform = Transform3D(-1, 0, 8.742277e-08, 0, 1, 0, -8.742278e-08, 0, -0.99999994, 0, 0, 0.311)
+
+[node name="ProjectTitleLabel" type="Label" parent="Control" unique_id=117072818]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 208.0
+offset_top = 39.0
+offset_right = -47.0
+offset_bottom = 91.0
+grow_horizontal = 2
+text = "PlayStar"
+label_settings = SubResource("LabelSettings_y4wx3")
+vertical_alignment = 1
+
+[node name="ByLabel" type="Label" parent="Control" unique_id=357066825]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 208.0
+offset_top = 91.0
+offset_right = -47.0
+offset_bottom = 115.0
+grow_horizontal = 2
+text = "by hayukimroi"
+label_settings = SubResource("LabelSettings_52i21")
+vertical_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="Control" unique_id=458993714]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -133.0
+offset_top = 39.0
+offset_right = -45.0
+offset_bottom = 69.0
+grow_horizontal = 0
+text = "v1.2.0"
+horizontal_alignment = 2
+
+[node name="NotesCard" type="Control" parent="Control" unique_id=471358008 node_paths=PackedStringArray("trect", "title_label", "description_label")]
+layout_mode = 1
+anchor_top = 0.448
+anchor_right = 1.0
+anchor_bottom = 0.77400005
+offset_left = 41.0
+offset_top = 30.095993
+offset_right = -34.0
+offset_bottom = -14.10202
+script = ExtResource("5_snuf7")
+trect = NodePath("MainPanel/CDTextureRect")
+title_label = NodePath("MainPanel/TitleLabel")
+description_label = NodePath("MainPanel/DescriptionLabel")
+
+[node name="MainPanel" type="Panel" parent="Control/NotesCard" unique_id=774370976]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_52i21")
+
+[node name="CDTextureRect" type="TextureRect" parent="Control/NotesCard/MainPanel" unique_id=1476650600]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -41.0
+offset_right = 100.0
+offset_bottom = 41.0
+grow_vertical = 2
+pivot_offset = Vector2(41, 41)
+texture = ExtResource("5_52i21")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TitleLabel" type="Label" parent="Control/NotesCard/MainPanel" unique_id=63248656]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.14500001
+anchor_bottom = 0.268
+offset_left = 132.0
+offset_top = 0.049999237
+offset_right = 530.0
+offset_bottom = 13.519999
+text = "Memory diet"
+label_settings = SubResource("LabelSettings_snuf7")
+
+[node name="DescriptionLabel" type="Label" parent="Control/NotesCard/MainPanel" unique_id=439594402]
+custom_maximum_size = Vector2(432, 66)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 131.0
+offset_top = -9.0
+offset_right = 563.0
+offset_bottom = 57.0
+grow_vertical = 0
+text = "PlayStar's memory footprint went from 1.1 GiB to under 800 MB after one very long optimization night.
+"
+label_settings = SubResource("LabelSettings_mr7jd")
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1235775636]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 172.0
+offset_right = 615.0
+offset_bottom = 204.0
+theme_override_constants/separation = 16
+
+[node name="GithubButton" type="TextureButton" parent="Control/HBoxContainer" unique_id=947486644]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+texture_normal = ExtResource("7_1i7tn")
+texture_pressed = ExtResource("7_1i7tn")
+texture_hover = ExtResource("7_1i7tn")
+texture_focused = ExtResource("7_1i7tn")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BMCButton" type="TextureButton" parent="Control/HBoxContainer" unique_id=395349356]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+texture_normal = ExtResource("7_02owi")
+texture_pressed = ExtResource("8_1i7tn")
+texture_hover = ExtResource("8_6ao62")
+texture_focused = ExtResource("7_02owi")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label4" type="Label" parent="Control" unique_id=74384683]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -283.0
+offset_top = -102.0
+offset_right = 283.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Built with Godot 4 • LibVLC • TagLibSharp • SkiaSharp • Iconoir • Tmds.DBUS • DiscordRichPresence
+Special thanks to LrcLib ♥"
+label_settings = SubResource("LabelSettings_cty8o")
+horizontal_alignment = 1
+vertical_alignment = 1

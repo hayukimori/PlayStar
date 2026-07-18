@@ -47,6 +47,7 @@ Synchronized lyrics are fetched from [LRCLIB](https://lrclib.net), a free and op
 - Linux x86_64
 - VLC (`libvlc`) installed on the system
 - `vlc-plugin-pipewire` recommended for PipeWire setups
+
 **Windows**
  
 - Windows x86_64
@@ -86,11 +87,17 @@ Some of these packages carry their own licensing terms, separate from this proje
 Pre-built releases are available on the [Releases](../../releases) page for Linux x86_64 (`.tar`) and Windows x86_64 (`.exe` installer). Each release includes the necessary native DLLs.
  
 **Linux**
- 
+
+ Runtime (no install)
 ```sh
-tar -xf playstar-<version>-linux-x86_64.tar
-cd playstar
+tar -xf PlayStar-linux-x64.tar.gz
 ./PlayStar
+```
+
+Install
+```sh
+tar -xf PlayStar-linux-x64.tar.gz
+sh ./install.sh
 ```
  
 **Windows**

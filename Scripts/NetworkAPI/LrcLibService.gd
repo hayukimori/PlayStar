@@ -16,13 +16,17 @@ var _current_requesting_song_path: String = ""
 
 
 func _ready() -> void:
-	if not DirAccess.dir_exists_absolute(CACHE_DIR):
-		DirAccess.make_dir_absolute(CACHE_DIR)
+
+	_checkdir()
 
 	_http_request = HTTPRequest.new()
 	add_child(_http_request)
 	_http_request.request_completed.connect(_on_request_completed)
 
+
+func _checkdir() -> void:
+	if not DirAccess.dir_exists_absolute(CACHE_DIR):
+		DirAccess.make_dir_absolute(CACHE_DIR)
 
 ## Returns song lyric cache path
 func _get_cache_path(song_path: String) -> String:
@@ -32,6 +36,7 @@ func _get_cache_path(song_path: String) -> String:
 
 ## Searches lyrics using [song: SongModel]. Uses cache if available
 func get_lyrics(song: SongModel) -> void:
+	_checkdir()
 	var cache_file_path = _get_cache_path(song.FilePath)
 
 	if FileAccess.file_exists(cache_file_path):

@@ -35,6 +35,7 @@ func _ready() -> void:
 		search_bar.render_results.connect(_on_search_bar_render_results)
 		search_bar.render_default.connect(_on_search_bar_render_default)
 
+	SignalBus.reload_artists.connect(reload_artists)
 	_build_artists(_artists)
 
 
@@ -42,7 +43,9 @@ func _ready() -> void:
 
 func reload_artists() -> void:
 	var cfg = UserGlobals.get_config()
-	_artists = NodeKeeper.artist_repository.GetArtists(-1, cfg.ignore_unknown_artists)
+	var rest =  NodeKeeper.artist_repository.GetArtists(-1, cfg.ignore_unknown_artists)
+	_artists = rest if rest else []
+
 	if search_bar:
 		search_bar.current_artists = _artists
 	_build_artists(_artists)
