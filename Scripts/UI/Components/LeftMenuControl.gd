@@ -72,6 +72,7 @@ func _ready() -> void:
 	_timer.wait_time = auto_close_time
 	_timer.timeout.connect(_on_autoclose_timeout)
 	add_child(_timer)
+	_on_config_updated()
 	_interaction()
 
 
