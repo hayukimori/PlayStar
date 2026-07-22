@@ -1,6 +1,10 @@
 extends Control
 class_name LeftMenuControl
 
+@export_group("Setup")
+@export var auto_close_enabled: bool = false
+@export var auto_close_time: float = 3.0
+
 @export_group("UI Nodes")
 @export var action_btn: Button # needs to be toggle button
 @export var settings_btn: Button
@@ -31,8 +35,11 @@ class_name LeftMenuControl
 
 var _tween: Tween
 var is_open: bool = true
+var _timer: Timer
 
 func _ready() -> void:
+	SignalBus.config_updated.connect(_on_config_updated)
+
 	hide()
 	if action_btn:
 		action_btn.pressed.connect(_on_action_btn_pressed)
@@ -60,6 +67,12 @@ func _ready() -> void:
 
 	close_panel()
 	show()
+
+	_timer = Timer.new()
+	_timer.wait_time = auto_close_time
+	_timer.timeout.connect(_on_autoclose_timeout)
+	add_child(_timer)
+	_interaction()
 
 
 
@@ -95,28 +108,51 @@ func close_panel() -> void:
 		action_btn.icon = open_btn_texture
 
 
+func _interaction() -> void:
+	if !_timer: return
+	_timer.start()
+
 func _on_action_btn_pressed() -> void:
 	if is_open: close_panel()
-	else: show_panel()
+	else:
+		show_panel()
+		_interaction()
 
 func _on_settings_btn_pressed() -> void:
 	SignalBus.emit_invoke_settings_menu()
+	_interaction()
 
 func _on_playlists_btn_pressed() -> void:
 	SignalBus.emit_invoke_playlists_window()
+	_interaction()
 
 func _on_all_songs_btn_pressed() -> void:
 	SignalBus.emit_load_all_songs()
+	_interaction()
 
 func _on_artists_btn_pressed() -> void:
 	SignalBus.emit_invoke_artists_window()
+	_interaction()
 
 func _on_albuns_btn_pressed() -> void:
 	SignalBus.emit_invoke_albums_window()
+	_interaction()
 
 func _on_history_btn_pressed() -> void:
 	SignalBus.emit_show_history_window()
+	_interaction()
 
 func _on_about_btn_pressed() -> void:
-	print("Emitting invoke about window")
 	SignalBus.emit_invoke_about_window()
+	_interaction()
+
+
+func _on_autoclose_timeout() -> void:
+	if !auto_close_enabled: return
+	if !is_open: return
+	close_panel()
+
+
+func _on_config_updated() -> void:
+	var cfg: ConfigModel = UserGlobals.get_config()
+	auto_close_enabled = cfg.auto_close_panel

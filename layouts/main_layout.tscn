@@ -849,6 +849,7 @@ anchor_bottom = 1.0
 offset_right = 280.0
 grow_vertical = 2
 script = ExtResource("31_g3hyr")
+auto_close_enabled = true
 action_btn = NodePath("ActionButton")
 settings_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/SettingsButton")
 playlists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/PlaylistsButton")

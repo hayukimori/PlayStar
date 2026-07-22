@@ -7,3 +7,4 @@ class_name ConfigModel
 @export var start_discord_rp: bool = true
 @export var show_album_name: bool = true # Rich Presence
 @export var use_native_window: bool = true
+@export var auto_close_panel: bool = true
