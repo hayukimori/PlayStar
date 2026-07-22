@@ -56,6 +56,7 @@ signal song_selected(song: SongModel)
 signal play_from_current(song: SongModel)
 signal request_playlist(playlist: PlaylistModel, index: int)
 signal request_history_update
+signal config_updated
 
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)
@@ -146,6 +147,7 @@ func emit_play_from_current(song: SongModel) -> void: play_from_current.emit(son
 func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 	request_playlist.emit(playlist, index)
 func emit_request_history_update() -> void: request_history_update.emit()
+func emit_config_updated() -> void: config_updated.emit()
 
 
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)

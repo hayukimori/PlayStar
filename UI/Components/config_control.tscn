@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bhfptwvb7nmma" path="res://assets/icons/iconoir/book-solid-red.svg" id="16_l2yy1"]
 [ext_resource type="Script" uid="uid://b1u4pq6xm7a7r" path="res://Scripts/UI/Components/LibraryManagementSettings.gd" id="16_n6dok"]
 [ext_resource type="Texture2D" uid="uid://b4l36qidtibdg" path="res://assets/icons/iconoir/database-xmark-solid.svg" id="16_w4k1s"]
+[ext_resource type="Texture2D" uid="uid://blgcrbfso0cv" path="res://assets/icons/iconoir/sidebar-collapse.svg" id="16_wlnkb"]
 [ext_resource type="PackedScene" uid="uid://bw8qld14ndd80" path="res://Window/ConfirmationWindow.tscn" id="17_j2sn8"]
 [ext_resource type="Texture2D" uid="uid://3xvqfd881q1i" path="res://assets/icons/iconoir/playlist-red.svg" id="18_o3hn6"]
 [ext_resource type="Texture2D" uid="uid://kcgwgata0mko" path="res://assets/icons/iconoir/clock-rotate-right-red.svg" id="19_5qmg5"]
@@ -293,12 +294,13 @@ text = "[font_size=14px]PlayStar has Rich Presence that connects with your [colo
 "
 justification_flags = 171
 
-[node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389 node_paths=PackedStringArray("ignore_unknown_artists_btn", "native_window_btn")]
+[node name="PlayerSettings" type="Control" parent="Window/TabContainer" unique_id=487032389 node_paths=PackedStringArray("ignore_unknown_artists_btn", "native_window_btn", "auto_close_btn")]
 visible = false
 layout_mode = 2
 script = ExtResource("12_h1rhx")
 ignore_unknown_artists_btn = NodePath("IgnoreUnCheckButton")
 native_window_btn = NodePath("NativeWindowCheckButton")
+auto_close_btn = NodePath("AutoClosePanelCheckButton")
 metadata/_tab_index = 2
 metadata/_tab_name = ""
 
@@ -313,20 +315,29 @@ label_settings = ExtResource("7_ctn7q")
 
 [node name="IgnoreUnCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2060338751]
 layout_mode = 0
-offset_top = 195.0
+offset_top = 182.0
 offset_right = 548.0
-offset_bottom = 227.0
+offset_bottom = 214.0
 text = "Ignore 'Unknown' artists"
 icon = ExtResource("8_m628n")
 flat = true
 
 [node name="NativeWindowCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=403455686]
 layout_mode = 0
-offset_top = 237.0
+offset_top = 226.0
 offset_right = 548.0
-offset_bottom = 269.0
+offset_bottom = 258.0
 text = "Use system native window"
 icon = ExtResource("14_x1i2h")
+flat = true
+
+[node name="AutoClosePanelCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2104975994]
+layout_mode = 0
+offset_top = 268.0
+offset_right = 548.0
+offset_bottom = 300.0
+text = "Auto close panel"
+icon = ExtResource("16_wlnkb")
 flat = true
 
 [node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/PlayerSettings" unique_id=1316096041]
