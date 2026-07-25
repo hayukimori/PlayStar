@@ -26,6 +26,7 @@ config/icon="uid://i2bno848p0tt"
 
 [autoload]
 
+CommandQueueManager="*uid://bhim3r5hljiav"
 UserGlobals="*uid://rdw7185v2cj5"
 MediaBackend="*uid://yj0l7p6nd017"
 SignalBus="*uid://b6no1w3rybpvd"

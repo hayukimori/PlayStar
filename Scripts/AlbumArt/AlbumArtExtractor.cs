@@ -36,10 +36,16 @@ public partial class AlbumArtExtractor : Resource
 
             return encodedData.ToArray();
         }
+
+        catch (TagLib.UnsupportedFormatException)
+        {
+            GD.PrintErr($"[Extractor] Unsupported format: {path}");
+            return null;
+        }
+
         catch (Exception ex)
         {
-            Console.WriteLine($"[Extractor] {path}");
-            Console.WriteLine(ex.ToString());
+            Console.WriteLine($"[Extractor] error extracting art from '{path}': {ex.Message}");
             return null;
         }
     }

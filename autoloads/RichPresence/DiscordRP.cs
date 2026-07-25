@@ -164,10 +164,6 @@ public partial class DiscordRP : Node
     // Godot
     // -------------------------------------------------------------------------
 
-    public override void _Process(double delta)
-    {
-        Client?.Invoke();
-    }
 
     public override void _ExitTree()
     {
