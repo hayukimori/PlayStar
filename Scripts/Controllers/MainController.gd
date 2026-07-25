@@ -101,6 +101,7 @@ func _ready() -> void:
 
 	# MISC Signals
 	SignalBus.copy_song.connect(_on_copy_song_request)
+	SingleInstanceManager.new_path_request.connect(_on_path_request)
 
 	user_defaults = UserGlobals.get_defaults()
 	update_by_defaults()
@@ -191,32 +192,54 @@ func check_and_load() -> void:
 
 
 	# Creates a playlist if has pending commands (process songs and play it)
-	var tmp_playlist: PlaylistModel = PlaylistModel.new()
-	tmp_playlist.name = "Songs from path."
+	var queue: Array[SongModel] = []
+	var queue_name = "Songs from path."
 
 	while CommandQueueManager.get_pending_command_count() > 0:
 		var command = CommandQueueManager.try_dequeue_command()
-		_process_command(command, tmp_playlist)
+		_process_command(command, queue)
 
-	SignalBus.emit_request_playlist(tmp_playlist, 0)
+	#SignalBus.emit_request_playlist(tmp_playlist, 0)
+	set_queue(queue, queue_name)
 
 
-func _process_command(command: Dictionary, add_to: PlaylistModel) -> void:
+func _process_command(command: Dictionary, add_to: Array[SongModel]) -> void:
 	match command.get("type"):
 		"add_path":
 			_add_path_to_queue(command.get("payload"), add_to)
 		"add_folder":
 			_add_folder_to_queue(command.get("payload"), add_to)
 
-func _add_path_to_queue(path: String, dst: PlaylistModel) -> void:
+func _add_path_to_queue(path: String, dst: Array[SongModel]) -> void:
 	var song = song_repo.SongModelFromPath(path, true)
-	if song: dst.add(song)
+	if song: dst.append(song)
 
 
-func _add_folder_to_queue(path: String, _dst: PlaylistModel) -> void:
+func _add_folder_to_queue(path: String, dst: Array[SongModel]) -> void:
 	var songs = song_repo.SongModelArrayFromDirectory(path)
 	for song in songs:
-		_dst.add(song)
+		dst.append(song)
+
+
+func _on_path_request(payloads: Array[Dictionary]) -> void:
+	if !payloads: return
+
+	var q: Array[SongModel]
+	var first_song
+
+	for command in payloads:
+		_process_command(command, q)
+
+	first_song = q[0]
+	current_play_queue.append_array(q)
+
+	_rebuild_random_order()
+	if ui_manager:
+		ui_manager._build_buttons_timesliced(q, ui_manager._current_generation)
+
+	await get_tree().process_frame
+	play_song(first_song)
+
 
 func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") -> void:
 	current_play_queue = queue

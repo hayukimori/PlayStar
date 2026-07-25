@@ -11,26 +11,21 @@ func _ready() -> void:
 		if arg.begins_with("--"):
 			continue
 
-		if FileAccess.file_exists(arg):
-			enqueue_command({
-				"type": "add_path",
-				"payload": arg
-			})
-
-			print("Found file, adding to queue...")
+		var payload = get_payload(arg)
+		if payload: enqueue_command(payload)
 
 
-		if DirAccess.dir_exists_absolute(arg):
-			enqueue_command({
-				"type": "add_folder",
-				"payload": arg
-			})
+func get_payload(arg) -> Dictionary:
+	if FileAccess.file_exists(arg):
+		return { "type": "add_path","payload": arg}
 
-			print("Found directory, adding to queue...")
+	if DirAccess.dir_exists_absolute(arg):
+		return {"type": "add_folder","payload": arg}
 
-		if ResourceLoader.exists(arg):
-			print("Invalid resource.")
-			continue
+	if ResourceLoader.exists(arg):
+		return {}
+
+	else: return {}
 
 func enqueue_command(command: Dictionary) -> void:
 	_command_queue.append(command)
