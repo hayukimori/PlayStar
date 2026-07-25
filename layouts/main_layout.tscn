@@ -201,6 +201,14 @@ corner_radius_bottom_left = 8
 expand_margin_top = 16.0
 expand_margin_bottom = 16.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klxr2"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 16.0
+expand_margin_bottom = 16.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o2oe"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -849,6 +857,7 @@ anchor_bottom = 1.0
 offset_right = 280.0
 grow_vertical = 2
 script = ExtResource("31_g3hyr")
+auto_close_enabled = true
 action_btn = NodePath("ActionButton")
 settings_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/SettingsButton")
 playlists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/PlaylistsButton")
@@ -952,7 +961,7 @@ offset_bottom = -34.473328
 grow_vertical = 0
 theme_override_icons/grabber = SubResource("ImageTexture_h06au")
 theme_override_styles/slider = SubResource("StyleBoxFlat_h06au")
-theme_override_styles/grabber_area = SubResource("StyleBoxFlat_3o2oe")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_klxr2")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_3o2oe")
 value = 1.0
 

@@ -9,6 +9,7 @@ using TagLib;
 using PlayStar.Scripts.Database.Parsers;
 using PlayStar.Scripts.Database.Repositories;
 using PlayStar.Scripts.Models;
+using PlayStar.Scripts.Core;
 
 
 namespace PlayStar.Scripts.Database;
@@ -23,11 +24,11 @@ public partial class MetadataIndexer : Node
     private CancellationTokenSource _cts;
     private SemaphoreSlim _throttle;
 
-    private DatabaseManager  _db;
-    private SongRepository   _songs;
+    private DatabaseManager _db;
+    private SongRepository _songs;
     private ArtistRepository _artists;
-    private AlbumRepository  _albums;
-    private GenreRepository  _genres;
+    private AlbumRepository _albums;
+    private GenreRepository _genres;
 
     public override void _Ready()
     {
@@ -36,11 +37,11 @@ public partial class MetadataIndexer : Node
 
     public void Initialize(DatabaseManager db, SongRepository songs, ArtistRepository artists, AlbumRepository albums)
     {
-        _db      = db;
-        _songs   = songs;
+        _db = db;
+        _songs = songs;
         _artists = artists;
-        _albums  = albums;
-        _genres  = new GenreRepository(db);
+        _albums = albums;
+        _genres = new GenreRepository(db);
     }
 
     public void Start()
@@ -74,7 +75,7 @@ public partial class MetadataIndexer : Node
                 await _throttle.WaitAsync(token);
                 tasks.Add(Task.Run(async () =>
                 {
-                    try   { await ProcessOne(path); }
+                    try { await ProcessOne(path); }
                     finally { _throttle.Release(); }
                 }, token));
             }
@@ -87,20 +88,20 @@ public partial class MetadataIndexer : Node
     {
         GD.Print($"[MetadataIndexer] Processing: {path}");
 
-        var song = ReadTags(path);
+        var song = TagManager.ReadTags(path);
         if (song is null) return;
 
         using var connection = _db.GetConnection();
 
         // Extract and clear artist
         var trackArtists = ArtistParser.SplitArtists(song.Artist);
-        
+
 
         string albumArtistName = trackArtists.Count > 0 ? trackArtists[0] : "Unknown";
 
         long albumArtistId = _artists.UpsertArtist(albumArtistName, connection);
-        long genreId       = _genres.UpsertGenre(song.Genre, connection);
-        long albumId       = _albums.UpsertAlbum(song.Album, albumArtistId, genreId, song.Year, song.ArtPath, connection);
+        long genreId = _genres.UpsertGenre(song.Genre, connection);
+        long albumId = _albums.UpsertAlbum(song.Album, albumArtistId, genreId, song.Year, song.ArtPath, connection);
 
         _songs.UpdateMetadata(song, albumId);
 
@@ -114,7 +115,7 @@ public partial class MetadataIndexer : Node
         for (int i = 0; i < trackArtists.Count; i++)
         {
             long trackArtistId = _artists.UpsertArtist(trackArtists[i], connection);
-            
+
             using var insertCmd = connection.CreateCommand();
             insertCmd.CommandText = @"
                 INSERT OR IGNORE INTO song_artists (song_path, artist_id, is_main)
@@ -124,50 +125,6 @@ public partial class MetadataIndexer : Node
             insertCmd.Parameters.AddWithValue("$artistId", trackArtistId);
             insertCmd.Parameters.AddWithValue("$isMain", i == 0 ? 1 : 0);
             insertCmd.ExecuteNonQuery();
-        }
-    }
-
-    private static SongModel ReadTags(string path)
-    {
-        try
-        {
-            using var file = TagLib.File.Create(path);
-            var tag  = file.Tag;
-            var prop = file.Properties;
-
-
-            string rawArtist = tag.FirstPerformer ?? tag.FirstAlbumArtist ?? "Unknown";
-
-            return new SongModel
-            {
-                FilePath = path,
-                FileName = Path.GetFileName(path),
-                Title    = !string.IsNullOrWhiteSpace(tag.Title)
-                               ? tag.Title
-                               : Path.GetFileNameWithoutExtension(path),
-                Artist   = rawArtist,
-                Album    = tag.Album          ?? "Unknown",
-                Genre    = tag.FirstGenre     ?? "Unknown",
-                Length   = (long)prop.Duration.TotalMilliseconds,
-                Year     = tag.Year,
-                Lyrics   = tag.Lyrics ?? string.Empty,
-            };
-        }
-        catch (Exception ex)
-        {
-            GD.PrintErr($"[MetadataIndexer] Failed to read tags for {path}: {ex.Message}");
-            return new SongModel
-            {
-                FilePath = path,
-                FileName = Path.GetFileName(path),
-                Title    = Path.GetFileNameWithoutExtension(path),
-                Artist   = "Unknown",
-                Album    = "Unknown",
-                Genre    = "Unknown",
-                Length   = 0,
-                Year     = 0,
-                Lyrics   = string.Empty,
-            };
         }
     }
 

@@ -4,6 +4,8 @@ using Godot.Collections;
 using Microsoft.Data.Sqlite;
 using PlayStar.Scripts.Core;
 using PlayStar.Scripts.Models;
+using System.Collections.Generic;
+
 
 namespace PlayStar.Scripts.Database.Repositories;
 
@@ -243,6 +245,34 @@ public partial class SongRepository : Node
             result.Add(reader.GetString(0));
 
         return result;
+    }
+    #endregion
+
+    #region Misc
+    public SongModel SongModelFromPath(string path, bool raw)
+    {
+        if (raw)
+        {
+            SongModel result = TagManager.ReadTags(path);
+            return result;
+        }
+
+        Array<SongModel> results = GetSongsByPaths([path]);
+        return results.Count > 0 ? results[0] : null;
+    }
+
+    public Array<SongModel> SongModelArrayFromDirectory(string path)
+    {
+        Array<SongModel> songs = [];
+        List<string> scanResult = FolderScanner.Scan(path);
+
+        foreach (var sPath in scanResult)
+        {
+            var _sng = SongModelFromPath(sPath, true);
+            if (_sng != null) songs.Add(_sng);
+        }
+
+        return songs;
     }
     #endregion
 

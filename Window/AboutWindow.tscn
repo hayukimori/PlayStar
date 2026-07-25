@@ -123,7 +123,7 @@ offset_top = 39.0
 offset_right = -45.0
 offset_bottom = 69.0
 grow_horizontal = 0
-text = "v1.2.0"
+text = "v1.2.2"
 horizontal_alignment = 2
 
 [node name="NotesCard" type="Control" parent="Control" unique_id=471358008 node_paths=PackedStringArray("trect", "title_label", "description_label")]
