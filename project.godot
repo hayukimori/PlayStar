@@ -12,7 +12,7 @@ config_version=5
 
 config/name="PlayStar"
 config/description="Your music, your library, your way. PlayStar keeps it simple so you can focus on what matters — the music."
-config/version="1.2.2"
+config/version="1.2.4"
 run/main_scene="uid://cucj2so2q2vo0"
 run/disable_stderr=true
 run/enable_alt_space_menu=true
@@ -35,6 +35,7 @@ NodeKeeper="*uid://dfapl3sic804d"
 ArtService="*uid://dews4o601kwaa"
 ArtDispatcher="*uid://bqt0p0g14m76i"
 DiscordRp="*uid://0q8y2848qla1"
+SingleInstanceManager="*uid://btbeaso3yg2jq"
 
 [display]
 
