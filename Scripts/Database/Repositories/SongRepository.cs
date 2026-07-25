@@ -4,7 +4,8 @@ using Godot.Collections;
 using Microsoft.Data.Sqlite;
 using PlayStar.Scripts.Core;
 using PlayStar.Scripts.Models;
-using TagLib.Flac;
+using System.Collections.Generic;
+
 
 namespace PlayStar.Scripts.Database.Repositories;
 
@@ -262,9 +263,16 @@ public partial class SongRepository : Node
 
     public Array<SongModel> SongModelArrayFromDirectory(string path)
     {
-        // TODO: Change to real code
-        Array<SongModel> _ = [];
-        return _;
+        Array<SongModel> songs = [];
+        List<string> scanResult = FolderScanner.Scan(path);
+
+        foreach (var sPath in scanResult)
+        {
+            var _sng = SongModelFromPath(sPath, true);
+            if (_sng != null) songs.Add(_sng);
+        }
+
+        return songs;
     }
     #endregion
 

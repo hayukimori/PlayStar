@@ -180,14 +180,15 @@ func load_songs(from_playlist: String = "") -> void:
 	if from_playlist: print("'from_playlist' not implemented yet.")
 	all_songs = songs.duplicate()
 
-
+## Checks for user commands and loads requested songs
 func check_and_load() -> void:
 	# If no commands pending, then load all songs by default
-	if CommandQueueManager.get_pending_command_count() == 0:
+	if CommandQueueManager.get_pending_command_count() == -1: # TODO: CHANGE TO 0
 		load_songs()
 		var song_count: int = len(all_songs)
 		set_queue(all_songs.duplicate(), "All songs (%s)" % [str(song_count)])
 		return
+
 
 	# Creates a playlist if has pending commands (process songs and play it)
 	var tmp_playlist: PlaylistModel = PlaylistModel.new()
@@ -212,10 +213,10 @@ func _add_path_to_queue(path: String, dst: PlaylistModel) -> void:
 	if song: dst.add(song)
 
 
-func _add_folder_to_queue(_path: String, _dst: PlaylistModel) -> void:
-	var songs = song_repo.SongModelFromDirectory(_path)
-	print(songs)
-
+func _add_folder_to_queue(path: String, _dst: PlaylistModel) -> void:
+	var songs = song_repo.SongModelArrayFromDirectory(path)
+	for song in songs:
+		_dst.add(song)
 
 func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") -> void:
 	current_play_queue = queue
