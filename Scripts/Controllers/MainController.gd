@@ -183,7 +183,7 @@ func load_songs(from_playlist: String = "") -> void:
 ## Checks for user commands and loads requested songs
 func check_and_load() -> void:
 	# If no commands pending, then load all songs by default
-	if CommandQueueManager.get_pending_command_count() == -1: # TODO: CHANGE TO 0
+	if CommandQueueManager.get_pending_command_count() == 0:
 		load_songs()
 		var song_count: int = len(all_songs)
 		set_queue(all_songs.duplicate(), "All songs (%s)" % [str(song_count)])
