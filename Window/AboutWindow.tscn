@@ -38,7 +38,7 @@ font = ExtResource("4_e3uu7")
 font_size = 12
 font_color = Color(1, 1, 1, 0.6313726)
 
-[node name="HybridWindow" type="Window" unique_id=868033007 node_paths=PackedStringArray("github_button", "bmc_button")]
+[node name="HybridWindow" type="Window" unique_id=868033007 node_paths=PackedStringArray("version_label", "github_button", "bmc_button")]
 oversampling_override = 1.0
 initial_position = 4
 size = Vector2i(652, 473)
@@ -46,6 +46,7 @@ visible = false
 unresizable = true
 content_scale_aspect = 4
 script = ExtResource("1_y4wx3")
+version_label = NodePath("Control/VersionLabel")
 github_button = NodePath("Control/HBoxContainer/GithubButton")
 bmc_button = NodePath("Control/HBoxContainer/BMCButton")
 metadata/_custom_type_script = "uid://ba0c6uv2bona6"
@@ -123,7 +124,7 @@ offset_top = 39.0
 offset_right = -45.0
 offset_bottom = 69.0
 grow_horizontal = 0
-text = "v1.2.2"
+text = "{current_version}"
 horizontal_alignment = 2
 
 [node name="NotesCard" type="Control" parent="Control" unique_id=471358008 node_paths=PackedStringArray("trect", "title_label", "description_label")]
