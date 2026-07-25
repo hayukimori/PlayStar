@@ -21,8 +21,8 @@ public partial class PSMemoryManager : Node
 
         if (!force && (now - _lastCollectionTimeMs) < MinSecondsBetweenCollections * 1000.0)
         {
-            Console.WriteLine("[PSMemoryManager] Skipped cleanup (called too soon after previous one)");
-            GD.Print("[PSMemoryManager] Skipped cleanup (called too soon after previous one)");
+            //Console.WriteLine("[PSMemoryManager] Skipped cleanup (called too soon after previous one)");
+            //GD.Print("[PSMemoryManager] Skipped cleanup (called too soon after previous one)");
             return;
         }
 

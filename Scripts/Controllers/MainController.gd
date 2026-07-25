@@ -104,10 +104,9 @@ func _ready() -> void:
 
 	user_defaults = UserGlobals.get_defaults()
 	update_by_defaults()
-	load_songs()
 
-	var song_count: int = len(all_songs)
-	set_queue(all_songs.duplicate(), "All songs (%s)" % [str(song_count)])
+	await get_tree().process_frame
+	check_and_load()
 
 	if ui_manager:
 		ui_manager.set_search_bar_queue(current_play_queue)
@@ -181,6 +180,41 @@ func load_songs(from_playlist: String = "") -> void:
 	if from_playlist: print("'from_playlist' not implemented yet.")
 	all_songs = songs.duplicate()
 
+
+func check_and_load() -> void:
+	# If no commands pending, then load all songs by default
+	if CommandQueueManager.get_pending_command_count() == 0:
+		load_songs()
+		var song_count: int = len(all_songs)
+		set_queue(all_songs.duplicate(), "All songs (%s)" % [str(song_count)])
+		return
+
+	# Creates a playlist if has pending commands (process songs and play it)
+	var tmp_playlist: PlaylistModel = PlaylistModel.new()
+	tmp_playlist.name = "Songs from path."
+
+	while CommandQueueManager.get_pending_command_count() > 0:
+		var command = CommandQueueManager.try_dequeue_command()
+		_process_command(command, tmp_playlist)
+
+	SignalBus.emit_request_playlist(tmp_playlist, 0)
+
+
+func _process_command(command: Dictionary, add_to: PlaylistModel) -> void:
+	match command.get("type"):
+		"add_path":
+			_add_path_to_queue(command.get("payload"), add_to)
+		"add_folder":
+			_add_folder_to_queue(command.get("payload"), add_to)
+
+func _add_path_to_queue(path: String, dst: PlaylistModel) -> void:
+	var song = song_repo.SongModelFromPath(path, true)
+	if song: dst.add(song)
+
+
+func _add_folder_to_queue(_path: String, _dst: PlaylistModel) -> void:
+	var songs = song_repo.SongModelFromDirectory(_path)
+	print(songs)
 
 
 func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") -> void:
