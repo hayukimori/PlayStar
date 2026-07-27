@@ -14,9 +14,9 @@ signal playlist_removal_request(song: SongModel)
 @export var hq_btn: Button
 @export var playing_now_bar: ColorRect
 @export var add_to_playlist_btn: ToPlaylistButton
-@export var remove_from_current_playlist_btn: Button
+@export var remove_from_current_playlist_btn: AnimatedOptionButton
 @export var default_album_art: Texture2D
-@export var show_info_btn: Button
+@export var show_info_btn: AnimatedOptionButton
 
 @onready var original_label_settings: LabelSettings = title_label.label_settings
 
@@ -25,6 +25,7 @@ var hbc_hovered: bool = false
 var click_opened: bool = false
 var is_currently_visible = false
 
+var animated_buttons: Array = []
 
 func _ready() -> void:
 	if !song_content: queue_free(); return;
@@ -42,18 +43,21 @@ func _ready() -> void:
 	var flac = (song_content.FilePath.get_extension() == "flac")
 	if flac: hq_btn.visible = true
 
-	add_to_playlist_btn.content = song_content
+	if add_to_playlist_btn:
+		add_to_playlist_btn.content = song_content
+		animated_buttons.append(add_to_playlist_btn)
 
-	#add_to_playlist_btn.pressed.connect(_add_to_playlist)
 	self.gui_input.connect(_on_button_gui_event)
 	self.pressed.connect(_pressed)
 
 	if playlist_mode:
 		remove_from_current_playlist_btn.show()
+		remove_from_current_playlist_btn.animate_open()
 		remove_from_current_playlist_btn.pressed.connect(_remove_request)
 
 	if show_info_btn:
 		show_info_btn.pressed.connect(_on_show_info_pressed)
+		animated_buttons.append(show_info_btn)
 
 	ArtService.ArtReady.connect(_on_art_ready)
 
@@ -140,12 +144,12 @@ func _on_button_gui_event(event: InputEvent) -> void:
 
 	if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		if click_opened:
-			add_to_playlist_btn.animate_close()
-			show_info_btn.hide()
+			for btn in animated_buttons:
+				btn.animate_close()
 			click_opened = false
 		else:
-			add_to_playlist_btn.animate_open()
-			show_info_btn.show()
+			for btn in animated_buttons:
+				btn.animate_open()
 			click_opened = true
 
 

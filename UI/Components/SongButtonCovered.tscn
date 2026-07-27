@@ -10,9 +10,10 @@
 [ext_resource type="Script" uid="uid://ct31sfsan3rbl" path="res://Scripts/UI/CustomNodes/ToPlaylistButton.gd" id="6_r8q5a"]
 [ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="7_p518v"]
 [ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
-[ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="9_vs46e"]
+[ext_resource type="Script" uid="uid://dnj6ugoy1pdo" path="res://Scripts/UI/CustomNodes/AnimatedOptionButton.gd" id="10_hnsvu"]
+[ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="11_hnsvu"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tf6t"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tycom"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -75,7 +76,7 @@ offset_left = 12.0
 offset_top = 11.0
 offset_right = 54.0
 offset_bottom = 53.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_4tf6t")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tycom")
 script = ExtResource("4_4tf6t")
 texture = ExtResource("2_exdt8")
 stretch_mode = 6
@@ -139,6 +140,17 @@ icon_alignment = 1
 expand_icon = true
 script = ExtResource("6_r8q5a")
 
+[node name="ShowInfoButton" type="Button" parent="ExtrasHBC" unique_id=1351901451]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("11_hnsvu")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("10_hnsvu")
+metadata/_custom_type_script = "uid://dnj6ugoy1pdo"
+
 [node name="HQButton" type="Button" parent="ExtrasHBC" unique_id=706707121]
 visible = false
 custom_minimum_size = Vector2(24, 0)
@@ -148,16 +160,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="ShowInfoButton" type="Button" parent="ExtrasHBC" unique_id=764477253]
-visible = false
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-icon = ExtResource("9_vs46e")
-flat = true
-icon_alignment = 1
-expand_icon = true
-
-[node name="RmFromCurrentButton" type="Button" parent="ExtrasHBC" unique_id=1295122294]
+[node name="RmFromCurrentButton" type="Button" parent="ExtrasHBC" unique_id=687868695]
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -165,6 +168,8 @@ icon = ExtResource("7_p518v")
 flat = true
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("10_hnsvu")
+metadata/_custom_type_script = "uid://dnj6ugoy1pdo"
 
 [node name="PlayingNowCR" type="ColorRect" parent="ExtrasHBC" unique_id=1655248475]
 visible = false
