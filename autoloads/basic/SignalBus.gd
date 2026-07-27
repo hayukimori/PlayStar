@@ -43,6 +43,7 @@ signal show_artist_window(artist: ArtistModel, texture)
 signal show_album_window(album: AlbumModel, texture)
 signal show_history_window
 signal request_rename_window(playlist: PlaylistModel)
+signal show_tags_window(song: SongModel)
 
 # ------------- MISC --------------------
 signal reload_request
@@ -135,6 +136,7 @@ func emit_show_artist_window(artist: ArtistModel, texture) -> void: show_artist_
 func emit_show_album_window(album: AlbumModel, texture) -> void: show_album_window.emit(album, texture)
 func emit_show_history_window() -> void: show_history_window.emit()
 func emit_request_rename_window(playlist: PlaylistModel) -> void: request_rename_window.emit(playlist)
+func emit_show_tags_window(song: SongModel) -> void: show_tags_window.emit(song)
 
 func emit_reload_request() -> void: reload_request.emit()
 func emit_reload_playlists() -> void: reload_playlists.emit()

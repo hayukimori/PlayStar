@@ -16,6 +16,7 @@ signal playlist_removal_request(song: SongModel)
 @export var add_to_playlist_btn: ToPlaylistButton
 @export var remove_from_current_playlist_btn: Button
 @export var default_album_art: Texture2D
+@export var show_info_btn: Button
 
 @onready var original_label_settings: LabelSettings = title_label.label_settings
 
@@ -50,6 +51,9 @@ func _ready() -> void:
 	if playlist_mode:
 		remove_from_current_playlist_btn.show()
 		remove_from_current_playlist_btn.pressed.connect(_remove_request)
+
+	if show_info_btn:
+		show_info_btn.pressed.connect(_on_show_info_pressed)
 
 	ArtService.ArtReady.connect(_on_art_ready)
 
@@ -137,11 +141,17 @@ func _on_button_gui_event(event: InputEvent) -> void:
 	if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		if click_opened:
 			add_to_playlist_btn.animate_close()
+			show_info_btn.hide()
 			click_opened = false
 		else:
 			add_to_playlist_btn.animate_open()
+			show_info_btn.show()
 			click_opened = true
 
 
 func _remove_request() -> void:
 		playlist_removal_request.emit(song_content)
+
+
+func _on_show_info_pressed() -> void:
+	SignalBus.emit_show_tags_window(song_content)

@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ct31sfsan3rbl" path="res://Scripts/UI/CustomNodes/ToPlaylistButton.gd" id="6_r8q5a"]
 [ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="7_p518v"]
 [ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
+[ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="9_vs46e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4tf6t"]
 corner_radius_top_left = 8
@@ -33,7 +34,7 @@ shader = ExtResource("7_usbv0")
 shader_parameter/bar_color = Color(1, 1, 1, 1)
 shader_parameter/corner_radius = 0.5
 
-[node name="SongButtonCovered" type="Button" unique_id=285328477 node_paths=PackedStringArray("title_label", "artist_label", "album_art", "hq_btn", "playing_now_bar", "add_to_playlist_btn", "remove_from_current_playlist_btn")]
+[node name="SongButtonCovered" type="Button" unique_id=285328477 node_paths=PackedStringArray("title_label", "artist_label", "album_art", "hq_btn", "playing_now_bar", "add_to_playlist_btn", "remove_from_current_playlist_btn", "show_info_btn")]
 custom_minimum_size = Vector2(0, 64)
 custom_maximum_size = Vector2(-1, 64)
 anchors_preset = -1
@@ -53,6 +54,7 @@ playing_now_bar = NodePath("ExtrasHBC/PlayingNowCR")
 add_to_playlist_btn = NodePath("ExtrasHBC/ToPlaylistButton")
 remove_from_current_playlist_btn = NodePath("ExtrasHBC/RmFromCurrentButton")
 default_album_art = ExtResource("2_exdt8")
+show_info_btn = NodePath("ExtrasHBC/ShowInfoButton")
 
 [node name="BgPanel" type="Panel" parent="." unique_id=1051757596]
 custom_minimum_size = Vector2(0, 64)
@@ -142,6 +144,15 @@ visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = ExtResource("4_4wxht")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ShowInfoButton" type="Button" parent="ExtrasHBC" unique_id=764477253]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("9_vs46e")
 flat = true
 icon_alignment = 1
 expand_icon = true
