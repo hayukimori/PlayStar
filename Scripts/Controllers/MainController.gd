@@ -186,10 +186,24 @@ func load_songs(from_playlist: String = "") -> void:
 ## Checks for user commands and loads requested songs
 func check_and_load() -> void:
 	# If no commands pending, then load all songs by default
+
 	if CommandQueueManager.get_pending_command_count() == 0:
 		load_songs()
-		var song_count: int = len(all_songs)
-		set_queue(all_songs.duplicate(), "All songs (%s)" % [str(song_count)])
+		var n_queue = all_songs.duplicate()
+
+		# Includes subsonic api if AutoInclude is enabled
+		var current_config: SubsonicConfig = SubsonicConfig.LoadOrCreate()
+		if current_config.IsEnabled:
+			var additional: Array[SongModel] = await get_from_subsonic()
+			n_queue.append_array(additional)
+
+
+		set_queue(n_queue, "All songs (%s)" % [str(len(n_queue))])
+		_rebuild_random_order()
+		if ui_manager:
+			ui_manager._build_buttons_timesliced(n_queue, ui_manager._current_generation)
+		await get_tree().process_frame
+
 		return
 
 
@@ -201,8 +215,25 @@ func check_and_load() -> void:
 		var command = CommandQueueManager.try_dequeue_command()
 		_process_command(command, queue)
 
-	#SignalBus.emit_request_playlist(tmp_playlist, 0)
 	set_queue(queue, queue_name)
+
+
+
+func get_from_subsonic() -> Array[SongModel]:
+	var service = NodeKeeper.subsonic_service
+	var connected = await DevTools.race_signals(service.PingSucceeded, service.PingFailed, service.Ping)
+
+	if !connected["winner"] == "a": return []
+
+	var command_rest = await DevTools.race_signals(service.AllSongsFetched, service.Error, service.GetSongs)
+	var songs: Array[SongModel] = []
+
+	for song in command_rest["results"][0][0]:
+		songs.append(song as SongModel)
+
+	await get_tree().process_frame
+	return songs
+
 
 
 func _process_command(command: Dictionary, add_to: Array[SongModel]) -> void:

@@ -3,16 +3,17 @@ using TagLib;
 using System.IO;
 
 namespace PlayStar.Scripts.AlbumArt;
+
 [GlobalClass]
 public partial class AlbumArtLoader : RefCounted
 {
     private static readonly string[] CoverNames = ["cover.jpg", "cover.png", "folder.jpg", "album.jpg"];
-    
+
     public static Texture2D GetAlbumArt(string songPath)
     {
         string directory = Path.GetDirectoryName(songPath);
 
-        foreach(var name in CoverNames)
+        foreach (var name in CoverNames)
         {
             string fullPath = Path.Combine(directory, name);
             if (System.IO.File.Exists(fullPath))
@@ -29,9 +30,9 @@ public partial class AlbumArtLoader : RefCounted
                 return LoadTextureFromBytes(bin);
             }
         }
-        catch(System.Exception e)
+        catch (System.Exception e)
         {
-            GD.Print("Error reading cover: " + e.Message);
+            GD.Print("[AlbumArtLoader] Error reading cover: " + e.Message);
         }
 
         return null;

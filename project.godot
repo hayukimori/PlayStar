@@ -14,7 +14,6 @@ config/name="PlayStar"
 config/description="Your music, your library, your way. PlayStar keeps it simple so you can focus on what matters — the music."
 config/version="1.2.5"
 run/main_scene="uid://cucj2so2q2vo0"
-run/disable_stderr=true
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 run/max_fps=60

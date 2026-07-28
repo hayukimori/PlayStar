@@ -27,6 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://1c8joxfx8gjh" path="res://assets/icons/iconoir/floppy-disk.svg" id="24_n4nob"]
 [ext_resource type="Script" uid="uid://c2uvp87oow0f3" path="res://Scripts/UI/Components/SubsonicSettings.gd" id="25_lq5mp"]
 [ext_resource type="Texture2D" uid="uid://qg4re1u42opb" path="res://assets/icons/iconoir/link.svg" id="25_ywwwc"]
+[ext_resource type="StyleBox" uid="uid://cwamdbgt4tmmn" path="res://UI/ComponentThemes/SettingLineEditStable.tres" id="27_ontro"]
+[ext_resource type="StyleBox" uid="uid://t1kwkej7ge0a" path="res://UI/ComponentThemes/SettingLineEditFocus.tres" id="27_rej5b"]
 [ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="28_jvkhe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j617b"]
@@ -90,6 +92,24 @@ corner_radius_bottom_left = 8
 [sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
 font = ExtResource("28_jvkhe")
 font_size = 13
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ontro"]
+bg_color = Color(0.050510757, 0.050510764, 0.050510712, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eh80g"]
+bg_color = Color(0.17163706, 0.17163706, 0.17163703, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_right = 8.0
 
 [node name="ConfigControl" type="Control" unique_id=106539680 node_paths=PackedStringArray("window", "bg_color")]
 visible = false
@@ -447,7 +467,7 @@ icon = ExtResource("19_5qmg5")
 flat = true
 alignment = 0
 
-[node name="SubSonicSettings" type="Control" parent="Window/TabContainer" unique_id=1887269237 node_paths=PackedStringArray("url_line_edit", "username_line_edit", "password_line_edit", "save_btn", "connect_btn", "status_label")]
+[node name="SubSonicSettings" type="Control" parent="Window/TabContainer" unique_id=1887269237 node_paths=PackedStringArray("url_line_edit", "username_line_edit", "password_line_edit", "save_btn", "connect_btn", "auto_include_btn", "status_label")]
 visible = false
 layout_mode = 2
 script = ExtResource("25_lq5mp")
@@ -456,6 +476,7 @@ username_line_edit = NodePath("UsernameLineEdit")
 password_line_edit = NodePath("PasswordLineEdit")
 save_btn = NodePath("SaveButton")
 connect_btn = NodePath("ConnectButton")
+auto_include_btn = NodePath("AutoIncludeButton")
 status_label = NodePath("StatusLabel")
 metadata/_tab_index = 4
 metadata/_tab_name = ""
@@ -465,15 +486,19 @@ layout_mode = 0
 offset_left = 4.0
 offset_right = 540.0
 offset_bottom = 58.0
-text = "SubSonic Settings"
+text = "Subsonic Settings"
 label_settings = ExtResource("7_ctn7q")
 
 [node name="SaveButton" type="Button" parent="Window/TabContainer/SubSonicSettings" unique_id=1889668350]
-layout_mode = 0
-offset_left = 452.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -91.0
 offset_top = 17.0
-offset_right = 524.0
+offset_right = -19.0
 offset_bottom = 49.0
+grow_horizontal = 0
 text = "Save"
 icon = ExtResource("24_n4nob")
 flat = true
@@ -484,9 +509,9 @@ anchors_preset = -1
 anchor_right = 0.99100006
 anchor_bottom = 0.591
 offset_left = 9.0
-offset_top = 79.0
-offset_right = -24.15802
-offset_bottom = -32.028
+offset_top = 77.0
+offset_right = -133.15802
+offset_bottom = -78.028
 theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
 bbcode_enabled = true
@@ -497,49 +522,74 @@ justification_flags = 171
 [node name="UrlLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=1234965302]
 layout_mode = 0
 offset_left = 7.0
-offset_top = 137.0
+offset_top = 130.0
 offset_right = 524.0
-offset_bottom = 168.0
+offset_bottom = 161.0
+theme_override_styles/normal = ExtResource("27_ontro")
+theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "http://xxx.xxx.xxx.xxx:yyyy/"
-flat = true
 
 [node name="UsernameLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=1621918869]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 178.0
+offset_top = 175.0
 offset_right = 523.0
-offset_bottom = 209.0
+offset_bottom = 206.0
+theme_override_styles/normal = ExtResource("27_ontro")
+theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "username"
-flat = true
 
 [node name="PasswordLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=349067862]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 214.0
+offset_top = 219.0
 offset_right = 522.0
-offset_bottom = 245.0
+offset_bottom = 250.0
+theme_override_styles/normal = ExtResource("27_ontro")
+theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "password"
-flat = true
 secret = true
 
 [node name="ConnectButton" type="Button" parent="Window/TabContainer/SubSonicSettings" unique_id=272188304]
-layout_mode = 0
-offset_left = 446.0
-offset_top = 258.0
-offset_right = 546.0
-offset_bottom = 290.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -35.0
+offset_right = 105.0
+offset_bottom = -3.0
+grow_vertical = 0
 text = "Connect"
 icon = ExtResource("25_ywwwc")
 flat = true
 
 [node name="StatusLabel" type="Label" parent="Window/TabContainer/SubSonicSettings" unique_id=1546663175]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = -38.0
-offset_right = 269.0
-offset_bottom = -15.0
+offset_left = -266.0
+offset_top = -30.0
+offset_bottom = -7.0
+grow_horizontal = 0
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_cty8o")
+horizontal_alignment = 2
+
+[node name="AutoIncludeButton" type="CheckButton" parent="Window/TabContainer/SubSonicSettings" unique_id=1796863372]
+layout_mode = 0
+offset_left = 389.0
+offset_top = 75.0
+offset_right = 523.0
+offset_bottom = 106.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ontro")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ontro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ontro")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ontro")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_eh80g")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ontro")
+text = "Auto Include"
+alignment = 2

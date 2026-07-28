@@ -60,7 +60,7 @@ func request_art():
 		current_image = cached
 		image_processed = true
 	else:
-		ArtService.Request(key, file_path)
+		ArtService.Request(key, file_path, "")
 
 
 func _on_art_ready(key, texture) -> void:

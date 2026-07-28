@@ -25,6 +25,8 @@ public partial class DiscordRP : Node
 
     public override void _Ready()
     {
+        Console.SetOut(new GodotConsoleWriter());
+
         _userGlobals = GetNode("/root/UserGlobals");
         _signalBus = GetNode("/root/SignalBus");
 

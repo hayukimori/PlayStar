@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using PlayStar.Scripts.Models;
+using System;
+using System.Linq;
 
 namespace PlayStar.Scripts.NetworkAPI;
 
@@ -68,6 +70,18 @@ public partial class SubsonicService : Node
 
         _client = new SubsonicClient(_config);
         EmitSignal(SignalName.Configured);
+    }
+
+    public SubsonicConfig ConfigureAndReturn(string serverUrl, string username, string password, bool isEnabled)
+    {
+        _config.ServerUrl = serverUrl;
+        _config.Username = username;
+        _config.Password = password;
+        _config.IsEnabled = isEnabled;
+        _config.Save();
+
+        EmitSignal(SignalName.Configured);
+        return _config;
     }
 
     /// <summary>Disables the Subsonic integration and clears credentials.</summary>
@@ -182,7 +196,7 @@ public partial class SubsonicService : Node
     [Signal] public delegate void SongFetchedEventHandler(SongModel song);
 
     /// <summary>Fetches a single song by ID. Emits SongFetched.</summary>
-    public async void GetSong(long songId)
+    public async void GetSong(string songId)
     {
         if (!AssertClient()) return;
         try
@@ -196,11 +210,38 @@ public partial class SubsonicService : Node
         catch (System.Exception e) { EmitError(e); }
     }
 
+    [Signal] public delegate void AllSongsFetchedEventHandler(Godot.Collections.Array<SongModel> songs);
+    public async void GetSongs()
+    {
+        if (!AssertClient()) return;
+        try
+        {
+            List<SongModel> songs = await _client!.GetAllSongs(NewToken());
+            Console.WriteLine($"Songs fetched. Result: {songs.Count} items");
+
+
+            if (songs != null)
+            {
+                var finalSongs = new Godot.Collections.Array<SongModel>(songs);
+                EmitSignal(SignalName.AllSongsFetched, finalSongs);
+            }
+            else
+            {
+                EmitSignal(SignalName.Error, $"Songs not found or error");
+            }
+
+        }
+        catch (System.Exception e)
+        {
+            EmitError(e);
+        }
+    }
+
     /// <summary>
     /// Returns the stream URL for a song synchronously.
     /// Pass directly to LibVLC — no await needed.
     /// </summary>
-    public string GetStreamUrl(long songId, int maxBitrateKbps = 0)
+    public string GetStreamUrl(string songId, int maxBitrateKbps = 0)
     {
         if (_client == null) return "";
         return maxBitrateKbps > 0
@@ -209,7 +250,7 @@ public partial class SubsonicService : Node
     }
 
     /// <summary>Returns the cover art URL synchronously.</summary>
-    public string GetCoverArtUrl(long id, int sizePixels = 0)
+    public string GetCoverArtUrl(string id, int sizePixels = 0)
     {
         if (_client == null) return "";
         return sizePixels > 0
@@ -250,7 +291,7 @@ public partial class SubsonicService : Node
     /// Scrobbles a song as played. Fire-and-forget — no signal emitted.
     /// Call when the song has been playing for ~30s or 50% of its duration.
     /// </summary>
-    public async void Scrobble(long songId)
+    public async void Scrobble(string songId)
     {
         if (_client == null) return;
         try { await _client.ScrobbleAsync(songId, NewToken()); }
@@ -258,7 +299,7 @@ public partial class SubsonicService : Node
     }
 
     /// <summary>Stars a song. Fire-and-forget.</summary>
-    public async void Star(long songId)
+    public async void Star(string songId)
     {
         if (_client == null) return;
         try { await _client.StarAsync(songId, NewToken()); }
@@ -266,7 +307,7 @@ public partial class SubsonicService : Node
     }
 
     /// <summary>Removes star from a song. Fire-and-forget.</summary>
-    public async void Unstar(long songId)
+    public async void Unstar(string songId)
     {
         if (_client == null) return;
         try { await _client.UnstarAsync(songId, NewToken()); }

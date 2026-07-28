@@ -6,6 +6,7 @@ extends Control
 
 @export var save_btn: Button
 @export var connect_btn: Button
+@export var auto_include_btn: CheckButton
 
 @export var status_label: Label
 
@@ -30,6 +31,7 @@ func load_config() -> void:
 	url_line_edit.text = current_config.ServerUrl
 	username_line_edit.text = current_config.Username
 	password_line_edit.text = current_config.Password
+	auto_include_btn.button_pressed = current_config.IsEnabled
 
 
 func save_config() -> void:
@@ -39,7 +41,8 @@ func save_config() -> void:
 	var username: String = username_line_edit.text
 	var password: String = password_line_edit.text
 
-	current_service.Configure(url, username, password)
+	current_service.ConfigureAndReturn(url, username, password, auto_include_btn.button_pressed)
+
 
 func update_status(msg: String) -> void:
 	status_label.text = msg

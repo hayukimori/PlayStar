@@ -5,6 +5,7 @@ using System;
 using PlayStar.Scripts.AlbumArt;
 
 namespace PlayStar.autoloads.ArtAutoloads;
+
 public class AlbumArtWorker
 {
     private readonly BlockingCollection<ArtRequest> _queue = new();
@@ -23,13 +24,26 @@ public class AlbumArtWorker
         _queue.Add(request);
     }
 
-    private void Process()
+    private async void Process()
     {
         foreach (var req in _queue.GetConsumingEnumerable())
         {
             try
             {
-                var bytes = AlbumArtExtractor.ExtractAndResize(req.SongPath);
+                byte[] bytes = null;
+
+                bool isUri = Uri.TryCreate(req.SongPath, UriKind.Absolute, out var uriResult)
+                    && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+                if (isUri)
+                {
+                    bytes = await AlbumArtExtractor.GetFromUri(req.ArtUrl, default);
+                }
+                else
+                {
+                    bytes = AlbumArtExtractor.ExtractAndResize(req.SongPath);
+                }
+
                 var result = new ArtResult(req.Key, bytes, false);
                 req.Callback?.Invoke(result);
             }

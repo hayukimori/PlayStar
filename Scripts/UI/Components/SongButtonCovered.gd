@@ -83,7 +83,7 @@ func request_art():
 		album_art.texture = cached
 		image_processed = true
 	else:
-		ArtService.Request(key, song_content.FilePath)
+		ArtService.Request(key, song_content.FilePath, song_content.ArtPath)
 
 
 func _on_art_ready(key, texture):

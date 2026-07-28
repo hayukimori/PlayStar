@@ -120,20 +120,55 @@ public sealed class SubsonicClient : IDisposable
     }
 
     /// <summary>Returns a single song by ID.</summary>
-    public async Task<SongModel> GetSongAsync(long songId, CancellationToken ct = default)
+    public async Task<SongModel> GetSongAsync(string songId, CancellationToken ct = default)
     {
         var node = await GetAsync("getSong", [("id", songId.ToString())], ct);
         var entry = node?["song"];
         return entry == null ? null : MapSong(entry);
     }
 
+    // <summary> Returns all songs using search3 </summary>
+    public async Task<List<SongModel>> GetAllSongs(CancellationToken ct = default)
+    {
+        var node = await GetAsync(
+            "search3",
+            [
+                ("query", ""),
+                ("songCount", "500"),
+                ("songOffset", "0"),
+                ("artistCount", "0"),
+                ("albumCount", "0"),
+            ],
+            ct
+        );
+
+
+        var entry = node["searchResult3"]["song"];
+        if (entry == null) return null;
+
+        List<SongModel> restSongs = [];
+
+        if (entry is JsonArray jsonArray)
+        {
+            foreach (JsonNode? item in jsonArray)
+            {
+                SongModel song = MapSong(item);
+                restSongs.Add(song);
+            }
+        }
+
+        Console.WriteLine($"List items count: {restSongs.Count}");
+
+        return restSongs;
+    }
+
     /// <summary>
     /// Returns the stream URL for a song. Pass this directly to LibVLC.
     /// LibVLC handles HTTP streaming natively — no manual downloading needed.
     /// </summary>
-    public string GetStreamUrl(long songId, int? maxBitrateKbps = null)
+    public string GetStreamUrl(string songId, int? maxBitrateKbps = null)
     {
-        var args = new List<(string, string)> { ("id", songId.ToString()) };
+        var args = new List<(string, string)> { ("id", songId) };
         if (maxBitrateKbps.HasValue)
             args.Add(("maxBitRate", maxBitrateKbps.Value.ToString()));
 
@@ -144,7 +179,7 @@ public sealed class SubsonicClient : IDisposable
     /// Returns the cover art URL for a song or album.
     /// Pass this to your existing art loading pipeline.
     /// </summary>
-    public string GetCoverArtUrl(long id, int? sizePixels = null)
+    public string GetCoverArtUrl(string id, int? sizePixels = null)
     {
         var args = new List<(string, string)> { ("id", id.ToString()) };
         if (sizePixels.HasValue)
@@ -179,7 +214,7 @@ public sealed class SubsonicClient : IDisposable
     /// Scrobbles a song play to the server (marks as played in Navidrome history).
     /// Call this when the song has been playing for a meaningful duration (e.g. 30s or 50%).
     /// </summary>
-    public async Task ScrobbleAsync(long songId, CancellationToken ct = default)
+    public async Task ScrobbleAsync(string songId, CancellationToken ct = default)
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         await GetAsync("scrobble",
@@ -191,12 +226,12 @@ public sealed class SubsonicClient : IDisposable
     }
 
     /// <summary>Stars (favorites) a song.</summary>
-    public Task StarAsync(long songId, CancellationToken ct = default) =>
-        GetAsync("star", [("id", songId.ToString())], ct);
+    public Task StarAsync(string songId, CancellationToken ct = default) =>
+        GetAsync("star", [("id", songId)], ct);
 
     /// <summary>Removes star from a song.</summary>
-    public Task UnstarAsync(long songId, CancellationToken ct = default) =>
-        GetAsync("unstar", [("id", songId.ToString())], ct);
+    public Task UnstarAsync(string songId, CancellationToken ct = default) =>
+        GetAsync("unstar", [("id", songId)], ct);
 
     public void Dispose() => _http.Dispose();
 
@@ -216,14 +251,15 @@ public sealed class SubsonicClient : IDisposable
         AlbumArtist = node?["artist"]?.GetValue<string>() ?? "",
         Genre = node?["genre"]?.GetValue<string>() ?? "",
         Year = node?["year"]?.GetValue<int>() ?? 0,
-        ArtPath = GetCoverArtUrl(ParseLong(node?["id"])),
+        ArtPath = GetCoverArtUrl(node?["id"].ToString()),
     };
 
     private SongModel MapSong(JsonNode node)
     {
-        var songId = ParseLong(node?["id"]);
+        var songId = node["id"].ToString();
         return new SongModel
         {
+            SongId = songId,
             AlbumId = ParseLong(node?["albumId"]),
             Title = node?["title"]?.GetValue<string>() ?? "",
             Artist = node?["artist"]?.GetValue<string>() ?? "",
@@ -231,7 +267,7 @@ public sealed class SubsonicClient : IDisposable
             Genre = node?["genre"]?.GetValue<string>() ?? "",
             Year = (uint)(node?["year"]?.GetValue<int>() ?? 0),
             Length = (long)(node?["duration"]?.GetValue<int>() ?? 0) * 1000L, // s → ms
-            FilePath = GetStreamUrl(songId),  // LibVLC abre direto
+            FilePath = GetStreamUrl(songId),
             ArtPath = GetCoverArtUrl(songId),
         };
     }

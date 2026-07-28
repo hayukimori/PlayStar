@@ -3,6 +3,9 @@ using TagLib;
 using SkiaSharp;
 using System.IO;
 using System;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Net.Http;
 
 namespace PlayStar.Scripts.AlbumArt;
 
@@ -48,6 +51,25 @@ public partial class AlbumArtExtractor : Resource
             Console.WriteLine($"[Extractor] error extracting art from '{path}': {ex.Message}");
             return null;
         }
+    }
+
+    public static async Task<byte[]> GetFromUri(string artUri, CancellationToken cancellationToken)
+    {
+        using var client = new System.Net.Http.HttpClient
+        {
+            Timeout = TimeSpan.FromSeconds(30)
+        };
+
+        client.DefaultRequestHeaders.Add("User-Agent", "PlayStar/1.2.4");
+
+        using var response = await client.SendAsync(
+            new HttpRequestMessage(HttpMethod.Get, artUri),
+            HttpCompletionOption.ResponseHeadersRead,
+            cancellationToken
+        );
+
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsByteArrayAsync(cancellationToken);
     }
 
     public static string ExtractToTempFile(string songPath)
