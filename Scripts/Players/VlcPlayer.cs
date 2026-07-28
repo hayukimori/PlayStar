@@ -66,12 +66,21 @@ public partial class VlcPlayer : AudioPlayer
     #endregion
 
     #region Media Control
-    public override async void Load(string path)
+    public override async void Load(string target)
     {
-        if (!System.IO.File.Exists(path))
+#pragma warning disable IDE0018
+
+        Uri uriResult;
+        bool result = Uri.TryCreate(target, UriKind.Absolute, out uriResult)
+            && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+        if (!result)
         {
-            GD.PrintErr($"File not found error: {path}");
-            return;
+            if (!System.IO.File.Exists(target))
+            {
+                GD.PrintErr($"File not found error: {target}");
+                return;
+            }
         }
 
         if (_mediaPlayer == null)
@@ -83,7 +92,7 @@ public partial class VlcPlayer : AudioPlayer
         Stop();
 
         _currentMedia?.Dispose();
-        _currentMedia = MediaBackend.Instance.CreateMedia(path);
+        _currentMedia = MediaBackend.Instance.CreateMedia(target);
         _mediaPlayer.Media = _currentMedia;
     }
 

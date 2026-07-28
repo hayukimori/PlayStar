@@ -12,6 +12,7 @@ signal update_current_metadata(data: SongModel)
 @export var indexer: MetadataIndexer
 @export var scanner: LibraryScanner
 @export var mpris_service: MprisService
+@export var subsonic_service: SubsonicService
 
 @export_group("UI")
 @export var ui_manager: UIManager
@@ -64,6 +65,7 @@ func _ready() -> void:
 	NodeKeeper.artist_repository = artist_repo
 	NodeKeeper.album_repository = album_repo
 	NodeKeeper.vlc_player = player
+	NodeKeeper.subsonic_service = subsonic_service
 
 	player.connect("MusicStarted", _on_music_started)
 	player.connect("MusicEnded", _on_music_ended)
