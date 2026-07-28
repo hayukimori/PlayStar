@@ -111,6 +111,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	check_and_load()
 
+	await get_tree().process_frame
 	if ui_manager:
 		ui_manager.set_search_bar_queue(current_play_queue)
 		ui_manager.render_song_btns_from_list(current_play_queue)
