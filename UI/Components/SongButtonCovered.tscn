@@ -12,8 +12,9 @@
 [ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
 [ext_resource type="Script" uid="uid://dnj6ugoy1pdo" path="res://Scripts/UI/CustomNodes/AnimatedOptionButton.gd" id="10_hnsvu"]
 [ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="11_hnsvu"]
+[ext_resource type="Texture2D" uid="uid://b1xtyb1im4ywm" path="res://assets/icons/extra/subsonic.svg" id="11_tycom"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tycom"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wp0id"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -35,7 +36,7 @@ shader = ExtResource("7_usbv0")
 shader_parameter/bar_color = Color(1, 1, 1, 1)
 shader_parameter/corner_radius = 0.5
 
-[node name="SongButtonCovered" type="Button" unique_id=285328477 node_paths=PackedStringArray("title_label", "artist_label", "album_art", "hq_btn", "playing_now_bar", "add_to_playlist_btn", "remove_from_current_playlist_btn", "show_info_btn")]
+[node name="SongButtonCovered" type="Button" unique_id=285328477 node_paths=PackedStringArray("title_label", "artist_label", "album_art", "hq_btn", "subsonic_btn", "playing_now_bar", "add_to_playlist_btn", "remove_from_current_playlist_btn", "show_info_btn")]
 custom_minimum_size = Vector2(0, 64)
 custom_maximum_size = Vector2(-1, 64)
 anchors_preset = -1
@@ -51,6 +52,7 @@ title_label = NodePath("TitleLabel")
 artist_label = NodePath("ArtistLabel")
 album_art = NodePath("SongArtRounded")
 hq_btn = NodePath("ExtrasHBC/HQButton")
+subsonic_btn = NodePath("ExtrasHBC/SubsonicButton")
 playing_now_bar = NodePath("ExtrasHBC/PlayingNowCR")
 add_to_playlist_btn = NodePath("ExtrasHBC/ToPlaylistButton")
 remove_from_current_playlist_btn = NodePath("ExtrasHBC/RmFromCurrentButton")
@@ -76,7 +78,7 @@ offset_left = 12.0
 offset_top = 11.0
 offset_right = 54.0
 offset_bottom = 53.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_tycom")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wp0id")
 script = ExtResource("4_4tf6t")
 texture = ExtResource("2_exdt8")
 stretch_mode = 6
@@ -156,6 +158,15 @@ visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = ExtResource("4_4wxht")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="SubsonicButton" type="Button" parent="ExtrasHBC" unique_id=736599193]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("11_tycom")
 flat = true
 icon_alignment = 1
 expand_icon = true

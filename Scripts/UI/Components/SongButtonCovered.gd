@@ -12,6 +12,7 @@ signal playlist_removal_request(song: SongModel)
 @export var artist_label: Label
 @export var album_art: SongArtRounded
 @export var hq_btn: Button
+@export var subsonic_btn: Button
 @export var playing_now_bar: ColorRect
 @export var add_to_playlist_btn: ToPlaylistButton
 @export var remove_from_current_playlist_btn: AnimatedOptionButton
@@ -42,6 +43,9 @@ func _ready() -> void:
 
 	var flac = (song_content.FilePath.get_extension() == "flac")
 	if flac: hq_btn.visible = true
+
+	var subsonic_mode = (song_content.FilePath.begins_with("http"))
+	if subsonic_mode: subsonic_btn.visible = true
 
 	if add_to_playlist_btn:
 		add_to_playlist_btn.content = song_content
