@@ -202,7 +202,6 @@ func check_and_load() -> void:
 		n_queue.sort_custom(func(a: SongModel, b:SongModel): return a.Title.to_lower() < b.Title.to_lower())
 
 		set_queue(n_queue, "All songs (%s)" % [str(len(n_queue))])
-		_rebuild_random_order()
 
 		await get_tree().process_frame
 		return
@@ -287,6 +286,12 @@ func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") 
 
 	if ui_manager:
 		ui_manager.set_queue_label(queue_name)
+
+
+func _refresh_ui() -> void:
+	if ui_manager:
+		ui_manager.set_search_bar_queue(current_play_queue)
+		ui_manager.render_song_btns_from_list(current_play_queue)
 
 #endregion
 
@@ -584,6 +589,7 @@ func _on_playlist_request(playlist: PlaylistModel, index: int) -> void:
 
 func _on_load_all_songs_request() -> void:
 	await check_and_load()
+	_refresh_ui()
 
 
 func _on_search_results_requested(results: Array) -> void:
