@@ -31,9 +31,16 @@ public class AlbumArtWorker
             try
             {
                 byte[] bytes = null;
+                bool isUri = false;
 
-                bool isUri = Uri.TryCreate(req.SongPath, UriKind.Absolute, out var uriResult)
+                isUri = Uri.TryCreate(req.SongPath, UriKind.Absolute, out var uriResult)
                     && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+                if (req.SongPath == "" && req.ArtUrl != "")
+                {
+                    isUri = Uri.TryCreate(req.ArtUrl, UriKind.Absolute, out var uResult)
+                        && (uResult.Scheme == Uri.UriSchemeHttp || uResult.Scheme == Uri.UriSchemeHttps);
+                }
 
                 if (isUri)
                 {

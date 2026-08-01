@@ -53,6 +53,13 @@ public partial class AlbumArtExtractor : Resource
         }
     }
 
+    public static byte[] ExtractFromFile(string artFile)
+    {
+        // TODO: Complete function
+        byte[] _ = [];
+        return _;
+    }
+
     public static async Task<byte[]> GetFromUri(string artUri, CancellationToken cancellationToken)
     {
         using var client = new System.Net.Http.HttpClient

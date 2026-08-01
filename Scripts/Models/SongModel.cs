@@ -19,5 +19,7 @@ public partial class SongModel : Resource
     [Export] public string Lyrics { get; set; }
     [Export] public string SongId { get; set; }
 
+    [Export] public Godot.Collections.Array Artists { get; set; }
+
     [Export] public Texture2D AlbumArtTexture { get; set; }
 }

@@ -75,9 +75,10 @@ public sealed class SubsonicClient : IDisposable
             {
                 artists.Add(new ArtistModel
                 {
-                    Id = ParseLong(entry?["id"]),
+                    ArtistIdSn = (entry?["id"].ToString()),
                     Name = entry?["name"]?.GetValue<string>() ?? "",
                     AlbumsCount = entry?["albumCount"]?.GetValue<int>() ?? 0,
+                    ArtPath = entry?["artistImageUrl"]?.GetValue<string>() ?? ""
                 });
             }
         }
@@ -86,7 +87,7 @@ public sealed class SubsonicClient : IDisposable
     }
 
     /// <summary>Returns all albums for a given artist ID.</summary>
-    public async Task<List<AlbumModel>> GetAlbumsByArtistAsync(long artistId, CancellationToken ct = default)
+    public async Task<List<AlbumModel>> GetAlbumsByArtistAsync(string artistId, bool includeSongs = false, CancellationToken ct = default)
     {
         var node = await GetAsync("getArtist", [("id", artistId.ToString())], ct);
         var albums = new List<AlbumModel>();
@@ -96,14 +97,55 @@ public sealed class SubsonicClient : IDisposable
 
         foreach (var entry in entries)
         {
-            albums.Add(MapAlbum(entry));
+            AlbumModel alb;
+            alb = includeSongs ? await GetAlbumAsync(entry["id"].ToString()) : MapAlbum(entry);
+            albums.Add(alb);
+        }
+
+        return albums;
+    }
+
+    // <summary> Reutns all albums in the server </summary>
+    public async Task<List<AlbumModel>> GetAlbumListAsync(bool includeSongs, CancellationToken ct)
+    {
+        var page_size = 500;
+        var current_offset = 0;
+        var total = 0;
+
+        List<AlbumModel> albums = [];
+
+        while (true)
+        {
+            var node = await GetAsync(
+                "getAlbumList2",
+                [
+                    ("type", "alphabeticalByArtist"),
+                    ("size", page_size.ToString()),
+                    ("offset", current_offset.ToString())
+                ],
+                ct
+            );
+            var entries = node?["albumList2"]?["album"]?.AsArray();
+            if (entries == null) break;
+
+            total += entries.Count;
+
+
+            foreach (var alb in entries)
+            {
+                var album = includeSongs ? await GetAlbumAsync(alb?["id"].ToString()) : MapAlbum(alb);
+                albums.Add(album);
+            }
+
+            if (entries.Count < page_size) break;
+            current_offset += page_size;
         }
 
         return albums;
     }
 
     /// <summary>Returns an album with its full song list.</summary>
-    public async Task<AlbumModel> GetAlbumAsync(long albumId, CancellationToken ct = default)
+    public async Task<AlbumModel> GetAlbumAsync(string albumId, CancellationToken ct = default)
     {
         var node = await GetAsync("getAlbum", [("id", albumId.ToString())], ct);
         var entry = node?["album"];
@@ -125,6 +167,29 @@ public sealed class SubsonicClient : IDisposable
         var node = await GetAsync("getSong", [("id", songId.ToString())], ct);
         var entry = node?["song"];
         return entry == null ? null : MapSong(entry);
+    }
+
+    // <summary>Returns a list of SongModel by artist </summary>
+    public async Task<List<SongModel>> GetSongsByArtist(string artistId, CancellationToken ct = default)
+    {
+        var node = await GetAsync("getArtist", [("id", artistId.ToString())], ct);
+        var entry = node?["artist"]["album"];
+        var albums = entry?.AsArray();
+        List<SongModel> songs = [];
+
+
+        foreach (var album in albums)
+        {
+            var albumId = album["id"].ToString();
+            var tmp_album = await GetAlbumAsync(albumId);
+
+            foreach (var song in tmp_album.Songs)
+            {
+                songs.Add(song);
+            }
+        }
+
+        return songs;
     }
 
     // <summary> Returns all songs using search3 </summary>
@@ -156,8 +221,6 @@ public sealed class SubsonicClient : IDisposable
                 restSongs.Add(song);
             }
         }
-
-        Console.WriteLine($"List items count: {restSongs.Count}");
 
         return restSongs;
     }
@@ -245,14 +308,15 @@ public sealed class SubsonicClient : IDisposable
 
     private AlbumModel MapAlbum(JsonNode node) => new()
     {
-        Id = ParseLong(node?["id"]),
-        ArtistId = ParseLong(node?["artistId"]),
+        IdSn = node?["id"].ToString(),
+        ArtistIdSn = node?["artistId"].ToString(),
         AlbumName = node?["name"]?.GetValue<string>() ?? "",
         AlbumArtist = node?["artist"]?.GetValue<string>() ?? "",
         Genre = node?["genre"]?.GetValue<string>() ?? "",
         Year = node?["year"]?.GetValue<int>() ?? 0,
         ArtPath = GetCoverArtUrl(node?["id"].ToString()),
     };
+
 
     private SongModel MapSong(JsonNode node)
     {

@@ -6,6 +6,8 @@ class_name AlbumButtonCovered
 @export var album: AlbumModel
 @export var default_album_art: Texture2D
 
+@export var subsonic_indicator: TextureRect
+
 var file_path: String
 var image_processed: bool = false
 
@@ -14,12 +16,14 @@ var is_currently_visible := false
 func _ready() -> void:
 	if !album: queue_free(); return;
 
-	file_path = album.Songs[0].FilePath
+	file_path = "" if album.IdSn else album.Songs[0].FilePath
+	subsonic_indicator.hide()
 
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)
 
+	if album.IdSn: subsonic_indicator.show()
 
 	ArtService.ArtReady.connect(_on_art_ready)
 	#request_art()
@@ -40,18 +44,37 @@ func set_art_visibility(b_visible: bool):
 
 
 func request_art():
-	var key = file_path
+	var key = file_path if file_path else album.IdSn
 	var cached = ArtService.GetIfCached(key)
 
 	if cached:
 		album_art.texture = cached
 		image_processed = true
 	else:
-		ArtService.Request(key, file_path, "")
+		ArtService.Request(key, file_path, album.ArtPath)
+
+
+func populate_album_sonic(album_id: String) -> void:
+	var svc = NodeKeeper.subsonic_service
+	var dt = await DevTools.race_signals(
+		svc.AlbumFetched,
+		svc.Error,
+		svc.GetAlbum.bind(album_id)
+	)
+	if dt.get("winner") != "a":
+		print_debug("Error: Winner is b; Reason: ", dt.get("results"))
+		return
+
+	else:
+		print("Winner is a")
+
+
+
 
 
 func _on_art_ready(key, texture) -> void:
-	if key == album.Songs[0].FilePath:
+	var x_key = file_path if file_path else album.IdSn
+	if x_key and key == x_key:
 		album_art.texture = texture
 		image_processed = true
 

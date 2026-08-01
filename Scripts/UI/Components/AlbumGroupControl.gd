@@ -17,13 +17,22 @@ var loaded_album_nodes: Array = []
 
 
 func _ready() -> void:
-
 	var cfg = UserGlobals.get_config()
 	_albums = NodeKeeper.album_repository.GetAllAlbums(-1, cfg.ignore_unknown_artists)
 
+	# --- SUBSONIC (EXPERIMENTAL)
+	var subsonic_service = NodeKeeper.subsonic_service
+	if subsonic_service.IsConnected():
+		_albums.append_array(await load_from_subsonic())
+	# ---
+
 	if _albums.is_empty():
-		push_error("AlbumGroupControl: no albums loaded.")
+		push_warning("AlbumGroupControl: no albums loaded.")
 		return
+
+	_albums.sort_custom(
+		func(a: AlbumModel, b: AlbumModel): return a.AlbumName.to_lower() < b.AlbumName.to_lower()
+	)
 
 	if nodes_scroll:
 		nodes_scroll.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
@@ -49,6 +58,25 @@ func reload_albums() -> void:
 	if search_bar:
 		search_bar.current_albums = _albums
 	_build_albums(_albums)
+
+
+## Loads AlbumModel from subsonic
+func load_from_subsonic() -> Array[AlbumModel]:
+	var final_albums: Array[AlbumModel] = []
+
+	var svc = NodeKeeper.subsonic_service
+	var rs = await DevTools.race_signals(
+		svc.AllAlbumsFetched,
+		svc.Error,
+		svc.GetAllAlbums.bind(true)
+	)
+
+	if rs.get("winner") != "a": return final_albums
+
+	if len(rs.get("results")[0]) > 0:
+		final_albums = rs.get("results")[0][0] as Array[AlbumModel]
+
+	return final_albums
 
 
 func _build_albums(al_list: Array) -> void:

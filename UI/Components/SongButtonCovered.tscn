@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="11_hnsvu"]
 [ext_resource type="Texture2D" uid="uid://b1xtyb1im4ywm" path="res://assets/icons/extra/subsonic.svg" id="11_tycom"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wp0id"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tycom"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -78,7 +78,7 @@ offset_left = 12.0
 offset_top = 11.0
 offset_right = 54.0
 offset_bottom = 53.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_wp0id")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tycom")
 script = ExtResource("4_4tf6t")
 texture = ExtResource("2_exdt8")
 stretch_mode = 6

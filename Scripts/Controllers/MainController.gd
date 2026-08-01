@@ -41,6 +41,8 @@ var random_index: int = -1
 
 var last_pos := 0.0
 
+var subsonic_enabled: bool = false
+
 #region Ready
 func _ready() -> void:
 	if !player or !db or !indexer:
@@ -109,9 +111,8 @@ func _ready() -> void:
 	update_by_defaults()
 
 	await get_tree().process_frame
-	check_and_load()
+	await check_and_load()
 
-	await get_tree().process_frame
 	if ui_manager:
 		ui_manager.set_search_bar_queue(current_play_queue)
 		ui_manager.render_song_btns_from_list(current_play_queue)
@@ -193,18 +194,17 @@ func check_and_load() -> void:
 		var n_queue = all_songs.duplicate()
 
 		# Includes subsonic api if AutoInclude is enabled
-		var current_config: SubsonicConfig = SubsonicConfig.LoadOrCreate()
-		if current_config.IsEnabled:
+		if check_set_subsonic():
 			var additional: Array[SongModel] = await get_from_subsonic()
 			n_queue.append_array(additional)
 
 
+		n_queue.sort_custom(func(a: SongModel, b:SongModel): return a.Title.to_lower() < b.Title.to_lower())
+
 		set_queue(n_queue, "All songs (%s)" % [str(len(n_queue))])
 		_rebuild_random_order()
-		if ui_manager:
-			ui_manager._build_buttons_timesliced(n_queue, ui_manager._current_generation)
-		await get_tree().process_frame
 
+		await get_tree().process_frame
 		return
 
 
@@ -219,7 +219,13 @@ func check_and_load() -> void:
 	set_queue(queue, queue_name)
 
 
+func check_set_subsonic() -> bool:
+	var svc = NodeKeeper.subsonic_service
+	return svc.IsConnected()
 
+
+## Gets songs from subsonic as an Array[SongModel] [br]
+## EXPERIMENTAL
 func get_from_subsonic() -> Array[SongModel]:
 	var service = NodeKeeper.subsonic_service
 	var connected = await DevTools.race_signals(service.PingSucceeded, service.PingFailed, service.Ping)
@@ -555,8 +561,10 @@ func _on_reload_requested() -> void:
 
 	await get_tree().process_frame
 
-	load_songs()
-	_on_load_all_songs_request()
+	#load_songs()
+	#_on_load_all_songs_request()
+
+	await check_and_load()
 
 
 func _on_req_load_song_from_queue(song: SongModel) -> void:
@@ -575,9 +583,7 @@ func _on_playlist_request(playlist: PlaylistModel, index: int) -> void:
 
 
 func _on_load_all_songs_request() -> void:
-	var queue = all_songs.duplicate()
-	set_queue(queue, "All Songs")
-	if ui_manager: ui_manager.render_song_btns_from_list(current_play_queue)
+	await check_and_load()
 
 
 func _on_search_results_requested(results: Array) -> void:

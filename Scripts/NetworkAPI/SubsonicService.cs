@@ -162,25 +162,54 @@ public partial class SubsonicService : Node
     [Signal] public delegate void AlbumDetailFetchedEventHandler(AlbumModel album);
 
     /// <summary>Fetches albums for a given artist ID. Emits AlbumsFetched.</summary>
-    public async void GetAlbumsByArtist(long artistId)
+    public async void GetAlbumsByArtist(string artistId, bool includeSongs = false)
     {
         if (!AssertClient()) return;
         try
         {
-            var list = await _client!.GetAlbumsByArtistAsync(artistId, NewToken());
+            var list = await _client!.GetAlbumsByArtistAsync(artistId, includeSongs, NewToken());
             var result = new Godot.Collections.Array<AlbumModel>(list);
             EmitSignal(SignalName.AlbumsFetched, result);
         }
         catch (System.Exception e) { EmitError(e); }
     }
 
-    /// <summary>Fetches a single album with its songs. Emits AlbumDetailFetched.</summary>
-    public async void GetAlbum(long albumId)
+    [Signal] public delegate void AllAlbumsFetchedEventHandler(Godot.Collections.Array<AlbumModel> albums);
+    // <summary> Gets all albums from the server </summary>
+    public async void GetAllAlbums(bool includeSongs = false)
+    {
+        if (!AssertClient()) return;
+        try
+        {
+            var list = await _client!.GetAlbumListAsync(includeSongs, NewToken());
+            var result = new Godot.Collections.Array<AlbumModel>(list);
+            EmitSignal(SignalName.AllAlbumsFetched, result);
+        }
+        catch (System.Exception e) { EmitError(e); }
+    }
+
+
+    [Signal] public delegate void AlbumFetchedEventHandler(AlbumModel album);
+    // <summary> Gets album by id </summary>
+    public async void GetAlbumById(string albumId)
     {
         if (!AssertClient()) return;
         try
         {
             var album = await _client!.GetAlbumAsync(albumId, NewToken());
+            EmitSignal(SignalName.AlbumFetched, album);
+
+        }
+        catch (System.Exception e) { EmitError(e); }
+    }
+
+    /// <summary>Fetches a single album with its songs. Emits AlbumDetailFetched.</summary>
+    public async void GetAlbum(string albumId)
+    {
+        if (!AssertClient()) return;
+        try
+        {
+            var album = await _client!.GetAlbumAsync(albumId.ToString(), NewToken());
             if (album != null)
                 EmitSignal(SignalName.AlbumDetailFetched, album);
             else
@@ -217,8 +246,6 @@ public partial class SubsonicService : Node
         try
         {
             List<SongModel> songs = await _client!.GetAllSongs(NewToken());
-            Console.WriteLine($"Songs fetched. Result: {songs.Count} items");
-
 
             if (songs != null)
             {
@@ -233,6 +260,31 @@ public partial class SubsonicService : Node
         }
         catch (System.Exception e)
         {
+            EmitError(e);
+        }
+    }
+
+    [Signal] public delegate void ArtistSongsFetchedEventHandler(Godot.Collections.Array<SongModel> songs);
+    [Signal] public delegate void ArtistSongsFetchErrorEventHandler();
+    public async void GetSongsByArtist(string artistId)
+    {
+        try
+        {
+            List<SongModel> songs = await _client!.GetSongsByArtist(artistId, NewToken());
+            if (songs != null)
+            {
+                var finalSongs = new Godot.Collections.Array<SongModel>(songs);
+
+                EmitSignal(SignalName.ArtistSongsFetched, finalSongs);
+            }
+            else
+            {
+                EmitSignal(SignalName.Error, "$Songs not found");
+            }
+        }
+        catch (System.Exception e)
+        {
+            EmitSignal(SignalName.ArtistSongsFetchError);
             EmitError(e);
         }
     }
