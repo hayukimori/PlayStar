@@ -7,12 +7,13 @@ using TagLib;
 using PlayStar.Scripts.Models;
 namespace PlayStar.autoloads.MediaAutoloads;
 
-public partial class MediaBackend : Node{
+public partial class MediaBackend : Node
+{
 
     public static MediaBackend Instance { get; private set; }
     private LibVLC _libVlc;
     private readonly object _mediaLock = new();
-    
+
     public LibVLC LibVlc => _libVlc;
 
     public override void _EnterTree()
@@ -35,11 +36,11 @@ public partial class MediaBackend : Node{
         GD.Print("LibVLC initalized.");
     }
 
-    public Media CreateMedia(string path)
+    public Media CreateMedia(string target)
     {
         lock (_mediaLock)
         {
-            return new Media(LibVlc, new Uri(path));
+            return new Media(LibVlc, new Uri(target));
         }
     }
 
@@ -70,45 +71,45 @@ public partial class MediaBackend : Node{
     }
 
     public static SongModel GetSongModelFromPath(string path)
+    {
+        try
         {
-                try
-                {
-                        using var file = TagLib.File.Create(path);
+            using var file = TagLib.File.Create(path);
 
-                        var tag = file.Tag;
-                        var properties = file.Properties;
+            var tag = file.Tag;
+            var properties = file.Properties;
 
-                        return new SongModel
-                        {
-                                Title = !string.IsNullOrWhiteSpace(tag.Title) 
-                                        ? tag.Title
-                                        : Path.GetFileNameWithoutExtension(path),
+            return new SongModel
+            {
+                Title = !string.IsNullOrWhiteSpace(tag.Title)
+                            ? tag.Title
+                            : Path.GetFileNameWithoutExtension(path),
 
-                                Artist = tag.FirstPerformer ?? "Unknown",
-                                Album = tag.Album ?? "Unknown",
-                                Genre = tag.FirstGenre ?? "Unknown",
+                Artist = tag.FirstPerformer ?? "Unknown",
+                Album = tag.Album ?? "Unknown",
+                Genre = tag.FirstGenre ?? "Unknown",
 
-                                Length = (long)properties.Duration.TotalMilliseconds,
-                                Year = tag.Year,
-                                Lyrics = tag.Lyrics ?? string.Empty,
-                                FilePath = path
-                        };
-                }
-                catch (Exception)
-                {
-                        return new SongModel
-                        {
-                                Title = Path.GetFileNameWithoutExtension(path),
-                                Artist = "Unknown",
-                                Album = "Unknown",
-                                Length = 0,
-                                Year = 0,
-                                Lyrics = string.Empty,
-                                FilePath = path,
-                                FileName = Path.GetFileName(path)
-                        };
-                }
+                Length = (long)properties.Duration.TotalMilliseconds,
+                Year = tag.Year,
+                Lyrics = tag.Lyrics ?? string.Empty,
+                FilePath = path
+            };
         }
+        catch (Exception)
+        {
+            return new SongModel
+            {
+                Title = Path.GetFileNameWithoutExtension(path),
+                Artist = "Unknown",
+                Album = "Unknown",
+                Length = 0,
+                Year = 0,
+                Lyrics = string.Empty,
+                FilePath = path,
+                FileName = Path.GetFileName(path)
+            };
+        }
+    }
 
 
     public static string GetLyricsFromSong(SongModel song)

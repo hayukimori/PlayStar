@@ -88,3 +88,61 @@ static func delete_dir(path: String) -> void:
 	dir.list_dir_end()
 
 	DirAccess.remove_absolute(path)
+
+## Awaits between one of two signals (a or b), must have an callable to trigger both
+## (if no trigger is necessary, just set an callable, still works)
+static func race_signals(a: Signal, b: Signal, fn: Callable) -> Dictionary[String, Variant]:
+	var winner = [""]
+	var results: Array[Variant] = []
+
+	var cb_a = func(...args):
+		winner[0] = "a"
+		results.append(args)
+
+	var cb_b = func(...args):
+		winner[0] = "b"
+		results.append(args)
+
+
+	a.connect(cb_a, CONNECT_ONE_SHOT)
+	b.connect(cb_b, CONNECT_ONE_SHOT)
+
+	fn.call()
+
+	while winner[0] == "":
+		await Engine.get_main_loop().process_frame
+
+	if a.is_connected(cb_a): a.disconnect(cb_a)
+	if b.is_connected(cb_b): b.disconnect(cb_b)
+
+	return {"winner": winner[0], "results": results}
+
+
+static func await_first_signal(a: Signal, b: Signal) -> Variant:
+	await await Engine.get_main_loop().process_frame
+	var state = {"done": false, "winner": "", "args": []}
+
+	var on_a := func (...args):
+		if not state.done:
+			state.done = true
+			state.winner = "a"
+			state.args = args
+	var on_b := func(...args):
+		if not state.done:
+			state.done = true
+			state.winner = "b"
+			state.args = args
+
+	a.connect(on_a.bind("a_trigger"), CONNECT_ONE_SHOT)
+	b.connect(on_b.bind("b_trigger"), CONNECT_ONE_SHOT)
+
+	while not state.done:
+		await Engine.get_main_loop().process_frame
+
+	if a.is_connected(on_a.bind("a_trigger")):
+		a.disconnect(on_a.bind("a_trigger"))
+
+	if b.is_connected(on_b.bind("b_trigger")):
+		b.disconnect(on_b.bind("b_trigger"))
+
+	return state

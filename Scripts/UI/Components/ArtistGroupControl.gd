@@ -21,9 +21,17 @@ func _ready() -> void:
 	var cfg = UserGlobals.get_config()
 	_artists = NodeKeeper.artist_repository.GetArtists(-1, cfg.ignore_unknown_artists)
 
+	# --- SUBSONIC SUPPORT (EXPERIMENTAL)
+	var subsonic_service = NodeKeeper.subsonic_service
+	if subsonic_service.IsConnected():
+		_artists.append_array(await get_from_subsonic())
+	# ---
+
 	if _artists.is_empty():
 		push_error("ArtistGroupControl: no artists loaded.")
 		return
+
+	_artists.sort_custom(func(a:ArtistModel, b:ArtistModel): return a.Name.to_lower() < b.Name.to_lower())
 
 	if nodes_scroll:
 		nodes_scroll.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
@@ -36,6 +44,8 @@ func _ready() -> void:
 		search_bar.render_default.connect(_on_search_bar_render_default)
 
 	SignalBus.reload_artists.connect(reload_artists)
+
+
 	_build_artists(_artists)
 
 
@@ -49,6 +59,26 @@ func reload_artists() -> void:
 	if search_bar:
 		search_bar.current_artists = _artists
 	_build_artists(_artists)
+
+
+## Loads ArtistModel from subsonic
+func get_from_subsonic() -> Array[ArtistModel]:
+	var final_artists: Array[ArtistModel] = []
+
+	var svc: SubsonicService = NodeKeeper.subsonic_service
+	var rs = await DevTools.race_signals(
+		svc.ArtistsFetched,
+		svc.Error,
+		svc.GetArtists
+	)
+	if rs.get("winner") != "a": return []
+
+	if len(rs.get("results")[0]) > 0:
+		final_artists = rs.get("results")[0][0] as Array[ArtistModel]
+
+	return final_artists
+
+
 
 
 func _build_artists(ar_list: Array) -> void:

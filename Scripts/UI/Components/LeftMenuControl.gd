@@ -71,6 +71,9 @@ func _ready() -> void:
 	_timer = Timer.new()
 	_timer.wait_time = auto_close_time
 	_timer.timeout.connect(_on_autoclose_timeout)
+
+	SignalBus.volume_changed.connect(_interaction)
+
 	add_child(_timer)
 	_on_config_updated()
 	_interaction()
@@ -109,7 +112,7 @@ func close_panel() -> void:
 		action_btn.icon = open_btn_texture
 
 
-func _interaction() -> void:
+func _interaction(_noarg = null) -> void:
 	if !_timer: return
 	_timer.start()
 

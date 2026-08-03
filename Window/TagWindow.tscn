@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://dd7c6jys7sbu"]
+
+[ext_resource type="Script" uid="uid://b8q6yp8c0iuif" path="res://Scripts/Window/TagWindow.gd" id="1_8wd7w"]
+[ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="2_ashif"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8wd7w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ashif"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t083e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sqbes"]
+
+[node name="TagWindow" type="Window" unique_id=641077770 node_paths=PackedStringArray("info_tree", "title_label")]
+oversampling_override = 1.0
+initial_position = 4
+size = Vector2i(600, 300)
+visible = false
+script = ExtResource("1_8wd7w")
+info_tree = NodePath("MControl/Tree")
+title_label = NodePath("MControl/TitleLabel")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="MControl" type="Control" parent="." unique_id=1358174854]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MControl" unique_id=1487392906]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="Tree" type="Tree" parent="MControl" unique_id=1315801460]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.11400001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 21.8
+offset_right = -4.0
+offset_bottom = -21.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8wd7w")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8wd7w")
+theme_override_styles/hovered = SubResource("StyleBoxEmpty_ashif")
+theme_override_styles/hovered_dimmed = SubResource("StyleBoxEmpty_t083e")
+theme_override_styles/hovered_selected = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/selected = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/cursor = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/button_hover = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/button_pressed = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/custom_button = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/custom_button_hover = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/custom_button_pressed = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/title_button_normal = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/title_button_pressed = SubResource("StyleBoxEmpty_sqbes")
+theme_override_styles/title_button_hover = SubResource("StyleBoxEmpty_sqbes")
+columns = 2
+
+[node name="TitleLabel" type="Label" parent="MControl" unique_id=1128119816]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.115
+offset_left = 23.0
+offset_top = 20.0
+offset_right = -368.0
+offset_bottom = 14.5
+text = "Tags for { song name }"
+label_settings = ExtResource("2_ashif")
+vertical_alignment = 1

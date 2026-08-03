@@ -12,3 +12,6 @@ var artist_repository: ArtistRepository
 var album_repository: AlbumRepository
 
 var vlc_player: VlcPlayer
+
+# Extra Services
+var subsonic_service: SubsonicService

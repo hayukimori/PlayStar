@@ -14,6 +14,7 @@
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_h7vyd"]
 [ext_resource type="Texture2D" uid="uid://dva25s2e07te5" path="res://assets/icons/iconoir/copy.svg" id="4_8pyuf"]
 [ext_resource type="Script" uid="uid://cevpo3ffhioh1" path="res://Scripts/Database/LibraryScanner.cs" id="4_hgk7f"]
+[ext_resource type="Script" uid="uid://co25nwokeho00" path="res://Scripts/NetworkAPI/SubsonicService.cs" id="4_uqqrf"]
 [ext_resource type="Texture2D" uid="uid://c0h3epcai6yfm" path="res://assets/icons/iconoir/skip-prev-solid.svg" id="5_h06au"]
 [ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
 [ext_resource type="Texture2D" uid="uid://wqrcye6li3b7" path="res://assets/icons/iconoir/play-solid.svg" id="6_ufdaw"]
@@ -63,10 +64,12 @@
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
 [ext_resource type="Texture2D" uid="uid://c48f7s6hitbjy" path="res://assets/icons/iconoir/clock-rotate-right.svg" id="51_nki3b"]
 [ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="52_26u71"]
+[ext_resource type="Script" uid="uid://bll45p5sc0xlu" path="res://Scripts/UI/Components/VolumeHSlider.gd" id="54_klxr2"]
 [ext_resource type="PackedScene" uid="uid://b8o4tvpdsg7c" path="res://Window/AboutWindow.tscn" id="57_hfbbq"]
 [ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
+[ext_resource type="PackedScene" uid="uid://dd7c6jys7sbu" path="res://Window/TagWindow.tscn" id="66_wqotl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -75,7 +78,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfbbq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4205"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -90,7 +93,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqotl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_133mb"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -106,7 +109,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqqrf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ejd4"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -238,6 +241,10 @@ metadata/_custom_type_script = "uid://xc40uqp4ctxi"
 script = ExtResource("1_aqfsf")
 metadata/_custom_type_script = "uid://c180qco3ryvfa"
 
+[node name="SubsonicService" type="Node" parent="AudioServer" unique_id=1614151930]
+script = ExtResource("4_uqqrf")
+metadata/_custom_type_script = "uid://co25nwokeho00"
+
 [node name="Database" type="Node" parent="." unique_id=1297595759]
 
 [node name="DatabaseManager" type="Node" parent="Database" unique_id=1732441216]
@@ -294,13 +301,14 @@ lyrics_panel = NodePath("../SongInfoControl/AlbumArtControl/LyricsPanel")
 lrc_service = NodePath("../LrcLibService")
 lrc_btn = NodePath("../SongInfoControl/AlbumArtControl/TopButtonsControl/LyricsButton")
 
-[node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "ui_manager")]
+[node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "subsonic_service", "ui_manager")]
 script = ExtResource("2_7sujj")
 player = NodePath("../AudioServer/VlcPlayer")
 db = NodePath("../Database/DatabaseManager")
 indexer = NodePath("../Database/MetadataIndexer")
 scanner = NodePath("../Database/LibraryScanner")
 mpris_service = NodePath("../AudioServer/MprisService")
+subsonic_service = NodePath("../AudioServer/SubsonicService")
 ui_manager = NodePath("../UIManager")
 
 [node name="SongHistoryManager" type="Node" parent="MainController" unique_id=266926844]
@@ -357,7 +365,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hfbbq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_u4205")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -405,7 +413,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wqotl")
+theme_override_styles/panel = SubResource("StyleBoxFlat_133mb")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -425,7 +433,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_uqqrf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ejd4")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -964,6 +972,7 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_h06au")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_klxr2")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_3o2oe")
 value = 1.0
+script = ExtResource("54_klxr2")
 
 [node name="VolumeIconTR" type="TextureRect" parent="LeftMenuControl/MenuPanel/VolumeHSlider" unique_id=1703219681]
 layout_mode = 1
@@ -1030,6 +1039,8 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 [node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
 
 [node name="HistoryWindow" parent="WindowManager" unique_id=61250628 instance=ExtResource("60_5ablo")]
+
+[node name="TagWindow" parent="WindowManager" unique_id=641077770 instance=ExtResource("66_wqotl")]
 
 [node name="PopMsgControl" type="Control" parent="." unique_id=850224413 node_paths=PackedStringArray("notifications_vbox")]
 layout_mode = 1

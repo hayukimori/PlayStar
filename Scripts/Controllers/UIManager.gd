@@ -193,15 +193,53 @@ func _on_search_scroll_changed(_value):
 #endregion
 
 #region Playing Now
+var _art_generation := 0
 func set_playing_now(song: SongModel) -> void:
 	if title_label: title_label.text = song.Title
 	if artist_label: artist_label.text = song.Artist
 	if album_label: album_label.text = song.Album
 
-	var texture = VlcPlayer.GetTextureFrom(song.FilePath)
-	art_trr.texture = texture if texture else default_album_art
+	_art_generation += 1
+	var generation := _art_generation
+
+	# Local
+	var texture: Texture2D = VlcPlayer.GetTextureFrom(song.FilePath)
+
+	if texture:
+		print("Adding local texture")
+		art_trr.texture = texture
+	elif song.ArtPath != "":
+		print("Adding texture from song.ArtPath")
+		art_trr.texture = default_album_art
+		_fetch_art_async(song.ArtPath, generation)
+	else:
+		print("Using default texture")
+		art_trr.texture = default_album_art
 
 	set_sifo(song, texture)
+
+func _fetch_art_async(url: String, generation: int) -> void:
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	http.request_completed.connect(
+		func(result, code, _headers, body):
+			http.queue_free()
+			if generation != _art_generation:
+				print("Differente generation")
+				return
+			if result != HTTPRequest.RESULT_SUCCESS or code != 200:
+				print("Couldn't download art")
+				return
+
+			var img := Image.new()
+			if img.load_jpg_from_buffer(body) == OK:
+				art_trr.texture = ImageTexture.create_from_image(img)
+			else:
+				print("Invalid image.")
+	)
+
+	http.request(url)
 
 #endregion
 

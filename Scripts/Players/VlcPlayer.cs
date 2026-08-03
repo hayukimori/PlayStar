@@ -66,24 +66,33 @@ public partial class VlcPlayer : AudioPlayer
     #endregion
 
     #region Media Control
-    public override async void Load(string path)
+    public override async void Load(string target)
     {
-        if (!System.IO.File.Exists(path))
+#pragma warning disable IDE0018
+
+        Uri uriResult;
+        bool result = Uri.TryCreate(target, UriKind.Absolute, out uriResult)
+            && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+        if (!result)
         {
-            GD.PrintErr($"File not found error: {path}");
-            return;
+            if (!System.IO.File.Exists(target))
+            {
+                GD.PrintErr($"[VlcPlayer] File not found error: {target}");
+                return;
+            }
         }
 
         if (_mediaPlayer == null)
         {
-            GD.PushError("Vlc not initialized. Call 'Initialize()' first");
+            GD.PrintErr($"[VlcPlayer] Vlc not initialized. Call 'Initialize()' first");
             return;
         }
 
         Stop();
 
         _currentMedia?.Dispose();
-        _currentMedia = MediaBackend.Instance.CreateMedia(path);
+        _currentMedia = MediaBackend.Instance.CreateMedia(target);
         _mediaPlayer.Media = _currentMedia;
     }
 
@@ -99,7 +108,7 @@ public partial class VlcPlayer : AudioPlayer
     {
         if (_mediaPlayer?.Media == null)
         {
-            GD.PrintErr("No loaded media");
+            GD.PrintErr("[VlcPlayer] No loaded media");
             return;
         }
         _mediaPlayer.Play();
@@ -127,7 +136,6 @@ public partial class VlcPlayer : AudioPlayer
     // Volume Control
     public override void SetVolumeFromFloat(float value)
     {
-        GD.Print("Setting volume to: ", value);
         _mediaPlayer.Volume = (int)value;
     }
 

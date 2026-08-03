@@ -12,6 +12,7 @@ signal update_current_metadata(data: SongModel)
 @export var indexer: MetadataIndexer
 @export var scanner: LibraryScanner
 @export var mpris_service: MprisService
+@export var subsonic_service: SubsonicService
 
 @export_group("UI")
 @export var ui_manager: UIManager
@@ -40,6 +41,8 @@ var random_index: int = -1
 
 var last_pos := 0.0
 
+var subsonic_enabled: bool = false
+
 #region Ready
 func _ready() -> void:
 	if !player or !db or !indexer:
@@ -64,6 +67,7 @@ func _ready() -> void:
 	NodeKeeper.artist_repository = artist_repo
 	NodeKeeper.album_repository = album_repo
 	NodeKeeper.vlc_player = player
+	NodeKeeper.subsonic_service = subsonic_service
 
 	player.connect("MusicStarted", _on_music_started)
 	player.connect("MusicEnded", _on_music_ended)
@@ -107,7 +111,7 @@ func _ready() -> void:
 	update_by_defaults()
 
 	await get_tree().process_frame
-	check_and_load()
+	await check_and_load()
 
 	if ui_manager:
 		ui_manager.set_search_bar_queue(current_play_queue)
@@ -181,13 +185,31 @@ func load_songs(from_playlist: String = "") -> void:
 	if from_playlist: print("'from_playlist' not implemented yet.")
 	all_songs = songs.duplicate()
 
-## Checks for user commands and loads requested songs
+
+## Checks for user commands and loads requested songs [br]
+## This function is async.[br]
+## Usage:
+## [codeblock]
+## await check_and_load()
+## [/codeblock]
 func check_and_load() -> void:
 	# If no commands pending, then load all songs by default
+
 	if CommandQueueManager.get_pending_command_count() == 0:
 		load_songs()
-		var song_count: int = len(all_songs)
-		set_queue(all_songs.duplicate(), "All songs (%s)" % [str(song_count)])
+		var n_queue = all_songs.duplicate()
+
+		# Includes subsonic api if AutoInclude is enabled
+		if check_set_subsonic():
+			var additional: Array[SongModel] = await get_from_subsonic()
+			n_queue.append_array(additional)
+
+
+		n_queue.sort_custom(func(a: SongModel, b:SongModel): return a.Title.to_lower() < b.Title.to_lower())
+
+		set_queue(n_queue, "All songs (%s)" % [str(len(n_queue))])
+
+		await get_tree().process_frame
 		return
 
 
@@ -199,10 +221,34 @@ func check_and_load() -> void:
 		var command = CommandQueueManager.try_dequeue_command()
 		_process_command(command, queue)
 
-	#SignalBus.emit_request_playlist(tmp_playlist, 0)
 	set_queue(queue, queue_name)
 
+## TODO: Move this function to DevTools.gd
+## Checks if Subsonic service is connected and returns a boolean
+func check_set_subsonic() -> bool:
+	var svc = NodeKeeper.subsonic_service
+	return svc.IsConnected()
 
+
+## Gets songs from subsonic as an Array of [class SongModel] [br]
+## EXPERIMENTAL function, may not work as intended. [br]
+func get_from_subsonic() -> Array[SongModel]:
+	var service = NodeKeeper.subsonic_service
+	var connected = await DevTools.race_signals(service.PingSucceeded, service.PingFailed, service.Ping)
+
+	if !connected["winner"] == "a": return []
+
+	var command_rest = await DevTools.race_signals(service.AllSongsFetched, service.Error, service.GetSongs)
+	var songs: Array[SongModel] = []
+
+	for song in command_rest["results"][0][0]:
+		songs.append(song as SongModel)
+
+	await get_tree().process_frame
+	return songs
+
+
+## Processes commands from the queue and adds songs to the destination array
 func _process_command(command: Dictionary, add_to: Array[SongModel]) -> void:
 	match command.get("type"):
 		"add_path":
@@ -210,17 +256,22 @@ func _process_command(command: Dictionary, add_to: Array[SongModel]) -> void:
 		"add_folder":
 			_add_folder_to_queue(command.get("payload"), add_to)
 
+
+## Adds a single song to the destination array from a path
 func _add_path_to_queue(path: String, dst: Array[SongModel]) -> void:
 	var song = song_repo.SongModelFromPath(path, true)
 	if song: dst.append(song)
 
 
+## Adds all songs from a folder to the destination array
 func _add_folder_to_queue(path: String, dst: Array[SongModel]) -> void:
 	var songs = song_repo.SongModelArrayFromDirectory(path)
 	for song in songs:
 		dst.append(song)
 
 
+# TODO: Move this function to signals region
+## Processes a path request from the SingleInstanceManager and adds songs to the current play queue
 func _on_path_request(payloads: Array[Dictionary]) -> void:
 	if !payloads: return
 
@@ -241,12 +292,24 @@ func _on_path_request(payloads: Array[Dictionary]) -> void:
 	play_song(first_song)
 
 
+## Sets the current play queue to a new array of songs and updates the UI label [br]
+## requires [param queue] as an Array of [class SongModel] and an optional [param queue_name] as a String [br]
+## Usage:
+## [codeblock]
+## set_queue(queue, "My Queue")
+## [/codeblock]
 func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") -> void:
 	current_play_queue = queue
 	_rebuild_random_order()
 
 	if ui_manager:
 		ui_manager.set_queue_label(queue_name)
+
+## Refreshes the UI with the current play queue [br]
+func _refresh_ui() -> void:
+	if ui_manager:
+		ui_manager.set_search_bar_queue(current_play_queue)
+		ui_manager.render_song_btns_from_list(current_play_queue)
 
 #endregion
 
@@ -521,8 +584,10 @@ func _on_reload_requested() -> void:
 
 	await get_tree().process_frame
 
-	load_songs()
-	_on_load_all_songs_request()
+	#load_songs()
+	#_on_load_all_songs_request()
+
+	await check_and_load()
 
 
 func _on_req_load_song_from_queue(song: SongModel) -> void:
@@ -541,9 +606,8 @@ func _on_playlist_request(playlist: PlaylistModel, index: int) -> void:
 
 
 func _on_load_all_songs_request() -> void:
-	var queue = all_songs.duplicate()
-	set_queue(queue, "All Songs")
-	if ui_manager: ui_manager.render_song_btns_from_list(current_play_queue)
+	await check_and_load()
+	_refresh_ui()
 
 
 func _on_search_results_requested(results: Array) -> void:

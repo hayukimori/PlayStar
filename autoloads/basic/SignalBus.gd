@@ -43,6 +43,7 @@ signal show_artist_window(artist: ArtistModel, texture)
 signal show_album_window(album: AlbumModel, texture)
 signal show_history_window
 signal request_rename_window(playlist: PlaylistModel)
+signal show_tags_window(song: SongModel)
 
 # ------------- MISC --------------------
 signal reload_request
@@ -85,6 +86,8 @@ signal toggle_repeat_to_state(state: Definitions.RepeatMode)
 
 signal volume_changed_externally(value: int)
 signal volume_changed(value: int)
+signal volume_up_request()
+signal volume_down_request()
 signal player_pos_change(value: float) # 0.0 - 1.0
 
 signal copy_song
@@ -135,6 +138,7 @@ func emit_show_artist_window(artist: ArtistModel, texture) -> void: show_artist_
 func emit_show_album_window(album: AlbumModel, texture) -> void: show_album_window.emit(album, texture)
 func emit_show_history_window() -> void: show_history_window.emit()
 func emit_request_rename_window(playlist: PlaylistModel) -> void: request_rename_window.emit(playlist)
+func emit_show_tags_window(song: SongModel) -> void: show_tags_window.emit(song)
 
 func emit_reload_request() -> void: reload_request.emit()
 func emit_reload_playlists() -> void: reload_playlists.emit()
@@ -173,6 +177,8 @@ func emit_update_queue_window(songs: Array[SongModel]) -> void: update_queue_win
 
 func emit_volume_changed(value: float) -> void: volume_changed.emit(value)
 func emit_volume_changed_externally(value: int) -> void: volume_changed_externally.emit(value)
+func emit_volume_up_request() -> void: volume_up_request.emit()
+func emit_volume_down_request() -> void: volume_down_request.emit()
 func emit_search_results_requested(results: Array) -> void: search_results_requested.emit(results)
 func emit_toggle_shuffle_to_state(state: bool) -> void: toggle_shuffle_to_state.emit(state)
 func emit_toggle_repeat_to_state(state: Definitions.RepeatMode) -> void: toggle_repeat_to_state.emit(state)
