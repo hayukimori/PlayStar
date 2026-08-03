@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using PlayStar.Scripts.AlbumArt;
 
 namespace PlayStar.autoloads.ArtAutoloads;
+
 public partial class ArtBridge : Node
 {
     private static readonly AlbumArtWorker _worker = new();
     private static readonly HashSet<string> _inFlight = [];
     private static readonly object _lock = new();
 
-    public static void Request(string key, string songPath)
+    public static void Request(string key, string songPath, string artUrl = null)
     {
         if (AlbumArtCache.TryGet(key, out _)) return;
 
@@ -30,7 +31,8 @@ public partial class ArtBridge : Node
 
                 lock (_lock)
                     _inFlight.Remove(result.Key);
-            }
+            },
+            artUrl
         ));
     }
 }

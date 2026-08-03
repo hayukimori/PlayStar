@@ -23,7 +23,7 @@ var loaded_albums_buttons: Array[Button]
 var loaded_song_buttons: Array[Button]
 
 var songs_cache: Array[SongModel]
-var albuns_cache: Array[AlbumModel]
+var albums_cache: Array[AlbumModel]
 
 var _current_generation := 0
 var _current_generation_b := 0
@@ -65,38 +65,80 @@ func load_artist(artist: ArtistModel, texture) -> void:
 			art_trr.texture = default_album_art
 
 		add_to_playlist.content = current_artist
-		setup_albums()
-		setup_songs()
+		await setup_albums()
+		await setup_songs()
 
 		open()
 
 
 func setup_songs() -> void:
-		var song_repo: SongRepository = NodeKeeper.song_repository
+	var song_repo: SongRepository = NodeKeeper.song_repository
 
-		if !database: return
-		if !song_repo: return
-		var artist_songs: Array[SongModel] = song_repo.GetSongsFromArtist(current_artist, 10000)
+	if !database: return
+	if !song_repo: return
 
-		if !artist_songs: return
-		songs_cache = artist_songs.duplicate()
-		render_song_btns_from_list(artist_songs)
+	var songs: Array[SongModel] = []
+
+	if current_artist.ArtistIdSn:
+		var svc = NodeKeeper.subsonic_service
+		var rest = await DevTools.race_signals(svc.ArtistSongsFetched, svc.ArtistSongsFetchError, svc.GetSongsByArtist.bind(current_artist.ArtistIdSn))
+		if rest.get("winner") != "a":
+			push_error("Error getting artist songs")
+			return
+		else:
+			var restb = rest.get("results")[0]
+			if len(restb) > 0:
+				var tmp_songs = restb[0] as Array[SongModel]
+				songs.append_array(tmp_songs)
+
+
+	else:
+		songs = song_repo.GetSongsFromArtist(current_artist, 10000)
+
+	if !songs: return
+	songs_cache = songs.duplicate()
+	render_song_btns_from_list(songs)
 
 
 func setup_albums() -> void:
-		var album_repo: AlbumRepository = NodeKeeper.album_repository
-		if !database: return
-		if !album_repo: return
+	var album_repo: AlbumRepository = NodeKeeper.album_repository
+	if !database: return
+	if !album_repo: return
 
-		var artist_albums: Array[AlbumModel] = album_repo.GetAlbumsFromArtist(current_artist, 10000)
+	var artist_albums: Array[AlbumModel]
 
-		if !artist_albums: return
-		albuns_cache = artist_albums.duplicate()
-		render_album_btns_from_list(artist_albums)
+	if current_artist.ArtistIdSn:
+		var svc = NodeKeeper.subsonic_service
+		var rest = await DevTools.race_signals(
+			svc.AlbumsFetched,
+			svc.Error,
+			svc.GetAlbumsByArtist.bind(
+				current_artist.ArtistIdSn,
+				true
+			)
+		)
+
+		if rest.get("winner") != "a":
+			push_error("Error getting artist albums")
+			return
+		else:
+			var restb = rest.get("results")[0]
+			if len(restb) > 0:
+				var tmp_albums = restb[0] as Array[AlbumModel]
+				artist_albums.append_array(tmp_albums)
+	else:
+		artist_albums = album_repo.GetAlbumsFromArtist(current_artist, 10000)
+
+	if !artist_albums: return
+	albums_cache = artist_albums.duplicate()
+
+	for album in albums_cache:
+		print("Name: %s - Songs: %d" % [album.AlbumName, len(album.Songs)])
+	render_album_btns_from_list(albums_cache)
 
 
 func wipe_all() -> void:
-		albuns_cache.clear()
+		albums_cache.clear()
 		songs_cache.clear()
 
 		DevTools.wipe_btns(loaded_albums_buttons)

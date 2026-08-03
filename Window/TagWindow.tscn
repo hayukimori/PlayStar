@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dd7c6jys7sbu"]
 
-[ext_resource type="Script" uid="uid://b8q6yp8c0iuif" path="res://Window/TagWindow.gd" id="1_8wd7w"]
+[ext_resource type="Script" uid="uid://b8q6yp8c0iuif" path="res://Scripts/Window/TagWindow.gd" id="1_8wd7w"]
 [ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="2_ashif"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8wd7w"]

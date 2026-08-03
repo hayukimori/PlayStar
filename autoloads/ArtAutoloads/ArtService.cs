@@ -38,8 +38,8 @@ public partial class ArtService : Node
         return AlbumArtCache.TryGet(key, out var tex) ? tex : null;
     }
 
-    public static void Request(string key, string path)
+    public static void Request(string key, string path, string artUrl = null)
     {
-        ArtBridge.Request(key, path);
+        ArtBridge.Request(key, path, artUrl);
     }
 }

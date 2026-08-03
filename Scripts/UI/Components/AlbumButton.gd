@@ -5,19 +5,23 @@ class_name AlbumButton
 @export var name_label: Label
 @export var art: TextureRectRounded
 @export var default_album_art: Texture2D
+@export var subsonic_indicator: TextureRect
 
 @export var album: AlbumModel
 
-var file_path: String
+var key: String
 var image_processed: bool = false
 var current_image: Texture2D
 
 var is_currently_visible: bool = false
+var is_subsonic: bool = false
 
 func _ready() -> void:
 	if !album: queue_free()
+	subsonic_indicator.hide()
 
-	var song: SongModel = album.Songs[0]
+	if album.IdSn.strip_edges() != "":
+		is_subsonic = true
 
 	set_process(false)
 	set_physics_process(false)
@@ -25,11 +29,17 @@ func _ready() -> void:
 
 	set_ui()
 
-	self.pressed.connect(_on_clicked)
+	if !is_subsonic:
+		var song: SongModel = album.Songs[0]
+		key = song.FilePath
 
-	if song:
-		file_path = song.FilePath
-		ArtService.ArtReady.connect(_on_art_ready)
+	else:
+		key = album.IdSn
+		subsonic_indicator.show()
+
+
+	ArtService.ArtReady.connect(_on_art_ready)
+	self.pressed.connect(_on_clicked)
 
 
 
@@ -47,19 +57,20 @@ func set_art_visibility(b_visible: bool):
 
 
 func request_art():
-	var key = file_path
-	var cached = ArtService.GetIfCached(key)
+	var art_key = key
+	var cached = ArtService.GetIfCached(art_key)
 
 	if cached:
 		art.texture = cached
 		current_image = cached
 		image_processed = true
 	else:
-		ArtService.Request(key, file_path)
+		var path = art_key if !album.IdSn else ""
+		ArtService.Request(key, path, album.ArtPath)
 
 
-func _on_art_ready(key, texture) -> void:
-	if key == file_path:
+func _on_art_ready(art_key, texture) -> void:
+	if art_key == key:
 		art.texture = texture
 		current_image = texture
 		image_processed = true

@@ -35,8 +35,37 @@ func set_tree(data: Dictionary) -> void:
 
 
 func get_full_metadata(song: SongModel) -> Dictionary:
+	# HTTP SONG
+	if song.FilePath.begins_with("http"):
+		var raw := {
+			"AlbumId": song.AlbumId,
+			"Title": song.Title,
+			"Artist": song.Artist,
+			"Album": song.Album,
+			"Genre": song.Genre,
+			"Bpm": song.Bpm,
+			"Length": song.Length,
+			"Year": song.Year,
+			"FilePath": song.FilePath,
+			"FileName": song.FileName,
+			"ArtPath": song.ArtPath,
+			"Lyrics": song.Lyrics,
+			"SongId": song.SongId,
+			"AlbumArtTexture": song.AlbumArtTexture
+		}
+		var result: Dictionary = {}
+		for key in raw:
+			var value = raw[key]
+			match typeof(value):
+				TYPE_STRING: if not str(value).is_empty(): result[key] = value
+				TYPE_INT, TYPE_FLOAT: if value != 0: result[key] = value
+		return result
+
+
+
 	var metadata: AudioMetadataResource
 	metadata = TagManager.ExtractFullMetadata(song.FilePath)
+
 
 	var _FilePath: String = metadata.FilePath
 	var _MimeType: String = metadata.MimeType
