@@ -18,6 +18,9 @@ func setup_user_custom() -> void:
 		"seek_left": SignalBus.emit_seek_offset_request.bind(-10000), #10s
 		"seek_right": SignalBus.emit_seek_offset_request.bind(10000), #-10s
 
+		"vol_up": SignalBus.emit_volume_up_request,
+		"vol_down": SignalBus.emit_volume_down_request,
+
 		"scroll_to_current": SignalBus.emit_scroll_to_current,
 		"settings_shortcut": SignalBus.emit_invoke_settings_menu,
 

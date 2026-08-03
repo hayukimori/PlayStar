@@ -64,6 +64,7 @@
 [ext_resource type="PackedScene" uid="uid://l6i3ut4xh7dw" path="res://Window/SingleAlbumWindow.tscn" id="50_rtief"]
 [ext_resource type="Texture2D" uid="uid://c48f7s6hitbjy" path="res://assets/icons/iconoir/clock-rotate-right.svg" id="51_nki3b"]
 [ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="52_26u71"]
+[ext_resource type="Script" uid="uid://bll45p5sc0xlu" path="res://Scripts/UI/Components/VolumeHSlider.gd" id="54_klxr2"]
 [ext_resource type="PackedScene" uid="uid://b8o4tvpdsg7c" path="res://Window/AboutWindow.tscn" id="57_hfbbq"]
 [ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
@@ -971,6 +972,7 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_h06au")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_klxr2")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_3o2oe")
 value = 1.0
+script = ExtResource("54_klxr2")
 
 [node name="VolumeIconTR" type="TextureRect" parent="LeftMenuControl/MenuPanel/VolumeHSlider" unique_id=1703219681]
 layout_mode = 1
