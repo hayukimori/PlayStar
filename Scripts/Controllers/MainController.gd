@@ -185,7 +185,13 @@ func load_songs(from_playlist: String = "") -> void:
 	if from_playlist: print("'from_playlist' not implemented yet.")
 	all_songs = songs.duplicate()
 
-## Checks for user commands and loads requested songs
+
+## Checks for user commands and loads requested songs [br]
+## This function is async.[br]
+## Usage:
+## [codeblock]
+## await check_and_load()
+## [/codeblock]
 func check_and_load() -> void:
 	# If no commands pending, then load all songs by default
 
@@ -217,14 +223,15 @@ func check_and_load() -> void:
 
 	set_queue(queue, queue_name)
 
-
+## TODO: Move this function to DevTools.gd
+## Checks if Subsonic service is connected and returns a boolean
 func check_set_subsonic() -> bool:
 	var svc = NodeKeeper.subsonic_service
 	return svc.IsConnected()
 
 
-## Gets songs from subsonic as an Array[SongModel] [br]
-## EXPERIMENTAL
+## Gets songs from subsonic as an Array of [class SongModel] [br]
+## EXPERIMENTAL function, may not work as intended. [br]
 func get_from_subsonic() -> Array[SongModel]:
 	var service = NodeKeeper.subsonic_service
 	var connected = await DevTools.race_signals(service.PingSucceeded, service.PingFailed, service.Ping)
@@ -241,7 +248,7 @@ func get_from_subsonic() -> Array[SongModel]:
 	return songs
 
 
-
+## Processes commands from the queue and adds songs to the destination array
 func _process_command(command: Dictionary, add_to: Array[SongModel]) -> void:
 	match command.get("type"):
 		"add_path":
@@ -249,17 +256,22 @@ func _process_command(command: Dictionary, add_to: Array[SongModel]) -> void:
 		"add_folder":
 			_add_folder_to_queue(command.get("payload"), add_to)
 
+
+## Adds a single song to the destination array from a path
 func _add_path_to_queue(path: String, dst: Array[SongModel]) -> void:
 	var song = song_repo.SongModelFromPath(path, true)
 	if song: dst.append(song)
 
 
+## Adds all songs from a folder to the destination array
 func _add_folder_to_queue(path: String, dst: Array[SongModel]) -> void:
 	var songs = song_repo.SongModelArrayFromDirectory(path)
 	for song in songs:
 		dst.append(song)
 
 
+# TODO: Move this function to signals region
+## Processes a path request from the SingleInstanceManager and adds songs to the current play queue
 func _on_path_request(payloads: Array[Dictionary]) -> void:
 	if !payloads: return
 
@@ -280,6 +292,12 @@ func _on_path_request(payloads: Array[Dictionary]) -> void:
 	play_song(first_song)
 
 
+## Sets the current play queue to a new array of songs and updates the UI label [br]
+## requires [param queue] as an Array of [class SongModel] and an optional [param queue_name] as a String [br]
+## Usage:
+## [codeblock]
+## set_queue(queue, "My Queue")
+## [/codeblock]
 func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") -> void:
 	current_play_queue = queue
 	_rebuild_random_order()
@@ -287,7 +305,7 @@ func set_queue(queue: Array[SongModel], queue_name: String = "Undefined queue") 
 	if ui_manager:
 		ui_manager.set_queue_label(queue_name)
 
-
+## Refreshes the UI with the current play queue [br]
 func _refresh_ui() -> void:
 	if ui_manager:
 		ui_manager.set_search_bar_queue(current_play_queue)

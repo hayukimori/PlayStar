@@ -192,37 +192,45 @@ public sealed class SubsonicClient : IDisposable
         return songs;
     }
 
-    // <summary> Returns all songs using search3 </summary>
+    // <summary>Returns a list of all songs in the server</summary>
     public async Task<List<SongModel>> GetAllSongs(CancellationToken ct = default)
     {
-        var node = await GetAsync(
-            "search3",
-            [
-                ("query", ""),
-                ("songCount", "500"),
-                ("songOffset", "0"),
-                ("artistCount", "0"),
-                ("albumCount", "0"),
-            ],
-            ct
-        );
+        var pageSize = 500;
+        var currentOffset = 0;
+        var total = 0;
 
+        List<SongModel> allSongs = [];
 
-        var entry = node["searchResult3"]["song"];
-        if (entry == null) return null;
-
-        List<SongModel> restSongs = [];
-
-        if (entry is JsonArray jsonArray)
+        while (true)
         {
-            foreach (JsonNode? item in jsonArray)
+            var node = await GetAsync(
+                "search3",
+                [
+                    ("query", ""),
+                    ("songCount", pageSize.ToString()),
+                    ("songOffset", currentOffset.ToString()),
+                    ("artistCount", "0"),
+                    ("albumCount", "0"),
+                ],
+                ct
+            );
+
+            var entries = node?["searchResult3"]?["song"]?.AsArray();
+            if (entries == null) break;
+
+            total += entries.Count;
+
+            foreach (var entry in entries)
             {
-                SongModel song = MapSong(item);
-                restSongs.Add(song);
+                SongModel song = MapSong(entry);
+                allSongs.Add(song);
             }
+
+            if (entries.Count < pageSize) break;
+            currentOffset += pageSize;
         }
 
-        return restSongs;
+        return allSongs;
     }
 
     /// <summary>
