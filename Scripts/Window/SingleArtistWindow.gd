@@ -9,7 +9,7 @@ class_name SingleArtistWindow
 @export var albums_scroll_container: ScrollContainer
 @export var songs_scroll_container: ScrollContainer
 @export var albums_hbox: FreezableBoxContainer
-@export var songs_vbox: FreezableBoxContainer
+@export var songs_vbox: VirtualizedVBoxList
 
 @export var song_button_cover_scene: PackedScene
 @export var album_button_cover_scene: PackedScene
@@ -20,16 +20,14 @@ var current_artist: ArtistModel
 var database: DatabaseManager
 
 var loaded_albums_buttons: Array[Button]
-var loaded_song_buttons: Array[Button]
 
 var songs_cache: Array[SongModel]
 var albums_cache: Array[AlbumModel]
 
-var _current_generation := 0
+var playlist_manager: PlaylistManager
+
 var _current_generation_b := 0
 const BUILD_BUDGET_USEC := 1000
-
-var playlist_manager: PlaylistManager
 
 var _visibility_check_pending := false
 
@@ -40,8 +38,7 @@ func _ready() -> void:
 	SignalBus.show_artist_window.connect(load_artist)
 	close_requested.connect(close)
 
-	if songs_scroll_container:
-		songs_scroll_container.get_v_scroll_bar().value_changed.connect(_on_songs_scroll_changed)
+	songs_vbox.setup(songs_scroll_container, _spawn_song_button)
 
 	if albums_scroll_container:
 		albums_scroll_container.get_h_scroll_bar().value_changed.connect(_on_album_scroll_changed)
@@ -51,7 +48,7 @@ func _ready() -> void:
 func load_artist(artist: ArtistModel, texture) -> void:
 		# Wipe previous info
 		DevTools.wipe_btns(loaded_albums_buttons)
-		DevTools.wipe_btns(loaded_song_buttons)
+		songs_vbox.clear()
 
 		current_artist = artist
 		if !current_artist: return
@@ -138,28 +135,20 @@ func setup_albums() -> void:
 
 
 func wipe_all() -> void:
-		albums_cache.clear()
-		songs_cache.clear()
+	albums_cache.clear()
+	songs_cache.clear()
 
-		DevTools.wipe_btns(loaded_albums_buttons)
-		DevTools.wipe_btns(loaded_song_buttons)
+	DevTools.wipe_btns(loaded_albums_buttons)
+	songs_vbox.clear()
 
 
 ## Creates a new button (requires SongModel)
-func new_song_btn(song: SongModel, append_to: Array[Button], parent_node: Node) -> Button:
-		var song_button = null
-
-		song_button = song_button_cover_scene.instantiate() as SongButtonCovered
-
-		song_button.song_content = song
-		song_button.song_selected.connect(play_song)
-
-		append_to.append(song_button)
-		song_button.index = append_to.find(song_button)
-		song_button.show()
-		parent_node.add_child(song_button)
-
-		return song_button
+func _spawn_song_button(song: SongModel, index: int) -> Node:
+	var song_button = song_button_cover_scene.instantiate() as SongButtonCovered
+	song_button.song_content = song
+	song_button.index = index
+	song_button.song_selected.connect(play_song)
+	return song_button
 
 
 ## Creates a new button (requires Album)
@@ -181,67 +170,28 @@ func new_album_btn(album: AlbumModel, append_to: Array[Button], parent_node: Nod
 
 ## Renders buttons from list (argument)
 func render_song_btns_from_list(songs: Array) -> void:
-		_current_generation += 1
-		var generation := _current_generation
-
 		if songs.is_empty():
-			DevTools.wipe_btns(loaded_song_buttons)
+			songs_vbox.clear()
 			return
-
-		songs_vbox.freeze_layout()
-
-		DevTools.wipe_btns(loaded_song_buttons)
-		await _build_buttons_timesliced(songs, generation)
-
-		if generation == _current_generation:
-			songs_vbox.thaw_layout()
+		songs_vbox.set_items(songs)
 
 
-## Renders buttons from list (argument)
+## Renders albums buttons from list (argument)
 func render_album_btns_from_list(albums: Array) -> void:
 		_current_generation_b += 1
 		var generation := _current_generation_b
 
 		if albums.is_empty():
-			DevTools.wipe_btns(loaded_song_buttons)
+			DevTools.wipe_btns(loaded_albums_buttons)
 			return
 
 		albums_hbox.freeze_layout()
 
-		DevTools.wipe_btns(loaded_song_buttons)
+		DevTools.wipe_btns(loaded_albums_buttons)
 		await _build_albums_buttons_timesliced(albums, generation)
 
-		if generation == _current_generation:
+		if generation == _current_generation_b:
 			albums_hbox.thaw_layout()
-
-# SONGS
-func _build_buttons_timesliced(songs: Array, generation: int) -> void:
-	var i := 0
-
-	while i < songs.size():
-		var start := Time.get_ticks_usec()
-
-		while i < songs.size():
-			if generation != _current_generation:
-					return
-			new_song_btn(songs[i], loaded_song_buttons, songs_vbox)
-			_on_node_added_to_list()
-			i += 1
-
-			if Time.get_ticks_usec() - start > BUILD_BUDGET_USEC:
-					await get_tree().process_frame
-					if generation != _current_generation: return
-					break
-
-func _on_songs_scroll_changed(_value):
-	var visible_rect = Rect2(Vector2.ZERO, songs_scroll_container.size)
-	visible_rect.position += Vector2(0, songs_scroll_container.scroll_vertical)
-
-	for button in songs_vbox.get_children():
-		if button is SongButtonCovered:
-			var button_rect = Rect2(button.position, button.size)
-			var b_is_visible = visible_rect.intersects(button_rect)
-			button.set_art_visibility(b_is_visible)
 
 
 # ALBUMS
@@ -289,7 +239,6 @@ func _on_node_added_to_list():
 
 func _run_visibility_check():
 	_visibility_check_pending = false
-	_on_songs_scroll_changed(0)
 	_on_album_scroll_changed(0)
 
 
