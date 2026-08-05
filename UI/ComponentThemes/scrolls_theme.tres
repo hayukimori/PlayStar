@@ -37,9 +37,22 @@ height = 120
 bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2gfax"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(0.2627451, 0.2627451, 0.2627451, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jcvy2"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.58371854, 0.58371854, 0.58371854, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e38iv"]
+content_margin_left = 2.0
+content_margin_top = 4.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
 bg_color = Color(0.26244184, 0.26244184, 0.26244184, 0)
 border_width_left = 1
 border_width_top = 1
@@ -56,5 +69,8 @@ HScrollBar/styles/scroll = SubResource("StyleBoxFlat_bvulw")
 ScrollContainer/constants/scrollbar_v_separation = 4
 ScrollContainer/icons/scroll_hint_horizontal = SubResource("GradientTexture2D_cppnm")
 ScrollContainer/styles/normal = SubResource("StyleBoxFlat_08q23")
+VScrollBar/constants/padding_left = 2
+VScrollBar/constants/padding_right = 2
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_2gfax")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_jcvy2")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_e38iv")
