@@ -1,5 +1,8 @@
 [gd_resource type="SystemFont" format=3 uid="uid://7pnyqoj60olo"]
 
+[ext_resource type="FontFile" uid="uid://b6s7xy8vsgejq" path="res://assets/Fonts/Noto Sans CJK SC/NotoSansSC-VariableFont_wght.ttf" id="1_qt4v1"]
+
 [resource]
-font_names = PackedStringArray("Noto Sans CJK HK", "Noto Sans CJK JP", "Noto Sans CJK KR")
+fallbacks = Array[Font]([ExtResource("1_qt4v1")])
+font_names = PackedStringArray("Noto Sans CJK HK", "Noto Sans CJK JP", "Noto Sans CJK KR", "Noto Serif CJK SC")
 font_weight = 800

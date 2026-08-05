@@ -58,6 +58,7 @@ signal play_from_current(song: SongModel)
 signal request_playlist(playlist: PlaylistModel, index: int)
 signal request_history_update
 signal config_updated
+signal new_version_notify(version: String)
 
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)

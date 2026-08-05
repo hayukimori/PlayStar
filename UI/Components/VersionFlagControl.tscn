@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dmkh7mmd82gaw"]
+
+[ext_resource type="SystemFont" uid="uid://7pnyqoj60olo" path="res://assets/Fonts/SharedTres/baisc_system_font_bold.tres" id="1_ummra"]
+[ext_resource type="Script" uid="uid://b7e6p6sf56vo" path="res://Scripts/UI/Components/VersionFlagControl.gd" id="1_y5d6d"]
+[ext_resource type="Texture2D" uid="uid://bi6auo2hsapye" path="res://assets/icons/iconoir/download.svg" id="2_y5d6d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j4s"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.40784314, 0.5686275, 0.7372549, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 16
+
+[node name="NewVersionFlag" type="Control" unique_id=2097729285]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_y5d6d")
+
+[node name="Button" type="Button" parent="." unique_id=80068893]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/icon_max_width = 24
+theme_override_fonts/font = ExtResource("1_ummra")
+theme_override_styles/normal = SubResource("StyleBoxFlat_q5j4s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q5j4s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q5j4s")
+theme_override_styles/focus = SubResource("StyleBoxFlat_q5j4s")
+text = "New version available: v{x.x.x}"
+icon = ExtResource("2_y5d6d")

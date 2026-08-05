@@ -5,6 +5,7 @@ extends Control
 @export_group("Nodes and PackedScene")
 @export var notifications_vbox: VBoxContainer ##REQURED
 @export var notification_button_scene: PackedScene
+@export var version_flag_scene: PackedScene
 
 @export_group("Notification Config")
 @export var animation_duration: float = 1.0
@@ -23,8 +24,9 @@ func _ready() -> void:
 
 	if has_errors: return
 
-
 	SignalBus.pop_msg_request.connect(new_msg)
+	SignalBus.new_version_notify.connect(new_version_notify)
+
 
 func new_msg(message: String) -> void:
 	var scn: NotificationButton = notification_button_scene.instantiate() as NotificationButton
@@ -33,4 +35,11 @@ func new_msg(message: String) -> void:
 	scn.animation_duration = animation_duration
 	scn.autodel_delay = autodelete_delay
 
+	notifications_vbox.add_child(scn)
+
+
+func new_version_notify(version: String) -> void:
+	var scn: VersionFlagControl = version_flag_scene.instantiate() as VersionFlagControl
+	scn.version = version
+	
 	notifications_vbox.add_child(scn)

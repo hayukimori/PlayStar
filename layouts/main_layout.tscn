@@ -70,6 +70,7 @@
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 [ext_resource type="PackedScene" uid="uid://dd7c6jys7sbu" path="res://Window/TagWindow.tscn" id="66_wqotl"]
+[ext_resource type="PackedScene" uid="uid://dmkh7mmd82gaw" path="res://UI/Components/VersionFlagControl.tscn" id="71_u4205"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -1054,6 +1055,7 @@ mouse_filter = 2
 script = ExtResource("60_byb4x")
 notifications_vbox = NodePath("ScrollContainer/VBoxContainer")
 notification_button_scene = ExtResource("60_r7yy5")
+version_flag_scene = ExtResource("71_u4205")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PopMsgControl" unique_id=504068678]
 layout_mode = 1

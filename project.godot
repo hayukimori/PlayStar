@@ -35,6 +35,7 @@ ArtService="*uid://dews4o601kwaa"
 ArtDispatcher="*uid://bqt0p0g14m76i"
 DiscordRp="*uid://0q8y2848qla1"
 SingleInstanceManager="*uid://btbeaso3yg2jq"
+UpdateVerifier="*uid://ck3wrjc3x0wdd"
 
 [display]
 
