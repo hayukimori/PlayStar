@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c0h3epcai6yfm" path="res://assets/icons/iconoir/skip-prev-solid.svg" id="5_h06au"]
 [ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
 [ext_resource type="Texture2D" uid="uid://wqrcye6li3b7" path="res://assets/icons/iconoir/play-solid.svg" id="6_ufdaw"]
-[ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="7_lo1cj"]
+[ext_resource type="Script" uid="uid://d3xk9p8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="7_lo1cj"]
 [ext_resource type="Texture2D" uid="uid://beje2iub52bgy" path="res://assets/icons/iconoir/skip-next-solid.svg" id="7_p2ped"]
 [ext_resource type="StyleBox" uid="uid://cing8rm8q0pb7" path="res://UI/ComponentThemes/shadow_panel.tres" id="7_thmlj"]
 [ext_resource type="Script" uid="uid://dibik6jm15ai1" path="res://Scripts/Controllers/KeyboardController.gd" id="7_wjxpu"]

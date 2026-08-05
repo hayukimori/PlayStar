@@ -12,14 +12,14 @@ class_name UIManager
 @export var volume_slider: Slider
 @export var progress_slider: HSlider
 @export var search_results_scroll_container: ScrollContainer
-@export var search_results_container: FreezableBoxContainer
+@export var search_results_container: VirtualizedVBoxList
 @export var shuffle_button: ShuffleButton
 @export var repeat_mode_button: RepeatButton
 @export var search_button: Button
 @export var search_control: Control
 @export var search_bar_line_edit: SearchBar
 @export var songs_button_list_scroll_container: ScrollContainer
-@export var songs_button_list: FreezableBoxContainer
+@export var songs_button_list: VirtualizedVBoxList
 @export var current_time_label: Label
 @export var length_count_label: Label
 @export var progress_color_rect: ColorRect
@@ -50,16 +50,6 @@ class_name UIManager
 @export var default_album_art: Texture2D
 #endregion
 
-#region State
-var loaded_buttons: Array[Button] = []
-var loaded_search_buttons: Array[Button] = []
-
-const BUILD_BUDGET_USEC := 4000
-var _current_generation := 0
-var _current_generation_search := 0
-var _visibility_check_pending := false
-#endregion
-
 
 func _ready() -> void:
 	if !shuffle_button: push_warning("Missing component: shuffle_button (toggle)")
@@ -72,10 +62,6 @@ func _ready() -> void:
 	if volume_slider: volume_slider.value_changed.connect(_on_volume_slider_value_changed)
 	if search_button: search_button.pressed.connect(_on_toggle_search)
 	if copy_song_button: copy_song_button.pressed.connect(SignalBus.emit_copy_song)
-	if songs_button_list_scroll_container:
-		songs_button_list_scroll_container.get_v_scroll_bar().value_changed.connect(_on_scroll_changed)
-	if search_results_scroll_container:
-		search_results_scroll_container.get_v_scroll_bar().value_changed.connect(_on_search_scroll_changed)
 
 	if search_bar_line_edit:
 		search_bar_line_edit.render_results.connect(_on_search_bar_render_results)
@@ -87,6 +73,15 @@ func _ready() -> void:
 	SignalBus.toggle_search.connect(_on_toggle_search)
 
 	SignalBus.capture_now.connect(capture_sifo)
+
+	_init_virtual_lists()
+
+
+func _init_virtual_lists() -> void:
+	if songs_button_list and songs_button_list_scroll_container:
+		songs_button_list.setup(songs_button_list_scroll_container, _spawn_main_song_button)
+	if search_results_container and search_results_scroll_container:
+		search_results_container.setup(search_results_scroll_container, _spawn_search_song_button)
 
 
 
@@ -126,12 +121,10 @@ func update_progress(value: float) -> void:
 
 #region Button State (playing now indicator)
 func start_playing_now(song: SongModel) -> void:
-	var btn = get_button_by_song(song)
-	if btn: btn.start_playing_now()
+	if songs_button_list: songs_button_list.set_active(song)
 
-func stop_playing_now(song: SongModel) -> void:
-	var btn = get_button_by_song(song)
-	if btn: btn.stop_playing_now()
+func stop_playing_now(_song: SongModel) -> void:
+	if songs_button_list: songs_button_list.set_active(null)
 #endregion
 
 
@@ -149,16 +142,14 @@ func set_rpt_button(mode: int) -> void:
 #region Scroll
 func scroll_to_song(info: SongModel) -> void:
 	if not songs_button_list_scroll_container: return
+	if not songs_button_list: return
 
 	var scr_c = songs_button_list_scroll_container
-	var btn = get_button_by_song(info)
-	if not btn: return
+	var index = songs_button_list.get_item_index(info)
+	if index == -1: return
 
-	var btn_pos = btn.position.y
-	var btn_height = btn.size.y
 	var scr_height = scr_c.size.y
-
-	var dst = btn_pos - (scr_height / 2.0) + (btn_height / 2.0)
+	var dst = (index * songs_button_list.row_height) - (scr_height / 2.0) + (songs_button_list.row_height / 2.0)
 	var scroll_max = scr_c.get_v_scroll_bar().max_value - scr_height
 	dst = clamp(dst, 0, scroll_max)
 
@@ -166,28 +157,6 @@ func scroll_to_song(info: SongModel) -> void:
 	tween.tween_property(scr_c, "scroll_vertical", dst, 0.5)\
 		.set_trans(Tween.TRANS_QUINT)\
 		.set_ease(Tween.EASE_OUT)
-
-
-
-func _on_scroll_changed(_value):
-	var visible_rect = Rect2(Vector2.ZERO, songs_button_list_scroll_container.size)
-	visible_rect.position += Vector2(0, songs_button_list_scroll_container.scroll_vertical)
-
-	for button in songs_button_list.get_children():
-		if button is SongButtonCovered:
-			var button_rect = Rect2(button.position, button.size)
-			var is_visible = visible_rect.intersects(button_rect)
-			button.set_art_visibility(is_visible)
-
-func _on_search_scroll_changed(_value):
-	var visible_rect = Rect2(Vector2.ZERO, search_results_scroll_container.size)
-	visible_rect.position += Vector2(0, search_results_scroll_container.scroll_vertical)
-
-	for button in search_results_container.get_children():
-		if button is SongButtonCovered:
-			var button_rect = Rect2(button.position, button.size)
-			var is_visible = visible_rect.intersects(button_rect)
-			button.set_art_visibility(is_visible)
 
 
 #endregion
@@ -267,120 +236,55 @@ func set_sifo(song: SongModel, texture) -> void:
 #endregion
 
 #region Button Management
-## Creates new button and adds it to parent_node
-func new_song_btn(song: SongModel, append_to: Array[Button], parent_node: Node) -> Button:
-	var song_button = null
-
-	song_button = song_btn_cvr_scn.instantiate()
-
+func _spawn_main_song_button(song: SongModel, index: int) -> Node:
+	if song_btn_cvr_scn == null: return null
+	var song_button = song_btn_cvr_scn.instantiate() as SongButtonCovered
 	song_button.song_content = song
+	song_button.index = index
 	song_button.connect("song_selected", _on_song_selected)
-
-	append_to.append(song_button)
-	song_button.index = append_to.find(song_button)
-	song_button.visible = true
-	parent_node.add_child(song_button)
-
-	_on_node_added_to_list()
-
 	return song_button
 
 
-## Destroys all buttons from an array
-func wipe_btns(btnlist: Array[Button]) -> void:
-	if len(btnlist) > 0:
-		for btn in btnlist:
-			btn.self_destroy() #NOTE: Button needs to have `self_destroy` function
-		btnlist.clear()
+func _spawn_search_song_button(song: SongModel, index: int) -> Node:
+	if song_btn_cvr_scn == null: return null
+	var song_button = song_btn_cvr_scn.instantiate() as SongButtonCovered
+	song_button.song_content = song
+	song_button.index = index
+	song_button.connect("song_selected", _on_song_selected)
+	return song_button
 
 
-## Clears all buttons from the main list
 func wipe_all() -> void:
-	wipe_btns(loaded_buttons)
-	# INTEGRATION: MainController needs to call stop_process() before wipe_all()
+	if songs_button_list:
+		songs_button_list.clear()
 
 
-## (MAIN LIST) Renders all buttons from an SongModel Array
+## (MAIN LIST) Renders buttons from an SongModel Array
 func render_song_btns_from_list(songs: Array[SongModel]) -> void:
-	_current_generation += 1
-	var generation := _current_generation
-
+	if songs_button_list == null: return
 	if songs.is_empty():
-		wipe_btns(loaded_buttons)
+		songs_button_list.clear()
 		return
-
-	songs_button_list.freeze_layout()
-	wipe_btns(loaded_buttons)
-	await _build_buttons_timesliced(songs, generation)
-
-	if generation == _current_generation:
-		songs_button_list.thaw_layout()
+	songs_button_list.set_items(songs)
 
 
 ## (SEARCH) Renders buttons from search results
 func render_search_btns_from_list(songs: Array) -> void:
-	_current_generation_search += 1
-	var generation := _current_generation_search
-
+	if search_results_container == null: return
 	if songs.is_empty():
-		wipe_btns(loaded_search_buttons)
+		search_results_container.clear()
 		return
+	search_results_container.set_items(songs)
 
-	search_results_container.freeze_layout()
-	wipe_btns(loaded_search_buttons)
-	await _build_search_buttons_timesliced(songs, generation)
-
-	if generation == _current_generation_search:
-		search_results_container.thaw_layout()
-
-
-func _build_buttons_timesliced(songs: Array, generation: int) -> void:
-	var i := 0
-	while i < songs.size():
-		var start := Time.get_ticks_usec()
-		while i < songs.size():
-			if generation != _current_generation: return
-			new_song_btn(songs[i], loaded_buttons, songs_button_list)
-			i += 1
-			if Time.get_ticks_usec() - start > BUILD_BUDGET_USEC:
-				await get_tree().process_frame
-				if generation != _current_generation: return
-				break
-
-
-func _build_search_buttons_timesliced(songs: Array, generation: int) -> void:
-	var i := 0
-	while i < songs.size():
-		var start := Time.get_ticks_usec()
-		while i < songs.size():
-			if generation != _current_generation_search: return
-			new_song_btn(songs[i], loaded_search_buttons, search_results_container)
-			i += 1
-			if Time.get_ticks_usec() - start > BUILD_BUDGET_USEC:
-				await get_tree().process_frame
-				if generation != _current_generation_search: return
-				break
-
-func _on_node_added_to_list():
-	if _visibility_check_pending:
-		return
-	_visibility_check_pending = true
-	call_deferred("_run_visibility_check")
-
-func _run_visibility_check():
-	_visibility_check_pending = false
-	_on_scroll_changed(0)
-	_on_search_scroll_changed(0)
 
 #endregion
 
 
 #region Button Search
-## Returns button from SongModel if it is located to the loaded_buttons
+## Returns button from SongModel if it is currently instantiated
 func get_button_by_song(song: SongModel) -> SongButtonCovered:
-	for button in loaded_buttons:
-		if button.song_content == song:
-			return button
+	if songs_button_list:
+		return songs_button_list.get_node_for(song) as SongButtonCovered
 	return null
 
 ## Returns a song index from the queue (requeres path and queue Array)
@@ -447,7 +351,7 @@ func _on_search_bar_render_results(results: Array) -> void:
 
 func _on_search_bar_render_default() -> void:
 	if search_results_container and search_results_scroll_container:
-		wipe_btns(loaded_search_buttons)
+		search_results_container.clear()
 		search_results_scroll_container.visible = false
 		songs_button_list.visible = true
 

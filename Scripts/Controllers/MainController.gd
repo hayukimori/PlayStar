@@ -24,7 +24,6 @@ signal update_current_metadata(data: SongModel)
 @export_group("Dynamic Variables")
 @export var current_play_queue: Array[SongModel] = []
 @export var playing_now: SongModel
-@export var playing_now_btn: SongButtonCovered
 #endregion
 
 
@@ -124,8 +123,6 @@ func _ready() -> void:
 
 ## Plays song (updates MPRIS and Discord RPC)
 func play_song(info: SongModel) -> void:
-	if playing_now_btn: playing_now_btn.stop_playing_now()
-
 	playing_now = info
 
 	player.Load(info.FilePath)
@@ -141,11 +138,7 @@ func play_song(info: SongModel) -> void:
 	if ui_manager:
 		ui_manager.update_length_label(info)
 		ui_manager.scroll_to_song(info)
-		ui_manager.stop_playing_now(playing_now_btn.song_content if playing_now_btn else null)
-
-	var btn = ui_manager.get_button_by_song(info) if ui_manager else null
-	if btn: btn.start_playing_now()
-	playing_now_btn = btn
+		ui_manager.start_playing_now(info)
 
 
 ## updates MPRIS with song metadata
@@ -286,7 +279,7 @@ func _on_path_request(payloads: Array[Dictionary]) -> void:
 
 	_rebuild_random_order()
 	if ui_manager:
-		ui_manager._build_buttons_timesliced(q, ui_manager._current_generation)
+		ui_manager.render_song_btns_from_list(current_play_queue)
 
 	await get_tree().process_frame
 	play_song(first_song)
@@ -547,10 +540,6 @@ func _on_ui_skip_prev() -> void:
 func _on_ui_skip_next() -> void:
 	if !playing_now: return
 
-	if ui_manager:
-		var btn = ui_manager.get_button_by_song(playing_now)
-		if btn: btn.stop_playing_now()
-
 	if random_mode: skip_next_as_random(); return
 
 	match repeat_mode:
@@ -591,7 +580,7 @@ func _on_reload_requested() -> void:
 
 
 func _on_req_load_song_from_queue(song: SongModel) -> void:
-	if ui_manager and !ui_manager.get_button_by_song(song): return
+	if current_play_queue.find(song) == -1: return
 	play_song(song)
 
 
