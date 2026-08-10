@@ -19,6 +19,7 @@ signal song_skip_prev
 signal song_changed(song: SongModel)
 signal seek_by_percentage(value: float)
 signal seek_to_request(value: int)
+signal scrobble(song: SongModel)
 
 
 # ------------ Toggle -----------------
@@ -118,6 +119,8 @@ func emit_song_stop() -> void: song_stop.emit()
 func emit_song_skip_next() -> void: song_skip_next.emit()
 func emit_song_skip_prev() -> void: song_skip_prev.emit()
 func emit_song_changed(song: SongModel) -> void: song_changed.emit(song)
+
+func emit_scrobble(song: SongModel) -> void: scrobble.emit(song)
 
 
 func emit_toggle_shuffle() -> void: toggle_shuffle.emit()

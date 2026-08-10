@@ -68,5 +68,3 @@ func is_newer_version(latest_version: String, current_version: String) -> bool:
 			return false
 
 	return false
-
-
