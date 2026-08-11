@@ -1018,12 +1018,11 @@ grow_vertical = 2
 icon = ExtResource("33_fqe4u")
 flat = true
 
-[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "history_window", "config_control", "dynamic_playlists_window")]
+[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "config_control", "dynamic_playlists_window")]
 script = ExtResource("43_qtwtc")
 playlists_window = NodePath("PlaylistsWindow")
 artists_window = NodePath("ArtistWindow")
 albums_window = NodePath("AlbumWindow")
-history_window = NodePath("HistoryWindow")
 config_control = NodePath("ConfigControl")
 dynamic_playlists_window = NodePath("DynamicListsWindow")
 add_to_playlist_window_fb = ExtResource("44_rr6jk")
