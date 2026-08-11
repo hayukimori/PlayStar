@@ -27,7 +27,7 @@ func setup_user_custom() -> void:
 		"playlists_shortcut": SignalBus.emit_invoke_playlists_window,
 		"artists_shortcut": SignalBus.emit_invoke_artists_window,
 		"albums_shortcut": SignalBus.emit_invoke_albums_window,
-		"history_shortcut": SignalBus.emit_show_history_window,
+		"listens_shortcut": SignalBus.emit_show_dynamic_playlists_window,
 
 		"copy_song": SignalBus.emit_copy_song,
 		"capture_playing_now": SignalBus.emit_capture_now
