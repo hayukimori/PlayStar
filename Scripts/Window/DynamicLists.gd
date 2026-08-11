@@ -26,7 +26,7 @@ func set_tab(tab: TABS_IDX) -> void:
 		TABS_IDX.HISTORY:
 			name_label.text = "History"
 		TABS_IDX.FAVORITE:
-			name_label.text = "Favorites songs"
+			name_label.text = "Favorites Songs"
 		TABS_IDX.MP7:
 			name_label.text = "Most Played Songs (7 days)"
 		TABS_IDX.MP30:
