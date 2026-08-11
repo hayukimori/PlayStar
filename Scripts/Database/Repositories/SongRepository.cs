@@ -1,4 +1,6 @@
 using System.Linq;
+using System.IO;
+using System;
 using Godot;
 using Godot.Collections;
 using Microsoft.Data.Sqlite;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 
 
 namespace PlayStar.Scripts.Database.Repositories;
+
 
 [GlobalClass]
 public partial class SongRepository : Node
@@ -59,10 +62,8 @@ public partial class SongRepository : Node
 
     public Array<SongModel> GetSongsByPaths(Godot.Collections.Array<string> paths)
     {
-        if (paths.Count == 0)
-            return new Array<SongModel>();
-
         var songs = new Array<SongModel>();
+        if (paths.Count == 0) return songs;
 
         using var connection = _db.GetConnection();
         using var cmd = connection.CreateCommand();
@@ -184,9 +185,97 @@ public partial class SongRepository : Node
         _memory.RequestCleanup();
         return rest;
     }
+
+    // <summary> Gets an Array[SongModel] from most played songs, using scrobbles as reference. </summary>
+    public Array<SongModel> GetMostPlayedSongs(int limit = 50, int days = 1)
+    {
+        using var connection = _db.GetConnection();
+        using var cmd = connection.CreateCommand();
+
+        cmd.CommandText = @"
+            SELECT song_path, title, artist, COUNT(*) AS plays
+            FROM scrobbles
+            WHERE scrobbled_at > unixepoch() - ($days * 86400)
+            GROUP BY COALESCE(song_path, title || artist)
+            ORDER BY plays DESC
+            LIMIT $limit;
+        ";
+
+        cmd.Parameters.AddWithValue("$days", days);
+        cmd.Parameters.AddWithValue("$limit", limit);
+
+        // Brute scrobbles
+
+        var rows = new List<(string? path, string title, string? artist)>();
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+            rows.Add((
+                reader.IsDBNull(0) ? null : reader.GetString(0),
+                reader.GetString(1),
+                reader.IsDBNull(2) ? null : reader.GetString(2)
+            ));
+
+
+        var paths = new Godot.Collections.Array<string>(
+            rows.Where(r => r.path != null).Select(r => r.path!)
+        );
+
+        var fromDb = GetSongsByPaths(paths)
+            .ToDictionary(s => s.FilePath);
+
+        var songs = new Array<SongModel>();
+
+        foreach (var (path, title, artist) in rows)
+        {
+            if (path != null && fromDb.TryGetValue(path, out var dbSong))
+            {
+                songs.Add(dbSong);
+            }
+            else if (path != null && File.Exists(path))
+            {
+                // try by taglib
+                var tagged = TagManager.ReadTags(path);
+                if (tagged != null) songs.Add(tagged);
+            }
+            else
+            {
+                // no path
+                songs.Add(new SongModel { Title = title, FilePath = path ?? "" });
+            }
+        }
+
+        _memory.RequestCleanup();
+        return songs;
+    }
+
     #endregion
 
     #region Write
+    public void MarkScrobble(SongModel song)
+    {
+        using var connection = _db.GetConnection();
+        using var cmd = connection.CreateCommand();
+
+        cmd.CommandText = @"
+            INSERT INTO scrobbles
+                (song_path, title, artist, scrobbled_at)
+            VALUES
+                ($song_path, $title, $artist, $scrobbled_at)
+        ";
+
+        var song_path = song.FilePath;
+        var title = song.Title != "" ? song.Title : null;
+        var artist = song.Artist != "" ? song.Title : null;
+        var scrobbled_at = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+        cmd.Parameters.AddWithValue("$song_path", song_path);
+        cmd.Parameters.AddWithValue("$title", title);
+        cmd.Parameters.AddWithValue("$artist", artist);
+        cmd.Parameters.AddWithValue("$scrobbled_at", scrobbled_at);
+
+        cmd.ExecuteNonQuery();
+    }
+
     public static void UpsertScanEntry(string path, long mtime, SqliteConnection connection, SqliteTransaction transaction)
     {
         using var cmd = connection.CreateCommand();
@@ -248,6 +337,7 @@ public partial class SongRepository : Node
     }
     #endregion
 
+
     #region Misc
     public SongModel SongModelFromPath(string path, bool raw)
     {
@@ -275,6 +365,13 @@ public partial class SongRepository : Node
         return songs;
     }
     #endregion
+
+    internal static SongModel MapScrobble(SqliteDataReader r) => new() {
+        FilePath = r.GetString(0),
+        FileName = System.IO.Path.GetFileName(r.GetString(0)),
+        Title = r.IsDBNull(1) ? "" : r.GetString(1),
+        Artist = r.IsDBNull(2) ? "" : r.GetString(2)
+    };
 
     #region Mapping
     internal static SongModel MapSong(SqliteDataReader r) => new()
