@@ -68,7 +68,6 @@
 [ext_resource type="Texture2D" uid="uid://b1op5govfojxp" path="res://assets/icons/iconoir/stats-up-square.svg" id="54_0yj33"]
 [ext_resource type="Script" uid="uid://bll45p5sc0xlu" path="res://Scripts/UI/Components/VolumeHSlider.gd" id="54_klxr2"]
 [ext_resource type="PackedScene" uid="uid://b8o4tvpdsg7c" path="res://Window/AboutWindow.tscn" id="57_hfbbq"]
-[ext_resource type="PackedScene" uid="uid://mvqrcgbttgnb" path="res://Window/HistoryWindow.tscn" id="60_5ablo"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 [ext_resource type="PackedScene" uid="uid://dd7c6jys7sbu" path="res://Window/TagWindow.tscn" id="66_wqotl"]
@@ -1049,8 +1048,6 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 [node name="SingleAlbumWindow" parent="WindowManager" unique_id=1993442924 instance=ExtResource("50_rtief")]
 
 [node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
-
-[node name="HistoryWindow" parent="WindowManager" unique_id=61250628 instance=ExtResource("60_5ablo")]
 
 [node name="TagWindow" parent="WindowManager" unique_id=641077770 instance=ExtResource("66_wqotl")]
 
