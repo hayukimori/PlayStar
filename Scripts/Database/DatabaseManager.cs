@@ -81,12 +81,18 @@ public partial class DatabaseManager : Node
                 scrobbled_at INTEGER NOT NULL
             );
 
+            CREATE TABLE IF NOT EXISTS starred_songs (
+                song_path  TEXT PRIMARY KEY REFERENCES songs(path) ON DELETE CASCADE,
+                starred_at INTEGER NOT NULL
+            );
+
             CREATE INDEX IF NOT EXISTS idx_songs_title    ON songs(title);
             CREATE INDEX IF NOT EXISTS idx_songs_album_id ON songs(album_id);
             CREATE INDEX IF NOT EXISTS idx_albums_title   ON albums(title);
             CREATE INDEX IF NOT EXISTS idx_artists_name   ON artists(name);
             CREATE INDEX IF NOT EXISTS idx_song_artists_artist_id ON song_artists(artist_id);
             CREATE INDEX IF NOT EXISTS idx_scrobbles_time ON scrobbles(scrobbled_at);
+            CREATE INDEX IF NOT EXISTS idx_starred_songs_at  ON starred_songs(starred_at);
 
             COMMIT;
         ";
@@ -143,6 +149,7 @@ public partial class DatabaseManager : Node
             DROP TABLE IF EXISTS artists;
             DROP TABLE IF EXISTS genres;
             DROP TABLE IF EXISTS scrobbles;
+            DROP TABLE IF EXISTS starred_songs;
             PRAGMA foreign_keys = ON;
         ";
         cmd.ExecuteNonQuery();

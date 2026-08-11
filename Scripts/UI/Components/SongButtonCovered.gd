@@ -4,10 +4,16 @@ extends Button
 signal song_selected(song: SongModel)
 signal playlist_removal_request(song: SongModel)
 
+@export_group("Subsonic")
+@export var is_subsonic: bool = false
+@export var is_favorite: bool = false
+
+@export_group("Song Content")
 @export var song_content: SongModel
 @export var playlist_mode: bool = false
 @export var index: int = 0
 
+@export_group("Nodes")
 @export var title_label: Label
 @export var artist_label: Label
 @export var album_art: SongArtRounded
@@ -18,6 +24,7 @@ signal playlist_removal_request(song: SongModel)
 @export var remove_from_current_playlist_btn: AnimatedOptionButton
 @export var default_album_art: Texture2D
 @export var show_info_btn: AnimatedOptionButton
+@export var favorite_btn: FavoriteButton
 
 @onready var original_label_settings: LabelSettings = title_label.label_settings
 
@@ -44,12 +51,17 @@ func _ready() -> void:
 	var flac = (song_content.FilePath.get_extension() == "flac")
 	if flac: hq_btn.visible = true
 
-	var subsonic_mode = (song_content.FilePath.begins_with("http"))
-	if subsonic_mode: subsonic_btn.visible = true
+	is_subsonic = (song_content.FilePath.begins_with("http"))
+	if is_subsonic: subsonic_btn.visible = true
 
 	if add_to_playlist_btn:
 		add_to_playlist_btn.content = song_content
 		animated_buttons.append(add_to_playlist_btn)
+
+	if favorite_btn:
+		favorite_btn.pressed.connect(_star_song)
+		animated_buttons.append(favorite_btn)
+		favorite_btn.set_status(song_content.Starred)
 
 	self.gui_input.connect(_on_button_gui_event)
 	self.pressed.connect(_pressed)
@@ -141,6 +153,21 @@ func _cleanup_and_free() -> void:
 	if ArtService.ArtReady.is_connected(_on_art_ready):
 		ArtService.ArtReady.disconnect(_on_art_ready)
 	queue_free()
+
+
+func _star_song() -> void:
+	if song_content.Starred:
+		SignalBus.emit_unstar_song(song_content, is_subsonic)
+		song_content.Starred = false
+
+		if favorite_btn: favorite_btn.set_status(false)
+
+	else:
+		SignalBus.emit_star_song(song_content, is_subsonic)
+		song_content.Starred = true
+
+		if favorite_btn: favorite_btn.set_status(true)
+
 
 # Only mouse input events
 func _on_button_gui_event(event: InputEvent) -> void:

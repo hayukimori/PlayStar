@@ -341,6 +341,7 @@ public sealed class SubsonicClient : IDisposable
             Length = (long)(node?["duration"]?.GetValue<int>() ?? 0) * 1000L, // s → ms
             FilePath = GetStreamUrl(songId),
             ArtPath = GetCoverArtUrl(songId),
+            Starred = node?["starred"] != null,
         };
     }
 

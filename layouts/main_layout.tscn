@@ -38,6 +38,7 @@
 [ext_resource type="LabelSettings" uid="uid://c8imiot06t06u" path="res://UI/ComponentThemes/lyric_line_active.tres" id="17_byb4x"]
 [ext_resource type="Script" uid="uid://b0ooqpucm54ks" path="res://Scripts/UI/Components/player_basic_controls.gd" id="17_tx35f"]
 [ext_resource type="Script" uid="uid://bt5f5cw3x8in0" path="res://Scripts/Controllers/ScrobbleManager.gd" id="18_4ejd4"]
+[ext_resource type="Script" uid="uid://buc0kqnlwwysn" path="res://Scripts/Controllers/StarManager.gd" id="19_182w8"]
 [ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
 [ext_resource type="PackedScene" uid="uid://qkqcs4j7keik" path="res://UI/Components/ProgressBarCR.tscn" id="24_1n7v7"]
 [ext_resource type="Script" uid="uid://7qc256ihjdv7" path="res://Scripts/UI/Components/LabelWithCopyButton.gd" id="25_0yj33"]
@@ -83,7 +84,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j4s"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_182w8"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -98,7 +99,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_182w8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ewtm"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -114,7 +115,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ewtm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6epg"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -331,6 +332,9 @@ metadata/_custom_type_script = "uid://1w4a83o86gkg"
 [node name="ScrobbleManager" type="Node" parent="." unique_id=1990992424]
 script = ExtResource("18_4ejd4")
 
+[node name="StarManager" type="Node" parent="." unique_id=1756384579]
+script = ExtResource("19_182w8")
+
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077]
 layout_mode = 1
 anchors_preset = 15
@@ -378,7 +382,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_q5j4s")
+theme_override_styles/panel = SubResource("StyleBoxFlat_182w8")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -426,7 +430,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_182w8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ewtm")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -446,7 +450,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_6ewtm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r6epg")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16

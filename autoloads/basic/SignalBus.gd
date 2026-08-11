@@ -61,6 +61,8 @@ signal request_playlist(playlist: PlaylistModel, index: int)
 signal request_history_update
 signal config_updated
 signal new_version_notify(version: String)
+signal star_song(song: SongModel, is_subsonic: bool)
+signal unstar_song(song: SongModel, is_subsonic: bool)
 
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)
@@ -158,6 +160,8 @@ func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 	request_playlist.emit(playlist, index)
 func emit_request_history_update() -> void: request_history_update.emit()
 func emit_config_updated() -> void: config_updated.emit()
+func emit_star_song(song: SongModel, is_subsonic: bool) -> void: star_song.emit(song, is_subsonic)
+func emit_unstar_song(song: SongModel, is_subsonic: bool) -> void: unstar_song.emit(song, is_subsonic)
 
 
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)
