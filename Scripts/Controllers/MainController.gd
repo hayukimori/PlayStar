@@ -605,11 +605,13 @@ func _on_load_all_songs_request() -> void:
 func _on_search_results_requested(results: Array) -> void:
 	var results_as_local = []
 	for item in results:
-		var index = -1
-		if ui_manager:
-			index = ui_manager.get_index_by_path(item.FilePath, current_play_queue)
-		if index != -1:
-			results_as_local.append(current_play_queue[index])
+		var found = current_play_queue.filter(func(s: SongModel):
+			if s.FilePath == item.FilePath: return true
+			if item.SongId != "" and s.SongId == item.SongId: return true
+			return false
+		)
+		if not found.is_empty():
+			results_as_local.append(found[0])
 
 	if ui_manager:
 		ui_manager.show_search_results(results_as_local)
