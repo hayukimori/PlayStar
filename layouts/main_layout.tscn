@@ -40,11 +40,13 @@
 [ext_resource type="Script" uid="uid://bt5f5cw3x8in0" path="res://Scripts/Controllers/ScrobbleManager.gd" id="18_4ejd4"]
 [ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
 [ext_resource type="PackedScene" uid="uid://qkqcs4j7keik" path="res://UI/Components/ProgressBarCR.tscn" id="24_1n7v7"]
+[ext_resource type="Script" uid="uid://7qc256ihjdv7" path="res://Scripts/UI/Components/LabelWithCopyButton.gd" id="25_0yj33"]
 [ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="25_hywfq"]
 [ext_resource type="Texture2D" uid="uid://coepod1b71pj" path="res://assets/icons/iconoir/slash.svg" id="25_kee2a"]
 [ext_resource type="Script" uid="uid://btx3betiiqjnm" path="res://Scripts/UI/Components/ProgressSlider.gd" id="26_5b0qw"]
 [ext_resource type="Texture2D" uid="uid://clu31fow2kmt1" path="res://assets/icons/iconoir/repeat-once.svg" id="26_c80o5"]
 [ext_resource type="PackedScene" uid="uid://c61nq8yjfxop0" path="res://UI/Components/config_control.tscn" id="26_hgk7f"]
+[ext_resource type="Script" uid="uid://bwgdpyieltxun" path="res://Scripts/UI/Components/SelfHidingButton.gd" id="27_q5j4s"]
 [ext_resource type="Texture2D" uid="uid://btdcxpxntyqtd" path="res://assets/icons/extra/sequence.svg" id="29_c80o5"]
 [ext_resource type="Script" uid="uid://ccm3frmtf5ay4" path="res://Scripts/UI/Components/LeftMenuControl.gd" id="31_g3hyr"]
 [ext_resource type="Texture2D" uid="uid://co0swc1t2pq0b" path="res://assets/icons/iconoir/settings.svg" id="33_cfl4k"]
@@ -81,7 +83,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yj33"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j4s"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -96,7 +98,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5j4s"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_182w8"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -112,7 +114,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_182w8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ewtm"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -376,7 +378,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0yj33")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5j4s")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -424,7 +426,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_q5j4s")
+theme_override_styles/panel = SubResource("StyleBoxFlat_182w8")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -444,7 +446,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_182w8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ewtm")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -463,7 +465,7 @@ offset_top = 0.15997314
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ArtistNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=879873579]
+[node name="ArtistNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=512954547 node_paths=PackedStringArray("copy_button")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -478,8 +480,22 @@ label_settings = SubResource("LabelSettings_awq1b")
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 5
+script = ExtResource("25_0yj33")
+copy_button = NodePath("CopySongArtistNameButton")
+metadata/_custom_type_script = "uid://7qc256ihjdv7"
 
-[node name="AlbumNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=2002468720]
+[node name="CopySongArtistNameButton" type="Button" parent="SongInfoControl/AlbumArtControl/BottomInfoControl/ArtistNameLabel" unique_id=1590919412]
+layout_mode = 1
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 20.0
+offset_bottom = 19.0
+icon = ExtResource("4_8pyuf")
+flat = true
+expand_icon = true
+script = ExtResource("27_q5j4s")
+
+[node name="AlbumNameLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=1780583621]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -494,8 +510,21 @@ label_settings = SubResource("LabelSettings_8ayet")
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 5
+script = ExtResource("25_0yj33")
+metadata/_custom_type_script = "uid://7qc256ihjdv7"
 
-[node name="SongTitleLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=855142920]
+[node name="CopySongArtistNameButton" type="Button" parent="SongInfoControl/AlbumArtControl/BottomInfoControl/AlbumNameLabel" unique_id=622553796]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 20.0
+offset_bottom = 19.0
+icon = ExtResource("4_8pyuf")
+flat = true
+expand_icon = true
+script = ExtResource("27_q5j4s")
+
+[node name="SongTitleLabel" type="Label" parent="SongInfoControl/AlbumArtControl/BottomInfoControl" unique_id=855142920 node_paths=PackedStringArray("copy_button")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -514,6 +543,22 @@ horizontal_alignment = 2
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
+script = ExtResource("25_0yj33")
+copy_button = NodePath("CopySongTitleButton")
+
+[node name="CopySongTitleButton" type="Button" parent="SongInfoControl/AlbumArtControl/BottomInfoControl/SongTitleLabel" unique_id=389121060]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -26.0
+offset_top = -6.0
+offset_bottom = 19.0
+grow_horizontal = 0
+icon = ExtResource("4_8pyuf")
+flat = true
+expand_icon = true
+script = ExtResource("27_q5j4s")
 
 [node name="TopButtonsControl" type="Control" parent="SongInfoControl/AlbumArtControl" unique_id=1672929305]
 layout_mode = 1
