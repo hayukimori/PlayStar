@@ -38,6 +38,7 @@
 [ext_resource type="LabelSettings" uid="uid://c8imiot06t06u" path="res://UI/ComponentThemes/lyric_line_active.tres" id="17_byb4x"]
 [ext_resource type="Script" uid="uid://b0ooqpucm54ks" path="res://Scripts/UI/Components/player_basic_controls.gd" id="17_tx35f"]
 [ext_resource type="Script" uid="uid://bt5f5cw3x8in0" path="res://Scripts/Controllers/ScrobbleManager.gd" id="18_4ejd4"]
+[ext_resource type="Script" uid="uid://buc0kqnlwwysn" path="res://Scripts/Controllers/StarManager.gd" id="19_182w8"]
 [ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
 [ext_resource type="PackedScene" uid="uid://qkqcs4j7keik" path="res://UI/Components/ProgressBarCR.tscn" id="24_1n7v7"]
 [ext_resource type="Script" uid="uid://7qc256ihjdv7" path="res://Scripts/UI/Components/LabelWithCopyButton.gd" id="25_0yj33"]
@@ -330,6 +331,9 @@ metadata/_custom_type_script = "uid://1w4a83o86gkg"
 
 [node name="ScrobbleManager" type="Node" parent="." unique_id=1990992424]
 script = ExtResource("18_4ejd4")
+
+[node name="StarManager" type="Node" parent="." unique_id=1756384579]
+script = ExtResource("19_182w8")
 
 [node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077]
 layout_mode = 1

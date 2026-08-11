@@ -18,6 +18,7 @@ public partial class SongModel : Resource
     [Export] public string ArtPath { get; set; }
     [Export] public string Lyrics { get; set; }
     [Export] public string SongId { get; set; }
+    [Export] public bool Starred { get; set; }
 
     [Export] public Godot.Collections.Array Artists { get; set; }
 
