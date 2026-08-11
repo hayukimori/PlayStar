@@ -32,6 +32,7 @@ public partial class DatabaseManager : Node
     {
         using var connection = GetConnection();
         using var cmd = connection.CreateCommand();
+
         cmd.CommandText = @"
             BEGIN;
 
@@ -72,18 +73,29 @@ public partial class DatabaseManager : Node
                 PRIMARY KEY (song_path, artist_id)
             );
 
+            CREATE TABLE IF NOT EXISTS scrobbles (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                song_path TEXT REFERENCES songs(path) ON DELETE SET NULL,
+                title TEXT NOT NULL,
+                artist TEXT,
+                scrobbled_at INTEGER NOT NULL
+            );
+
             CREATE INDEX IF NOT EXISTS idx_songs_title    ON songs(title);
             CREATE INDEX IF NOT EXISTS idx_songs_album_id ON songs(album_id);
             CREATE INDEX IF NOT EXISTS idx_albums_title   ON albums(title);
             CREATE INDEX IF NOT EXISTS idx_artists_name   ON artists(name);
             CREATE INDEX IF NOT EXISTS idx_song_artists_artist_id ON song_artists(artist_id);
+            CREATE INDEX IF NOT EXISTS idx_scrobbles_time ON scrobbles(scrobbled_at);
 
             COMMIT;
         ";
         cmd.ExecuteNonQuery();
+
         GD.Print("[DatabaseManager] Schema initialized.");
     }
     #endregion
+
 
     #region Utils
     private static void ApplyPragmas(SqliteConnection connection)
@@ -111,6 +123,7 @@ public partial class DatabaseManager : Node
             DROP TABLE IF EXISTS albums;
             DROP TABLE IF EXISTS genres;
             DROP TABLE IF EXISTS artists;
+            DROP TABLE IF EXISTS scrobbles;
             COMMIT;
         ";
         cmd.ExecuteNonQuery();
@@ -129,8 +142,18 @@ public partial class DatabaseManager : Node
             DROP TABLE IF EXISTS albums;
             DROP TABLE IF EXISTS artists;
             DROP TABLE IF EXISTS genres;
+            DROP TABLE IF EXISTS scrobbles;
             PRAGMA foreign_keys = ON;
         ";
+        cmd.ExecuteNonQuery();
+    }
+
+    // Cleans up old scrobbles (1 year limit)
+    private void CleanupOldScrobbles()
+    {
+        using var connection = GetConnection();
+        using var cmd = connection.CreateCommand();
+        cmd.CommandText = "DELETE FROM scrobbles WHERE scrobbled_at < unixepoch() - (365 * 86400);";
         cmd.ExecuteNonQuery();
     }
 

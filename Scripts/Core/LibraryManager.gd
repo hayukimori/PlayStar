@@ -83,6 +83,66 @@ static func load_history_as_queue(reversed: bool = false, queue_name: String = "
 	return queue
 
 
+
+## Gets most played songs [br]
+## Takes [param limit (int)] and [param days (int)] [br]
+## Defaults: [br]
+## [code]limit=-1[/code] [br]
+## [code]days=365[/code]
+static func get_most_played_local(limit: int = -1, days: int = 365) -> Array[SongModel]:
+	var repo: SongRepository = NodeKeeper.song_repository
+	var songs: Array[SongModel] = []
+	if !repo: return songs
+
+	songs = repo.GetMostPlayedSongs(limit, days)
+
+	return songs
+
+
+## Lists most played songs in the last 7 days
+static func most_played_week_local() -> Array[SongModel]:
+	return get_most_played_local(-1, 7)
+
+
+## Loads most played songs from week (last 7 days) as a [class PlaylistModel]
+static func mp_week_local_as_playlist() -> PlaylistModel:
+	var songs = most_played_week_local()
+	var nm = "Most Played Songs (Last 7 days)"
+	var pl = PlaylistModel.new()
+	pl.name = nm
+	pl.songs = songs
+
+	return pl
+
+## Lists most played songs in the last 30 days
+static func most_played_month_local() -> Array[SongModel]:
+	return get_most_played_local(-1, 30)
+
+## Loads most played songs from last 30 days as a [class PlaylistModel]
+static func mp_month_local_as_playlist() -> PlaylistModel:
+	var songs = most_played_week_local()
+	var nm = "Most Played Songs (Last 30 days)"
+	var pl = PlaylistModel.new()
+	pl.name = nm
+	pl.songs = songs
+
+	return pl
+
+## Lists most played songs in the last 365 days
+static func most_played_year_local() -> Array[SongModel]:
+	return get_most_played_local(-1, 365)
+
+
+## Loads most played songs from year (last 365 days) as a [class PlaylistModel]
+static func mp_year_local_as_playlist() -> PlaylistModel:
+	var songs = most_played_week_local()
+	var nm = "Most Played Songs (Last 7 days)"
+	var pl = PlaylistModel.new()
+	pl.name = nm
+	pl.songs = songs
+
+	return pl
+
 ## Deletes Database file[br]
 ##
 ## CAUTION: This functions [b]deletes[/b] database content

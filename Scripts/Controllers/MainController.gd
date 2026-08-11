@@ -59,6 +59,9 @@ func _ready() -> void:
 	artist_repo.Initialize(db)
 	album_repo.Initialize(db)
 
+	# Clean up old scrobbles before start
+	db.CleanupOldScrobbles()
+
 	NodeKeeper.current_database = db
 	NodeKeeper.current_indexer = indexer
 	NodeKeeper.current_scanner = scanner
@@ -330,14 +333,14 @@ func update_by_defaults() -> void:
 
 	var urpm = user_defaults.repeat_mode
 	var valid_rpmode = urpm < len(Definitions.RepeatMode)
-	if not valid_rpmode: urpm = 0
+	if not valid_rpmode: urpm = 0 as Definitions.RepeatMode
 
 	random_mode = user_defaults.random_mode
 	repeat_mode = urpm as Definitions.RepeatMode
 
 	if ui_manager:
 		ui_manager.set_rdm_button(user_defaults.random_mode)
-		ui_manager.set_rpt_button(urpm)
+		ui_manager.set_rpt_button(urpm as int)
 
 
 func pause_process() -> void:

@@ -12,7 +12,7 @@ class_name LeftMenuControl
 @export var all_songs_btn: Button
 @export var artists_btn: Button
 @export var albuns_btn: Button
-@export var history_btn: Button
+@export var dynamic_p_button: Button
 @export var about_btn: Button
 @export var volume_slider: Slider
 
@@ -59,8 +59,9 @@ func _ready() -> void:
 	if albuns_btn:
 		albuns_btn.pressed.connect(_on_albuns_btn_pressed)
 
-	if history_btn:
-		history_btn.pressed.connect(_on_history_btn_pressed)
+	## History window replaced to dynamic playlists
+	if dynamic_p_button:
+		dynamic_p_button.pressed.connect(_on_dynamic_p_btn_pressed)
 
 	if about_btn:
 		about_btn.pressed.connect(_on_about_btn_pressed)
@@ -144,6 +145,10 @@ func _on_albuns_btn_pressed() -> void:
 
 func _on_history_btn_pressed() -> void:
 	SignalBus.emit_show_history_window()
+	_interaction()
+
+func _on_dynamic_p_btn_pressed() -> void:
+	SignalBus.emit_show_dynamic_playlists_window()
 	_interaction()
 
 func _on_about_btn_pressed() -> void:
