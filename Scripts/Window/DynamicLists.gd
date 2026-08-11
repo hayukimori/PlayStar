@@ -9,7 +9,7 @@ class_name DynamicListsWindow
 @export var name_label: Label
 @export var tp_btn: ToPlaylistButton
 
-enum TABS_IDX { HISTORY, MP7, MP30, MPYEAR }
+enum TABS_IDX { HISTORY, FAVORITE, MP7, MP30, MPYEAR }
 
 func _ready() -> void:
 	hst_sc.history_songs_updated.connect(_on_songs_updated)
@@ -25,6 +25,8 @@ func set_tab(tab: TABS_IDX) -> void:
 	match tab:
 		TABS_IDX.HISTORY:
 			name_label.text = "History"
+		TABS_IDX.FAVORITE:
+			name_label.text = "Favorites songs"
 		TABS_IDX.MP7:
 			name_label.text = "Most Played Songs (7 days)"
 		TABS_IDX.MP30:
