@@ -12,7 +12,7 @@ config_version=5
 
 config/name="PlayStar"
 config/description="Your music, your library, your way. PlayStar keeps it simple so you can focus on what matters — the music."
-config/version="1.3.1"
+config/version="1.4.0"
 run/main_scene="uid://cucj2so2q2vo0"
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
@@ -35,6 +35,7 @@ ArtService="*uid://dews4o601kwaa"
 ArtDispatcher="*uid://bqt0p0g14m76i"
 DiscordRp="*uid://0q8y2848qla1"
 SingleInstanceManager="*uid://btbeaso3yg2jq"
+UpdateVerifier="*uid://ck3wrjc3x0wdd"
 
 [display]
 
@@ -122,9 +123,9 @@ playlists_shortcut={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":51,"key_label":0,"unicode":51,"location":0,"echo":false,"script":null)
 ]
 }
-history_shortcut={
+listens_shortcut={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"key_label":0,"unicode":104,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":52,"key_label":0,"unicode":52,"location":0,"echo":false,"script":null)
 ]
 }
 copy_song={

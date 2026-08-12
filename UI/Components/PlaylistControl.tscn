@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="1_tx3fo"]
 [ext_resource type="PackedScene" uid="uid://c2q124d0m5w0e" path="res://UI/Components/PlaylistButton.tscn" id="2_nfb0i"]
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_6t6is"]
-[ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="4_dg3yt"]
+[ext_resource type="Script" uid="uid://d3xk9p8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="4_dg3yt"]
 [ext_resource type="Script" uid="uid://ckjoncstnkvgy" path="res://Scripts/Window/NewPlaylistWindow.gd" id="5_pc4if"]
 [ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="6_pc4if"]
 [ext_resource type="Script" uid="uid://dk73yg17wlk78" path="res://Scripts/Window/RenamePlaylistWindow.gd" id="8_w1atg"]

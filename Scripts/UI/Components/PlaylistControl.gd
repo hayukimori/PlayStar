@@ -3,7 +3,7 @@ class_name PlaylistControl
 
 @export_group("Scene Nodes")
 @export var playlists_vbc: VBoxContainer
-@export var song_btn_vbc: FreezableBoxContainer
+@export var song_btn_vbc: VirtualizedVBoxList
 @export var song_btn_scroll: ScrollContainer
 @export var central_panel: Panel
 @export var color_rect: ColorRect
@@ -19,15 +19,10 @@ class_name PlaylistControl
 @export var open_pos: Vector2
 @export var closed_pos: Vector2
 
-const BUILD_BUDGET_USEC := 1000
-
-var song_btn_list: Array[Button] = []
 var playlist_btn_list: Array[Button] = []
 
 var _current_selected_playlist: PlaylistModel
-var _current_generation := 0
 var _playlists: Array[PlaylistModel] = []
-var _visibility_check_pending := false
 
 func _ready() -> void:
 	_playlists = PlaylistManager.load_playlists()
@@ -49,7 +44,7 @@ func _ready() -> void:
 	SignalBus.request_playlist_up.connect(move_playlist_ui_up)
 	SignalBus.request_playlist_down.connect(move_playlist_ui_down)
 
-	song_btn_scroll.get_v_scroll_bar().value_changed.connect(_on_songs_scroll_changed)
+	song_btn_vbc.setup(song_btn_scroll, _spawn_song_button)
 
 	self.visibility_changed.connect(_on_visibility_changed)
 	_load_ui_playlists()
@@ -147,7 +142,7 @@ func _reload_ui_playlists() -> void:
 
 func load_playlist_songs(playlist: PlaylistModel) -> void:
 	_current_selected_playlist = playlist
-	DevTools.wipe_btns(song_btn_list)
+	song_btn_vbc.clear()
 	render_song_btns_from_list(playlist.songs.duplicate())
 
 
@@ -158,75 +153,29 @@ func load_songs_playlist(playlist: PlaylistModel) -> void:
 
 
 func render_song_btns_from_list(songs: Array) -> void:
-	_current_generation += 1
-	var generation := _current_generation
-
 	if songs.is_empty():
-		DevTools.wipe_btns(song_btn_list)
+		song_btn_vbc.clear()
 		return
-
-	song_btn_vbc.freeze_layout()
-	DevTools.wipe_btns(song_btn_list)
-	await _build_buttons_timesliced(songs, generation)
-
-	if generation == _current_generation:
-		song_btn_vbc.thaw_layout()
+	song_btn_vbc.set_items(songs)
 
 
-func _build_buttons_timesliced(songs: Array, generation: int) -> void:
-	var i := 0
-	while i < songs.size():
-		var start := Time.get_ticks_usec()
-		while i < songs.size():
-			if generation != _current_generation:
-				return
-			_new_song_btn(songs[i])
-			i += 1
-			if Time.get_ticks_usec() - start > BUILD_BUDGET_USEC:
-				await get_tree().process_frame
-				if generation != _current_generation:
-					return
-				break
-
-
-func _new_song_btn(song: SongModel) -> void:
+func _spawn_song_button(song: SongModel, index: int) -> Node:
 	var btn: SongButtonCovered = song_btn_cvr_scn.instantiate()
 	btn.song_content = song
+	btn.index = index
 	btn.playlist_mode = true
 	btn.song_selected.connect(play_playlist_song)
 	btn.playlist_removal_request.connect(remove_song_from_current)
-	song_btn_list.append(btn)
-	btn.index = song_btn_list.find(btn)
-	btn.visible = true
-	song_btn_vbc.add_child(btn)
-
-	_on_node_added_to_list()
+	return btn
 
 
 func remove_song_from_current(song: SongModel) -> void:
-	var btn := _get_button_by_song(song)
-	if not btn:
-		return
-
 	if not _current_selected_playlist.remove(song):
 		push_error("PlaylistControl: couldn't remove song from playlist model.")
 		return
 
-	var idx := song_btn_list.find(btn)
-	if idx == -1:
-		push_error("PlaylistControl: button not found in song_btn_list.")
-		return
-
-	song_btn_list.remove_at(idx)
-	btn.self_destroy()
 	PlaylistManager.save(_current_selected_playlist)
-
-
-func _get_button_by_song(song: SongModel) -> SongButtonCovered:
-	for btn in song_btn_list:
-		if (btn as SongButtonCovered).song_content == song:
-			return btn as SongButtonCovered
-	return null
+	render_song_btns_from_list(_current_selected_playlist.songs.duplicate())
 
 
 # ─── Playback ─────────────────────────────────────────────────────────────────
@@ -279,26 +228,3 @@ func _on_new_playlist_btn() -> void:
 
 func _on_visibility_changed() -> void:
 	if visible: _reload_ui_playlists()
-
-
-# ---- Scroll ------------------------------------------------------------------
-func _on_songs_scroll_changed(_value):
-	var visible_rect = Rect2(Vector2.ZERO, song_btn_scroll.size)
-	visible_rect.position += Vector2(0, song_btn_scroll.scroll_vertical)
-
-	for button in song_btn_vbc.get_children():
-		if button is SongButtonCovered:
-			var button_rect = Rect2(button.position, button.size)
-			var btn_is_visible = visible_rect.intersects(button_rect)
-			button.set_art_visibility(btn_is_visible)
-
-
-func _on_node_added_to_list():
-	if _visibility_check_pending:
-		return
-	_visibility_check_pending = true
-	call_deferred("_run_visibility_check")
-
-func _run_visibility_check():
-	_visibility_check_pending = false
-	_on_songs_scroll_changed(0)

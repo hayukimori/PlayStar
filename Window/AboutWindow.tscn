@@ -110,7 +110,7 @@ offset_top = 91.0
 offset_right = -47.0
 offset_bottom = 115.0
 grow_horizontal = 2
-text = "by hayukimroi"
+text = "by hayukimori"
 label_settings = SubResource("LabelSettings_52i21")
 vertical_alignment = 1
 

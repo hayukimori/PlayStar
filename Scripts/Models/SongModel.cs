@@ -18,6 +18,18 @@ public partial class SongModel : Resource
     [Export] public string ArtPath { get; set; }
     [Export] public string Lyrics { get; set; }
     [Export] public string SongId { get; set; }
+    [Export] public bool Starred { get; set; }
+
+    // Classification tags
+    [Export] public string MusicBrainzTrackId { get; set; }
+    [Export] public string MusicBrainzArtistId { get; set; }
+    [Export] public string MusicBrainzReleaseId { get; set; }
+    [Export] public string MusicBrainzReleaseArtistId { get; set; }
+    [Export] public string MusicBrainzReleaseGroupId { get; set; }
+    [Export] public string MusicBrainzReleaseStatus { get; set; }
+    [Export] public string MusicBrainzReleaseType { get; set; }
+    [Export] public string MusicBrainzDiscId { get; set; }
+    [Export] public string MusicIpId { get; set; }
 
     [Export] public Godot.Collections.Array Artists { get; set; }
 

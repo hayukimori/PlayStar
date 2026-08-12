@@ -55,6 +55,7 @@ static func load_history_songs(reversed: bool = false) -> Array[SongModel]:
 		strings.append(i.file_path)
 
 	var songs = repo.GetSongsByPaths(strings)
+	if !songs: return []
 
 	if reversed:
 		songs.reverse()
@@ -83,57 +84,108 @@ static func load_history_as_queue(reversed: bool = false, queue_name: String = "
 	return queue
 
 
+
+## Gets most played songs [br]
+## Takes [param limit (int)] and [param days (int)] [br]
+## Defaults: [br]
+## [code]limit=-1[/code] [br]
+## [code]days=365[/code]
+static func get_most_played_local(limit: int = -1, days: int = 365) -> Array[SongModel]:
+	var repo: SongRepository = NodeKeeper.song_repository
+	var songs: Array[SongModel] = []
+	if !repo: return songs
+
+	songs = repo.GetMostPlayedSongs(limit, days)
+
+	return songs
+
+
+## Lists most played songs in the last 7 days
+static func most_played_week_local() -> Array[SongModel]:
+	return get_most_played_local(-1, 7)
+
+
+## Loads most played songs from week (last 7 days) as a [class PlaylistModel]
+static func mp_week_local_as_playlist() -> PlaylistModel:
+	var songs = most_played_week_local()
+	var pl = PlaylistModel.new()
+	pl.name = "Most Played Songs (Last 7 days)"
+	pl.songs = songs
+	return pl
+
+## Lists most played songs in the last 30 days
+static func most_played_month_local() -> Array[SongModel]:
+	return get_most_played_local(-1, 30)
+
+## Loads most played songs from last 30 days as a [class PlaylistModel]
+static func mp_month_local_as_playlist() -> PlaylistModel:
+	var songs = most_played_month_local()
+	var pl = PlaylistModel.new()
+	pl.name = "Most Played Songs (Last 30 days)"
+	pl.songs = songs
+	return pl
+
+## Lists most played songs in the last 365 days
+static func most_played_year_local() -> Array[SongModel]:
+	return get_most_played_local(-1, 365)
+
+
+## Loads most played songs from year (last 365 days) as a [class PlaylistModel]
+static func mp_year_local_as_playlist() -> PlaylistModel:
+	var songs = most_played_year_local()
+	var pl = PlaylistModel.new()
+	pl.name = "Most Played Songs (Last 365 days)"
+	pl.songs = songs
+	return pl
+
+
+## Returns starred songs from the local database
+static func starred_local() -> Array[SongModel]:
+	var repo: SongRepository = NodeKeeper.song_repository
+	if !repo: return []
+	return repo.GetStarredSongs(-1)
+
+
+## Loads starred songs as a [class PlaylistModel]
+static func starred_as_playlist() -> PlaylistModel:
+	var songs = starred_local()
+	var pl = PlaylistModel.new()
+	pl.name = "Starred Songs"
+	pl.songs = songs
+	return pl
+
+
 ## Deletes Database file[br]
 ##
 ## CAUTION: This functions [b]deletes[/b] database content
 static func delete_database():
 	var _current_db: DatabaseManager = NodeKeeper.current_database
 
-	# Just drop tables if exists.
 	if _current_db:
 		_current_db.DropAllTables()
 		_current_db.CloseAll()
 	else:
-		# deletes file
 		DevTools.delete_file(Definitions.DATABASE_PATH)
 		DevTools.delete_file(Definitions.DATABASE_PATH + "-wal")
 		DevTools.delete_file(Definitions.DATABASE_PATH + "-shm")
 
 
-## Deletes Database file[br]
-##
 ## CAUTION: This functions [b]deletes[/b] song history file
 static func delete_history():
 	DevTools.delete_file(Definitions.USER_HISTORY_PATH)
 
 
-## Deletes Database file[br]
-##
 ## CAUTION: This functions [b]deletes[/b] all stored json lyrics
 static func delete_lyrics():
 	DevTools.delete_dir(Definitions.LYRICS_PATH)
 
-## Deletes Database file[br]
-##
 ## CAUTION: This functions [b]deletes[/b] all playlists
 static func delete_playlists():
 	DevTools.delete_dir(Definitions.PLAYLISTS_PATH)
 
-## Deletes elements form library[br]
+## Deletes elements from library[br]
 ##
-## Takes [param options] as an Array of [enum Defintions.LibraryOptions]
-## to delete custom items[br]
-##
-## Usage: [br]
-## [codeblock]
-## var items: Array[Definitions.LibraryOptions] = [
-## 		Definitions.LibraryOptions.DATABASE, # Database
-##		Definitions.LibraryOptions.PLAYLISTS # Playlists
-## 	] # Can add more items using .append()
-##
-## LibraryManager.delete_library(items)
-##
-## [/codeblock]
+## Takes [param options] as an Array of [enum Definitions.LibraryOptions]
 static func delete_library(options: Array[Definitions.LibraryOptions]):
 	if !options: return
 	for option in options:

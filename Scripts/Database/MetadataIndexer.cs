@@ -76,6 +76,9 @@ public partial class MetadataIndexer : Node
                 tasks.Add(Task.Run(async () =>
                 {
                     try { await ProcessOne(path); }
+                    catch(Exception ex){
+                        GD.PrintErr($"[MetadataIndexer] Failed on {path}: {ex.Message}");
+                    }
                     finally { _throttle.Release(); }
                 }, token));
             }

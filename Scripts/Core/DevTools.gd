@@ -146,3 +146,21 @@ static func await_first_signal(a: Signal, b: Signal) -> Variant:
 		b.disconnect(on_b.bind("b_trigger"))
 
 	return state
+
+
+## Parses a version string (e.g., "v1.2.3") into an array of integers [1, 2, 3]. [br]
+## Usage:
+## [codeblock]
+## var version_str = "v1.2.3"
+## var parsed_version = parse_version(version_str)
+## print(parsed_version) # Output: [1, 2, 3]
+## [/codeblock]
+static func parse_version(version_str: String) -> Array:
+	var version_parts: Array = version_str.trim_prefix("v").split(".")
+
+	var parsed_version: Array = version_parts.map(
+		func(part: String) -> int:
+			return int(part)
+	)
+
+	return parsed_version

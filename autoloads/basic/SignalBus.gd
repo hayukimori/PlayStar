@@ -19,6 +19,7 @@ signal song_skip_prev
 signal song_changed(song: SongModel)
 signal seek_by_percentage(value: float)
 signal seek_to_request(value: int)
+signal scrobble(song: SongModel)
 
 
 # ------------ Toggle -----------------
@@ -44,6 +45,7 @@ signal show_album_window(album: AlbumModel, texture)
 signal show_history_window
 signal request_rename_window(playlist: PlaylistModel)
 signal show_tags_window(song: SongModel)
+signal show_dynamic_playlists_window()
 
 # ------------- MISC --------------------
 signal reload_request
@@ -58,6 +60,9 @@ signal play_from_current(song: SongModel)
 signal request_playlist(playlist: PlaylistModel, index: int)
 signal request_history_update
 signal config_updated
+signal new_version_notify(version: String)
+signal star_song(song: SongModel, is_subsonic: bool)
+signal unstar_song(song: SongModel, is_subsonic: bool)
 
 # -> Requests a popup window to add into playlist
 signal request_song_to_playlist(song: SongModel)
@@ -118,6 +123,8 @@ func emit_song_skip_next() -> void: song_skip_next.emit()
 func emit_song_skip_prev() -> void: song_skip_prev.emit()
 func emit_song_changed(song: SongModel) -> void: song_changed.emit(song)
 
+func emit_scrobble(song: SongModel) -> void: scrobble.emit(song)
+
 
 func emit_toggle_shuffle() -> void: toggle_shuffle.emit()
 func emit_toggle_repeat() -> void: toggle_repeat.emit()
@@ -139,6 +146,7 @@ func emit_show_album_window(album: AlbumModel, texture) -> void: show_album_wind
 func emit_show_history_window() -> void: show_history_window.emit()
 func emit_request_rename_window(playlist: PlaylistModel) -> void: request_rename_window.emit(playlist)
 func emit_show_tags_window(song: SongModel) -> void: show_tags_window.emit(song)
+func emit_show_dynamic_playlists_window() -> void: show_dynamic_playlists_window.emit()
 
 func emit_reload_request() -> void: reload_request.emit()
 func emit_reload_playlists() -> void: reload_playlists.emit()
@@ -152,6 +160,8 @@ func emit_request_playlist(playlist: PlaylistModel, index: int) -> void:
 	request_playlist.emit(playlist, index)
 func emit_request_history_update() -> void: request_history_update.emit()
 func emit_config_updated() -> void: config_updated.emit()
+func emit_star_song(song: SongModel, is_subsonic: bool) -> void: star_song.emit(song, is_subsonic)
+func emit_unstar_song(song: SongModel, is_subsonic: bool) -> void: unstar_song.emit(song, is_subsonic)
 
 
 func emit_request_song_to_playlist(song: SongModel) -> void: request_song_to_playlist.emit(song)

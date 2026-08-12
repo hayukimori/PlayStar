@@ -20,19 +20,24 @@ public partial class SearchRepository : Node
 
         using var connection = _db.GetConnection();
         using var cmd = connection.CreateCommand();
-        // Looks at feats (sa), returns album data (al/ar)
         cmd.CommandText = @"
             SELECT DISTINCT
                 s.path, s.title, s.length, s.lyrics,
                 al.id, al.title, al.art_path, al.year,
                 ar.id, ar.name,
-                g.name
+                g.name,
+                st.starred_at,
+                s.mb_track_id, s.mb_artist_id, s.mb_release_id,
+                s.mb_release_artist_id, s.mb_release_group_id,
+                s.mb_release_status, s.mb_release_type,
+                s.mb_disc_id, s.music_ip_id
             FROM songs s
-            LEFT JOIN albums  al ON s.album_id  = al.id
-            LEFT JOIN artists ar ON al.artist_id = ar.id
-            LEFT JOIN genres  g  ON al.genre_id  = g.id
-            LEFT JOIN song_artists sa ON sa.song_path = s.path
-            LEFT JOIN artists feat_ar ON sa.artist_id = feat_ar.id
+            LEFT JOIN albums        al ON s.album_id   = al.id
+            LEFT JOIN artists       ar ON al.artist_id = ar.id
+            LEFT JOIN genres        g  ON al.genre_id  = g.id
+            LEFT JOIN song_artists  sa ON sa.song_path = s.path
+            LEFT JOIN artists  feat_ar ON sa.artist_id = feat_ar.id
+            LEFT JOIN starred_songs st ON st.song_path = s.path
             WHERE s.indexed = 1
               AND (
                 s.title       LIKE $query OR

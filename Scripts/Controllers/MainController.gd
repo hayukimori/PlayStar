@@ -13,6 +13,7 @@ signal update_current_metadata(data: SongModel)
 @export var scanner: LibraryScanner
 @export var mpris_service: MprisService
 @export var subsonic_service: SubsonicService
+@export var listenbrainz_service: ListenBrainzService
 
 @export_group("UI")
 @export var ui_manager: UIManager
@@ -24,7 +25,6 @@ signal update_current_metadata(data: SongModel)
 @export_group("Dynamic Variables")
 @export var current_play_queue: Array[SongModel] = []
 @export var playing_now: SongModel
-@export var playing_now_btn: SongButtonCovered
 #endregion
 
 
@@ -60,6 +60,9 @@ func _ready() -> void:
 	artist_repo.Initialize(db)
 	album_repo.Initialize(db)
 
+	# Clean up old scrobbles before start
+	db.CleanupOldScrobbles()
+
 	NodeKeeper.current_database = db
 	NodeKeeper.current_indexer = indexer
 	NodeKeeper.current_scanner = scanner
@@ -68,6 +71,7 @@ func _ready() -> void:
 	NodeKeeper.album_repository = album_repo
 	NodeKeeper.vlc_player = player
 	NodeKeeper.subsonic_service = subsonic_service
+	NodeKeeper.listenbrainz_service = listenbrainz_service
 
 	player.connect("MusicStarted", _on_music_started)
 	player.connect("MusicEnded", _on_music_ended)
@@ -124,8 +128,6 @@ func _ready() -> void:
 
 ## Plays song (updates MPRIS and Discord RPC)
 func play_song(info: SongModel) -> void:
-	if playing_now_btn: playing_now_btn.stop_playing_now()
-
 	playing_now = info
 
 	player.Load(info.FilePath)
@@ -134,6 +136,7 @@ func play_song(info: SongModel) -> void:
 	DiscordRp.OnMusicPlay(info, 0)
 	SignalBus.emit_song_play()
 	update_mpris(info)
+	update_listenbrainz(info)
 
 	emit_signal("update_current_metadata", playing_now)
 	SignalBus.emit_song_changed(info)
@@ -141,11 +144,7 @@ func play_song(info: SongModel) -> void:
 	if ui_manager:
 		ui_manager.update_length_label(info)
 		ui_manager.scroll_to_song(info)
-		ui_manager.stop_playing_now(playing_now_btn.song_content if playing_now_btn else null)
-
-	var btn = ui_manager.get_button_by_song(info) if ui_manager else null
-	if btn: btn.start_playing_now()
-	playing_now_btn = btn
+		ui_manager.start_playing_now(info)
 
 
 ## updates MPRIS with song metadata
@@ -163,6 +162,14 @@ func update_mpris(song: SongModel) -> void:
 
 	mpris_service.UpdateLoopStatus(_mpris_loop_string())
 	mpris_service.UpdateShuffle(random_mode)
+
+func update_listenbrainz(song: SongModel) -> void:
+	if !listenbrainz_service: return
+	if !listenbrainz_service.IsConnected(): return
+	if !song: return
+	if !song.MusicBrainzTrackId: return
+
+	listenbrainz_service.SubmitPlayingNow(song)
 
 
 ## Emits Seeked from MPRIS after seek (position_us = microseconds)
@@ -286,7 +293,7 @@ func _on_path_request(payloads: Array[Dictionary]) -> void:
 
 	_rebuild_random_order()
 	if ui_manager:
-		ui_manager._build_buttons_timesliced(q, ui_manager._current_generation)
+		ui_manager.render_song_btns_from_list(current_play_queue)
 
 	await get_tree().process_frame
 	play_song(first_song)
@@ -337,14 +344,14 @@ func update_by_defaults() -> void:
 
 	var urpm = user_defaults.repeat_mode
 	var valid_rpmode = urpm < len(Definitions.RepeatMode)
-	if not valid_rpmode: urpm = 0
+	if not valid_rpmode: urpm = 0 as Definitions.RepeatMode
 
 	random_mode = user_defaults.random_mode
 	repeat_mode = urpm as Definitions.RepeatMode
 
 	if ui_manager:
 		ui_manager.set_rdm_button(user_defaults.random_mode)
-		ui_manager.set_rpt_button(urpm)
+		ui_manager.set_rpt_button(urpm as int)
 
 
 func pause_process() -> void:
@@ -547,10 +554,6 @@ func _on_ui_skip_prev() -> void:
 func _on_ui_skip_next() -> void:
 	if !playing_now: return
 
-	if ui_manager:
-		var btn = ui_manager.get_button_by_song(playing_now)
-		if btn: btn.stop_playing_now()
-
 	if random_mode: skip_next_as_random(); return
 
 	match repeat_mode:
@@ -591,7 +594,7 @@ func _on_reload_requested() -> void:
 
 
 func _on_req_load_song_from_queue(song: SongModel) -> void:
-	if ui_manager and !ui_manager.get_button_by_song(song): return
+	if current_play_queue.find(song) == -1: return
 	play_song(song)
 
 
@@ -613,11 +616,13 @@ func _on_load_all_songs_request() -> void:
 func _on_search_results_requested(results: Array) -> void:
 	var results_as_local = []
 	for item in results:
-		var index = -1
-		if ui_manager:
-			index = ui_manager.get_index_by_path(item.FilePath, current_play_queue)
-		if index != -1:
-			results_as_local.append(current_play_queue[index])
+		var found = current_play_queue.filter(func(s: SongModel):
+			if s.FilePath == item.FilePath: return true
+			if item.SongId != "" and s.SongId == item.SongId: return true
+			return false
+		)
+		if not found.is_empty():
+			results_as_local.append(found[0])
 
 	if ui_manager:
 		ui_manager.show_search_results(results_as_local)

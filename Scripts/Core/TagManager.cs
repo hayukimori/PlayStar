@@ -29,14 +29,23 @@ public partial class TagManager : GodotObject
                 FilePath = path,
                 FileName = Path.GetFileName(path),
                 Title = !string.IsNullOrWhiteSpace(tag.Title)
-                               ? tag.Title
-                               : Path.GetFileNameWithoutExtension(path),
+                    ? tag.Title
+                    : Path.GetFileNameWithoutExtension(path),
                 Artist = rawArtist,
                 Album = tag.Album ?? "Unknown",
                 Genre = tag.FirstGenre ?? "Unknown",
                 Length = (long)prop.Duration.TotalMilliseconds,
                 Year = tag.Year,
                 Lyrics = tag.Lyrics ?? string.Empty,
+                MusicBrainzTrackId = tag.MusicBrainzTrackId,
+                MusicBrainzArtistId = tag.MusicBrainzArtistId,
+                MusicBrainzReleaseId = tag.MusicBrainzReleaseId,
+                MusicBrainzReleaseArtistId = tag.MusicBrainzReleaseArtistId,
+                MusicBrainzReleaseGroupId = tag.MusicBrainzReleaseGroupId,
+                MusicBrainzReleaseStatus = tag.MusicBrainzReleaseStatus,
+                MusicBrainzReleaseType = tag.MusicBrainzReleaseType,
+                MusicBrainzDiscId = tag.MusicBrainzDiscId,
+                MusicIpId = tag.MusicIpId,
             };
         }
         catch (Exception ex)
@@ -53,6 +62,15 @@ public partial class TagManager : GodotObject
                 Length = 0,
                 Year = 0,
                 Lyrics = string.Empty,
+                MusicBrainzTrackId = string.Empty,
+                MusicBrainzArtistId = string.Empty,
+                MusicBrainzReleaseId = string.Empty,
+                MusicBrainzReleaseArtistId = string.Empty,
+                MusicBrainzReleaseGroupId = string.Empty,
+                MusicBrainzReleaseStatus = string.Empty,
+                MusicBrainzReleaseType = string.Empty,
+                MusicBrainzDiscId = string.Empty,
+                MusicIpId = string.Empty
             };
         }
     }

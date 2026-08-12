@@ -118,7 +118,7 @@ func get_compatible_from_playlist(obj: PlaylistModel) -> Array[SongModel]:
 func _do_search():
 	print("Searching for: ", _pending_text)
 
-	var results
+	var results: Array = []
 
 	match search_mode:
 		SearchMode.SONGS:
@@ -127,10 +127,21 @@ func _do_search():
 			results = search_repo.SearchArtists(_pending_text)
 		SearchMode.ALBUM:
 			results = search_repo.SearchAlbums(_pending_text)
-		_: search_repo.Search(_pending_text)
+		_: results = search_repo.Search(_pending_text)
+
+	if search_mode == SearchMode.SONGS:
+		var term := _pending_text.to_lower()
+		var subsonic_results := current_queue.filter(func(s: SongModel):
+			return s.SongId != "" and (
+				term in s.Title.to_lower() or
+				term in s.Artist.to_lower() or
+				term in s.Album.to_lower()
+			)
+		)
+		for song in subsonic_results:
+			results.append(song)
 
 	emit_signal("render_results", results)
-
 
 func _render_default() -> void:
 	render_default.emit()

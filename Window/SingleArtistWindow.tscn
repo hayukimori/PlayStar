@@ -9,6 +9,7 @@
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="6_cwfsn"]
 [ext_resource type="PackedScene" uid="uid://mfgk5vvdxgfm" path="res://UI/Components/AlbumButtonCovered.tscn" id="7_biw6a"]
 [ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="9_2mqg1"]
+[ext_resource type="Script" uid="uid://d3xk9p8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="10_vl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g478s"]
 corner_radius_top_left = 8
@@ -156,4 +157,4 @@ grow_horizontal = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="SingleArtistControl/SongsScrollContainer" unique_id=1669477244]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("9_2mqg1")
+script = ExtResource("10_vl")

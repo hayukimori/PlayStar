@@ -8,8 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://b54e8aaiiffik" path="res://assets/icons/extra/hq.png" id="4_4wxht"]
 [ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="5_4tf6t"]
 [ext_resource type="Script" uid="uid://ct31sfsan3rbl" path="res://Scripts/UI/CustomNodes/ToPlaylistButton.gd" id="6_r8q5a"]
+[ext_resource type="Texture2D" uid="uid://fclxi1r4v8h5" path="res://assets/icons/iconoir/heart.svg" id="6_wp0id"]
+[ext_resource type="Script" uid="uid://clvwj6p5qjekt" path="res://Scripts/UI/Components/FavoriteButton.gd" id="7_oyqtj"]
 [ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="7_p518v"]
 [ext_resource type="Shader" uid="uid://b3h83qu6jaome" path="res://UI/Shaders/visualizer.gdshader" id="7_usbv0"]
+[ext_resource type="Texture2D" uid="uid://dx38fxu5kd4hc" path="res://assets/icons/iconoir/heart-solid.svg" id="8_lhcyw"]
 [ext_resource type="Script" uid="uid://dnj6ugoy1pdo" path="res://Scripts/UI/CustomNodes/AnimatedOptionButton.gd" id="10_hnsvu"]
 [ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="11_hnsvu"]
 [ext_resource type="Texture2D" uid="uid://b1xtyb1im4ywm" path="res://assets/icons/extra/subsonic.svg" id="11_tycom"]
@@ -36,7 +39,7 @@ shader = ExtResource("7_usbv0")
 shader_parameter/bar_color = Color(1, 1, 1, 1)
 shader_parameter/corner_radius = 0.5
 
-[node name="SongButtonCovered" type="Button" unique_id=285328477 node_paths=PackedStringArray("title_label", "artist_label", "album_art", "hq_btn", "subsonic_btn", "playing_now_bar", "add_to_playlist_btn", "remove_from_current_playlist_btn", "show_info_btn")]
+[node name="SongButtonCovered" type="Button" unique_id=285328477 node_paths=PackedStringArray("title_label", "artist_label", "album_art", "hq_btn", "subsonic_btn", "playing_now_bar", "add_to_playlist_btn", "remove_from_current_playlist_btn", "show_info_btn", "favorite_btn")]
 custom_minimum_size = Vector2(0, 64)
 custom_maximum_size = Vector2(-1, 64)
 anchors_preset = -1
@@ -58,6 +61,7 @@ add_to_playlist_btn = NodePath("ExtrasHBC/ToPlaylistButton")
 remove_from_current_playlist_btn = NodePath("ExtrasHBC/RmFromCurrentButton")
 default_album_art = ExtResource("2_exdt8")
 show_info_btn = NodePath("ExtrasHBC/ShowInfoButton")
+favorite_btn = NodePath("ExtrasHBC/FavoriteButton")
 
 [node name="BgPanel" type="Panel" parent="." unique_id=1051757596]
 custom_minimum_size = Vector2(0, 64)
@@ -124,13 +128,26 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -129.0
+offset_left = -184.0
 offset_top = 20.0
 offset_right = -13.0
 offset_bottom = -21.0
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 2
+
+[node name="FavoriteButton" type="Button" parent="ExtrasHBC" unique_id=1697181641]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+icon = ExtResource("6_wp0id")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("7_oyqtj")
+solid_texture = ExtResource("8_lhcyw")
+basic_texture = ExtResource("6_wp0id")
+metadata/_custom_type_script = "uid://dnj6ugoy1pdo"
 
 [node name="ToPlaylistButton" type="Button" parent="ExtrasHBC" unique_id=1289095421]
 visible = false
