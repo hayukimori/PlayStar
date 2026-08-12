@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dva25s2e07te5" path="res://assets/icons/iconoir/copy.svg" id="4_8pyuf"]
 [ext_resource type="Script" uid="uid://cevpo3ffhioh1" path="res://Scripts/Database/LibraryScanner.cs" id="4_hgk7f"]
 [ext_resource type="Script" uid="uid://co25nwokeho00" path="res://Scripts/NetworkAPI/SubsonicService.cs" id="4_uqqrf"]
+[ext_resource type="Script" uid="uid://b1b0t3qyuvmdj" path="res://Scripts/NetworkAPI/ListenBrainzService.cs" id="5_6ewtm"]
 [ext_resource type="Texture2D" uid="uid://c0h3epcai6yfm" path="res://assets/icons/iconoir/skip-prev-solid.svg" id="5_h06au"]
 [ext_resource type="Shader" uid="uid://s8vdfkdb886h" path="res://UI/Shaders/waveshader.gdshader" id="5_riu1i"]
 [ext_resource type="Texture2D" uid="uid://wqrcye6li3b7" path="res://assets/icons/iconoir/play-solid.svg" id="6_ufdaw"]
@@ -84,7 +85,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_182w8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ewtm"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -99,7 +100,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ewtm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6epg"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -115,7 +116,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6epg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpjbn"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -307,7 +308,7 @@ lyrics_panel = NodePath("../SongInfoControl/AlbumArtControl/LyricsPanel")
 lrc_service = NodePath("../LrcLibService")
 lrc_btn = NodePath("../SongInfoControl/AlbumArtControl/TopButtonsControl/LyricsButton")
 
-[node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "subsonic_service", "ui_manager")]
+[node name="MainController" type="Node" parent="." unique_id=1903372151 node_paths=PackedStringArray("player", "db", "indexer", "scanner", "mpris_service", "subsonic_service", "listenbrainz_service", "ui_manager")]
 script = ExtResource("2_7sujj")
 player = NodePath("../AudioServer/VlcPlayer")
 db = NodePath("../Database/DatabaseManager")
@@ -315,6 +316,7 @@ indexer = NodePath("../Database/MetadataIndexer")
 scanner = NodePath("../Database/LibraryScanner")
 mpris_service = NodePath("../AudioServer/MprisService")
 subsonic_service = NodePath("../AudioServer/SubsonicService")
+listenbrainz_service = NodePath("../ListenBrainzService")
 ui_manager = NodePath("../UIManager")
 
 [node name="SongHistoryManager" type="Node" parent="MainController" unique_id=266926844]
@@ -324,6 +326,10 @@ script = ExtResource("14_eryca")
 script = ExtResource("16_133mb")
 main_controller = NodePath("..")
 user_interface_manager = NodePath("../../UIManager")
+
+[node name="ListenBrainzService" type="Node" parent="." unique_id=109504916]
+script = ExtResource("5_6ewtm")
+metadata/_custom_type_script = "uid://b1b0t3qyuvmdj"
 
 [node name="LrcLibService" type="Node" parent="." unique_id=179643484]
 script = ExtResource("13_13w56")
@@ -382,7 +388,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_182w8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ewtm")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -430,7 +436,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_6ewtm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r6epg")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -450,7 +456,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_r6epg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qpjbn")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16

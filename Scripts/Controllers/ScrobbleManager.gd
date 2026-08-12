@@ -3,6 +3,7 @@ class_name ScrobbleManager
 
 var subsonic_enabled: bool = false
 var subsonic_service: SubsonicService
+var listenbrainz_service: ListenBrainzService
 
 func _ready() -> void:
 	SignalBus.scrobble.connect(_on_scrobble)
@@ -12,6 +13,10 @@ func _ready() -> void:
 	if sbs_svc:
 		subsonic_enabled = sbs_svc.IsConnected()
 		subsonic_service = sbs_svc
+
+	var lsb_svc := NodeKeeper.listenbrainz_service
+	if lsb_svc:
+		listenbrainz_service = lsb_svc
 
 ## Gets most played songs [br]
 ## Takes [param limit (int)] and [param days (int)] [br]
@@ -62,10 +67,20 @@ func scrobble_internal(song: SongModel):
 	repo.MarkScrobble(song);
 
 
+func scrobble_listenbrainz(metadata: AudioMetadataResource) -> void:
+	if listenbrainz_service:
+		if listenbrainz_service.IsConnected():
+			listenbrainz_service.Scrobble(metadata)
+
+
 
 func _on_scrobble(song: SongModel) -> void:
 	if song.FilePath.begins_with("http") and subsonic_enabled:
 		scrobble_as_subsonic(song)
 		return
+
+	var tags: AudioMetadataResource = TagManager.ExtractFullMetadata(song.FilePath)
+	if tags.MusicBrainzTrackId:
+		scrobble_listenbrainz(tags)
 
 	scrobble_internal(song)
