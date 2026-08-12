@@ -35,7 +35,8 @@ func _ready() -> void:
 	set_ui()
 
 	if !is_subsonic:
-		var song: SongModel = song_repo.GetFirstSongFromArtist(artist)
+		var song: = song_repo.GetFirstSongFromArtist(artist)
+		if !song: return
 		key = song.FilePath
 	else:
 		key = artist.ArtistIdSn

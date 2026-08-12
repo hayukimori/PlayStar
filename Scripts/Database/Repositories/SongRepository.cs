@@ -42,11 +42,15 @@ public partial class SongRepository : Node
                     )), ar.name
                 ) AS track_artist,
                 g.name,
-                st.starred_at
+                st.starred_at,
+                s.mb_track_id, s.mb_artist_id, s.mb_release_id,
+                s.mb_release_artist_id, s.mb_release_group_id,
+                s.mb_release_status, s.mb_release_type,
+                s.mb_disc_id, s.music_ip_id
             FROM songs s
-            LEFT JOIN albums       al ON s.album_id  = al.id
-            LEFT JOIN artists      ar ON al.artist_id = ar.id
-            LEFT JOIN genres       g  ON al.genre_id  = g.id
+            LEFT JOIN albums        al ON s.album_id  = al.id
+            LEFT JOIN artists       ar ON al.artist_id = ar.id
+            LEFT JOIN genres        g  ON al.genre_id  = g.id
             LEFT JOIN starred_songs st ON st.song_path = s.path
             {whereClause}
             ORDER BY s.title
@@ -84,11 +88,15 @@ public partial class SongRepository : Node
                     )), ar.name
                 ) AS track_artist,
                 g.name,
-                st.starred_at
+                st.starred_at,
+                s.mb_track_id, s.mb_artist_id, s.mb_release_id,
+                s.mb_release_artist_id, s.mb_release_group_id,
+                s.mb_release_status, s.mb_release_type,
+                s.mb_disc_id, s.music_ip_id
             FROM songs s
-            LEFT JOIN albums       al ON s.album_id  = al.id
-            LEFT JOIN artists      ar ON al.artist_id = ar.id
-            LEFT JOIN genres       g  ON al.genre_id  = g.id
+            LEFT JOIN albums        al ON s.album_id  = al.id
+            LEFT JOIN artists       ar ON al.artist_id = ar.id
+            LEFT JOIN genres        g  ON al.genre_id  = g.id
             LEFT JOIN starred_songs st ON st.song_path = s.path
             WHERE s.path IN ({placeholders});
         ";
@@ -130,11 +138,15 @@ public partial class SongRepository : Node
                     )), ar.name
                 ) AS track_artist,
                 g.name,
-                st.starred_at
+                st.starred_at,
+                s.mb_track_id, s.mb_artist_id, s.mb_release_id,
+                s.mb_release_artist_id, s.mb_release_group_id,
+                s.mb_release_status, s.mb_release_type,
+                s.mb_disc_id, s.music_ip_id
             FROM songs s
-            LEFT JOIN albums       al ON s.album_id  = al.id
-            LEFT JOIN artists      ar ON al.artist_id = ar.id
-            LEFT JOIN genres       g  ON al.genre_id  = g.id
+            LEFT JOIN albums        al ON s.album_id  = al.id
+            LEFT JOIN artists       ar ON al.artist_id = ar.id
+            LEFT JOIN genres        g  ON al.genre_id  = g.id
             LEFT JOIN starred_songs st ON st.song_path = s.path
             WHERE EXISTS (
                 SELECT 1 FROM song_artists sa_f
@@ -170,11 +182,15 @@ public partial class SongRepository : Node
                     )), ar.name
                 ) AS track_artist,
                 g.name,
-                st.starred_at
+                st.starred_at,
+                s.mb_track_id, s.mb_artist_id, s.mb_release_id,
+                s.mb_release_artist_id, s.mb_release_group_id,
+                s.mb_release_status, s.mb_release_type,
+                s.mb_disc_id, s.music_ip_id
             FROM songs s
-            LEFT JOIN albums       al ON s.album_id  = al.id
-            LEFT JOIN artists      ar ON al.artist_id = ar.id
-            LEFT JOIN genres       g  ON al.genre_id  = g.id
+            LEFT JOIN albums        al ON s.album_id  = al.id
+            LEFT JOIN artists       ar ON al.artist_id = ar.id
+            LEFT JOIN genres        g  ON al.genre_id  = g.id
             LEFT JOIN starred_songs st ON st.song_path = s.path
             WHERE EXISTS (
                 SELECT 1 FROM song_artists sa_f
@@ -209,7 +225,11 @@ public partial class SongRepository : Node
                     )), ar.name
                 ) AS track_artist,
                 g.name,
-                st.starred_at
+                st.starred_at,
+                s.mb_track_id, s.mb_artist_id, s.mb_release_id,
+                s.mb_release_artist_id, s.mb_release_group_id,
+                s.mb_release_status, s.mb_release_type,
+                s.mb_disc_id, s.music_ip_id
             FROM starred_songs st
             JOIN songs         s  ON s.path       = st.song_path
             LEFT JOIN albums   al ON s.album_id   = al.id
@@ -362,17 +382,35 @@ public partial class SongRepository : Node
         using var cmd = connection.CreateCommand();
         cmd.CommandText = @"
             UPDATE songs SET
-                title    = $title,
-                album_id = $albumId,
-                length   = $length,
-                lyrics   = $lyrics,
-                indexed  = 1
+                title                = $title,
+                album_id             = $albumId,
+                length               = $length,
+                lyrics               = $lyrics,
+                indexed              = 1,
+                mb_track_id          = $mbTrackId,
+                mb_artist_id         = $mbArtistId,
+                mb_release_id        = $mbReleaseId,
+                mb_release_artist_id = $mbReleaseArtistId,
+                mb_release_group_id  = $mbReleaseGroupId,
+                mb_release_status    = $mbReleaseStatus,
+                mb_release_type      = $mbReleaseType,
+                mb_disc_id           = $mbDiscId,
+                music_ip_id          = $musicIpId
             WHERE path = $path;
         ";
-        cmd.Parameters.AddWithValue("$title", song.Title ?? "");
+        cmd.Parameters.AddWithValue("$title", song.Title ?? "Unknown");
         cmd.Parameters.AddWithValue("$albumId", albumId);
         cmd.Parameters.AddWithValue("$length", song.Length);
-        cmd.Parameters.AddWithValue("$lyrics", song.Lyrics ?? "");
+        cmd.Parameters.AddWithValue("$lyrics", song.Lyrics);
+        cmd.Parameters.AddWithValue("$mbTrackId",         song.MusicBrainzTrackId         ?? "");
+        cmd.Parameters.AddWithValue("$mbArtistId",        song.MusicBrainzArtistId        ?? "");
+        cmd.Parameters.AddWithValue("$mbReleaseId",       song.MusicBrainzReleaseId       ?? "");
+        cmd.Parameters.AddWithValue("$mbReleaseArtistId", song.MusicBrainzReleaseArtistId ?? "");
+        cmd.Parameters.AddWithValue("$mbReleaseGroupId",  song.MusicBrainzReleaseGroupId  ?? "");
+        cmd.Parameters.AddWithValue("$mbReleaseStatus",   song.MusicBrainzReleaseStatus   ?? "");
+        cmd.Parameters.AddWithValue("$mbReleaseType",     song.MusicBrainzReleaseType     ?? "");
+        cmd.Parameters.AddWithValue("$mbDiscId",          song.MusicBrainzDiscId          ?? "");
+        cmd.Parameters.AddWithValue("$musicIpId",         song.MusicIpId                  ?? "");
         cmd.Parameters.AddWithValue("$path", song.FilePath);
         cmd.ExecuteNonQuery();
     }
@@ -437,18 +475,27 @@ public partial class SongRepository : Node
     #region Mapping
     internal static SongModel MapSong(SqliteDataReader r) => new()
     {
-        FilePath = r.GetString(0),
-        FileName = System.IO.Path.GetFileName(r.GetString(0)),
-        Title = r.IsDBNull(1) ? "" : r.GetString(1),
-        Length = r.IsDBNull(2) ? 0 : r.GetInt64(2),
-        Lyrics = r.IsDBNull(3) ? "" : r.GetString(3),
-        AlbumId = r.IsDBNull(4) ? 0 : r.GetInt64(4),
-        Album = r.IsDBNull(5) ? "" : r.GetString(5),
-        ArtPath = r.IsDBNull(6) ? "" : r.GetString(6),
-        Year = r.IsDBNull(7) ? 0 : (uint)r.GetInt32(7),
-        Artist = r.IsDBNull(9) ? "" : r.GetString(9),
-        Genre = r.IsDBNull(10) ? "" : r.GetString(10),
-        Starred = !r.IsDBNull(11),
+        FilePath  = r.GetString(0),
+        FileName  = System.IO.Path.GetFileName(r.GetString(0)),
+        Title     = r.IsDBNull(1)  ? "" : r.GetString(1),
+        Length    = r.IsDBNull(2)  ? 0  : r.GetInt64(2),
+        Lyrics    = r.IsDBNull(3)  ? "" : r.GetString(3),
+        AlbumId   = r.IsDBNull(4)  ? 0  : r.GetInt64(4),
+        Album     = r.IsDBNull(5)  ? "" : r.GetString(5),
+        ArtPath   = r.IsDBNull(6)  ? "" : r.GetString(6),
+        Year      = r.IsDBNull(7)  ? 0  : (uint)r.GetInt32(7),
+        Artist    = r.IsDBNull(9)  ? "" : r.GetString(9),
+        Genre     = r.IsDBNull(10) ? "" : r.GetString(10),
+        Starred   = !r.IsDBNull(11),
+        MusicBrainzTrackId         = r.IsDBNull(12) ? "" : r.GetString(12),
+        MusicBrainzArtistId        = r.IsDBNull(13) ? "" : r.GetString(13),
+        MusicBrainzReleaseId       = r.IsDBNull(14) ? "" : r.GetString(14),
+        MusicBrainzReleaseArtistId = r.IsDBNull(15) ? "" : r.GetString(15),
+        MusicBrainzReleaseGroupId  = r.IsDBNull(16) ? "" : r.GetString(16),
+        MusicBrainzReleaseStatus   = r.IsDBNull(17) ? "" : r.GetString(17),
+        MusicBrainzReleaseType     = r.IsDBNull(18) ? "" : r.GetString(18),
+        MusicBrainzDiscId          = r.IsDBNull(19) ? "" : r.GetString(19),
+        MusicIpId                  = r.IsDBNull(20) ? "" : r.GetString(20),
     };
     #endregion
 }
