@@ -55,6 +55,7 @@ static func load_history_songs(reversed: bool = false) -> Array[SongModel]:
 		strings.append(i.file_path)
 
 	var songs = repo.GetSongsByPaths(strings)
+	if !songs: return []
 
 	if reversed:
 		songs.reverse()

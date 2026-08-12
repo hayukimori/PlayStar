@@ -30,8 +30,12 @@ func _ready() -> void:
 	set_ui()
 
 	if !is_subsonic:
-		var song: SongModel = album.Songs[0]
-		key = song.FilePath
+		var songs = album.Songs
+		if !songs or songs.is_empty():
+			return
+		else:
+			var song: SongModel = songs[0]
+			key = song.FilePath
 
 	else:
 		key = album.IdSn
