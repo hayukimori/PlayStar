@@ -43,8 +43,8 @@ Synchronized lyrics are fetched from [LRCLIB](https://lrclib.net), a free and op
 [Subsonic API](https://subsonic.org/) is supported in PlayStar
 [ListenBrainz](https://listenbrainz.org) is supported in PlayStar
 
->![IMPORTANT]
->Please, before connecting to the Subsonic and/or ListenBrainz service, check [PRIVACY.md](https://github.com/hayukimori/PlayStar/blob/main/PRIVACY.md) to see what is or is not collected during the connection.
+> [!IMPORTANT]
+> Please, before connecting to the Subsonic and/or ListenBrainz service, check [PRIVACY.md](https://github.com/hayukimori/PlayStar/blob/main/PRIVACY.md) to see what is or is not collected during the connection.
 
 ## Requirements
  
