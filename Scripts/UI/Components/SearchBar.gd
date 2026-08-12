@@ -118,7 +118,7 @@ func get_compatible_from_playlist(obj: PlaylistModel) -> Array[SongModel]:
 func _do_search():
 	print("Searching for: ", _pending_text)
 
-	var results
+	var results: Array = []
 
 	match search_mode:
 		SearchMode.SONGS:
