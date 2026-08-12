@@ -136,6 +136,7 @@ func play_song(info: SongModel) -> void:
 	DiscordRp.OnMusicPlay(info, 0)
 	SignalBus.emit_song_play()
 	update_mpris(info)
+	update_listenbrainz(info)
 
 	emit_signal("update_current_metadata", playing_now)
 	SignalBus.emit_song_changed(info)
@@ -161,6 +162,14 @@ func update_mpris(song: SongModel) -> void:
 
 	mpris_service.UpdateLoopStatus(_mpris_loop_string())
 	mpris_service.UpdateShuffle(random_mode)
+
+func update_listenbrainz(song: SongModel) -> void:
+	if !listenbrainz_service: return
+	if !listenbrainz_service.IsConnected(): return
+	if !song: return
+	if !song.MusicBrainzTrackId: return
+
+	listenbrainz_service.SubmitPlayingNow(song)
 
 
 ## Emits Seeked from MPRIS after seek (position_us = microseconds)

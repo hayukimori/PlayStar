@@ -115,17 +115,57 @@ public partial class ListenBrainzService : Node
         try
         {
             await _client.SubmitListenAsync(
-                trackName:       meta.Title ?? "",
-                artistName:      meta.Artists?.Length > 0 ? meta.Artists[0] : "",
-                releaseName:     meta.Album,
-                trackMbid:       meta.MusicBrainzTrackId,
-                artistMbid:      meta.MusicBrainzArtistId,
-                releaseMbid:     meta.MusicBrainzReleaseId,
+                trackName: meta.Title ?? "",
+                artistName: meta.Artists?.Length > 0 ? meta.Artists[0] : "",
+                releaseName: meta.Album,
+                trackMbid: meta.MusicBrainzTrackId,
+                artistMbid: meta.MusicBrainzArtistId,
+                releaseMbid: meta.MusicBrainzReleaseId,
                 durationSeconds: meta.DurationSeconds > 0 ? meta.DurationSeconds : null,
-                ct:              NewToken()
+                ct: NewToken()
             );
         }
         catch { /* scrobble failure is non-critical, swallow silently */ }
+    }
+
+    /// <summary>
+    /// Marks recording as 1 (favorite)
+    /// Only submits if MusicBrainzTrackId is present.
+    /// Fire-and-forget — no signal emitted on success.
+    /// </summary>
+    public async void Star(string trackMbid)
+    {
+        if (_client == null || !_config.IsEnabled) return;
+        if (string.IsNullOrWhiteSpace(trackMbid)) return;
+
+        try
+        {
+            await _client.RecordingFeedback(
+                trackMbid: trackMbid,
+                score: 1,
+                ct: NewToken());
+        }
+        catch { /* non-critical, ignore */}
+    }
+
+    /// <summary>
+    /// Marks recording as 0 (favorite)
+    /// Only submits if MusicBrainzTrackId is present.
+    /// Fire-and-forget — no signal emitted on success.
+    /// </summary>
+    public async void Unstar(string trackMbid)
+    {
+        if (_client == null || !_config.IsEnabled) return;
+        if (string.IsNullOrWhiteSpace(trackMbid)) return;
+
+        try
+        {
+            await _client.RecordingFeedback(
+                trackMbid: trackMbid,
+                score: 1,
+                ct: NewToken());
+        }
+        catch { /* non-critical, ignore */}
     }
 
     /// <summary>
@@ -133,7 +173,7 @@ public partial class ListenBrainzService : Node
     /// Only submits if MusicBrainzTrackId is present.
     /// Fire-and-forget.
     /// </summary>
-    public async void SubmitPlayingNow(AudioMetadataResource meta)
+    public async void SubmitPlayingNow(SongModel meta)
     {
         if (_client == null || !_config.IsEnabled) return;
         if (string.IsNullOrWhiteSpace(meta?.MusicBrainzTrackId)) return;
@@ -142,7 +182,7 @@ public partial class ListenBrainzService : Node
         {
             await _client.SubmitPlayingNowAsync(
                 trackName:   meta.Title ?? "",
-                artistName:  meta.Artists?.Length > 0 ? meta.Artists[0] : "",
+                artistName:  meta.Artist ?? "",
                 releaseName: meta.Album,
                 trackMbid:   meta.MusicBrainzTrackId,
                 artistMbid:  meta.MusicBrainzArtistId,

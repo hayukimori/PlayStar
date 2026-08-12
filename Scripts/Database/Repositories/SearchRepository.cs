@@ -26,7 +26,11 @@ public partial class SearchRepository : Node
                 al.id, al.title, al.art_path, al.year,
                 ar.id, ar.name,
                 g.name,
-                st.starred_at
+                st.starred_at,
+                s.mb_track_id, s.mb_artist_id, s.mb_release_id,
+                s.mb_release_artist_id, s.mb_release_group_id,
+                s.mb_release_status, s.mb_release_type,
+                s.mb_disc_id, s.music_ip_id
             FROM songs s
             LEFT JOIN albums        al ON s.album_id   = al.id
             LEFT JOIN artists       ar ON al.artist_id = ar.id
