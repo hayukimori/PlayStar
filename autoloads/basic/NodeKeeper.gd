@@ -15,3 +15,4 @@ var vlc_player: VlcPlayer
 
 # Extra Services
 var subsonic_service: SubsonicService
+var listenbrainz_service: ListenBrainzService
