@@ -138,7 +138,7 @@ color = Color(0.14509805, 0.14509805, 0.14509805, 1)
 oversampling_override = 1.0
 title = "Settings"
 initial_position = 4
-size = Vector2i(600, 400)
+size = Vector2i(700, 480)
 visible = false
 exclusive = true
 force_native = true
@@ -172,7 +172,7 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_japnt")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_ctn7q")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_uxyrx")
 tab_alignment = 1
-current_tab = 0
+current_tab = 5
 tabs_position = 1
 tab_0/icon = ExtResource("2_bc0ag")
 tab_1/icon = ExtResource("3_japnt")
@@ -182,6 +182,7 @@ tab_4/icon = ExtResource("6_ywwwc")
 tab_5/icon = ExtResource("7_7gg5u")
 
 [node name="LibraryPathSettings" type="Control" parent="Window/TabContainer" unique_id=2033530882 node_paths=PackedStringArray("file_dialog", "scan_window", "path_container", "scan_button", "add_path_button")]
+visible = false
 layout_mode = 2
 script = ExtResource("5_msdiq")
 file_dialog = NodePath("FileDialog")
@@ -291,11 +292,13 @@ text = "Discord Integration"
 label_settings = ExtResource("7_ctn7q")
 
 [node name="RPEnableCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=1648470495]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0220001
 offset_left = 4.0
 offset_top = 180.0
-offset_right = 526.0
-offset_bottom = 211.0
+offset_right = -34.03607
+offset_bottom = 212.0
 theme_override_font_sizes/font_size = 14
 text = "Rich Presence Enabled"
 icon = ExtResource("3_japnt")
@@ -303,9 +306,11 @@ flat = true
 
 [node name="ShowArtRPCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=433056767]
 layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.97800004
 offset_left = 3.0
 offset_top = 214.0
-offset_right = 525.0
+offset_right = -5.9640503
 offset_bottom = 254.0
 theme_override_font_sizes/font_size = 14
 text = "Show album name (restart required)"
@@ -347,10 +352,13 @@ text = "Player"
 label_settings = ExtResource("7_ctn7q")
 
 [node name="IgnoreUnCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2060338751]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 offset_top = 182.0
-offset_right = 548.0
+offset_right = -9.0
 offset_bottom = 214.0
+grow_horizontal = 2
 text = "Ignore 'Unknown' artists"
 icon = ExtResource("8_m628n")
 flat = true
@@ -358,7 +366,7 @@ flat = true
 [node name="NativeWindowCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=403455686]
 layout_mode = 0
 offset_top = 226.0
-offset_right = 548.0
+offset_right = 629.0
 offset_bottom = 258.0
 text = "Use system native window"
 icon = ExtResource("14_x1i2h")
@@ -367,7 +375,7 @@ flat = true
 [node name="AutoClosePanelCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2104975994]
 layout_mode = 0
 offset_top = 268.0
-offset_right = 548.0
+offset_right = 629.0
 offset_bottom = 300.0
 text = "Auto close panel"
 icon = ExtResource("16_wlnkb")
@@ -511,43 +519,48 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99100006
 anchor_bottom = 0.591
-offset_left = 9.0
-offset_top = 77.0
-offset_right = -133.15802
-offset_bottom = -78.028
+offset_left = 6.0
+offset_top = 66.0
+offset_right = -14.15802
+offset_bottom = -2.0279999
 theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
 bbcode_enabled = true
-text = "[font_size=14px]Configure your subsonic server settings here.[/font_size]
+text = "[font_size=14px]Configure your subsonic server settings here.
+
+[color=gray]By connecting to a Subsonic server, playback events and star actions will be sent to your configured server. If the server is integrated with Last.fm or ListenBrainz, scrobbles may be forwarded to those services as well. See the [url=https://github.com/hayukimori/PlayStar/blob/main/PRIVACY.md]Privacy Policy[/url] for more details.[/color]
+[/font_size]
 "
 justification_flags = 171
 
 [node name="UrlLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=1234965302]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0530001
 offset_left = 7.0
-offset_top = 130.0
-offset_right = 524.0
-offset_bottom = 161.0
+offset_top = 187.0
+offset_right = -42.814087
+offset_bottom = 218.0
 theme_override_styles/normal = ExtResource("27_ontro")
 theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "http://xxx.xxx.xxx.xxx:yyyy/"
 
 [node name="UsernameLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=1621918869]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 175.0
-offset_right = 523.0
-offset_bottom = 206.0
+offset_left = 7.0
+offset_top = 231.0
+offset_right = 629.0
+offset_bottom = 262.0
 theme_override_styles/normal = ExtResource("27_ontro")
 theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "username"
 
 [node name="PasswordLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=349067862]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 219.0
-offset_right = 522.0
-offset_bottom = 250.0
+offset_left = 9.0
+offset_top = 278.0
+offset_right = 629.0
+offset_bottom = 309.0
 theme_override_styles/normal = ExtResource("27_ontro")
 theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "password"
@@ -559,9 +572,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
-offset_top = -35.0
+offset_top = -37.0
 offset_right = 105.0
-offset_bottom = -3.0
+offset_bottom = -5.0
 grow_vertical = 0
 text = "Connect"
 icon = ExtResource("25_ywwwc")
@@ -583,11 +596,18 @@ label_settings = SubResource("LabelSettings_cty8o")
 horizontal_alignment = 2
 
 [node name="AutoIncludeButton" type="CheckButton" parent="Window/TabContainer/SubSonicSettings" unique_id=1796863372]
-layout_mode = 0
-offset_left = 389.0
-offset_top = 75.0
-offset_right = 523.0
-offset_bottom = 106.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -153.0
+offset_top = -36.0
+offset_right = -19.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_ontro")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ontro")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ontro")
@@ -598,7 +618,6 @@ text = "Auto Include"
 alignment = 2
 
 [node name="ListenBrainzSettings" type="Control" parent="Window/TabContainer" unique_id=339078416 node_paths=PackedStringArray("key_line_edit", "save_btn", "status_label")]
-visible = false
 layout_mode = 2
 script = ExtResource("32_luy8g")
 key_line_edit = NodePath("ApiKeyLineEdit")
@@ -635,22 +654,26 @@ anchors_preset = -1
 anchor_right = 0.99100006
 anchor_bottom = 0.591
 offset_left = 9.0
-offset_top = 77.0
-offset_right = -133.15802
-offset_bottom = -78.028
+offset_top = 83.0
+offset_right = 4.84198
+offset_bottom = 5.972
 theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
 bbcode_enabled = true
-text = "[font_size=14px]Configure ListenBrainz Scrobble Settings here[/font_size]
-"
+text = "[font_size=14px]Configure ListenBrainz Scrobble Settings here
+
+[color=gray]By configuring ListenBrainz, songs with a MusicBrainz ID will be submitted to [url=https://listenbrainz.org]listenbrainz.org[/url] during playback. See the [url=https://github.com/hayukimori/PlayStar/blob/main/PRIVACY.md]Privacy Policy[/url] for more details.[/color]
+[/font_size]"
 justification_flags = 171
 
 [node name="ApiKeyLineEdit" type="LineEdit" parent="Window/TabContainer/ListenBrainzSettings" unique_id=1494268370]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 168.0
-offset_right = 527.0
-offset_bottom = 199.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99200004
+offset_left = 6.0
+offset_top = 238.0
+offset_right = -3.8960571
+offset_bottom = 269.0
 theme_override_styles/normal = ExtResource("27_ontro")
 theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "Your API Key"
