@@ -130,6 +130,19 @@ public sealed class ListenBrainzClient : IDisposable
         await PostAsync("/1/submit-listens", payload, ct);
     }
 
+    public async Task RecordingFeedback(string trackMbid, int score, CancellationToken ct){
+        if (trackMbid == "") return;
+        if (score < -1 || score > 1) return; // Invalid score
+
+        var payload = new JsonObject
+        {
+            ["recording_mbid"] = trackMbid,
+            ["score"] = score
+        };
+
+        await PostAsync("/1/feedback/recording-feedback", payload, ct);
+    }
+
     /// <summary>Validates the API key. Returns true if valid.</summary>
     public async Task<bool> ValidateTokenAsync(CancellationToken ct = default)
     {

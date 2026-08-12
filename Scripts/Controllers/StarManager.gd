@@ -6,18 +6,18 @@ func _ready() -> void:
 
 
 func _on_star(song: SongModel, is_subsonic: bool) -> void:
-	print("Star called")
-
 	if is_subsonic:
 		star_subsonic(song)
 	else:
 		star_local(song)
+		star_listenbrainz(song)
 
 func _on_unstar(song: SongModel, is_subsonic: bool) -> void:
 	if is_subsonic:
 		unstar_subsonic(song)
 	else:
 		unstar_local(song)
+		unstar_listenbrainz(song)
 
 
 ## Stars song on Subsonic API (using song Id)
@@ -50,6 +50,23 @@ func unstar_subsonic(song: SongModel) -> void:
 
 	service.Unstar(song_id)
 
+
+
+## Stars song on ListenBrainz
+func star_listenbrainz(song: SongModel) -> void:
+	var service: ListenBrainzService = NodeKeeper.listenbrainz_service
+	var song_mbid: String = song.MusicBrainzTrackId
+
+	if !service or !song_mbid: return # Non critical.
+	service.Star(song_mbid)
+
+## Unstas song on ListenBrainz
+func unstar_listenbrainz(song: SongModel) -> void:
+	var service: ListenBrainzService = NodeKeeper.listenbrainz_service
+	var song_mbid: String = song.MusicBrainzTrackId
+
+	if !service or !song_mbid: return # Non critical.
+	service.Unstar(song_mbid)
 
 
 ## Stars song locally (database)
