@@ -29,17 +29,23 @@ PlayStar is a personal music player for Linux and Windows, built with Godot 4 an
 - Now Playing thumbnail generator with clipboard export
 - Genre, artist and album browsing
 - Recent listen songs
-
-**Planned**
 - Dynamic playlists (most listen songs)
+- Integration with ListenBrainz (scrobble, playing now and favorite) (using TrackId from file tags)
+- Integration with Subsonic API (songs, artists, albums, scrobble and star/unstar)
+
 
 ---
  
 ## Services
  
 Synchronized lyrics are fetched from [LRCLIB](https://lrclib.net), a free and open lyrics database with no profit intention, built for FOSS music players.
- 
- 
+
+[Subsonic API](https://subsonic.org/) is supported in PlayStar
+[ListenBrainz](https://listenbrainz.org) is supported in PlayStar
+
+>![IMPORTANT]
+>Please, before connecting to the Subsonic and/or ListenBrainz service, check [PRIVACY.md](https://github.com/hayukimori/PlayStar/blob/main/PRIVACY.md) to see what is or is not collected during the connection.
+
 ## Requirements
  
 **Linux**
@@ -94,7 +100,7 @@ tar -xf PlayStar-linux-x64.tar.gz
 ./PlayStar
 ```
 
-Install
+Install (requires superuser)
 ```sh
 tar -xf PlayStar-linux-x64.tar.gz
 sh ./install.sh
