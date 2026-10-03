@@ -321,7 +321,7 @@ public partial class SongRepository : Node
 
         var song_path = song.FilePath;
         var title = song.Title != "" ? song.Title : null;
-        var artist = song.Artist != "" ? song.Title : null;
+        var artist = song.Artist != "" ? song.Artist : null;
         var scrobbled_at = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
         cmd.Parameters.AddWithValue("$song_path", song_path);
