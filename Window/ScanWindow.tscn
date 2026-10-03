@@ -27,6 +27,7 @@ initial_position = 1
 size = Vector2i(484, 130)
 visible = false
 exclusive = true
+popup_window = true
 force_native = true
 script = ExtResource("1_t72t2")
 

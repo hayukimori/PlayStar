@@ -172,7 +172,7 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_japnt")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_ctn7q")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_uxyrx")
 tab_alignment = 1
-current_tab = 5
+current_tab = 0
 tabs_position = 1
 tab_0/icon = ExtResource("2_bc0ag")
 tab_1/icon = ExtResource("3_japnt")
@@ -182,7 +182,6 @@ tab_4/icon = ExtResource("6_ywwwc")
 tab_5/icon = ExtResource("7_7gg5u")
 
 [node name="LibraryPathSettings" type="Control" parent="Window/TabContainer" unique_id=2033530882 node_paths=PackedStringArray("file_dialog", "scan_window", "path_container", "scan_button", "add_path_button")]
-visible = false
 layout_mode = 2
 script = ExtResource("5_msdiq")
 file_dialog = NodePath("FileDialog")
@@ -618,6 +617,7 @@ text = "Auto Include"
 alignment = 2
 
 [node name="ListenBrainzSettings" type="Control" parent="Window/TabContainer" unique_id=339078416 node_paths=PackedStringArray("key_line_edit", "save_btn", "status_label")]
+visible = false
 layout_mode = 2
 script = ExtResource("32_luy8g")
 key_line_edit = NodePath("ApiKeyLineEdit")
