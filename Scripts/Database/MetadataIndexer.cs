@@ -53,9 +53,14 @@ public partial class MetadataIndexer : Node
 
     public void Stop() => _cts?.Cancel();
 
+    [Signal] public delegate void IndexProgressEventHandler(int done, int total);
+
     public async Task RunAsync(CancellationToken token)
     {
         GD.Print("[MetadataIndexer] Started.");
+
+        int total = _songs.CountUnindexed();
+        int done = 0;
 
         while (!token.IsCancellationRequested)
         {
@@ -64,6 +69,7 @@ public partial class MetadataIndexer : Node
             if (batch.Count == 0)
             {
                 GD.Print("[MetadataIndexer] All songs indexed.");
+                CallDeferred(GodotObject.MethodName.EmitSignal, SignalName.IndexProgress, total, total);
                 CallDeferred(GodotObject.MethodName.EmitSignal, SignalName.SongsIndexEnd);
                 Stop();
                 return;
@@ -76,7 +82,8 @@ public partial class MetadataIndexer : Node
                 tasks.Add(Task.Run(async () =>
                 {
                     try { await ProcessOne(path); }
-                    catch(Exception ex){
+                    catch (Exception ex)
+                    {
                         GD.PrintErr($"[MetadataIndexer] Failed on {path}: {ex.Message}");
                     }
                     finally { _throttle.Release(); }
@@ -84,6 +91,9 @@ public partial class MetadataIndexer : Node
             }
 
             await Task.WhenAll(tasks);
+            done += batch.Count;
+
+            CallDeferred(GodotObject.MethodName.EmitSignal, SignalName.IndexProgress, done, total);
         }
     }
 

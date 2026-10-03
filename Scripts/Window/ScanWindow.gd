@@ -60,7 +60,6 @@ func start_scan_process() -> void:
 	_progress_slots = paths.size() + 1
 
 	database_node.Initialize()
-
 	Locker.set_scan_lock(true)
 
 	var songs_repo: SongRepository = NodeKeeper.song_repository
@@ -70,20 +69,38 @@ func start_scan_process() -> void:
 	indexer_node.Initialize(database_node, songs_repo, artists_repo, albums_repo)
 	scanner_node.Initialize(database_node, songs_repo, indexer_node)
 
+	if not scanner_node.ScanProgress.is_connected(_on_scan_progress):
+		scanner_node.ScanProgress.connect(_on_scan_progress)
+
+	if not indexer_node.IndexProgress.is_connected(_on_index_progress):
+		indexer_node.IndexProgress.connect(_on_index_progress)
+
 	_current_path_index = 0
 	scanner_node.MusicFolder = paths[_current_path_index]
+	status_label.text = "Scanning \"%s\"..." % paths[_current_path_index]
 	scanner_node.StartScan()
 
+
+func _on_scan_progress(count: int) -> void:
+	status_label.text = "Scanning \"%s\"...\n%d files found" % [paths[_current_path_index], count]
+
+func _on_index_progress(done: int, total: int) -> void:
+	if total == 0:
+		return
+	progress_bar.value = (float(done) / float(total)) * 100.0
+	status_label.text = "Indexing metadata... (%d / %d)" % [done, total]
 
 func start_next_scan() -> void:
 	if _current_path_index + 1 >= paths.size():
 		# All folders scanned, indexer time
-		status_label.text = "Indexing..."
+		status_label.text = "Indexing metadata..."
+		progress_bar.value = 0.0
 		indexer_node.Start()
 		return
 
 	_current_path_index += 1
 	scanner_node.MusicFolder = paths[_current_path_index]
+	status_label.text = "Scanning \"%s\"..." % paths[_current_path_index]
 	scanner_node.StartScan()
 
 

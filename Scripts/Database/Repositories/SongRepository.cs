@@ -511,6 +511,15 @@ public partial class SongRepository : Node
         return pruneCmd.ExecuteNonQuery();
 
     }
+
+
+    public int CountUnindexed()
+    {
+        using var connection = _db.GetConnection();
+        using var cmd = connection.CreateCommand();
+        cmd.CommandText = "SELECT COUNT(*) FROM songs WHERE indexed = 0;";
+        return (int)(long)cmd.ExecuteScalar();
+    }
     #endregion
 
     internal static SongModel MapScrobble(SqliteDataReader r) => new() {

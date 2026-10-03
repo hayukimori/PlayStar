@@ -58,6 +58,7 @@ public partial class LibraryScanner : Node
 
     // -------------------------------------------------------------------------
 
+    [Signal] public delegate void ScanProgressEventHandler(int count);
     private void ScanFileSystem(CancellationToken token)
     {
         GD.Print("[LibraryScanner] Opening database...");
@@ -81,6 +82,7 @@ public partial class LibraryScanner : Node
                 transaction.Commit();
                 transaction.Dispose();
                 transaction = connection.BeginTransaction();
+                CallDeferred(GodotObject.MethodName.EmitSignal, SignalName.ScanProgress, count);
                 GD.Print($"[LibraryScanner] Committed {count} entries...");
             }
         }
@@ -93,6 +95,9 @@ public partial class LibraryScanner : Node
         int pruned = _songs.PruneRemovedSongs(scannedPaths);
         if (pruned > 0)
             GD.Print($"[LibraryScanner] Pruned {pruned} songs no longer on disk");
+
+        // Emits final count before songsScanEnd
+        CallDeferred(GodotObject.MethodName.EmitSignal, SignalName.ScanProgress, count);
     }
 
     private static IEnumerable<string> EnumerateMusicFiles(string root)
