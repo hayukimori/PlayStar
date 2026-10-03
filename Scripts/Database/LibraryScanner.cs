@@ -65,6 +65,7 @@ public partial class LibraryScanner : Node
         using var connection = _db.GetConnection();
         var transaction = connection.BeginTransaction();
         int count = 0;
+        var scannedPaths = new HashSet<string>();
 
         foreach (var file in EnumerateMusicFiles(MusicFolder))
         {
@@ -72,6 +73,7 @@ public partial class LibraryScanner : Node
 
             var mtime = new FileInfo(file).LastWriteTimeUtc.Ticks;
             SongRepository.UpsertScanEntry(file, mtime, connection, transaction);
+            scannedPaths.Add(file);
             count++;
 
             if (count % 500 == 0)
@@ -86,6 +88,11 @@ public partial class LibraryScanner : Node
         transaction.Commit();
         transaction.Dispose();
         GD.Print($"[LibraryScanner] Finished. Total: {count} files.");
+
+        // Removes from db songs that aren't on disk anymore
+        int pruned = _songs.PruneRemovedSongs(scannedPaths);
+        if (pruned > 0)
+            GD.Print($"[LibraryScanner] Pruned {pruned} songs no longer on disk");
     }
 
     private static IEnumerable<string> EnumerateMusicFiles(string root)

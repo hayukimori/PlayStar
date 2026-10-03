@@ -60,7 +60,6 @@ func start_scan_process() -> void:
 	_progress_slots = paths.size() + 1
 
 	database_node.Initialize()
-	database_node.WipeAndReinitialize()
 
 	Locker.set_scan_lock(true)
 
