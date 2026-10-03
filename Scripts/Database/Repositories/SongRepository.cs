@@ -321,7 +321,7 @@ public partial class SongRepository : Node
 
         var song_path = song.FilePath;
         var title = song.Title != "" ? song.Title : null;
-        var artist = song.Artist != "" ? song.Title : null;
+        var artist = song.Artist != "" ? song.Artist : null;
         var scrobbled_at = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
         cmd.Parameters.AddWithValue("$song_path", song_path);
@@ -462,6 +462,63 @@ public partial class SongRepository : Node
         }
 
         return songs;
+    }
+
+
+    public int PruneRemovedSongs(HashSet<string> foundPaths)
+    {
+        using var connection = _db.GetConnection();
+
+        // tmp paths
+        using var setupCmd = connection.CreateCommand();
+        setupCmd.CommandText = @"
+            CREATE TEMP TABLE IF NOT EXISTS _scan_paths (
+                path TEXT PRIMARY KEY
+            );
+            DELETE FROM _scan_paths;
+        ";
+
+        setupCmd.ExecuteNonQuery();
+
+        var tx = connection.BeginTransaction();
+        int i = 0;
+        foreach (var path in foundPaths)
+        {
+            using var insertCmd = connection.CreateCommand();
+            insertCmd.Transaction = tx;
+            insertCmd.CommandText = "INSERT OR IGNORE INTO _scan_paths(path) VALUES($path);";
+            insertCmd.Parameters.AddWithValue("$path", path);
+            insertCmd.ExecuteNonQuery();
+
+            if (++i % 500 == 0)
+            {
+                tx.Commit(); tx.Dispose();
+                tx = connection.BeginTransaction();
+            }
+        }
+
+        tx.Commit(); tx.Dispose();
+
+        // Deletes songs (not on disk)
+        // FK ON DELETE CASCADE (starred_songs)
+        // FK ON DELETE SET NULL scrobbles (path becomes null)
+        using var pruneCmd = connection.CreateCommand();
+        pruneCmd.CommandText = @"
+            DELETE FROM songs
+            WHERE path NOT IN (SELECT path from _scan_paths);
+        ";
+
+        return pruneCmd.ExecuteNonQuery();
+
+    }
+
+
+    public int CountUnindexed()
+    {
+        using var connection = _db.GetConnection();
+        using var cmd = connection.CreateCommand();
+        cmd.CommandText = "SELECT COUNT(*) FROM songs WHERE indexed = 0;";
+        return (int)(long)cmd.ExecuteScalar();
     }
     #endregion
 
