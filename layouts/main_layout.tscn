@@ -77,6 +77,8 @@
 [ext_resource type="PackedScene" uid="uid://dd7c6jys7sbu" path="res://Window/TagWindow.tscn" id="66_wqotl"]
 [ext_resource type="PackedScene" uid="uid://cqtqos58umysx" path="res://Window/DynamicListsWindow.tscn" id="71_0yj33"]
 [ext_resource type="PackedScene" uid="uid://dmkh7mmd82gaw" path="res://UI/Components/VersionFlagControl.tscn" id="71_u4205"]
+[ext_resource type="Script" uid="uid://by66hth382br2" path="res://Scripts/Theming/GtkThemeTest.gd" id="78_r6epg"]
+[ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="79_qpjbn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
@@ -227,6 +229,17 @@ corner_radius_bottom_left = 8
 expand_margin_top = 16.0
 expand_margin_right = 8.0
 expand_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4igf"]
+bg_color = Color(0.083392, 0.08339202, 0.08339197, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="MainLayout" type="Control" unique_id=1324911911]
 layout_mode = 3
@@ -1138,3 +1151,92 @@ theme = ExtResource("3_h7vyd")
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_h7vyd")
+
+[node name="GTKThemeTest" type="Control" parent="." unique_id=142041183 node_paths=PackedStringArray("color_rect_group")]
+visible = false
+anchors_preset = 0
+offset_left = 26.0
+offset_top = 40.0
+offset_right = 224.0
+offset_bottom = 216.0
+script = ExtResource("78_r6epg")
+color_rect_group = [NodePath("Panel/GridContainer/ColorRect"), NodePath("Panel/GridContainer/ColorRect2"), NodePath("Panel/GridContainer/ColorRect3"), NodePath("Panel/GridContainer/ColorRect4"), NodePath("Panel/GridContainer/ColorRect5"), NodePath("Panel/GridContainer/ColorRect6"), NodePath("Panel/GridContainer/ColorRect7"), NodePath("Panel/GridContainer/ColorRect8"), NodePath("Panel/GridContainer/ColorRect9"), NodePath("Panel/GridContainer/ColorRect10"), NodePath("Panel/GridContainer/ColorRect11"), NodePath("Panel/GridContainer/ColorRect12")]
+
+[node name="Panel" type="Panel" parent="GTKThemeTest" unique_id=1957246957]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.934
+anchor_bottom = 1.0
+offset_right = 0.067993164
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a4igf")
+
+[node name="GridContainer" type="GridContainer" parent="GTKThemeTest/Panel" unique_id=842569431]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 44.0
+offset_right = 175.0
+offset_bottom = 160.0
+columns = 4
+
+[node name="ColorRect" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=830624844]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=1369079631]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect3" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=1842095668]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect4" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=455767438]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect5" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=268500200]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect6" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=1954806071]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect7" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=248370179]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect8" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=1705416893]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect9" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=1735713246]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect10" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=1141727746]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect11" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=1510621498]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="ColorRect12" type="ColorRect" parent="GTKThemeTest/Panel/GridContainer" unique_id=810132416]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GTKThemeTest/Panel" unique_id=515350579]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 7.0
+offset_right = 180.0
+offset_bottom = 36.0
+text = "Color Palette"
+label_settings = ExtResource("79_qpjbn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThemeApplier" type="Node" parent="." unique_id=637378458]
