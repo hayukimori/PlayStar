@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://das3168vsjco1" path="res://Scripts/UI/Components/MostPlayed30ScrollContainer.gd" id="13_d8pib"]
 [ext_resource type="Script" uid="uid://dntpfd1fpwsj3" path="res://Scripts/UI/Components/StarredSongsScrollContainer.gd" id="15_um1vx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_um1vx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1lae"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -91,7 +91,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BgColor" type="ColorRect" parent="DynamicListsControl" unique_id=1719326454]
+[node name="BgColor" type="ColorRect" parent="DynamicListsControl" unique_id=1719326454 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,13 +120,13 @@ offset_left = 68.0
 offset_top = 34.0
 offset_right = -28.037003
 offset_bottom = 162.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_um1vx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n1lae")
 script = ExtResource("2_8d6ap")
 texture = ExtResource("3_d4xrs")
 stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
-[node name="NameLabel" type="Label" parent="DynamicListsControl/Control" unique_id=1036685471]
+[node name="NameLabel" type="Label" parent="DynamicListsControl/Control" unique_id=1036685471 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0

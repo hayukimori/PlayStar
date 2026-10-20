@@ -52,6 +52,12 @@ project/assembly_name="PlayStar"
 
 enabled=PackedStringArray("res://addons/TextureRectRounded/plugin.cfg")
 
+[global_group]
+
+background_color_rects=""
+ui_buttons=""
+ui_mod_text=""
+
 [input]
 
 ui_left={

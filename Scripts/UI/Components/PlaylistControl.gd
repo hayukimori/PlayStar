@@ -1,6 +1,7 @@
 extends Control
 class_name PlaylistControl
 
+@export_category("Nodes & Config")
 @export_group("Scene Nodes")
 @export var playlists_vbc: VBoxContainer
 @export var song_btn_vbc: VirtualizedVBoxList
@@ -18,6 +19,10 @@ class_name PlaylistControl
 @export_group("Animation")
 @export var open_pos: Vector2
 @export var closed_pos: Vector2
+
+@export_category("Theming")
+@export_group("Nodes")
+@export var background_node: ColorRect
 
 var playlist_btn_list: Array[Button] = []
 
@@ -183,6 +188,12 @@ func remove_song_from_current(song: SongModel) -> void:
 func play_playlist_song(song: SongModel) -> void:
 	var idx := _current_selected_playlist.songs.find(song)
 	SignalBus.emit_request_playlist(_current_selected_playlist, idx)
+
+
+# ---- Theme -------------------------------------------------------------------
+
+func setup_theme(palette: GTKColorPalette) -> void:
+	pass
 
 
 # ─── Signal Handlers ──────────────────────────────────────────────────────────

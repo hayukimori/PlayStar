@@ -41,6 +41,7 @@
 [ext_resource type="Script" uid="uid://bt5f5cw3x8in0" path="res://Scripts/Controllers/ScrobbleManager.gd" id="18_4ejd4"]
 [ext_resource type="Script" uid="uid://buc0kqnlwwysn" path="res://Scripts/Controllers/StarManager.gd" id="19_182w8"]
 [ext_resource type="Texture2D" uid="uid://beyf4bmg7vhw8" path="res://assets/icons/iconoir/pause-solid.svg" id="20_ktlg8"]
+[ext_resource type="Theme" uid="uid://boaqkudf7wcd0" path="res://assets/themes/r16bg_panel.tres" id="21_b2ddl"]
 [ext_resource type="PackedScene" uid="uid://qkqcs4j7keik" path="res://UI/Components/ProgressBarCR.tscn" id="24_1n7v7"]
 [ext_resource type="Script" uid="uid://7qc256ihjdv7" path="res://Scripts/UI/Components/LabelWithCopyButton.gd" id="25_0yj33"]
 [ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="25_hywfq"]
@@ -79,15 +80,9 @@
 [ext_resource type="PackedScene" uid="uid://dmkh7mmd82gaw" path="res://UI/Components/VersionFlagControl.tscn" id="71_u4205"]
 [ext_resource type="Script" uid="uid://by66hth382br2" path="res://Scripts/Theming/GtkThemeTest.gd" id="78_r6epg"]
 [ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="79_qpjbn"]
+[ext_resource type="Script" uid="uid://deiw0bf60qcfx" path="res://Scripts/Theming/ThemeApplier.gd" id="80_c6d8f"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cty8o"]
-bg_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ewtm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2ddl"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -102,7 +97,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6epg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnnjf"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -118,7 +113,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpjbn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0iie7"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -146,13 +141,6 @@ subpixel_positioning = 0
 [sub_resource type="LabelSettings" id="LabelSettings_riu1i"]
 font = SubResource("SystemFont_awq1b")
 font_size = 24
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tns5"]
-bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6tns5"]
 
@@ -354,7 +342,7 @@ script = ExtResource("18_4ejd4")
 [node name="StarManager" type="Node" parent="." unique_id=1756384579]
 script = ExtResource("19_182w8")
 
-[node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077]
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=355753077 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -379,7 +367,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_cty8o")
+theme = ExtResource("21_b2ddl")
 
 [node name="AlbumArtControl" type="Control" parent="SongInfoControl" unique_id=438845392]
 layout_mode = 1
@@ -401,7 +389,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_6ewtm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_b2ddl")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -449,7 +437,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r6epg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnnjf")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -469,7 +457,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_qpjbn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0iie7")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -616,14 +604,14 @@ expand_icon = true
 
 [node name="SongQueueControl" type="Control" parent="." unique_id=824447145]
 layout_mode = 1
-anchor_left = 0.541
-anchor_top = 0.046000004
-anchor_right = 0.975
-anchor_bottom = 0.84700006
-offset_left = -0.23199463
-offset_top = 0.19199753
-offset_right = -0.20007324
-offset_bottom = 0.14398193
+anchor_left = 0.521
+anchor_top = 0.049000002
+anchor_right = 0.97200006
+anchor_bottom = 0.85200006
+offset_left = -0.1920166
+offset_top = 0.24799919
+offset_right = 0.25598145
+offset_bottom = -0.0960083
 grow_horizontal = 0
 
 [node name="QueueBgPanel" type="Panel" parent="SongQueueControl" unique_id=566998965]
@@ -633,17 +621,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_6tns5")
+theme = ExtResource("21_b2ddl")
 
 [node name="MainVBC" type="VBoxContainer" parent="SongQueueControl" unique_id=1511810625]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 17.0
-offset_top = 10.0
-offset_right = -15.0
-offset_bottom = -11.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -652,15 +640,17 @@ custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6tns5")
 
-[node name="QueueNameLabel" type="Label" parent="SongQueueControl/MainVBC/QueueTopPanel" unique_id=247946413]
+[node name="QueueNameLabel" type="Label" parent="SongQueueControl/MainVBC/QueueTopPanel" unique_id=247946413 groups=["ui_mod_text"]]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 4.0
-offset_top = -11.5
-offset_right = 332.0
-offset_bottom = 11.5
+anchors_preset = -1
+anchor_left = -0.002
+anchor_top = 0.52400005
+anchor_right = -0.002
+anchor_bottom = 0.52400005
+offset_left = 7.976
+offset_top = -11.008001
+offset_right = 335.976
+offset_bottom = 11.991999
 grow_vertical = 2
 text = "Your Queue"
 label_settings = SubResource("LabelSettings_6tns5")
@@ -671,18 +661,19 @@ text_overrun_behavior = 3
 [node name="TopLeftButtonsHBC" type="HBoxContainer" parent="SongQueueControl/MainVBC/QueueTopPanel" unique_id=1132239903]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 0.9760001
-offset_left = -144.0
-offset_top = 1.0
-offset_right = -12.0
-offset_bottom = 0.0079956055
+anchor_left = 0.998
+anchor_top = 0.143
+anchor_right = 0.998
+anchor_bottom = 0.90500003
+offset_left = -143.02402
+offset_top = -0.006000519
+offset_right = -11.024017
+offset_bottom = -0.010002136
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 2
 
-[node name="SearchButton" type="Button" parent="SongQueueControl/MainVBC/QueueTopPanel/TopLeftButtonsHBC" unique_id=1122521459]
+[node name="SearchButton" type="Button" parent="SongQueueControl/MainVBC/QueueTopPanel/TopLeftButtonsHBC" unique_id=1122521459 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 accessibility_name = "Search"
@@ -706,11 +697,13 @@ script = ExtResource("7_lo1cj")
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.082
+anchor_top = 0.07700001
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 9.441998
-offset_bottom = -11.0
+offset_left = 8.0
+offset_top = -0.040008545
+offset_right = -8.0
+offset_bottom = -11.0000305
 theme_override_styles/panel = SubResource("StyleBoxFlat_od5lq")
 
 [node name="SearchScrollContainer" type="ScrollContainer" parent="SongQueueControl" unique_id=500849785]
@@ -800,21 +793,21 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PrevButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=1710769341]
+[node name="PrevButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=1710769341 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("5_h06au")
 flat = true
 expand_icon = true
 
-[node name="PlayPauseButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=2075891552]
+[node name="PlayPauseButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=2075891552 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("6_ufdaw")
 flat = true
 expand_icon = true
 
-[node name="NextButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=841769242]
+[node name="NextButton" type="Button" parent="PlayerControlsPanel/PlayerControls/HBoxContainer" unique_id=841769242 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("7_p2ped")
@@ -834,10 +827,6 @@ offset_bottom = -33.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="CRProgressBar" parent="PlayerControlsPanel/ProgressBarControl" unique_id=1968293261 instance=ExtResource("24_1n7v7")]
-layout_mode = 1
-offset_bottom = -7.0
-
 [node name="CounterWave" type="ColorRect" parent="PlayerControlsPanel/ProgressBarControl" unique_id=1949807917]
 material = SubResource("ShaderMaterial_8ayet")
 layout_mode = 1
@@ -848,6 +837,10 @@ offset_top = 9.0
 offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CRProgressBar" parent="PlayerControlsPanel/ProgressBarControl" unique_id=1968293261 instance=ExtResource("24_1n7v7")]
+layout_mode = 1
+offset_bottom = -7.0
 
 [node name="ProgressSlider" type="HSlider" parent="PlayerControlsPanel/ProgressBarControl" unique_id=566054271]
 layout_mode = 1
@@ -913,7 +906,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="RepeatButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=523657488]
+[node name="RepeatButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=523657488 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 icon = ExtResource("9_xggyx")
@@ -925,7 +918,7 @@ texture_rp_one = ExtResource("26_c80o5")
 texture_rp_queue = ExtResource("9_xggyx")
 default_texture = ExtResource("25_kee2a")
 
-[node name="ShuffleButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=626143028]
+[node name="ShuffleButton" type="Button" parent="PlayerControlsPanel/SequenceControl/HBoxContainer" unique_id=626143028 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 toggle_mode = true
@@ -987,56 +980,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SettingsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1277921321]
+[node name="SettingsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1277921321 groups=["ui_buttons"]]
 layout_mode = 2
 text = "Settings"
 icon = ExtResource("33_cfl4k")
 flat = true
 expand_icon = true
 
-[node name="PlaylistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=343349436]
+[node name="PlaylistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=343349436 groups=["ui_buttons"]]
 layout_mode = 2
 text = "Playlists"
 icon = ExtResource("34_qrbpp")
 flat = true
 expand_icon = true
 
-[node name="AllSongsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=958735810]
+[node name="AllSongsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=958735810 groups=["ui_buttons"]]
 layout_mode = 2
 text = "All Songs"
 icon = ExtResource("35_67y5c")
 flat = true
 expand_icon = true
 
-[node name="ArtistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1851343011]
+[node name="ArtistsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1851343011 groups=["ui_buttons"]]
 layout_mode = 2
 text = "Artists"
 icon = ExtResource("36_cfy4v")
 flat = true
 expand_icon = true
 
-[node name="AlbumsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=711301442]
+[node name="AlbumsButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=711301442 groups=["ui_buttons"]]
 layout_mode = 2
 text = "Albums"
 icon = ExtResource("37_hfgkp")
 flat = true
 expand_icon = true
 
-[node name="DynamicPButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=332128641]
+[node name="DynamicPButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=332128641 groups=["ui_buttons"]]
 layout_mode = 2
 text = "Listening"
 icon = ExtResource("54_0yj33")
 flat = true
 expand_icon = true
 
-[node name="AboutButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=389361843]
+[node name="AboutButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=389361843 groups=["ui_buttons"]]
 layout_mode = 2
 text = "About"
 icon = ExtResource("52_26u71")
 flat = true
 expand_icon = true
 
-[node name="VolumeHSlider" type="HSlider" parent="LeftMenuControl/MenuPanel" unique_id=1251717275]
+[node name="VolumeHSlider" type="HSlider" parent="LeftMenuControl/MenuPanel" unique_id=1251717275 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1069,7 +1062,7 @@ grow_vertical = 2
 texture = ExtResource("40_qrbpp")
 expand_mode = 1
 
-[node name="ActionButton" type="Button" parent="LeftMenuControl" unique_id=425271801]
+[node name="ActionButton" type="Button" parent="LeftMenuControl" unique_id=425271801 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -1135,7 +1128,7 @@ notifications_vbox = NodePath("ScrollContainer/VBoxContainer")
 notification_button_scene = ExtResource("60_r7yy5")
 version_flag_scene = ExtResource("71_u4205")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PopMsgControl" unique_id=504068678]
+[node name="ScrollContainer" type="ScrollContainer" parent="PopMsgControl" unique_id=504068678 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1152,25 +1145,35 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_h7vyd")
 
-[node name="GTKThemeTest" type="Control" parent="." unique_id=142041183 node_paths=PackedStringArray("color_rect_group")]
-visible = false
+[node name="ThemeApplier" type="Node" parent="." unique_id=637378458 node_paths=PackedStringArray("songlist_panel", "playing_now_panel", "cover_panel", "menu_panel", "pn_bg_panel", "pb_bg_cr", "pg_cr")]
+script = ExtResource("80_c6d8f")
+songlist_panel = NodePath("../SongQueueControl/QueueBgPanel")
+playing_now_panel = NodePath("../SongInfoControl/BackgroundPanel")
+cover_panel = NodePath("../SongQueueControl/CoverPanel")
+menu_panel = NodePath("../LeftMenuControl/MenuPanel")
+pn_bg_panel = NodePath("../PlayerControlsPanel")
+pb_bg_cr = NodePath("../PlayerControlsPanel/ProgressBarControl/CounterWave")
+pg_cr = NodePath("../PlayerControlsPanel/ProgressBarControl/CRProgressBar")
+
+[node name="GTKThemeTest" type="Control" parent="." unique_id=656736278 node_paths=PackedStringArray("color_rect_group")]
+modulate = Color(1, 1, 1, 0.6666667)
 anchors_preset = 0
-offset_left = 26.0
-offset_top = 40.0
-offset_right = 224.0
-offset_bottom = 216.0
+offset_left = 59.0
+offset_top = 237.0
+offset_right = 252.0
+offset_bottom = 417.0
 script = ExtResource("78_r6epg")
 color_rect_group = [NodePath("Panel/GridContainer/ColorRect"), NodePath("Panel/GridContainer/ColorRect2"), NodePath("Panel/GridContainer/ColorRect3"), NodePath("Panel/GridContainer/ColorRect4"), NodePath("Panel/GridContainer/ColorRect5"), NodePath("Panel/GridContainer/ColorRect6"), NodePath("Panel/GridContainer/ColorRect7"), NodePath("Panel/GridContainer/ColorRect8"), NodePath("Panel/GridContainer/ColorRect9"), NodePath("Panel/GridContainer/ColorRect10"), NodePath("Panel/GridContainer/ColorRect11"), NodePath("Panel/GridContainer/ColorRect12")]
 
 [node name="Panel" type="Panel" parent="GTKThemeTest" unique_id=1957246957]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.934
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 0.067993164
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_a4igf")
+metadata/_edit_lock_ = true
 
 [node name="GridContainer" type="GridContainer" parent="GTKThemeTest/Panel" unique_id=842569431]
 layout_mode = 0
@@ -1238,5 +1241,3 @@ text = "Color Palette"
 label_settings = ExtResource("79_qpjbn")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ThemeApplier" type="Node" parent="." unique_id=637378458]

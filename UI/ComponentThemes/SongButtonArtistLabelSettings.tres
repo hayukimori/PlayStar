@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cviu002bxece0"]
+
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="1_8cq1f"]
+
+[resource]
+font = ExtResource("1_8cq1f")
+font_size = 12
+font_color = Color(1, 1, 1, 0.64705884)
+outline_color = Color(1, 1, 1, 0.5019608)

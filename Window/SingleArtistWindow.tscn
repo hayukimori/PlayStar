@@ -9,9 +9,9 @@
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="6_cwfsn"]
 [ext_resource type="PackedScene" uid="uid://mfgk5vvdxgfm" path="res://UI/Components/AlbumButtonCovered.tscn" id="7_biw6a"]
 [ext_resource type="Script" uid="uid://b222pwayl4s5r" path="res://Scripts/UI/CustomNodes/FreezableBoxContainer.gd" id="9_2mqg1"]
-[ext_resource type="Script" uid="uid://d3xk9p8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="10_vl"]
+[ext_resource type="Script" uid="uid://d3xlap8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="10_vl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g478s"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqg1"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -54,7 +54,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BgColor" type="ColorRect" parent="SingleArtistControl" unique_id=1315191392]
+[node name="BgColor" type="ColorRect" parent="SingleArtistControl" unique_id=1315191392 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,13 +83,13 @@ offset_left = 68.0
 offset_top = 34.0
 offset_right = -28.037003
 offset_bottom = 162.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_g478s")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2mqg1")
 script = ExtResource("2_cwfsn")
 texture = ExtResource("3_biw6a")
 stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
-[node name="NameLabel" type="Label" parent="SingleArtistControl/Control" unique_id=921576862]
+[node name="NameLabel" type="Label" parent="SingleArtistControl/Control" unique_id=921576862 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -113,7 +113,7 @@ offset_right = -58.0
 offset_bottom = 249.0
 alignment = 1
 
-[node name="ToPlaylistButton" type="Button" parent="SingleArtistControl/Control/HBoxContainer" unique_id=741458129]
+[node name="ToPlaylistButton" type="Button" parent="SingleArtistControl/Control/HBoxContainer" unique_id=741458129 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = ExtResource("4_p51ci")
