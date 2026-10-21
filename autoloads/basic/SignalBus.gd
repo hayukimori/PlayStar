@@ -39,6 +39,7 @@ signal invoke_albums_window
 signal invoke_playing_window
 signal invoke_queue_window
 signal invoke_about_window
+signal invoke_palette_window
 
 signal show_artist_window(artist: ArtistModel, texture)
 signal show_album_window(album: AlbumModel, texture)
@@ -141,6 +142,7 @@ func emit_invoke_albums_window() -> void: invoke_albums_window.emit()
 func emit_invoke_playing_window() -> void: invoke_playing_window.emit()
 func emit_invoke_queue_window() -> void: invoke_queue_window.emit()
 func emit_invoke_about_window() -> void: invoke_about_window.emit()
+func emit_invoke_palette_window() -> void: invoke_palette_window.emit()
 func emit_show_artist_window(artist: ArtistModel, texture) -> void: show_artist_window.emit(artist, texture)
 func emit_show_album_window(album: AlbumModel, texture) -> void: show_album_window.emit(album, texture)
 func emit_show_history_window() -> void: show_history_window.emit()

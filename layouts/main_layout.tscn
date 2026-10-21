@@ -73,16 +73,18 @@
 [ext_resource type="Texture2D" uid="uid://b1op5govfojxp" path="res://assets/icons/iconoir/stats-up-square.svg" id="54_0yj33"]
 [ext_resource type="Script" uid="uid://bll45p5sc0xlu" path="res://Scripts/UI/Components/VolumeHSlider.gd" id="54_klxr2"]
 [ext_resource type="PackedScene" uid="uid://b8o4tvpdsg7c" path="res://Window/AboutWindow.tscn" id="57_hfbbq"]
+[ext_resource type="Texture2D" uid="uid://c876l488uo1rm" path="res://assets/icons/iconoir/palette.svg" id="60_0iie7"]
 [ext_resource type="Script" uid="uid://djrvl71ft8ikl" path="res://Scripts/UI/Components/PopMsgControl.gd" id="60_byb4x"]
 [ext_resource type="PackedScene" uid="uid://cf0y0cdssiikm" path="res://UI/Components/NotificationButton.tscn" id="60_r7yy5"]
 [ext_resource type="PackedScene" uid="uid://dd7c6jys7sbu" path="res://Window/TagWindow.tscn" id="66_wqotl"]
 [ext_resource type="PackedScene" uid="uid://cqtqos58umysx" path="res://Window/DynamicListsWindow.tscn" id="71_0yj33"]
 [ext_resource type="PackedScene" uid="uid://dmkh7mmd82gaw" path="res://UI/Components/VersionFlagControl.tscn" id="71_u4205"]
+[ext_resource type="PackedScene" uid="uid://d176h5suu4rrb" path="res://Window/PaletteWindow.tscn" id="76_dnnjf"]
 [ext_resource type="Script" uid="uid://by66hth382br2" path="res://Scripts/Theming/GtkThemeTest.gd" id="78_r6epg"]
 [ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="79_qpjbn"]
 [ext_resource type="Script" uid="uid://deiw0bf60qcfx" path="res://Scripts/Theming/ThemeApplier.gd" id="80_c6d8f"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2ddl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0iie7"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -97,7 +99,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnnjf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gioxl"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -113,7 +115,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0iie7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6m8da"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -389,7 +391,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_b2ddl")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0iie7")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -437,7 +439,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dnnjf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gioxl")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -457,7 +459,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_0iie7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6m8da")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -929,7 +931,7 @@ script = ExtResource("15_186sv")
 texture_on = ExtResource("9_p2ped")
 texture_off = ExtResource("29_c80o5")
 
-[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "dynamic_p_button", "about_btn", "volume_slider", "panel")]
+[node name="LeftMenuControl" type="Control" parent="." unique_id=602680604 node_paths=PackedStringArray("action_btn", "settings_btn", "playlists_btn", "all_songs_btn", "artists_btn", "albuns_btn", "dynamic_p_button", "palette_button", "about_btn", "volume_slider", "panel")]
 visible = false
 layout_mode = 1
 anchors_preset = 9
@@ -945,6 +947,7 @@ all_songs_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AllSongsButton")
 artists_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/ArtistsButton")
 albuns_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AlbumsButton")
 dynamic_p_button = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/DynamicPButton")
+palette_button = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/PaletteButton")
 about_btn = NodePath("MenuPanel/MenuButtonsControl/MenuVBC/AboutButton")
 volume_slider = NodePath("MenuPanel/VolumeHSlider")
 panel = NodePath("MenuPanel")
@@ -1022,6 +1025,13 @@ icon = ExtResource("54_0yj33")
 flat = true
 expand_icon = true
 
+[node name="PaletteButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=1817143492 groups=["ui_buttons"]]
+layout_mode = 2
+text = "Palette"
+icon = ExtResource("60_0iie7")
+flat = true
+expand_icon = true
+
 [node name="AboutButton" type="Button" parent="LeftMenuControl/MenuPanel/MenuButtonsControl/MenuVBC" unique_id=389361843 groups=["ui_buttons"]]
 layout_mode = 2
 text = "About"
@@ -1078,13 +1088,14 @@ grow_vertical = 2
 icon = ExtResource("33_fqe4u")
 flat = true
 
-[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "config_control", "dynamic_playlists_window")]
+[node name="WindowManager" type="Node" parent="." unique_id=210196810 node_paths=PackedStringArray("playlists_window", "artists_window", "albums_window", "config_control", "dynamic_playlists_window", "palette_window")]
 script = ExtResource("43_qtwtc")
 playlists_window = NodePath("PlaylistsWindow")
 artists_window = NodePath("ArtistWindow")
 albums_window = NodePath("AlbumWindow")
 config_control = NodePath("ConfigControl")
 dynamic_playlists_window = NodePath("DynamicListsWindow")
+palette_window = NodePath("PaletteWindow")
 add_to_playlist_window_fb = ExtResource("44_rr6jk")
 delete_confirm_window = ExtResource("47_eseux")
 about_window_packed = ExtResource("57_hfbbq")
@@ -1113,6 +1124,8 @@ metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 [node name="TagWindow" parent="WindowManager" unique_id=641077770 instance=ExtResource("66_wqotl")]
 
 [node name="DynamicListsWindow" parent="WindowManager" unique_id=1104768027 instance=ExtResource("71_0yj33")]
+
+[node name="PaletteWindow" parent="WindowManager" unique_id=1218845974 instance=ExtResource("76_dnnjf")]
 
 [node name="PopMsgControl" type="Control" parent="." unique_id=850224413 node_paths=PackedStringArray("notifications_vbox")]
 layout_mode = 1
@@ -1145,17 +1158,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_h7vyd")
 
-[node name="ThemeApplier" type="Node" parent="." unique_id=637378458 node_paths=PackedStringArray("songlist_panel", "playing_now_panel", "cover_panel", "menu_panel", "pn_bg_panel", "pb_bg_cr", "pg_cr")]
+[node name="ThemeApplier" type="Node" parent="." unique_id=637378458 node_paths=PackedStringArray("songlist_panel", "playing_now_panel", "cover_panel", "menu_panel", "pn_bg_panel")]
 script = ExtResource("80_c6d8f")
 songlist_panel = NodePath("../SongQueueControl/QueueBgPanel")
 playing_now_panel = NodePath("../SongInfoControl/BackgroundPanel")
 cover_panel = NodePath("../SongQueueControl/CoverPanel")
 menu_panel = NodePath("../LeftMenuControl/MenuPanel")
 pn_bg_panel = NodePath("../PlayerControlsPanel")
-pb_bg_cr = NodePath("../PlayerControlsPanel/ProgressBarControl/CounterWave")
-pg_cr = NodePath("../PlayerControlsPanel/ProgressBarControl/CRProgressBar")
 
 [node name="GTKThemeTest" type="Control" parent="." unique_id=656736278 node_paths=PackedStringArray("color_rect_group")]
+visible = false
 modulate = Color(1, 1, 1, 0.6666667)
 anchors_preset = 0
 offset_left = 59.0

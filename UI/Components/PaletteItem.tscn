@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://clusvp51twycd"]
+
+[ext_resource type="Shader" uid="uid://c8ijwhqr1ysv5" path="res://Scripts/Shaders/RoundedCornersShader.gdshader" id="1_7ikmy"]
+[ext_resource type="Script" uid="uid://c5iikv6rnesrr" path="res://Scripts/UI/Components/PaletteItem.gd" id="1_cy2u8"]
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="2_cy2u8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqeyv"]
+shader = ExtResource("1_7ikmy")
+shader_parameter/radius = 0.14000000665
+
+[sub_resource type="LabelSettings" id="LabelSettings_agjn8"]
+font = ExtResource("2_cy2u8")
+font_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ikmy"]
+bg_color = Color(0.4101073, 0.683269, 0.2867323, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_cy2u8"]
+font = ExtResource("2_cy2u8")
+font_size = 9
+
+[node name="PaletteItem" type="Control" unique_id=230245691]
+visible = false
+custom_minimum_size = Vector2(148, 148)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cy2u8")
+
+[node name="PaletteBgColor" type="ColorRect" parent="." unique_id=352300932]
+material = SubResource("ShaderMaterial_gqeyv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.18598092, 0.18598092, 0.18598092, 1)
+
+[node name="PaletteNameLabel" type="Label" parent="." unique_id=1395702247]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -30.0
+offset_right = 50.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "{ palette name }"
+label_settings = SubResource("LabelSettings_agjn8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorsGrid" type="GridContainer" parent="." unique_id=1146450128]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 32.291992
+offset_right = -20.0
+offset_bottom = -35.708008
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 5
+columns = 4
+
+[node name="PaletteCollor1" type="ColorRect" parent="ColorsGrid" unique_id=541201369]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor2" type="ColorRect" parent="ColorsGrid" unique_id=1244849592]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor3" type="ColorRect" parent="ColorsGrid" unique_id=505011538]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor4" type="ColorRect" parent="ColorsGrid" unique_id=1269908546]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor5" type="ColorRect" parent="ColorsGrid" unique_id=743550283]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor6" type="ColorRect" parent="ColorsGrid" unique_id=47874074]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor7" type="ColorRect" parent="ColorsGrid" unique_id=1275837247]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor8" type="ColorRect" parent="ColorsGrid" unique_id=1250828139]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor9" type="ColorRect" parent="ColorsGrid" unique_id=1160801474]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor10" type="ColorRect" parent="ColorsGrid" unique_id=688807523]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor11" type="ColorRect" parent="ColorsGrid" unique_id=323079453]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="PaletteCollor12" type="ColorRect" parent="ColorsGrid" unique_id=1179816786]
+material = SubResource("ShaderMaterial_gqeyv")
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="InUseLabel" type="Label" parent="." unique_id=1665822133]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 22.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_7ikmy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7ikmy")
+text = "In use"
+label_settings = SubResource("LabelSettings_cy2u8")
+horizontal_alignment = 1
+vertical_alignment = 1

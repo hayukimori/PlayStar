@@ -7,6 +7,8 @@ class_name DeleteConfirmationWindow
 @export var cancel_button: Button
 @export var main_label: Label
 
+@onready var background: ColorRect = $Control/ColorRect
+
 func _ready() -> void:
 	if !playlist:
 		queue_free()
@@ -16,6 +18,9 @@ func _ready() -> void:
 	close_requested.connect(close_qf)
 
 	_set_ui()
+
+	if NodeKeeper.current_theme:
+		background.color = NodeKeeper.current_theme.WindowBgColor
 
 func _set_ui() -> void:
 	main_label.text = "Delete %s ?" % playlist.name

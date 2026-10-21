@@ -9,12 +9,14 @@ extends Node
 
 @export_category("Playback controls")
 @export var pn_bg_panel: Panel
-@export var pb_bg_cr: ColorRect ## Progress Bar bg
-@export var pg_cr: ColorRect ## Progress Bar
+@export var progress_bar_counterwave: ColorRect ## Progress Bar bg
+@export var progress_bar_color_rect: ColorRect ## Progress Bar
 
 var song_btn_theme := preload("res://UI/ComponentThemes/SongBtnTheme.tres")
 var song_btn_title_ls := preload("res://UI/ComponentThemes/SongButtonTitleLabelSettings.tres")
 var song_btn_artist_ls := preload("res://UI/ComponentThemes/SongButtonArtistLabelSettings.tres")
+var grid_ls := preload("res://UI/ComponentThemes/GridLabelSettings.tres")
+
 
 func _ready() -> void:
 	print("[ThemeApplier] Theme Applier started")
@@ -52,25 +54,26 @@ func set_theme(palette: GTKColorPalette) -> void:
 	artist_color.a = 0.5
 	song_btn_artist_ls.font_color = artist_color
 
+	# Grids (Artists, Albums)
+	grid_ls.font_color = palette.ViewFgColor
 
 
 
 ## Applies color for ProgressBar and ProgressBar background (counterwave)
 func apply_progress_bar(bgcolor: Color, fgcolor: Color) -> void:
-	if pb_bg_cr:
-		var shdr2 = pb_bg_cr.material as ShaderMaterial
+	if progress_bar_counterwave:
+		var shdr2 = progress_bar_counterwave.material as ShaderMaterial
 		shdr2.set_shader_parameter("color", bgcolor)
 
-	if pg_cr:
-		var shdr = pg_cr.material as ShaderMaterial
+	if progress_bar_color_rect:
+		var shdr = progress_bar_color_rect.material as ShaderMaterial
 		shdr.set_shader_parameter("color", fgcolor)
 
 
 ## Applies a color (modulate) to UI buttons in group "ui_buttons"
 func apply_ui_btns(color: Color) -> void:
 	for btn in get_tree().get_nodes_in_group("ui_buttons"):
-		if btn is Button:
-			btn.modulate = color
+		btn.modulate = color
 
 ## Applies a color (modulate) to UI texts in group "ui_mod_text"
 func apply_ui_text(color: Color) -> void:

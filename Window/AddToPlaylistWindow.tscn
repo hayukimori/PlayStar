@@ -29,7 +29,7 @@ new_playlist_btn = NodePath("AddToPlaylistControl/ScrollContainer/VBoxContainer/
 new_playlist_win = NodePath("AddToPlaylistControl/NewPlaylistHWindow")
 metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 
-[node name="AddToPlaylistControl" type="Control" parent="." unique_id=986107743]
+[node name="AddToPlaylistControl" type="Control" parent="." unique_id=986107743 groups=["mod_elements_addtoplaylist"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,7 +37,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl" unique_id=118922319]
+[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl" unique_id=118922319 groups=["backgrounds_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +62,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddPlaylistButton" type="Button" parent="AddToPlaylistControl/ScrollContainer/VBoxContainer" unique_id=915541489]
+[node name="AddPlaylistButton" type="Button" parent="AddToPlaylistControl/ScrollContainer/VBoxContainer" unique_id=915541489 groups=["mod_elements_addtoplaylist"]]
 layout_mode = 2
 icon = ExtResource("2_iajm3")
 flat = true
@@ -89,7 +89,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1453750053]
+[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1453750053 groups=["backgrounds_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.08627451, 0.08627451, 0.08627451, 1)
 
-[node name="PlaylistNameLineEdit" type="LineEdit" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=43376162]
+[node name="PlaylistNameLineEdit" type="LineEdit" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=43376162 groups=["mod_elements_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99500006
@@ -109,7 +109,7 @@ offset_bottom = 66.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_pc4if")
 placeholder_text = "Playlist Name"
 
-[node name="ConfirmButton" type="Button" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1217852353]
+[node name="ConfirmButton" type="Button" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1217852353 groups=["mod_elements_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

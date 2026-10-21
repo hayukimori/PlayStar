@@ -40,8 +40,10 @@ GtkThemeProvider="*uid://c16srylhsf5ka"
 
 [display]
 
+window/size/transparent=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/per_pixel_transparency/allowed=true
 display_server/driver.linuxbsd="wayland"
 
 [dotnet]
