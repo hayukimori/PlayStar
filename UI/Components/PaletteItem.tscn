@@ -75,73 +75,73 @@ grow_vertical = 2
 theme_override_constants/h_separation = 5
 columns = 4
 
-[node name="PaletteCollor1" type="ColorRect" parent="ColorsGrid" unique_id=541201369]
+[node name="PaletteColor1" type="ColorRect" parent="ColorsGrid" unique_id=541201369]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor2" type="ColorRect" parent="ColorsGrid" unique_id=1244849592]
+[node name="PaletteColor2" type="ColorRect" parent="ColorsGrid" unique_id=1508545878]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor3" type="ColorRect" parent="ColorsGrid" unique_id=505011538]
+[node name="PaletteColor3" type="ColorRect" parent="ColorsGrid" unique_id=1848475899]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor4" type="ColorRect" parent="ColorsGrid" unique_id=1269908546]
+[node name="PaletteColor4" type="ColorRect" parent="ColorsGrid" unique_id=1872135890]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor5" type="ColorRect" parent="ColorsGrid" unique_id=743550283]
+[node name="PaletteColor5" type="ColorRect" parent="ColorsGrid" unique_id=873045639]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor6" type="ColorRect" parent="ColorsGrid" unique_id=47874074]
+[node name="PaletteColor6" type="ColorRect" parent="ColorsGrid" unique_id=579681640]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor7" type="ColorRect" parent="ColorsGrid" unique_id=1275837247]
+[node name="PaletteColor7" type="ColorRect" parent="ColorsGrid" unique_id=938469276]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor8" type="ColorRect" parent="ColorsGrid" unique_id=1250828139]
+[node name="PaletteColor8" type="ColorRect" parent="ColorsGrid" unique_id=600201590]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor9" type="ColorRect" parent="ColorsGrid" unique_id=1160801474]
+[node name="PaletteColor9" type="ColorRect" parent="ColorsGrid" unique_id=627452996]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor10" type="ColorRect" parent="ColorsGrid" unique_id=688807523]
+[node name="PaletteColor10" type="ColorRect" parent="ColorsGrid" unique_id=1993921114]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor11" type="ColorRect" parent="ColorsGrid" unique_id=323079453]
+[node name="PaletteColor11" type="ColorRect" parent="ColorsGrid" unique_id=767399059]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="PaletteCollor12" type="ColorRect" parent="ColorsGrid" unique_id=1179816786]
+[node name="PaletteColor12" type="ColorRect" parent="ColorsGrid" unique_id=218960501]
 material = SubResource("ShaderMaterial_gqeyv")
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
