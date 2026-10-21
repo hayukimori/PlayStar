@@ -33,6 +33,10 @@ func _ready() -> void:
 	SignalBus.palette_added.connect(_on_palette_added)
 	SignalBus.palette_deleted.connect(_on_palette_deleted)
 	SignalBus.palette_renamed.connect(_on_palette_renamed)
+
+	SignalBus.request_palette_edit.connect(_on_palette_edit_request)
+	SignalBus.request_palette_delete.connect(_on_palette_delete_request)
+
 	self.close_requested.connect(self.close)
 
 	_load_ui_palettes()
@@ -119,12 +123,14 @@ func _save_current_theme() -> void:
 	if not NodeKeeper.current_theme:
 		return
 	if new_palette_win:
-		new_palette_win.load_from(NodeKeeper.current_theme)
+		new_palette_win.load_from(NodeKeeper.current_theme, true)
 		new_palette_win.open()
 
 # ─── Signal Handlers ──────────────────────────────────────────────────────────
 
 func _on_palette_added(palette: GTKColorPalette) -> void:
+	print("PLAYLIST ADDED")
+
 	_add_to_cache(palette)
 	var node: PaletteItem = palette_item_scn.instantiate()
 	node.palette = palette
@@ -144,8 +150,17 @@ func _on_palette_renamed(palette: GTKColorPalette) -> void:
 	var node := _get_palette_node(palette)
 	if node:
 		node.palette = palette
+		node.refresh()
 
 
 func _on_new_palette_btn() -> void:
 	if new_palette_win:
 		new_palette_win.open()
+
+
+func _on_palette_edit_request(palette: GTKColorPalette) -> void:
+	new_palette_win.load_from(palette, false)
+	new_palette_win.open()
+
+func _on_palette_delete_request(palette: GTKColorPalette) -> void:
+	pass

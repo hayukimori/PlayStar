@@ -19,6 +19,7 @@ extends HybridWindow
 var _default_color := Color(.5, .5, .5);
 
 var _current # edit only
+var _as_add: bool = true
 
 func _ready() -> void:
 	line_edit.text_submitted.connect(_on_submitted)
@@ -42,6 +43,7 @@ func reset() -> void:
 	warning_color_btn.color = _default_color
 
 	_current = null
+	_as_add = true
 
 
 func _on_confirm_pressed() -> void:
@@ -52,11 +54,13 @@ func _on_confirm_pressed() -> void:
 
 func _on_submitted(text: String = "") -> void:
 	if !text: self.close(); return
-	new_p(text)
+
+	new_p(text, !!_current)
 
 
-func load_from(pa: GTKColorPalette) -> void:
+func load_from(pa: GTKColorPalette, as_add: bool) -> void:
 	_current = pa
+	_as_add = as_add
 
 	accent_color_btn.color = pa.AccentColor
 	accent_bg_color_btn.color = pa.AccentBgColor
@@ -73,10 +77,13 @@ func load_from(pa: GTKColorPalette) -> void:
 
 	line_edit.text = _current.PaletteName
 
-
 func collect_colors_as_palette() -> GTKColorPalette:
-	var pa: GTKColorPalette = GTKColorPalette.new()
+	var pa = GTKColorPalette.new()
+	collect_colors_into(pa)
+	return pa
 
+
+func collect_colors_into(pa: GTKColorPalette) -> void:
 	pa.AccentColor = accent_color_btn.color
 	pa.AccentBgColor = accent_bg_color_btn.color
 	pa.AccentFgColor = accent_fg_color_btn.color
@@ -90,19 +97,20 @@ func collect_colors_as_palette() -> GTKColorPalette:
 	pa.SuccessColor = success_color_btn.color
 	pa.WarningColor = warning_color_btn.color
 
-	return pa
-
 func new_p(p_name: String, edited: bool = false) -> void:
-	var pa = collect_colors_as_palette()
-	pa.PaletteName = p_name
-	PaletteManager.save(pa)
-
-	if edited:
-		SignalBus.emit_palette_renamed(pa)
+	if edited and _current and not _as_add:
+		_current.PaletteName = p_name
+		collect_colors_into(_current)
+		PaletteManager.save(_current)
+		SignalBus.emit_palette_renamed(_current)
 	else:
+		var pa = collect_colors_as_palette()
+		pa.PaletteName = p_name
+		PaletteManager.save(pa)
 		SignalBus.emit_palette_added(pa)
 
 	resclose()
+
 
 
 func resclose() -> void:

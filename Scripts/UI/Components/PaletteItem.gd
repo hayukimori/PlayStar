@@ -2,7 +2,10 @@ extends Control
 class_name PaletteItem
 
 @export var palette: GTKColorPalette;
-@export var is_current: bool = false;
+
+@export var use_button: Button
+@export var edit_button: Button
+@export var delete_button: Button
 
 @onready var bg_color_rect: ColorRect = $PaletteBgColor
 @onready var palette_name_label: Label = $PaletteNameLabel
@@ -23,17 +26,37 @@ class_name PaletteItem
 
 
 func _ready() -> void:
+	if !palette: queue_free()
+
+	var is_current = palette == NodeKeeper.current_theme
 	if is_current: in_use_label.show()
 	else: in_use_label.hide()
 
-	if !palette: queue_free()
-
 	bg_color_rect.color = palette.WindowBgColor
 	palette_name_label.text = palette.PaletteName
+
+	if use_button:
+		use_button.pressed.connect(_on_use_pressed)
+
+	if edit_button:
+		edit_button.pressed.connect(_on_edit_pressed)
+
+	if delete_button:
+		delete_button.pressed.connect(_on_delete_pressed)
+
+
 	set_colors()
 
 
+func refresh() -> void:
+	var is_current = (palette == NodeKeeper.current_theme)
+	if is_current: in_use_label.show()
+	else: in_use_label.hide()
 
+	bg_color_rect.color = palette.WindowBgColor
+	palette_name_label.text = palette.PaletteName
+
+	set_colors()
 
 
 func set_colors() -> void:
@@ -51,3 +74,15 @@ func set_colors() -> void:
 	c_10.color = palette.DestructiveColor # 10
 	c_11.color = palette.SuccessColor # 11
 	c_12.color = palette.WarningColor # 12
+
+
+
+
+func _on_use_pressed() -> void:
+	SignalBus.emit_request_palette_use(palette)
+
+func _on_edit_pressed() -> void:
+	SignalBus.emit_request_palette_edit(palette)
+
+func _on_delete_pressed() -> void:
+	SignalBus.emit_request_palette_delete(palette)

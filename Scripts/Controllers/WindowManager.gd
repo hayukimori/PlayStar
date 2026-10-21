@@ -1,14 +1,15 @@
 extends Node
 class_name WindowManager
 
+@export_group("Windows")
 @export var playlists_window: HybridWindow
 @export var artists_window: HybridWindow
 @export var albums_window: HybridWindow
-@export var delete_playlist_window: HybridWindow
 @export var config_control: Control
 @export var dynamic_playlists_window: HybridWindow
 @export var palette_window: HybridWindow
 
+@export_group("Window Scenes")
 @export var add_to_playlist_window_fb: PackedScene
 @export var delete_confirm_window: PackedScene
 
@@ -29,6 +30,7 @@ func _ready() -> void:
 	SignalBus.request_song_array_to_playlist.connect(_ivk_to_playlist_window)
 
 	SignalBus.request_playlist_delete.connect(_ivk_playlist_delete_popup)
+	SignalBus.request_palette_delete.connect(_ivk_palette_delete_popup)
 
 
 func _open_playlists() -> void:
@@ -59,9 +61,27 @@ func _ivk_about_window() -> void:
 	win.open()
 
 func _ivk_playlist_delete_popup(playlist: PlaylistModel) -> void:
+	_ivk_delete_popup(DeleteConfirmationWindow.DeleteMode.PLAYLIST, playlist)
+
+func _ivk_palette_delete_popup(palette: GTKColorPalette) -> void:
+	_ivk_delete_popup(DeleteConfirmationWindow.DeleteMode.PALETTE, palette)
+
+
+func _ivk_delete_popup(dmode: DeleteConfirmationWindow.DeleteMode, object) -> void:
 	if !delete_confirm_window: return
 	var scn = delete_confirm_window.instantiate() as DeleteConfirmationWindow
-	scn.playlist = playlist
+
+	scn.as_mode = dmode
+
+	if object is PlaylistModel:
+		scn.playlist = object
+
+	elif object is GTKColorPalette:
+		scn.palette = object
+
+	else:
+		return
+
 	add_child(scn)
 	scn.open()
 
