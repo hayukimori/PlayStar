@@ -1,11 +1,11 @@
 using Godot;
-using System;
 
 namespace PlayStar.Scripts.Models;
 
 [GlobalClass]
 public partial class GTKColorPalette : Resource
 {
+    [Export] public string PaletteName { get; set; } = "";
     [Export] public bool DarkMode { get; set; }
     [Export] public Color AccentColor { get; set; }
     [Export] public Color AccentBgColor { get; set; }

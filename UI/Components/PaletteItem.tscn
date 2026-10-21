@@ -25,7 +25,6 @@ font = ExtResource("2_cy2u8")
 font_size = 9
 
 [node name="PaletteItem" type="Control" unique_id=230245691]
-visible = false
 custom_minimum_size = Vector2(148, 148)
 layout_mode = 3
 anchors_preset = 0

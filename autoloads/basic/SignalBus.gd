@@ -45,6 +45,7 @@ signal show_artist_window(artist: ArtistModel, texture)
 signal show_album_window(album: AlbumModel, texture)
 signal show_history_window
 signal request_rename_window(playlist: PlaylistModel)
+signal request_rename_palette_window(palette: GTKColorPalette)
 signal show_tags_window(song: SongModel)
 signal show_dynamic_playlists_window()
 
@@ -54,6 +55,7 @@ signal reload_playlists
 signal reset_playlists
 signal reload_artists
 signal reload_albums
+signal reload_palettes
 signal discord_rp_changed(value: bool)
 signal pop_msg_request(message: String)
 signal song_selected(song: SongModel)
@@ -89,6 +91,11 @@ signal update_queue_window(songs: Array[SongModel])
 signal search_results_requested(results: Array)
 signal toggle_shuffle_to_state(state: bool)
 signal toggle_repeat_to_state(state: Definitions.RepeatMode)
+
+# palette
+signal palette_deleted(palette: GTKColorPalette)
+signal palette_added(palette: GTKColorPalette)
+signal palette_renamed(palette: GTKColorPalette)
 
 signal volume_changed_externally(value: int)
 signal volume_changed(value: int)
@@ -147,11 +154,13 @@ func emit_show_artist_window(artist: ArtistModel, texture) -> void: show_artist_
 func emit_show_album_window(album: AlbumModel, texture) -> void: show_album_window.emit(album, texture)
 func emit_show_history_window() -> void: show_history_window.emit()
 func emit_request_rename_window(playlist: PlaylistModel) -> void: request_rename_window.emit(playlist)
+func emit_request_rename_palette_window(palette: GTKColorPalette) -> void: request_rename_palette_window.emit(palette)
 func emit_show_tags_window(song: SongModel) -> void: show_tags_window.emit(song)
 func emit_show_dynamic_playlists_window() -> void: show_dynamic_playlists_window.emit()
 
 func emit_reload_request() -> void: reload_request.emit()
 func emit_reload_playlists() -> void: reload_playlists.emit()
+func emit_reload_palettes() -> void: reload_palettes.emit()
 func emit_reset_playlists() -> void: reset_playlists.emit()
 func emit_reload_artists() -> void: reload_artists.emit()
 func emit_reload_albums() -> void: reload_albums.emit()
@@ -185,6 +194,10 @@ func emit_playlist_deleted(playlist: PlaylistModel) -> void: playlist_deleted.em
 func emit_playlist_added(playlist: PlaylistModel) -> void: playlist_added.emit(playlist)
 func emit_playing_now_capture(song: SongModel, texture: Texture2D) -> void: playing_now_capture.emit(song, texture)
 func emit_update_queue_window(songs: Array[SongModel]) -> void: update_queue_window.emit(songs)
+
+func emit_palette_deleted(palette: GTKColorPalette)-> void: palette_deleted.emit(palette)
+func emit_palette_added(palette: GTKColorPalette)-> void: palette_added.emit(palette)
+func emit_palette_renamed(palette: GTKColorPalette)-> void: palette_renamed.emit(palette)
 
 
 func emit_volume_changed(value: float) -> void: volume_changed.emit(value)

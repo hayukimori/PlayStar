@@ -1,4 +1,5 @@
 extends Control
+class_name PaletteItem
 
 @export var palette: GTKColorPalette;
 @export var is_current: bool = false;
@@ -25,9 +26,13 @@ func _ready() -> void:
 	if is_current: in_use_label.show()
 	else: in_use_label.hide()
 
-	if palette:
-		bg_color_rect.color = palette.WindowBgColor
-		set_colors()
+	if !palette: queue_free()
+
+	bg_color_rect.color = palette.WindowBgColor
+	palette_name_label.text = palette.PaletteName
+	set_colors()
+
+
 
 
 
