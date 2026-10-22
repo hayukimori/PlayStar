@@ -1,7 +1,11 @@
 extends Control
 class_name PaletteItem
 
+signal use_palette_clicked
+
 @export var palette: GTKColorPalette;
+@export var custom_trigger: bool = false
+@export var fixed: bool = false
 
 @export var use_button: Button
 @export var edit_button: Button
@@ -26,14 +30,23 @@ class_name PaletteItem
 
 
 func _ready() -> void:
-	if !palette: queue_free()
+	if fixed: # to be editted by script
+		if !palette:
+			palette = GTKColorPalette.new()
 
-	var is_current = palette == NodeKeeper.current_theme
-	if is_current: in_use_label.show()
-	else: in_use_label.hide()
+		edit_button.hide()
+		delete_button.hide()
+
+	else:
+		if !palette:
+			queue_free()
 
 	bg_color_rect.color = palette.WindowBgColor
 	palette_name_label.text = palette.PaletteName
+
+	var ols = palette_name_label.label_settings.duplicate()
+	ols.font_color = palette.ViewFgColor
+	palette_name_label.label_settings = ols
 
 	if use_button:
 		use_button.pressed.connect(_on_use_pressed)
@@ -44,7 +57,7 @@ func _ready() -> void:
 	if delete_button:
 		delete_button.pressed.connect(_on_delete_pressed)
 
-
+	SignalBus.palette_applied.connect(_on_palette_applied)
 	set_colors()
 
 
@@ -55,9 +68,13 @@ func refresh() -> void:
 
 	bg_color_rect.color = palette.WindowBgColor
 	palette_name_label.text = palette.PaletteName
+	palette_name_label.label_settings.font_color = palette.ViewFgColor
 
 	set_colors()
 
+
+func _on_palette_applied(applied: GTKColorPalette) -> void:
+	in_use_label.visible = (palette == applied)
 
 func set_colors() -> void:
 	c_1.color = palette.AccentColor # 1
@@ -79,7 +96,11 @@ func set_colors() -> void:
 
 
 func _on_use_pressed() -> void:
-	SignalBus.emit_request_palette_use(palette)
+	if custom_trigger:
+		use_palette_clicked.emit()
+	else:
+		SignalBus.emit_request_palette_use(palette)
+
 
 func _on_edit_pressed() -> void:
 	SignalBus.emit_request_palette_edit(palette)

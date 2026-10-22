@@ -44,9 +44,26 @@ func _ready() -> void:
 		search_bar.render_default.connect(_on_search_bar_render_default)
 
 	SignalBus.reload_artists.connect(reload_artists)
+	SignalBus.palette_applied.connect(apply_palette_le)
+
+	if NodeKeeper.current_theme:
+		apply_palette_le(NodeKeeper.current_theme)
 
 
 	_build_artists(_artists)
+
+
+func apply_palette_le(palette: GTKColorPalette) -> void:
+	var sbx = search_bar.get_theme_stylebox("normal", "LineEdit").duplicate()
+	sbx.bg_color = palette.ViewBgColor
+
+	var plh_color = palette.ViewFgColor
+	plh_color.a = 0.6
+
+	search_bar.add_theme_stylebox_override("normal", sbx)
+	search_bar.add_theme_stylebox_override("focus", sbx)
+	search_bar.add_theme_color_override("font_color", palette.ViewFgColor)
+	search_bar.add_theme_color_override("font_placeholder_color", plh_color)
 
 
 # ─── Build ────────────────────────────────────────────────────────────────────

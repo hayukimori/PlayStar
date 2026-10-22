@@ -52,13 +52,11 @@ static func save(palette: GTKColorPalette) -> void:
 
 	if !palette_path:
 		var uuid := DevTools.generate_uuid_v4()
-		var pa_filename = uuid + ".tres"
-		var p1 := _get_main_path()
-		var p2 := p1.path_join(pa_filename)
-		palette_path = p2
+		palette_path = _get_main_path().path_join(uuid + ".tres")
 
 	ResourceSaver.save(palette, palette_path)
-
+	if palette.resource_path != palette_path:
+		palette.take_over_path(palette_path)
 
 
 ## Renames a Palette + save [br]

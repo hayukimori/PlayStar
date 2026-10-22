@@ -9,6 +9,7 @@ class_name PaletteWindowControl
 @export var new_palette_win: HybridWindow
 @export var rename_palette_win: HybridWindow
 @export var save_palette_btn: Button
+@export var gtk_opt_palette_item: PaletteItem
 
 @export_group("Packed Scenes")
 @export var palette_item_scn: PackedScene
@@ -22,7 +23,10 @@ const BUILD_BUDGET_USEC := 1000
 # ─── Ready ────────────────────────────────────────────────────────────────────
 
 func _ready() -> void:
+	GtkThemeProvider.ColorsLoaded.connect(_on_gtk_colors_loaded)
 	_palettes = PaletteManager.load_palettes()
+
+	palettes_grid.base_n = 148
 
 	if new_palette_btn:
 		new_palette_btn.pressed.connect(_on_new_palette_btn)
@@ -40,6 +44,19 @@ func _ready() -> void:
 	self.close_requested.connect(self.close)
 
 	_load_ui_palettes()
+
+
+func _on_gtk_colors_loaded(palette: GTKColorPalette) -> void:
+	if !gtk_opt_palette_item: return
+	if !palette: return
+
+	gtk_opt_palette_item.palette = palette
+	gtk_opt_palette_item.refresh()
+	gtk_opt_palette_item.show()
+
+	if not gtk_opt_palette_item.use_palette_clicked.is_connected(SignalBus.emit_request_palette_use_gtk):
+		gtk_opt_palette_item.use_palette_clicked.connect(SignalBus.emit_request_palette_use_gtk.bind(palette))
+
 
 
 # ─── Build ────────────────────────────────────────────────────────────────────
@@ -123,14 +140,13 @@ func _save_current_theme() -> void:
 	if not NodeKeeper.current_theme:
 		return
 	if new_palette_win:
-		new_palette_win.load_from(NodeKeeper.current_theme, true)
+		var copy := NodeKeeper.current_theme.duplicate() as GTKColorPalette
+		new_palette_win.load_from(copy, true)
 		new_palette_win.open()
 
 # ─── Signal Handlers ──────────────────────────────────────────────────────────
 
 func _on_palette_added(palette: GTKColorPalette) -> void:
-	print("PLAYLIST ADDED")
-
 	_add_to_cache(palette)
 	var node: PaletteItem = palette_item_scn.instantiate()
 	node.palette = palette

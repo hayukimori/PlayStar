@@ -81,6 +81,9 @@ signal request_playlist_down(playlist: PlaylistModel)
 signal request_palette_delete(palette: GTKColorPalette)
 signal request_palette_edit(palette: GTKColorPalette)
 signal request_palette_use(palette: GTKColorPalette)
+signal request_palette_use_gtk(palette: GTKColorPalette)
+
+signal palette_applied(palette: GTKColorPalette)
 
 # -> Global signals
 signal load_all_songs
@@ -190,6 +193,8 @@ func emit_request_playlist_down(playlist: PlaylistModel) -> void: request_playli
 func emit_request_palette_delete(palette: GTKColorPalette) -> void: request_palette_delete.emit(palette)
 func emit_request_palette_edit(palette: GTKColorPalette) -> void: request_palette_edit.emit(palette)
 func emit_request_palette_use(palette: GTKColorPalette) -> void: request_palette_use.emit(palette)
+func emit_palette_applied(palette: GTKColorPalette) -> void: palette_applied.emit(palette)
+func emit_request_palette_use_gtk(palette: GTKColorPalette) -> void: request_palette_use_gtk.emit(palette)
 
 func emit_load_all_songs() -> void: load_all_songs.emit()
 func emit_scroll_to_current() -> void: scroll_to_current.emit()

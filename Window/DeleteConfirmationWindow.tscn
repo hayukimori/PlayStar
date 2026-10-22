@@ -5,12 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://dfvi0cka85xqx" path="res://assets/icons/iconoir/xmark.svg" id="3_owid5"]
 
 [node name="DeleteConfirm" type="Window" unique_id=1751594867 node_paths=PackedStringArray("confirm_button", "cancel_button", "main_label")]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Delete Playlist"
 initial_position = 4
 size = Vector2i(524, 192)
 visible = false
 exclusive = true
+transparent = true
 script = ExtResource("1_m3ohy")
 confirm_button = NodePath("Control/Control/ConfirmButton")
 cancel_button = NodePath("Control/Control/CancelButton")

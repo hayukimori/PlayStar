@@ -66,6 +66,8 @@ public partial class GTKThemeProvider : Node
 
 
         var palette = GTKColorParser.FromJson(_outputPath);
+        palette.PaletteName = "GTK Current";
+
         if (palette is not null)
             EmitSignal(SignalName.ColorsLoaded, palette);
         return Error.Ok;

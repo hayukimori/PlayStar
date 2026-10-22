@@ -6,6 +6,7 @@ extends Node
 @export var playing_now_panel: Panel
 @export var cover_panel: Panel
 @export var menu_panel: Panel
+@export var fallback_palette: GTKColorPalette
 
 @export_category("Playback controls")
 @export var pn_bg_panel: Panel
@@ -20,11 +21,30 @@ var grid_ls := preload("res://UI/ComponentThemes/GridLabelSettings.tres")
 
 func _ready() -> void:
 	print("[ThemeApplier] Theme Applier started")
-	GtkThemeProvider.ColorsLoaded.connect(_on_theme_update)
+	SignalBus.request_palette_use.connect(set_theme)
+	SignalBus.request_palette_use_gtk.connect(_on_gtk_default_load_use)
+
+	# Config
+	var config = UserGlobals.get_config()
+	if config.use_gtk_theme:
+		GtkThemeProvider.ColorsLoaded.connect(_on_gtk_default_load_use)
+	elif not config.current_palette_path.is_empty():
+		if FileAccess.file_exists(config.current_palette_path):
+			var palette := ResourceLoader.load(config.current_palette_path) as GTKColorPalette
+			set_theme(palette)
+		else:
+			var palette := fallback_palette
+			set_theme(palette)
+
+	GtkThemeProvider.FetchColors()
+
+
 
 
 ## Sets a color palette (GKTColorPalette) to the player
-func set_theme(palette: GTKColorPalette) -> void:
+func set_theme(palette: GTKColorPalette, is_gtk_default: bool = false) -> void:
+	NodeKeeper.current_theme = palette
+
 	# Set theme for all background Color Rects
 	for node in get_tree().get_nodes_in_group("background_color_rects"):
 		node.color = palette.WindowBgColor
@@ -43,7 +63,7 @@ func set_theme(palette: GTKColorPalette) -> void:
 
 	# Songs
 	var btn_sbx := song_btn_theme.get_stylebox("panel", "Panel").duplicate()
-	btn_sbx.bg_color = palette.HeaderbarBgColor
+	btn_sbx.bg_color = palette.CardBgColor
 	song_btn_theme.set_stylebox("panel", "Panel", btn_sbx)
 
 	# Song title (songbutton)
@@ -57,6 +77,18 @@ func set_theme(palette: GTKColorPalette) -> void:
 	# Grids (Artists, Albums)
 	grid_ls.font_color = palette.ViewFgColor
 
+	var config = UserGlobals.current_config
+	if config:
+		if !is_gtk_default:
+			config.current_palette_path = palette.resource_path
+			config.use_gtk_theme = false
+		else:
+			config.use_gtk_theme = true
+			config.current_palette_path = ""
+
+		UserGlobals.save_config(config)
+
+	SignalBus.emit_palette_applied(palette);
 
 
 ## Applies color for ProgressBar and ProgressBar background (counterwave)
@@ -87,6 +119,5 @@ func update_panel_color(panel: Panel, color: Color) -> void:
 	panel.add_theme_stylebox_override("panel", sbx)
 
 
-func _on_theme_update(palette: GTKColorPalette) -> void:
-	NodeKeeper.current_theme = palette
-	set_theme(palette)
+func _on_gtk_default_load_use(palette: GTKColorPalette) -> void:
+	set_theme(palette, true)

@@ -83,8 +83,9 @@
 [ext_resource type="Script" uid="uid://by66hth382br2" path="res://Scripts/Theming/GtkThemeTest.gd" id="78_r6epg"]
 [ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="79_qpjbn"]
 [ext_resource type="Script" uid="uid://deiw0bf60qcfx" path="res://Scripts/Theming/ThemeApplier.gd" id="80_c6d8f"]
+[ext_resource type="Resource" uid="uid://bpbrert8qvvvd" path="res://color_palettes/sweet_apple.tres" id="82_gioxl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0iie7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gioxl"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -99,7 +100,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gioxl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6m8da"]
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -115,7 +116,7 @@ gradient = SubResource("Gradient_awq1b")
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6m8da"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7olpo"]
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 corner_detail = 16
@@ -391,7 +392,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0iie7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gioxl")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -439,7 +440,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 119.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gioxl")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6m8da")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -459,7 +460,7 @@ anchor_bottom = 1.0
 offset_top = -104.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_6m8da")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7olpo")
 script = ExtResource("1_awq1b")
 corner_detail = 16
 radius_bottom_left = 16
@@ -1101,27 +1102,39 @@ delete_confirm_window = ExtResource("47_eseux")
 about_window_packed = ExtResource("57_hfbbq")
 
 [node name="PlaylistsWindow" type="Window" parent="WindowManager" unique_id=450202149]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Playlists"
 initial_position = 4
 size = Vector2i(600, 300)
 visible = false
+transparent = true
 script = ExtResource("43_cfy4v")
 metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 
 [node name="PlaylistControl" parent="WindowManager/PlaylistsWindow" unique_id=1257508571 instance=ExtResource("45_rr6jk")]
 
 [node name="ArtistWindow" parent="WindowManager" unique_id=424101991 instance=ExtResource("47_hrm2o")]
+transparent_bg = true
+transparent = true
 
 [node name="AlbumWindow" parent="WindowManager" unique_id=1939713664 instance=ExtResource("48_621sv")]
+transparent_bg = true
+transparent = true
 
 [node name="SingleArtistWindow" parent="WindowManager" unique_id=845192087 instance=ExtResource("48_l6mk2")]
+transparent_bg = true
+transparent = true
 
 [node name="SingleAlbumWindow" parent="WindowManager" unique_id=1993442924 instance=ExtResource("50_rtief")]
+transparent_bg = true
+transparent = true
 
 [node name="ConfigControl" parent="WindowManager" unique_id=106539680 instance=ExtResource("26_hgk7f")]
 
 [node name="TagWindow" parent="WindowManager" unique_id=641077770 instance=ExtResource("66_wqotl")]
+transparent_bg = true
+transparent = true
 
 [node name="DynamicListsWindow" parent="WindowManager" unique_id=1104768027 instance=ExtResource("71_0yj33")]
 
@@ -1141,7 +1154,7 @@ notifications_vbox = NodePath("ScrollContainer/VBoxContainer")
 notification_button_scene = ExtResource("60_r7yy5")
 version_flag_scene = ExtResource("71_u4205")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PopMsgControl" unique_id=504068678 groups=["ui_buttons"]]
+[node name="ScrollContainer" type="ScrollContainer" parent="PopMsgControl" unique_id=504068678]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1158,13 +1171,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_h7vyd")
 
-[node name="ThemeApplier" type="Node" parent="." unique_id=637378458 node_paths=PackedStringArray("songlist_panel", "playing_now_panel", "cover_panel", "menu_panel", "pn_bg_panel")]
+[node name="ThemeApplier" type="Node" parent="." unique_id=637378458 node_paths=PackedStringArray("songlist_panel", "playing_now_panel", "cover_panel", "menu_panel", "pn_bg_panel", "progress_bar_counterwave", "progress_bar_color_rect")]
 script = ExtResource("80_c6d8f")
 songlist_panel = NodePath("../SongQueueControl/QueueBgPanel")
 playing_now_panel = NodePath("../SongInfoControl/BackgroundPanel")
 cover_panel = NodePath("../SongQueueControl/CoverPanel")
 menu_panel = NodePath("../LeftMenuControl/MenuPanel")
+fallback_palette = ExtResource("82_gioxl")
 pn_bg_panel = NodePath("../PlayerControlsPanel")
+progress_bar_counterwave = NodePath("../PlayerControlsPanel/ProgressBarControl/CounterWave")
+progress_bar_color_rect = NodePath("../PlayerControlsPanel/ProgressBarControl/CRProgressBar")
 
 [node name="GTKThemeTest" type="Control" parent="." unique_id=656736278 node_paths=PackedStringArray("color_rect_group")]
 visible = false

@@ -5,12 +5,17 @@
 [ext_resource type="Script" uid="uid://dx5kti0cfoy4y" path="res://Scripts/UI/CustomNodes/FlexBoxFreezableGridContainer.gd" id="3_gqeyv"]
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_hb5hk"]
 [ext_resource type="PackedScene" uid="uid://clusvp51twycd" path="res://UI/Components/PaletteItem.tscn" id="4_agjn8"]
+[ext_resource type="Resource" uid="uid://bpbrert8qvvvd" path="res://color_palettes/sweet_apple.tres" id="6_cg0vq"]
 [ext_resource type="Script" uid="uid://dxesfcxmktc3y" path="res://Scripts/Window/RenamePaletteWindow.gd" id="6_ephua"]
+[ext_resource type="Resource" uid="uid://dub3y8htc766i" path="res://color_palettes/violeta.tres" id="6_jw3d3"]
 [ext_resource type="Texture2D" uid="uid://1c8joxfx8gjh" path="res://assets/icons/iconoir/floppy-disk.svg" id="6_uqbhd"]
+[ext_resource type="Resource" uid="uid://be1lf6bxxn1a1" path="res://color_palettes/absolute_redish.tres" id="7_cg0vq"]
 [ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="7_wbsr4"]
+[ext_resource type="Resource" path="res://color_palettes/expressive_red.tres" id="9_kydd4"]
 [ext_resource type="Texture2D" uid="uid://c876l488uo1rm" path="res://assets/icons/iconoir/palette.svg" id="9_pea7i"]
 [ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="9_qkf0r"]
 [ext_resource type="Script" uid="uid://egnr65y15myw" path="res://Scripts/Window/NewPaletteHWindow.gd" id="9_uqbhd"]
+[ext_resource type="Resource" path="res://color_palettes/your_heart.tres" id="10_1t4r7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkf0r"]
 content_margin_left = 16.0
@@ -37,12 +42,14 @@ corner_radius_bottom_left = 8
 [sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
 font = ExtResource("9_qkf0r")
 
-[node name="PaletteWindow" type="Window" unique_id=1218845974 node_paths=PackedStringArray("palettes_scroll", "palettes_grid", "new_palette_btn", "new_palette_win", "rename_palette_win", "save_palette_btn")]
+[node name="PaletteWindow" type="Window" unique_id=1218845974 node_paths=PackedStringArray("palettes_scroll", "palettes_grid", "new_palette_btn", "new_palette_win", "rename_palette_win", "save_palette_btn", "gtk_opt_palette_item")]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Palette"
 initial_position = 4
 size = Vector2i(902, 496)
 visible = false
+transparent = true
 script = ExtResource("1_e4ctf")
 palettes_scroll = NodePath("PaletteWindowControl/ScrollContainer")
 palettes_grid = NodePath("PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer")
@@ -50,6 +57,7 @@ new_palette_btn = NodePath("PaletteWindowControl/NewPaletteButton")
 new_palette_win = NodePath("NewPaletteHWindow")
 rename_palette_win = NodePath("RenamePaletteWindow")
 save_palette_btn = NodePath("PaletteWindowControl/SaveCurrenPaletteButton")
+gtk_opt_palette_item = NodePath("PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer/GKT_OPTION")
 palette_item_scn = ExtResource("4_agjn8")
 metadata/_custom_type_script = "uid://ba0c6uv2bona6"
 
@@ -70,7 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.08627451, 0.08627451, 0.08627451, 1)
 
-[node name="TitleLabel" type="Label" parent="PaletteWindowControl" unique_id=1461352305]
+[node name="TitleLabel" type="Label" parent="PaletteWindowControl" unique_id=1461352305 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -97,12 +105,42 @@ theme = ExtResource("3_hb5hk")
 
 [node name="FlexBoxFreezableGridContainer" type="GridContainer" parent="PaletteWindowControl/ScrollContainer" unique_id=1730275555]
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 5
 script = ExtResource("3_gqeyv")
 metadata/_custom_type_script = "uid://dx5kti0cfoy4y"
+
+[node name="GKT_OPTION" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=230245691 instance=ExtResource("4_agjn8")]
+visible = false
+layout_mode = 2
+custom_trigger = true
+fixed = true
+
+[node name="SweetApple" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=622432297 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("6_cg0vq")
+fixed = true
+
+[node name="AbsoluteRedish" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=1907604904 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("7_cg0vq")
+fixed = true
+
+[node name="Violeta" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=959280121 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("6_jw3d3")
+fixed = true
+
+[node name="ExpressiveRed" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=212548113 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("9_kydd4")
+fixed = true
+
+[node name="YourHeart" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=750469806 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("10_1t4r7")
+fixed = true
 
 [node name="SaveCurrenPaletteButton" type="Button" parent="PaletteWindowControl" unique_id=524107883 groups=["ui_buttons"]]
 layout_mode = 1
@@ -133,11 +171,13 @@ icon = ExtResource("7_wbsr4")
 flat = true
 
 [node name="RenamePaletteWindow" type="Window" parent="." unique_id=725343079 node_paths=PackedStringArray("line_edit", "confirm_btn")]
+transparent_bg = true
 oversampling_override = 1.0
 title = "New Playlist"
 initial_position = 4
 size = Vector2i(381, 100)
 visible = false
+transparent = true
 script = ExtResource("6_ephua")
 line_edit = NodePath("PaletteRenameControl/PaletteLineEdit")
 confirm_btn = NodePath("PaletteRenameControl/ConfirmButton")
@@ -186,11 +226,13 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="NewPaletteHWindow" type="Window" parent="." unique_id=774393673 node_paths=PackedStringArray("line_edit", "confirm_btn", "accent_color_btn", "accent_bg_color_btn", "accent_fg_color_btn", "window_bg_color_btn", "window_fg_color_btn", "view_bg_color_btn", "view_fg_color_btn", "headerbar_bg_color_btn", "card_bg_color_btn", "destructive_color_btn", "success_color_btn", "warning_color_btn")]
+transparent_bg = true
 oversampling_override = 1.0
 title = "New Playlist"
 initial_position = 4
 size = Vector2i(748, 458)
 visible = false
+transparent = true
 script = ExtResource("9_uqbhd")
 line_edit = NodePath("NewPaletteControl/PaletteLineEdit")
 confirm_btn = NodePath("NewPaletteControl/ConfirmButton")
@@ -225,7 +267,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.08627451, 0.08627451, 0.08627451, 1)
 
-[node name="PaletteLineEdit" type="LineEdit" parent="NewPaletteHWindow/NewPaletteControl" unique_id=1705707649 groups=["ui_mod_text"]]
+[node name="PaletteLineEdit" type="LineEdit" parent="NewPaletteHWindow/NewPaletteControl" unique_id=1705707649]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.41400003

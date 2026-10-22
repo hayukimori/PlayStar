@@ -21,12 +21,14 @@ corner_radius_bottom_left = 8
 font = ExtResource("2_scfql")
 
 [node name="ScanWindow" type="Window" unique_id=887761806]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Scanning Songs..."
 initial_position = 1
 size = Vector2i(484, 130)
 visible = false
 exclusive = true
+transparent = true
 popup_window = true
 force_native = true
 script = ExtResource("1_t72t2")
@@ -63,7 +65,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_scfql")
 theme_override_styles/fill = SubResource("StyleBoxFlat_p31h8")
 rounded = true
 
-[node name="StatusLabel" type="Label" parent="Control" unique_id=1854301463]
+[node name="StatusLabel" type="Label" parent="Control" unique_id=1854301463 groups=["ui_mod_text"]]
 layout_mode = 1
 offset_left = 18.0
 offset_top = 29.0

@@ -8,3 +8,5 @@ class_name ConfigModel
 @export var show_album_name: bool = true # Rich Presence
 @export var use_native_window: bool = true
 @export var auto_close_panel: bool = true
+@export var use_gtk_theme: bool = false
+@export var current_palette_path: String = ""

@@ -154,6 +154,7 @@ layout_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="InUseLabel" type="Label" parent="." unique_id=1665822133]
+visible = false
 layout_mode = 0
 offset_left = 16.0
 offset_top = 11.0

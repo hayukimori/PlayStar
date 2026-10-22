@@ -26,8 +26,11 @@ func _ready() -> void:
 
 	_set_ui()
 
+	SignalBus.palette_applied.connect(_on_new_theme_applied)
+
 	if NodeKeeper.current_theme:
-		background.color = NodeKeeper.current_theme.WindowBgColor
+		_on_new_theme_applied(NodeKeeper.current_theme)
+
 
 func _set_ui() -> void:
 	match as_mode:
@@ -60,3 +63,12 @@ func _confirm_palette() -> void:
 func close_qf() -> void:
 	self.close()
 	queue_free()
+
+func _on_new_theme_applied(target_p: GTKColorPalette) -> void:
+	background.color = target_p.WindowBgColor
+
+	for item in get_tree().get_nodes_in_group("delete_ui_buttons"):
+		item.modulate = target_p.AccentColor
+
+	for item in get_tree().get_nodes_in_group("delete_ui_text"):
+		item.modulate = target_p.ViewFgColor
