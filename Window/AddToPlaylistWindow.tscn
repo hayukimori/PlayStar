@@ -17,11 +17,13 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="AddToPlaylistWindow" type="Window" unique_id=1334973188 node_paths=PackedStringArray("playlists_vbc", "new_playlist_btn", "new_playlist_win")]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Add {content} to "
 initial_position = 4
 size = Vector2i(504, 335)
 visible = false
+transparent = true
 script = ExtResource("1_dmcru")
 playlists_vbc = NodePath("AddToPlaylistControl/ScrollContainer/VBoxContainer/VBoxContainer")
 playlist_btn_scene = ExtResource("2_e7l8s")
@@ -37,7 +39,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl" unique_id=118922319]
+[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl" unique_id=118922319 groups=["backgrounds_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1254902, 0.1254902, 0.1254902, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="AddToPlaylistControl" unique_id=883599415]
+[node name="ScrollContainer" type="ScrollContainer" parent="AddToPlaylistControl" unique_id=883599415 groups=["mod_elements_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +64,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddPlaylistButton" type="Button" parent="AddToPlaylistControl/ScrollContainer/VBoxContainer" unique_id=915541489]
+[node name="AddPlaylistButton" type="Button" parent="AddToPlaylistControl/ScrollContainer/VBoxContainer" unique_id=915541489 groups=["mod_elements_addtoplaylist"]]
 layout_mode = 2
 icon = ExtResource("2_iajm3")
 flat = true
@@ -71,11 +73,13 @@ flat = true
 layout_mode = 2
 
 [node name="NewPlaylistHWindow" type="Window" parent="AddToPlaylistControl" unique_id=458288811 node_paths=PackedStringArray("line_edit", "confirm_btn")]
+transparent_bg = true
 oversampling_override = 1.0
 title = "New Playlist"
 initial_position = 4
 size = Vector2i(381, 100)
 visible = false
+transparent = true
 script = ExtResource("3_e7l8s")
 line_edit = NodePath("NewPlaylistControl/PlaylistNameLineEdit")
 confirm_btn = NodePath("NewPlaylistControl/ConfirmButton")
@@ -89,7 +93,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1453750053]
+[node name="ColorRect" type="ColorRect" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1453750053 groups=["backgrounds_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,7 +113,7 @@ offset_bottom = 66.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_pc4if")
 placeholder_text = "Playlist Name"
 
-[node name="ConfirmButton" type="Button" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1217852353]
+[node name="ConfirmButton" type="Button" parent="AddToPlaylistControl/NewPlaylistHWindow/NewPlaylistControl" unique_id=1217852353 groups=["mod_elements_addtoplaylist"]]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

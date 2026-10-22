@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="GTKColorPalette" format=3 uid="uid://be1lf6bxxn1a1"]
+
+[ext_resource type="Script" uid="uid://gu7arcp2dv3o" path="res://Scripts/Models/GTKColorPalette.cs" id="1_2tg6t"]
+
+[resource]
+script = ExtResource("1_2tg6t")
+PaletteName = "Absolute Red(ish)"
+DarkMode = true
+AccentColor = Color(0.99607843, 0.6901961, 0.8235294, 1)
+AccentBgColor = Color(0.99607843, 0.6901961, 0.8235294, 1)
+AccentFgColor = Color(0.32156864, 0.11372549, 0.22352941, 1)
+WindowBgColor = Color(0.09803922, 0.06666667, 0.078431375, 1)
+WindowFgColor = Color(0.93333334, 0.8745098, 0.8901961, 1)
+ViewBgColor = Color(0.07450981, 0.047058824, 0.05882353, 1)
+ViewFgColor = Color(0.93333334, 0.8745098, 0.8901961, 1)
+HeaderbarBgColor = Color(0.14509805, 0.11372549, 0.1254902, 1)
+CardBgColor = Color(0.14509805, 0.11372549, 0.1254902, 1)
+DestructiveColor = Color(1, 0.7058824, 0.67058825, 1)
+SuccessColor = Color(0.70980394, 0.8, 0.7294118, 1)
+WarningColor = Color(0.9985073, 0.7623389, 0.32253006, 1)

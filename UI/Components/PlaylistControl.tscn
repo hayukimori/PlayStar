@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="1_tx3fo"]
 [ext_resource type="PackedScene" uid="uid://c2q124d0m5w0e" path="res://UI/Components/PlaylistButton.tscn" id="2_nfb0i"]
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="3_6t6is"]
-[ext_resource type="Script" uid="uid://d3xk9p8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="4_dg3yt"]
+[ext_resource type="Script" uid="uid://d3xlap8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="4_dg3yt"]
 [ext_resource type="Script" uid="uid://ckjoncstnkvgy" path="res://Scripts/Window/NewPlaylistWindow.gd" id="5_pc4if"]
 [ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="6_pc4if"]
 [ext_resource type="Script" uid="uid://dk73yg17wlk78" path="res://Scripts/Window/RenamePlaylistWindow.gd" id="8_w1atg"]
@@ -37,7 +37,7 @@ new_playlist_win = NodePath("NewPlaylistHWindow")
 playlist_btn_scene = ExtResource("2_nfb0i")
 song_btn_cvr_scn = ExtResource("3_6t6is")
 
-[node name="BgColor" type="ColorRect" parent="." unique_id=1487805159]
+[node name="BgColor" type="ColorRect" parent="." unique_id=1487805159 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +62,7 @@ theme = ExtResource("1_tx3fo")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NewPlaylistButton" type="Button" parent="PlaylistScroll/ExternalVBC" unique_id=1272811809]
+[node name="NewPlaylistButton" type="Button" parent="PlaylistScroll/ExternalVBC" unique_id=1272811809 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(0, 34)
 custom_maximum_size = Vector2(-1, 42)
 layout_mode = 2
@@ -110,7 +110,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="NewPlaylistHWindow/NewPlaylistControl" unique_id=991383003]
+[node name="ColorRect" type="ColorRect" parent="NewPlaylistHWindow/NewPlaylistControl" unique_id=991383003 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,7 +130,7 @@ offset_bottom = 66.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_pc4if")
 placeholder_text = "Playlist Name"
 
-[node name="ConfirmButton" type="Button" parent="NewPlaylistHWindow/NewPlaylistControl" unique_id=1324470237]
+[node name="ConfirmButton" type="Button" parent="NewPlaylistHWindow/NewPlaylistControl" unique_id=1324470237 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -163,7 +163,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="RenamePlaylistHWindow/NewPlaylistControl" unique_id=292928481]
+[node name="ColorRect" type="ColorRect" parent="RenamePlaylistHWindow/NewPlaylistControl" unique_id=292928481 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -183,7 +183,7 @@ offset_bottom = 66.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_pc4if")
 placeholder_text = "Playlist Name"
 
-[node name="ConfirmButton" type="Button" parent="RenamePlaylistHWindow/NewPlaylistControl" unique_id=503455644]
+[node name="ConfirmButton" type="Button" parent="RenamePlaylistHWindow/NewPlaylistControl" unique_id=503455644 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

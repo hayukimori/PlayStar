@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://by480m4ghcj26" path="res://assets/textures/default_albumart.png" id="3_wo23i"]
 [ext_resource type="Texture2D" uid="uid://cbh5ngr7pc2nd" path="res://assets/icons/iconoir/playlist-plus.svg" id="4_owqj0"]
 [ext_resource type="Script" uid="uid://ct31sfsan3rbl" path="res://Scripts/UI/CustomNodes/ToPlaylistButton.gd" id="5_4w7h6"]
-[ext_resource type="Script" uid="uid://d3xk9p8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="6_g0gud"]
+[ext_resource type="Script" uid="uid://d3xlap8nq2vcr" path="res://Scripts/UI/CustomNodes/VirtualizedVBoxList.gd" id="6_g0gud"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp4cw"]
 corner_radius_top_left = 8
@@ -47,7 +47,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BgColor" type="ColorRect" parent="SingleAlbumControl" unique_id=1315191392]
+[node name="BgColor" type="ColorRect" parent="SingleAlbumControl" unique_id=1315191392 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,7 +82,7 @@ texture = ExtResource("3_wo23i")
 stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
-[node name="NameLabel" type="Label" parent="SingleAlbumControl/Control" unique_id=921576862]
+[node name="NameLabel" type="Label" parent="SingleAlbumControl/Control" unique_id=921576862 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -106,7 +106,7 @@ offset_right = -58.0
 offset_bottom = 249.0
 alignment = 1
 
-[node name="ToPlaylistButton" type="Button" parent="SingleAlbumControl/Control/HBoxContainer" unique_id=741458129]
+[node name="ToPlaylistButton" type="Button" parent="SingleAlbumControl/Control/HBoxContainer" unique_id=741458129 groups=["ui_buttons"]]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 icon = ExtResource("4_owqj0")

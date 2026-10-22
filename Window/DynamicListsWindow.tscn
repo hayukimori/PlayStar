@@ -12,12 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://fclxi1r4v8h5" path="res://assets/icons/iconoir/heart.svg" id="8_n1lae"]
 [ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="9_kh8j1"]
 [ext_resource type="Script" uid="uid://b2pa2r2j6xr3k" path="res://Scripts/UI/Components/HistoryScrollContainer.gd" id="9_ldq0p"]
+[ext_resource type="Script" uid="uid://c3x2iauhhgh36" path="res://Scripts/UI/Components/DynamicListTabContainer.gd" id="10_cjt8g"]
 [ext_resource type="PackedScene" uid="uid://ct112vny4ur8j" path="res://UI/Components/SongButtonCovered.tscn" id="10_fkbv0"]
 [ext_resource type="Script" uid="uid://bsnj4vrr3jxio" path="res://Scripts/UI/Components/MostPlayed7ScrollContainer.gd" id="12_ukh0f"]
 [ext_resource type="Script" uid="uid://das3168vsjco1" path="res://Scripts/UI/Components/MostPlayed30ScrollContainer.gd" id="13_d8pib"]
 [ext_resource type="Script" uid="uid://dntpfd1fpwsj3" path="res://Scripts/UI/Components/StarredSongsScrollContainer.gd" id="15_um1vx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_um1vx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1lae"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -69,11 +70,13 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="DynamicListsWindow" type="Window" unique_id=1104768027 node_paths=PackedStringArray("hst_sc", "mp7_sc", "mp30_sc", "tab_container", "name_label", "tp_btn")]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Dynamic PLaylists"
 initial_position = 4
 size = Vector2i(800, 360)
 visible = false
+transparent = true
 script = ExtResource("1_d8pib")
 hst_sc = NodePath("DynamicListsControl/TabContainer/HistoryScrollContainer")
 mp7_sc = NodePath("DynamicListsControl/TabContainer/MostPlayedScrollContainer")
@@ -91,7 +94,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BgColor" type="ColorRect" parent="DynamicListsControl" unique_id=1719326454]
+[node name="BgColor" type="ColorRect" parent="DynamicListsControl" unique_id=1719326454 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,13 +123,13 @@ offset_left = 68.0
 offset_top = 34.0
 offset_right = -28.037003
 offset_bottom = 162.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_um1vx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n1lae")
 script = ExtResource("2_8d6ap")
 texture = ExtResource("3_d4xrs")
 stretch_mode = 6
 metadata/_custom_type_script = "uid://dkex67wyltjd6"
 
-[node name="NameLabel" type="Label" parent="DynamicListsControl/Control" unique_id=1036685471]
+[node name="NameLabel" type="Label" parent="DynamicListsControl/Control" unique_id=1036685471 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -140,7 +143,7 @@ horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DynamicListsControl/Control" unique_id=680088498]
+[node name="HBoxContainer" type="HBoxContainer" parent="DynamicListsControl/Control" unique_id=680088498 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -191,6 +194,7 @@ tab_2/title = "7 days"
 tab_2/icon = ExtResource("7_vprp8")
 tab_3/title = "30 days"
 tab_3/icon = ExtResource("7_vprp8")
+script = ExtResource("10_cjt8g")
 
 [node name="HistoryScrollContainer" type="ScrollContainer" parent="DynamicListsControl/TabContainer" unique_id=384171124 node_paths=PackedStringArray("songs_vbox")]
 layout_mode = 2

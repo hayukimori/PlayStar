@@ -4,6 +4,7 @@ extends Node
 const USER_CONFIG_PATH: String = "user://user_config.tres"
 const USER_DEFAULTS_PATH: String = "user://user_default.tres"
 const USER_PLAYLISTS_PATH: String = "user://playlists/"
+const USER_PALETTES_PATH: String = "user://color_palettes/"
 
 var current_defaults: UserDefaults
 var current_config: ConfigModel

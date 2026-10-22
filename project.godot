@@ -12,7 +12,7 @@ config_version=5
 
 config/name="PlayStar"
 config/description="Your music, your library, your way. PlayStar keeps it simple so you can focus on what matters — the music."
-config/version="1.4.1"
+config/version="1.6.0"
 run/main_scene="uid://cucj2so2q2vo0"
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
@@ -36,11 +36,14 @@ ArtDispatcher="*uid://bqt0p0g14m76i"
 DiscordRp="*uid://0q8y2848qla1"
 SingleInstanceManager="*uid://btbeaso3yg2jq"
 UpdateVerifier="*uid://ck3wrjc3x0wdd"
+GtkThemeProvider="*uid://c16srylhsf5ka"
 
 [display]
 
+window/size/transparent=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/per_pixel_transparency/allowed=true
 display_server/driver.linuxbsd="wayland"
 
 [dotnet]
@@ -50,6 +53,12 @@ project/assembly_name="PlayStar"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/TextureRectRounded/plugin.cfg")
+
+[global_group]
+
+background_color_rects=""
+ui_buttons=""
+ui_mod_text=""
 
 [input]
 

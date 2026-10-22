@@ -29,7 +29,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="MControl" unique_id=1487392906]
+[node name="ColorRect" type="ColorRect" parent="MControl" unique_id=1487392906 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,7 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.08627451, 0.08627451, 0.08627451, 1)
 
-[node name="Tree" type="Tree" parent="MControl" unique_id=1315801460]
+[node name="Tree" type="Tree" parent="MControl" unique_id=1315801460 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.11400001
@@ -69,7 +69,7 @@ theme_override_styles/title_button_pressed = SubResource("StyleBoxEmpty_sqbes")
 theme_override_styles/title_button_hover = SubResource("StyleBoxEmpty_sqbes")
 columns = 2
 
-[node name="TitleLabel" type="Label" parent="MControl" unique_id=1128119816]
+[node name="TitleLabel" type="Label" parent="MControl" unique_id=1128119816 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0

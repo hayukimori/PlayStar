@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GTKColorPalette" format=3 uid="uid://4nby4dp6d833"]
+
+[ext_resource type="Script" uid="uid://gu7arcp2dv3o" path="res://Scripts/Models/GTKColorPalette.cs" id="1_vaaan"]
+
+[resource]
+script = ExtResource("1_vaaan")
+PaletteName = "Your Heart"
+AccentColor = Color(0.6117647, 0.25882354, 0.20392157, 1)
+AccentBgColor = Color(0.6117647, 0.25882354, 0.20392157, 1)
+AccentFgColor = Color(1, 1, 1, 1)
+WindowBgColor = Color(0.9764706, 0.9764706, 0.9764706, 0.5372549)
+WindowFgColor = Color(0.105882354, 0.105882354, 0.105882354, 1)
+ViewBgColor = Color(1, 1, 1, 1)
+ViewFgColor = Color(0.105882354, 0.105882354, 0.105882354, 1)
+HeaderbarBgColor = Color(0.93333334, 0.93333334, 0.93333334, 1)
+CardBgColor = Color(0.93333334, 0.93333334, 0.93333334, 1)
+DestructiveColor = Color(0.7294118, 0.101960786, 0.101960786, 1)
+SuccessColor = Color(0.21568628, 0.29411766, 0.24313726, 1)
+WarningColor = Color(0.56430537, 0.3303411, -0.4735173, 1)
