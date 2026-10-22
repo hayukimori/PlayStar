@@ -77,6 +77,9 @@ func _ready() -> void:
 
 	ArtService.ArtReady.connect(_on_art_ready)
 
+	if NodeKeeper.current_theme:
+		for extra_btn in get_tree().get_nodes_in_group("extra_buttons"):
+			extra_btn.modulate = NodeKeeper.current_theme.AccentColor
 
 
 func set_art_visibility(b_visible: bool):
@@ -113,13 +116,20 @@ func _pressed() -> void:
 
 func start_playing_now() -> void:
 	var new_settings = original_label_settings.duplicate()
-	var clr: Color = Color("#e75f9f")
+	var clr: Color
+	if NodeKeeper.current_theme:
+		clr = NodeKeeper.current_theme.AccentColor
+		clr.a = 1.5
+	else:
+		clr = Color("#e75f9f") ## fallback or windows version
 
 	new_settings.font_color = clr
-	new_settings.outline_size = 1
+	new_settings.outline_size = 1.2
 	new_settings.outline_color = clr
 	title_label.label_settings = new_settings
 
+	var mtr = playing_now_bar.material as ShaderMaterial
+	mtr.set_shader_parameter("bar_color", clr)
 	playing_now_bar.visible = true
 
 func stop_playing_now() -> void:

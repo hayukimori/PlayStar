@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cbh5ngr7pc2nd" path="res://assets/icons/iconoir/playlist-plus.svg" id="4_0vl7w"]
 [ext_resource type="Script" uid="uid://dgmuwslw0j772" path="res://addons/SongArtRounded/SongArtRounded.gd" id="4_4tf6t"]
 [ext_resource type="Texture2D" uid="uid://b54e8aaiiffik" path="res://assets/icons/extra/hq.png" id="4_4wxht"]
-[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="5_4tf6t"]
+[ext_resource type="LabelSettings" uid="uid://cal7ta26w0won" path="res://UI/ComponentThemes/SongButtonTitleLabelSettings.tres" id="5_3uoaf"]
+[ext_resource type="LabelSettings" uid="uid://cviu002bxece0" path="res://UI/ComponentThemes/SongButtonArtistLabelSettings.tres" id="6_7bbgd"]
 [ext_resource type="Script" uid="uid://ct31sfsan3rbl" path="res://Scripts/UI/CustomNodes/ToPlaylistButton.gd" id="6_r8q5a"]
 [ext_resource type="Texture2D" uid="uid://fclxi1r4v8h5" path="res://assets/icons/iconoir/heart.svg" id="6_wp0id"]
 [ext_resource type="Script" uid="uid://clvwj6p5qjekt" path="res://Scripts/UI/Components/FavoriteButton.gd" id="7_oyqtj"]
@@ -17,22 +18,12 @@
 [ext_resource type="Texture2D" uid="uid://c0glumu514ub0" path="res://assets/icons/iconoir/info-circle.svg" id="11_hnsvu"]
 [ext_resource type="Texture2D" uid="uid://b1xtyb1im4ywm" path="res://assets/icons/extra/subsonic.svg" id="11_tycom"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tycom"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3uoaf"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
-
-[sub_resource type="LabelSettings" id="LabelSettings_oyhhh"]
-font = ExtResource("5_4tf6t")
-font_size = 14
-
-[sub_resource type="LabelSettings" id="LabelSettings_4wxht"]
-font = ExtResource("5_4tf6t")
-font_size = 12
-font_color = Color(1, 1, 1, 0.64705884)
-outline_color = Color(1, 1, 1, 0.5019608)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0vl7w"]
 shader = ExtResource("7_usbv0")
@@ -82,7 +73,7 @@ offset_left = 12.0
 offset_top = 11.0
 offset_right = 54.0
 offset_bottom = 53.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_tycom")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3uoaf")
 script = ExtResource("4_4tf6t")
 texture = ExtResource("2_exdt8")
 stretch_mode = 6
@@ -100,7 +91,7 @@ grow_horizontal = 2
 mouse_filter = 1
 theme = ExtResource("1_oyhhh")
 text = "Unknwon Song"
-label_settings = SubResource("LabelSettings_oyhhh")
+label_settings = ExtResource("5_3uoaf")
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
@@ -117,7 +108,7 @@ grow_horizontal = 2
 mouse_filter = 1
 theme = ExtResource("1_oyhhh")
 text = "Unknwon Artist"
-label_settings = SubResource("LabelSettings_4wxht")
+label_settings = ExtResource("6_7bbgd")
 vertical_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
@@ -136,7 +127,7 @@ grow_horizontal = 0
 grow_vertical = 2
 alignment = 2
 
-[node name="FavoriteButton" type="Button" parent="ExtrasHBC" unique_id=1697181641]
+[node name="FavoriteButton" type="Button" parent="ExtrasHBC" unique_id=1697181641 groups=["extra_buttons"]]
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -149,7 +140,7 @@ solid_texture = ExtResource("8_lhcyw")
 basic_texture = ExtResource("6_wp0id")
 metadata/_custom_type_script = "uid://dnj6ugoy1pdo"
 
-[node name="ToPlaylistButton" type="Button" parent="ExtrasHBC" unique_id=1289095421]
+[node name="ToPlaylistButton" type="Button" parent="ExtrasHBC" unique_id=1289095421 groups=["extra_buttons"]]
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -159,7 +150,7 @@ icon_alignment = 1
 expand_icon = true
 script = ExtResource("6_r8q5a")
 
-[node name="ShowInfoButton" type="Button" parent="ExtrasHBC" unique_id=1351901451]
+[node name="ShowInfoButton" type="Button" parent="ExtrasHBC" unique_id=1351901451 groups=["extra_buttons"]]
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -170,7 +161,7 @@ expand_icon = true
 script = ExtResource("10_hnsvu")
 metadata/_custom_type_script = "uid://dnj6ugoy1pdo"
 
-[node name="HQButton" type="Button" parent="ExtrasHBC" unique_id=706707121]
+[node name="HQButton" type="Button" parent="ExtrasHBC" unique_id=706707121 groups=["extra_buttons"]]
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -179,7 +170,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="SubsonicButton" type="Button" parent="ExtrasHBC" unique_id=736599193]
+[node name="SubsonicButton" type="Button" parent="ExtrasHBC" unique_id=736599193 groups=["extra_buttons"]]
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
@@ -188,7 +179,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="RmFromCurrentButton" type="Button" parent="ExtrasHBC" unique_id=687868695]
+[node name="RmFromCurrentButton" type="Button" parent="ExtrasHBC" unique_id=687868695 groups=["extra_buttons"]]
 visible = false
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2

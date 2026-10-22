@@ -23,6 +23,14 @@ func _ready() -> void:
 
 	change_title()
 
+	if NodeKeeper.current_theme:
+		for cr in get_tree().get_nodes_in_group("backgrounds_addtoplaylist"): # ColorRect
+			cr.color = NodeKeeper.current_theme.WindowBgColor
+
+		for nd in get_tree().get_nodes_in_group("mod_elements_addtoplaylist"):
+			nd.modulate = NodeKeeper.current_theme.ViewFgColor
+
+
 
 func change_title() -> void:
 	var temp = "Add %s to"

@@ -65,7 +65,7 @@ nodes_grid = NodePath("ScrollContainer/GridContainer")
 search_bar = NodePath("SearchBar")
 album_scn = ExtResource("3_07q4b")
 
-[node name="BgColor" type="ColorRect" parent="AlbumGroupControl" unique_id=501210216]
+[node name="BgColor" type="ColorRect" parent="AlbumGroupControl" unique_id=501210216 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +116,7 @@ search_scope = 4
 search_mode = 2
 metadata/_custom_type_script = "uid://ec43qt4c1qc"
 
-[node name="Label" type="Label" parent="AlbumGroupControl" unique_id=10980613]
+[node name="Label" type="Label" parent="AlbumGroupControl" unique_id=10980613 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0

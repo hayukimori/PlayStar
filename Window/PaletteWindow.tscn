@@ -1,0 +1,490 @@
+[gd_scene format=3 uid="uid://d176h5suu4rrb"]
+
+[ext_resource type="Script" uid="uid://bu2ekfa026f7h" path="res://Scripts/Window/PaletteWindow.gd" id="1_e4ctf"]
+[ext_resource type="LabelSettings" uid="uid://dla1bg0ag38fc" path="res://UI/ComponentThemes/StWindowLabelSettings.tres" id="2_gqeyv"]
+[ext_resource type="Script" uid="uid://dx5kti0cfoy4y" path="res://Scripts/UI/CustomNodes/FlexBoxFreezableGridContainer.gd" id="3_gqeyv"]
+[ext_resource type="Theme" uid="uid://67qpswgwcrbe" path="res://UI/ComponentThemes/scrolls_theme.tres" id="3_hb5hk"]
+[ext_resource type="PackedScene" uid="uid://clusvp51twycd" path="res://UI/Components/PaletteItem.tscn" id="4_agjn8"]
+[ext_resource type="Resource" uid="uid://bpbrert8qvvvd" path="res://color_palettes/sweet_apple.tres" id="6_cg0vq"]
+[ext_resource type="Script" uid="uid://dxesfcxmktc3y" path="res://Scripts/Window/RenamePaletteWindow.gd" id="6_ephua"]
+[ext_resource type="Resource" uid="uid://dub3y8htc766i" path="res://color_palettes/violeta.tres" id="6_jw3d3"]
+[ext_resource type="Texture2D" uid="uid://1c8joxfx8gjh" path="res://assets/icons/iconoir/floppy-disk.svg" id="6_uqbhd"]
+[ext_resource type="Resource" uid="uid://be1lf6bxxn1a1" path="res://color_palettes/absolute_redish.tres" id="7_cg0vq"]
+[ext_resource type="Texture2D" uid="uid://nqvt4ddt7ulr" path="res://assets/icons/iconoir/plus.svg" id="7_wbsr4"]
+[ext_resource type="Resource" path="res://color_palettes/expressive_red.tres" id="9_kydd4"]
+[ext_resource type="Texture2D" uid="uid://c876l488uo1rm" path="res://assets/icons/iconoir/palette.svg" id="9_pea7i"]
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="9_qkf0r"]
+[ext_resource type="Script" uid="uid://egnr65y15myw" path="res://Scripts/Window/NewPaletteHWindow.gd" id="9_uqbhd"]
+[ext_resource type="Resource" path="res://color_palettes/your_heart.tres" id="10_1t4r7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkf0r"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pea7i"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_cty8o"]
+font = ExtResource("9_qkf0r")
+
+[node name="PaletteWindow" type="Window" unique_id=1218845974 node_paths=PackedStringArray("palettes_scroll", "palettes_grid", "new_palette_btn", "new_palette_win", "rename_palette_win", "save_palette_btn", "gtk_opt_palette_item")]
+transparent_bg = true
+oversampling_override = 1.0
+title = "Palette"
+initial_position = 4
+size = Vector2i(902, 496)
+visible = false
+transparent = true
+script = ExtResource("1_e4ctf")
+palettes_scroll = NodePath("PaletteWindowControl/ScrollContainer")
+palettes_grid = NodePath("PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer")
+new_palette_btn = NodePath("PaletteWindowControl/NewPaletteButton")
+new_palette_win = NodePath("NewPaletteHWindow")
+rename_palette_win = NodePath("RenamePaletteWindow")
+save_palette_btn = NodePath("PaletteWindowControl/SaveCurrenPaletteButton")
+gtk_opt_palette_item = NodePath("PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer/GKT_OPTION")
+palette_item_scn = ExtResource("4_agjn8")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="PaletteWindowControl" type="Control" parent="." unique_id=1417141177]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundColor" type="ColorRect" parent="PaletteWindowControl" unique_id=691254325 groups=["background_color_rects"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="TitleLabel" type="Label" parent="PaletteWindowControl" unique_id=1461352305 groups=["ui_mod_text"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.18
+offset_left = 35.0
+offset_top = 13.0
+offset_right = -344.0
+offset_bottom = -5.0000076
+text = "Color Palette"
+label_settings = ExtResource("2_gqeyv")
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PaletteWindowControl" unique_id=1812719975]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.15300001
+anchor_right = 0.99700004
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_top = 8.111992
+offset_right = -24.294006
+offset_bottom = -36.0
+theme = ExtResource("3_hb5hk")
+
+[node name="FlexBoxFreezableGridContainer" type="GridContainer" parent="PaletteWindowControl/ScrollContainer" unique_id=1730275555]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 5
+script = ExtResource("3_gqeyv")
+metadata/_custom_type_script = "uid://dx5kti0cfoy4y"
+
+[node name="GKT_OPTION" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=230245691 instance=ExtResource("4_agjn8")]
+visible = false
+layout_mode = 2
+custom_trigger = true
+fixed = true
+
+[node name="SweetApple" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=622432297 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("6_cg0vq")
+fixed = true
+
+[node name="AbsoluteRedish" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=1907604904 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("7_cg0vq")
+fixed = true
+
+[node name="Violeta" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=959280121 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("6_jw3d3")
+fixed = true
+
+[node name="ExpressiveRed" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=212548113 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("9_kydd4")
+fixed = true
+
+[node name="YourHeart" parent="PaletteWindowControl/ScrollContainer/FlexBoxFreezableGridContainer" unique_id=750469806 instance=ExtResource("4_agjn8")]
+layout_mode = 2
+palette = ExtResource("10_1t4r7")
+fixed = true
+
+[node name="SaveCurrenPaletteButton" type="Button" parent="PaletteWindowControl" unique_id=524107883 groups=["ui_buttons"]]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -155.0
+offset_top = 36.0
+offset_right = -21.0
+offset_bottom = 68.0
+grow_horizontal = 0
+text = "Save current"
+icon = ExtResource("6_uqbhd")
+flat = true
+
+[node name="NewPaletteButton" type="Button" parent="PaletteWindowControl" unique_id=695172212 groups=["ui_buttons"]]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -331.0
+offset_top = 36.0
+offset_right = -177.0
+offset_bottom = 68.0
+grow_horizontal = 0
+text = "New Palette"
+icon = ExtResource("7_wbsr4")
+flat = true
+
+[node name="RenamePaletteWindow" type="Window" parent="." unique_id=725343079 node_paths=PackedStringArray("line_edit", "confirm_btn")]
+transparent_bg = true
+oversampling_override = 1.0
+title = "New Playlist"
+initial_position = 4
+size = Vector2i(381, 100)
+visible = false
+transparent = true
+script = ExtResource("6_ephua")
+line_edit = NodePath("PaletteRenameControl/PaletteLineEdit")
+confirm_btn = NodePath("PaletteRenameControl/ConfirmButton")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="PaletteRenameControl" type="Control" parent="RenamePaletteWindow" unique_id=515786658]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="RenamePaletteWindow/PaletteRenameControl" unique_id=1725084092 groups=["background_color_rects"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="PaletteLineEdit" type="LineEdit" parent="RenamePaletteWindow/PaletteRenameControl" unique_id=245474265]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99500006
+offset_left = 9.0
+offset_top = 27.0
+offset_right = -54.09503
+offset_bottom = 66.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qkf0r")
+placeholder_text = "Playlist Name"
+
+[node name="ConfirmButton" type="Button" parent="RenamePaletteWindow/PaletteRenameControl" unique_id=1481480801 groups=["ui_buttons"]]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 327.0
+offset_top = 28.0
+offset_right = -4.0
+offset_bottom = 65.0
+grow_horizontal = 2
+icon = ExtResource("7_wbsr4")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="NewPaletteHWindow" type="Window" parent="." unique_id=774393673 node_paths=PackedStringArray("line_edit", "confirm_btn", "accent_color_btn", "accent_bg_color_btn", "accent_fg_color_btn", "window_bg_color_btn", "window_fg_color_btn", "view_bg_color_btn", "view_fg_color_btn", "headerbar_bg_color_btn", "card_bg_color_btn", "destructive_color_btn", "success_color_btn", "warning_color_btn")]
+transparent_bg = true
+oversampling_override = 1.0
+title = "New Playlist"
+initial_position = 4
+size = Vector2i(748, 458)
+visible = false
+transparent = true
+script = ExtResource("9_uqbhd")
+line_edit = NodePath("NewPaletteControl/PaletteLineEdit")
+confirm_btn = NodePath("NewPaletteControl/ConfirmButton")
+accent_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentColorHBC/ColorPickerButton")
+accent_bg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentBgColorHBC/ColorPickerButton")
+accent_fg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentFgColorHBC/ColorPickerButton")
+window_bg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/WindowBgColorHBC/ColorPickerButton")
+window_fg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/WindowFgColorHBC/ColorPickerButton")
+view_bg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/ViewBgColorHBC/ColorPickerButton")
+view_fg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/ViewFgColorHBC/ColorPickerButton")
+headerbar_bg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/HeaderbarBgColorHBC/ColorPickerButton")
+card_bg_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/CardBgColorHBC/ColorPickerButton")
+destructive_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/DestructiveColorHBC/ColorPickerButton")
+success_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/SuccessColorHBC/ColorPickerButton")
+warning_color_btn = NodePath("NewPaletteControl/ColorsScrollContainer/VBoxContainer/WarningColorHBC/ColorPickerButton")
+metadata/_custom_type_script = "uid://ba0c6uv2bona6"
+
+[node name="NewPaletteControl" type="Control" parent="NewPaletteHWindow" unique_id=1825838451]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="NewPaletteHWindow/NewPaletteControl" unique_id=1283272184 groups=["background_color_rects"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.08627451, 0.08627451, 1)
+
+[node name="PaletteLineEdit" type="LineEdit" parent="NewPaletteHWindow/NewPaletteControl" unique_id=1705707649]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.41400003
+offset_left = 41.0
+offset_top = 27.0
+offset_right = 51.327972
+offset_bottom = 66.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_pea7i")
+placeholder_text = "Playlist Name"
+
+[node name="ConfirmButton" type="Button" parent="NewPaletteHWindow/NewPaletteControl" unique_id=2102067066 groups=["ui_buttons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.93900007
+anchor_right = 1.0
+anchor_bottom = 0.002
+offset_left = -120.37207
+offset_top = 27.0
+offset_right = -14.5
+offset_bottom = 63.084
+grow_horizontal = 0
+text = "Save Palette"
+icon = ExtResource("9_pea7i")
+flat = true
+expand_icon = true
+
+[node name="ColorsScrollContainer" type="ScrollContainer" parent="NewPaletteHWindow/NewPaletteControl" unique_id=1145644609]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99200004
+anchor_bottom = 0.998
+offset_left = 33.0
+offset_top = 96.0
+offset_right = -18.016052
+offset_bottom = -56.084015
+theme = ExtResource("3_hb5hk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer" unique_id=2137333693]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AccentColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1074949450]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentColorHBC" unique_id=1204360443]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentColorHBC" unique_id=1780985439 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Accent"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="AccentBgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=634354789]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentBgColorHBC" unique_id=909249166]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentBgColorHBC" unique_id=927416885 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Accent Bg"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="AccentFgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1019776620]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentFgColorHBC" unique_id=1682896227]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/AccentFgColorHBC" unique_id=618192163 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Accent Foreground"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="WindowBgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1559787614]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/WindowBgColorHBC" unique_id=1081770089]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/WindowBgColorHBC" unique_id=1909839287 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Window Background"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="WindowFgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=63584299]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/WindowFgColorHBC" unique_id=1244713726]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/WindowFgColorHBC" unique_id=431719480 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Window Foreground"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="ViewBgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1237714755]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/ViewBgColorHBC" unique_id=1138582798]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/ViewBgColorHBC" unique_id=2096275582 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "View Background"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="ViewFgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1487085261]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/ViewFgColorHBC" unique_id=1151591855]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/ViewFgColorHBC" unique_id=1268440807 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "View Foreground"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="HeaderbarBgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1469103667]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/HeaderbarBgColorHBC" unique_id=35304412]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/HeaderbarBgColorHBC" unique_id=1769365620 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Headerbar Background"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="CardBgColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1910532608]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/CardBgColorHBC" unique_id=1268940009]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/CardBgColorHBC" unique_id=77344666 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Card Background"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="DestructiveColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=290543391]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/DestructiveColorHBC" unique_id=2104609017]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/DestructiveColorHBC" unique_id=11750830 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Destructive"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="SuccessColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=1066442685]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/SuccessColorHBC" unique_id=1486170705]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/SuccessColorHBC" unique_id=121160719 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Success"
+label_settings = SubResource("LabelSettings_cty8o")
+
+[node name="WarningColorHBC" type="HBoxContainer" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer" unique_id=2143052940]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/WarningColorHBC" unique_id=2137323277]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="NewPaletteHWindow/NewPaletteControl/ColorsScrollContainer/VBoxContainer/WarningColorHBC" unique_id=684817209 groups=["ui_mod_text"]]
+layout_mode = 2
+text = "Warning"
+label_settings = SubResource("LabelSettings_cty8o")

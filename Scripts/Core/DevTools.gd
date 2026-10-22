@@ -164,3 +164,24 @@ static func parse_version(version_str: String) -> Array:
 	)
 
 	return parsed_version
+
+## Retunrs all files from directory (recursively)
+static func get_full_dirs(path: String) -> Array[String]:
+	var file_paths: Array[String] = []
+	var dir = DirAccess.open(path)
+
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+
+		while file_name != "":
+				if not dir.current_is_dir():
+					var full_path = dir.get_current_dir().path_join(file_name)
+					file_paths.append(full_path)
+				file_name = dir.get_next()
+
+		dir.list_dir_end()
+	else:
+		print("Access fail: ", path)
+
+	return file_paths

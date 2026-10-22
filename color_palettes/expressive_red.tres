@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GTKColorPalette" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Models/GTKColorPalette.cs" id="1_t84lt"]
+
+[resource]
+script = ExtResource("1_t84lt")
+PaletteName = "Expressive Red"
+AccentColor = Color(1, 0.7058824, 0.6627451, 1)
+AccentBgColor = Color(1, 0.7058824, 0.6627451, 1)
+AccentFgColor = Color(0.4117647, 0, 0.007843138, 1)
+WindowBgColor = Color(0.12941177, 0.05490196, 0.047058824, 1)
+WindowFgColor = Color(1, 0.85490197, 0.8352941, 1)
+ViewBgColor = Color(0.105882354, 0.03529412, 0.02745098, 1)
+ViewFgColor = Color(1, 0.85490197, 0.8352941, 1)
+HeaderbarBgColor = Color(0.18431373, 0.101960786, 0.09019608, 1)
+CardBgColor = Color(0.18431373, 0.101960786, 0.09019608, 1)
+DestructiveColor = Color(1, 0.7058824, 0.67058825, 1)
+SuccessColor = Color(0.70980394, 0.8, 0.7294118, 1)
+WarningColor = Color(0.9985073, 0.7623389, 0.32253006, 1)

@@ -27,6 +27,11 @@ func _ready() -> void:
 	rename_button.pressed.connect(_on_rename_pressed)
 	self.gui_input.connect(_on_button_gui_event)
 
+	if NodeKeeper.current_theme:
+		modulate = NodeKeeper.current_theme.AccentColor
+
+	SignalBus.palette_applied.connect(_remodulate)
+
 func _set_ui() -> void:
 	if !song_count_label: return
 	if !name_label: return
@@ -84,3 +89,6 @@ func _on_playlist_down_pressed() -> void:
 
 func self_destroy() -> void:
 	queue_free()
+
+func _remodulate(palette: GTKColorPalette) -> void:
+	modulate = palette.AccentColor

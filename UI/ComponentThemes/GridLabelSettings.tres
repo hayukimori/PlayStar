@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://b22k7pqd4bnuf"]
+
+[ext_resource type="SystemFont" uid="uid://b3eu8ad1mq7rg" path="res://assets/Fonts/SharedTres/basic_system_font_reqs.tres" id="1_wh24b"]
+
+[resource]
+font = ExtResource("1_wh24b")
+font_size = 12

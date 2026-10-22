@@ -21,6 +21,17 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timeout)
 	timer.start()
 
+	if NodeKeeper.current_theme:
+		set_palette(NodeKeeper.current_theme)
+
+
+func set_palette(palette: GTKColorPalette) -> void:
+	var sbx := get_theme_stylebox("normal", "Button").duplicate()
+	sbx.bg_color = palette.HeaderbarBgColor
+
+	add_theme_stylebox_override("normal", sbx)
+	add_theme_color_override("icon_normal_color", palette.AccentColor)
+	add_theme_color_override("font_color", palette.ViewFgColor)
 
 func animate_close() -> void:
 	var tween: Tween = create_tween()

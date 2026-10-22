@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://pujf5qkiiwg3" path="res://assets/icons/iconoir/headset-solid.svg" id="7_7gg5u"]
 [ext_resource type="LabelSettings" uid="uid://dtw6rp2b3ub3m" path="res://UI/ComponentThemes/SettingsTitleLabelSettings.tres" id="7_ctn7q"]
 [ext_resource type="Texture2D" uid="uid://srbt2kjf5xw0" path="res://assets/icons/iconoir/label-solid.svg" id="8_jm2bs"]
+[ext_resource type="Script" uid="uid://dowuuwgdb3v1l" path="res://Scripts/UI/Components/SettingsTabContainer.gd" id="8_luy8g"]
 [ext_resource type="Texture2D" uid="uid://dem024irhq13j" path="res://assets/icons/iconoir/user.svg" id="8_m628n"]
 [ext_resource type="PackedScene" uid="uid://bu5h25p7jmhal" path="res://Window/ScanWindow.tscn" id="9_53ouv"]
 [ext_resource type="Script" uid="uid://bv4qxxs5drakv" path="res://Scripts/UI/Components/DiscordSettings.gd" id="10_xgptq"]
@@ -125,7 +126,7 @@ script = ExtResource("1_jvm1o")
 window = NodePath("Window")
 bg_color = NodePath("BgColor")
 
-[node name="BgColor" type="ColorRect" parent="." unique_id=73907919]
+[node name="BgColor" type="ColorRect" parent="." unique_id=73907919 groups=["background_color_rects"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -135,15 +136,17 @@ grow_vertical = 2
 color = Color(0.14509805, 0.14509805, 0.14509805, 1)
 
 [node name="Window" type="Window" parent="." unique_id=992898370]
+transparent_bg = true
 oversampling_override = 1.0
 title = "Settings"
 initial_position = 4
 size = Vector2i(700, 480)
 visible = false
 exclusive = true
+transparent = true
 force_native = true
 
-[node name="BgColor" type="ColorRect" parent="Window" unique_id=662733210]
+[node name="BgColor" type="ColorRect" parent="Window" unique_id=662733210 groups=["background_color_rects"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -180,6 +183,7 @@ tab_2/icon = ExtResource("4_uxyrx")
 tab_3/icon = ExtResource("5_5qmg5")
 tab_4/icon = ExtResource("6_ywwwc")
 tab_5/icon = ExtResource("7_7gg5u")
+script = ExtResource("8_luy8g")
 
 [node name="LibraryPathSettings" type="Control" parent="Window/TabContainer" unique_id=2033530882 node_paths=PackedStringArray("file_dialog", "scan_window", "path_container", "scan_button", "add_path_button")]
 layout_mode = 2
@@ -222,7 +226,7 @@ offset_bottom = 252.0
 icon = ExtResource("2_j617b")
 flat = true
 
-[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/LibraryPathSettings" unique_id=1848698217]
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/LibraryPathSettings" unique_id=1848698217 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99100006
@@ -240,7 +244,7 @@ text = "[font_size=14px]You can scan your music library by adding the paths in t
 [/font_size]"
 justification_flags = 171
 
-[node name="LibraryLabel" type="Label" parent="Window/TabContainer/LibraryPathSettings" unique_id=304251991]
+[node name="LibraryLabel" type="Label" parent="Window/TabContainer/LibraryPathSettings" unique_id=304251991 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.019
@@ -251,7 +255,7 @@ offset_bottom = 70.0
 text = "Library"
 label_settings = ExtResource("7_ctn7q")
 
-[node name="ScanButton" type="Button" parent="Window/TabContainer/LibraryPathSettings" unique_id=1616747805]
+[node name="ScanButton" type="Button" parent="Window/TabContainer/LibraryPathSettings" unique_id=1616747805 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.99100006
@@ -282,7 +286,7 @@ discord_rp_chkbn = NodePath("RPEnableCheckButton")
 metadata/_tab_index = 1
 metadata/_tab_name = ""
 
-[node name="Label" type="Label" parent="Window/TabContainer/DiscordSettings" unique_id=819673279]
+[node name="Label" type="Label" parent="Window/TabContainer/DiscordSettings" unique_id=819673279 groups=["ui_mod_text"]]
 layout_mode = 0
 offset_left = 4.0
 offset_right = 540.0
@@ -290,32 +294,32 @@ offset_bottom = 58.0
 text = "Discord Integration"
 label_settings = ExtResource("7_ctn7q")
 
-[node name="RPEnableCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=1648470495]
+[node name="RPEnableCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=1648470495 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0220001
+anchor_right = 1.0
 offset_left = 4.0
 offset_top = 180.0
-offset_right = -34.03607
+offset_right = -20.0
 offset_bottom = 212.0
 theme_override_font_sizes/font_size = 14
 text = "Rich Presence Enabled"
 icon = ExtResource("3_japnt")
 flat = true
 
-[node name="ShowArtRPCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=433056767]
+[node name="ShowArtRPCheckButton" type="CheckButton" parent="Window/TabContainer/DiscordSettings" unique_id=433056767 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.97800004
+anchor_right = 1.006
 offset_left = 3.0
 offset_top = 214.0
-offset_right = -5.9640503
+offset_right = -23.828003
 offset_bottom = 254.0
 theme_override_font_sizes/font_size = 14
 text = "Show album name (restart required)"
 icon = ExtResource("8_jm2bs")
 
-[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/DiscordSettings" unique_id=754668835]
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/DiscordSettings" unique_id=754668835 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99100006
@@ -341,7 +345,7 @@ auto_close_btn = NodePath("AutoClosePanelCheckButton")
 metadata/_tab_index = 2
 metadata/_tab_name = ""
 
-[node name="Label" type="Label" parent="Window/TabContainer/PlayerSettings" unique_id=487895353]
+[node name="Label" type="Label" parent="Window/TabContainer/PlayerSettings" unique_id=487895353 groups=["ui_mod_text"]]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 7.0
@@ -350,37 +354,44 @@ offset_bottom = 65.0
 text = "Player"
 label_settings = ExtResource("7_ctn7q")
 
-[node name="IgnoreUnCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2060338751]
+[node name="IgnoreUnCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2060338751 groups=["ui_buttons"]]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 1.006
+offset_left = 2.0
 offset_top = 182.0
-offset_right = -9.0
+offset_right = -7.828003
 offset_bottom = 214.0
 grow_horizontal = 2
 text = "Ignore 'Unknown' artists"
 icon = ExtResource("8_m628n")
 flat = true
 
-[node name="NativeWindowCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=403455686]
-layout_mode = 0
+[node name="NativeWindowCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=403455686 groups=["ui_buttons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.006
+offset_left = 2.0
 offset_top = 226.0
-offset_right = 629.0
+offset_right = -7.828003
 offset_bottom = 258.0
 text = "Use system native window"
 icon = ExtResource("14_x1i2h")
 flat = true
 
-[node name="AutoClosePanelCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2104975994]
-layout_mode = 0
+[node name="AutoClosePanelCheckButton" type="CheckButton" parent="Window/TabContainer/PlayerSettings" unique_id=2104975994 groups=["ui_buttons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.006
+offset_left = 2.0
 offset_top = 268.0
-offset_right = 629.0
+offset_right = -7.828003
 offset_bottom = 300.0
 text = "Auto close panel"
 icon = ExtResource("16_wlnkb")
 flat = true
 
-[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/PlayerSettings" unique_id=1316096041]
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/PlayerSettings" unique_id=1316096041 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99100006
@@ -395,6 +406,7 @@ bbcode_enabled = true
 text = "[font_size=14px]Here you can set settings to PlayStar, like an option to ignore artist's without tag ('Unknown')[/font_size]
 "
 justification_flags = 171
+metadata/_edit_lock_ = true
 
 [node name="LibraryManagementSettings" type="Control" parent="Window/TabContainer" unique_id=381124985 node_paths=PackedStringArray("del_database_button", "del_lyrics_button", "del_history_button", "del_playlists_button")]
 visible = false
@@ -408,7 +420,7 @@ del_playlists_button = NodePath("ScrollContainer/VBoxContainer/DeletePlaylistsBu
 metadata/_tab_index = 3
 metadata/_tab_name = ""
 
-[node name="Label" type="Label" parent="Window/TabContainer/LibraryManagementSettings" unique_id=1538124418]
+[node name="Label" type="Label" parent="Window/TabContainer/LibraryManagementSettings" unique_id=1538124418 groups=["ui_mod_text"]]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 7.0
@@ -417,7 +429,7 @@ offset_bottom = 65.0
 text = "Library Management"
 label_settings = ExtResource("7_ctn7q")
 
-[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/LibraryManagementSettings" unique_id=279853942]
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/LibraryManagementSettings" unique_id=279853942 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99100006
@@ -445,7 +457,7 @@ theme = ExtResource("15_phk4n")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DeleteDatabaseButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1112411980]
+[node name="DeleteDatabaseButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1112411980 groups=["ui_buttons"]]
 layout_mode = 2
 theme_override_constants/icon_max_width = 20
 text = "Delete database (songs, artists, etc)."
@@ -453,7 +465,7 @@ icon = ExtResource("16_w4k1s")
 flat = true
 alignment = 0
 
-[node name="DeleteLyricsButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1374668138]
+[node name="DeleteLyricsButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1374668138 groups=["ui_buttons"]]
 layout_mode = 2
 theme_override_constants/icon_max_width = 20
 text = "Remove all lyric files"
@@ -461,7 +473,7 @@ icon = ExtResource("16_l2yy1")
 flat = true
 alignment = 0
 
-[node name="DeletePlaylistsButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=340565400]
+[node name="DeletePlaylistsButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=340565400 groups=["ui_buttons"]]
 layout_mode = 2
 theme_override_constants/icon_max_width = 20
 text = "Delete playlists"
@@ -469,7 +481,7 @@ icon = ExtResource("18_o3hn6")
 flat = true
 alignment = 0
 
-[node name="DeleteHistoryButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1423647923]
+[node name="DeleteHistoryButton" type="Button" parent="Window/TabContainer/LibraryManagementSettings/ScrollContainer/VBoxContainer" unique_id=1423647923 groups=["ui_buttons"]]
 layout_mode = 2
 theme_override_constants/icon_max_width = 20
 text = "Delete history"
@@ -491,7 +503,7 @@ status_label = NodePath("StatusLabel")
 metadata/_tab_index = 4
 metadata/_tab_name = ""
 
-[node name="Label" type="Label" parent="Window/TabContainer/SubSonicSettings" unique_id=474329190]
+[node name="Label" type="Label" parent="Window/TabContainer/SubSonicSettings" unique_id=474329190 groups=["ui_mod_text"]]
 layout_mode = 0
 offset_left = 4.0
 offset_right = 540.0
@@ -499,7 +511,7 @@ offset_bottom = 58.0
 text = "Subsonic Settings"
 label_settings = ExtResource("7_ctn7q")
 
-[node name="SaveButton" type="Button" parent="Window/TabContainer/SubSonicSettings" unique_id=1889668350]
+[node name="SaveButton" type="Button" parent="Window/TabContainer/SubSonicSettings" unique_id=1889668350 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -513,7 +525,7 @@ text = "Save"
 icon = ExtResource("24_n4nob")
 flat = true
 
-[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/SubSonicSettings" unique_id=2077909918]
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/SubSonicSettings" unique_id=2077909918 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99100006
@@ -521,7 +533,7 @@ anchor_bottom = 0.591
 offset_left = 6.0
 offset_top = 66.0
 offset_right = -14.15802
-offset_bottom = -2.0279999
+offset_bottom = -10.308014
 theme_override_styles/normal = SubResource("StyleBoxEmpty_cty8o")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ub5km")
 bbcode_enabled = true
@@ -535,37 +547,41 @@ justification_flags = 171
 [node name="UrlLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=1234965302]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0530001
+anchor_right = 1.006
 offset_left = 7.0
-offset_top = 187.0
-offset_right = -42.814087
-offset_bottom = 218.0
+offset_top = 192.0
+offset_right = -12.828003
+offset_bottom = 223.0
 theme_override_styles/normal = ExtResource("27_ontro")
 theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "http://xxx.xxx.xxx.xxx:yyyy/"
 
 [node name="UsernameLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=1621918869]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.006
 offset_left = 7.0
-offset_top = 231.0
-offset_right = 629.0
-offset_bottom = 262.0
+offset_top = 235.0
+offset_right = -12.828003
+offset_bottom = 266.0
 theme_override_styles/normal = ExtResource("27_ontro")
 theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "username"
 
 [node name="PasswordLineEdit" type="LineEdit" parent="Window/TabContainer/SubSonicSettings" unique_id=349067862]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.006
 offset_left = 9.0
-offset_top = 278.0
-offset_right = 629.0
-offset_bottom = 309.0
+offset_top = 282.0
+offset_right = -12.828003
+offset_bottom = 313.0
 theme_override_styles/normal = ExtResource("27_ontro")
 theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "password"
 secret = true
 
-[node name="ConnectButton" type="Button" parent="Window/TabContainer/SubSonicSettings" unique_id=272188304]
+[node name="ConnectButton" type="Button" parent="Window/TabContainer/SubSonicSettings" unique_id=272188304 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -579,20 +595,21 @@ text = "Connect"
 icon = ExtResource("25_ywwwc")
 flat = true
 
-[node name="StatusLabel" type="Label" parent="Window/TabContainer/SubSonicSettings" unique_id=1546663175]
+[node name="StatusLabel" type="Label" parent="Window/TabContainer/SubSonicSettings" unique_id=1546663175 groups=["ui_mod_text"]]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = -1
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 1.006
 anchor_bottom = 1.0
-offset_left = -266.0
-offset_top = -30.0
-offset_bottom = -7.0
-grow_horizontal = 0
+offset_left = 186.0
+offset_top = -37.0
+offset_right = -189.828
+offset_bottom = -14.0
+grow_horizontal = 2
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_cty8o")
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AutoIncludeButton" type="CheckButton" parent="Window/TabContainer/SubSonicSettings" unique_id=1796863372]
 layout_mode = 1
@@ -626,7 +643,7 @@ status_label = NodePath("StatusLabel")
 metadata/_tab_index = 5
 metadata/_tab_name = ""
 
-[node name="Label" type="Label" parent="Window/TabContainer/ListenBrainzSettings" unique_id=151714741]
+[node name="Label" type="Label" parent="Window/TabContainer/ListenBrainzSettings" unique_id=151714741 groups=["ui_mod_text"]]
 layout_mode = 0
 offset_left = 4.0
 offset_right = 540.0
@@ -634,7 +651,7 @@ offset_bottom = 58.0
 text = "ListenBrainz Settings"
 label_settings = ExtResource("7_ctn7q")
 
-[node name="SaveButton" type="Button" parent="Window/TabContainer/ListenBrainzSettings" unique_id=474225489]
+[node name="SaveButton" type="Button" parent="Window/TabContainer/ListenBrainzSettings" unique_id=474225489 groups=["ui_buttons"]]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -648,7 +665,7 @@ text = "Save"
 icon = ExtResource("24_n4nob")
 flat = true
 
-[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/ListenBrainzSettings" unique_id=1057383141]
+[node name="AdviceText" type="RichTextLabel" parent="Window/TabContainer/ListenBrainzSettings" unique_id=1057383141 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.99100006
@@ -679,7 +696,7 @@ theme_override_styles/focus = ExtResource("27_rej5b")
 placeholder_text = "Your API Key"
 secret = true
 
-[node name="StatusLabel" type="Label" parent="Window/TabContainer/ListenBrainzSettings" unique_id=1682691491]
+[node name="StatusLabel" type="Label" parent="Window/TabContainer/ListenBrainzSettings" unique_id=1682691491 groups=["ui_mod_text"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

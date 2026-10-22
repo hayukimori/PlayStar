@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="GTKColorPalette" format=3 uid="uid://dub3y8htc766i"]
+
+[ext_resource type="Script" uid="uid://gu7arcp2dv3o" path="res://Scripts/Models/GTKColorPalette.cs" id="1_53hl4"]
+
+[resource]
+script = ExtResource("1_53hl4")
+PaletteName = "Violeta"
+DarkMode = true
+AccentColor = Color(0.89411765, 0.70980394, 1, 1)
+AccentBgColor = Color(0.89411765, 0.70980394, 1, 1)
+AccentFgColor = Color(0.28235295, 0.09411765, 0.4, 1)
+WindowBgColor = Color(0.07450981, 0.07450981, 0.07450981, 1)
+WindowFgColor = Color(0.8862745, 0.8862745, 0.8862745, 1)
+ViewBgColor = Color(0.05490196, 0.05490196, 0.05490196, 1)
+ViewFgColor = Color(0.8862745, 0.8862745, 0.8862745, 1)
+HeaderbarBgColor = Color(0.12156863, 0.12156863, 0.12156863, 1)
+CardBgColor = Color(0.12156863, 0.12156863, 0.12156863, 1)
+DestructiveColor = Color(1, 0.7058824, 0.67058825, 1)
+SuccessColor = Color(0.70980394, 0.8, 0.7294118, 1)
+WarningColor = Color(0.9985073, 0.7623389, 0.32253006, 1)
