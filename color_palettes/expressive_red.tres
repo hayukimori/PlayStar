@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="GTKColorPalette" format=3]
+[gd_resource type="Resource" script_class="GTKColorPalette" format=3 uid="uid://jlkyb5ktwxt7"]
 
-[ext_resource type="Script" path="res://Scripts/Models/GTKColorPalette.cs" id="1_t84lt"]
+[ext_resource type="Script" uid="uid://gu7arcp2dv3o" path="res://Scripts/Models/GTKColorPalette.cs" id="1_t84lt"]
 
 [resource]
 script = ExtResource("1_t84lt")
